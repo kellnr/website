@@ -1,6 +1,6 @@
 # kellnr.io
-src_dir: "/Users/hausi/repos/bitfalter/website"
-publish_dir: "/Users/hausi/repos/bitfalter/website/dist"
+src_dir: "/Users/hausi/repos/kellnr/website"
+publish_dir: "/Users/hausi/repos/kellnr/website/dist"
 install_cmd: "npm install"
 build_cmd: "npm run build"
 remote_target_dir: "/var/www/html/kellnr"
