@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"
+      xmlns:media="http://search.yahoo.com/mrss/">
+    <updated>2023-07-02T10:42:30+00:00</updated>
+    <icon>https://kellnr.io/favicon.ico</icon>
+    <id>kellnr.io/blog</id>
+    <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
+    <link rel="alternate" href="https://kellnr.io/blog" type="text/html" />
+    <logo>https://kellnr.io/favicon.ico</logo>
+    <subtitle>Rust development related blog</subtitle>
+    <title>kellnr.io - The Rust Registry</title>
+    <entry>
+        <content type="html">
+            Kellnr, the private Rust registry, is now open source under the MIT license.
+        </content>
+        <link href="https://kellnr.io/blog/open-source" />
+        <published>2023-09-20T21:32:00+00:00</published>
+        <title>Kellnr goes Open Source</title>
+    </entry>
+    <entry>
+        <content type="html">
+            Use domain modeling in Rust to achieve separation of concerns, code decoupling and a better understanding of your domain.
+        </content>
+        <link href="https://kellnr.io/blog/domain-modeling" />
+        <published>2023-06-15T12:00:00+00:00</published>
+        <title>Leveraging the Type System for Domain Modeling in Rust</title>
+    </entry>
+    <entry>
+        <content type="html">
+            Kellnr 3.0.0, the private rust registry, is released. This release includes a new UI and many improvements under the hood.
+        </content>
+        <link href="https://kellnr.io/blog/release3" />
+        <published>2023-05-29T12:00:00+00:00</published>
+        <title>Kellnr 3.0.0 Release</title>
+    </entry>
+    <entry>
+        <content type="html">
+            What are the security risks of using Rust in your supply chain and how to mitigate them.
+        </content>
+        <link href="https://kellnr.io/blog/rust-supply-chain-security" />
+        <published>2023-04-10T12:00:00+00:00</published>
+        <title>Rust Supply Chain Security</title>
+    </entry>
+    <entry>
+        <content type="html">
+            Understand asynchronous closures in Rust and how they relate to Box and Pin.
+        </content>
+        <link href="https://kellnr.io/blog/async-closures-in-rust" />
+        <published>2022-07-24T12:00:00+00:00</published>
+        <title>Asynchronous Closures in Rust - Box and Pin</title>
+    </entry>
+    <entry>
+        <content type="html">
+            Write a WebAssembly runtime in Rust that can execute WebAssembly modules.
+        </content>
+        <link href="https://kellnr.io/blog/wasm-compiler4" />
+        <published>2021-06-24T12:00:00+00:00</published>
+        <title>WebAssembly Compiler - Building a Runtime</title>
+    </entry>
+    <entry>
+        <content type="html">
+            Write a compiler in Rust to compile a WebAssembly AST to binary.
+        </content>
+        <link href="https://kellnr.io/blog/wasm-compiler3" />
+        <published>2021-06-05T12:00:00+00:00</published>
+        <title>WebAssembly Compiler - Building a Compiler</title>
+    </entry>
+    <entry>
+        <content type="html">
+            Write a parser in Rust for the WebAssembly text format.
+        </content>
+        <link href="https://kellnr.io/blog/wasm-compiler2" />
+        <published>2021-05-30T12:00:00+00:00</published>
+        <title>WebAssembly Compiler - Building a Parser</title>
+    </entry>
+    <entry>
+        <content type="html">
+            Understand and parse a WebAssembly abstract-syntax-tree (AST) using Rust.
+        </content>
+        <link href="https://kellnr.io/blog/wasm-compiler1" />
+        <published>2021-05-27T12:00:00+00:00</published>
+        <title>WebAssembly Compiler - Text format and AST</title>
+    </entry>
+    <entry>
+        <content type="html">
+            Improve build times by utilizing sccache and S3 to cache compilation results
+            over multiply builds in your Rust CI/CD pipeline.
+        </content>
+        <link href="https://kellnr.io/blog/compile-times-sccache" />
+        <published>2021-04-21T12:00:00+00:00</published>
+        <title>Improve Rust compile times with sccache</title>
+    </entry>
+</feed>
