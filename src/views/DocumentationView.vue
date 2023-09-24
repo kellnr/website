@@ -583,7 +583,7 @@ helm uninstall kellnr</code></pre>
 # The index needs to point to the host where your Kellnr instance runs
 # The token is the authentication token for the user configured in Kellnr
 [registries]
-kellnr = { index = "sparse+https://yourkellnrhostname/api/v1/crates", token = "yourauthtoken" }
+kellnr = { index = "sparse+https://yourkellnrhostname/api/v1/crates/", token = "yourauthtoken" }
 
 # DEPRECATED use the git index only if you need support for cargo &lt; 1.7.0
 kellnr = { index = "git://yourkellnrhostname/index", token = "yourauthtoken" }
