@@ -47,45 +47,73 @@ import ChangeLogItem from "@/components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                          <ChangeLogItem date="19. September 2023" version="4.0.1" is-latest="true">
-                            <ChangeLogListItem type="Fixed">Delete button in UI not working</ChangeLogListItem>
-                          </ChangeLogItem>
+                            <ChangeLogItem date="24. September 2023" version="4.0.2" is-latest="true">
+                                <ChangeLogListItem type="Fixed">Broken link to crates.io from dependencies
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">From <i>vue-cli</i> to <i>vite</i> for the UI
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">Updated dependencies</ChangeLogListItem>
+                            </ChangeLogItem>
 
-                          <ChangeLogItem date="17. September 2023" version="4.0.0">
-                            <ChangeLogListItem type="Attention">Kellnr is not available as open-source under the MIT license</ChangeLogListItem>
-                            <ChangeLogListItem type="Update">Moved Kellnr repository to <a href="https://github.com/kellnr/kellnr">Github - Kellnr</a></ChangeLogListItem>
-                            <ChangeLogListItem type="Update">Moved Kellnr installer repository to <a href="https://github.com/kellnr/installer">Github - Kellnr Installer</a></ChangeLogListItem>
-                            <ChangeLogListItem type="Update">Moved Kellnr helm repository to <a href="https://github.com/kellnr/helm">Github - Kellnr helm</a></ChangeLogListItem>
-                          </ChangeLogItem>
+                            <ChangeLogItem date="19. September 2023" version="4.0.1">
+                                <ChangeLogListItem type="Fixed">Delete button in UI not working</ChangeLogListItem>
+                            </ChangeLogItem>
 
-                          <ChangeLogItem date="02. September 2023" version="3.2.0">
-                            <ChangeLogListItem type="Added">Removed license checks, Kellnr is fully free for commercial usage from now on</ChangeLogListItem>
-                            <ChangeLogListItem type="Added"><i>Postgresql</i> now available as backend database, additional to <i>sqlite</i></ChangeLogListItem>
-                            <ChangeLogListItem type="Added">Authentication on pull now available in all Kellnr variants</ChangeLogListItem>
-                          </ChangeLogItem>
+                            <ChangeLogItem date="17. September 2023" version="4.0.0">
+                                <ChangeLogListItem type="Attention">Kellnr is not available as open-source under the MIT
+                                    license</ChangeLogListItem>
+                                <ChangeLogListItem type="Update">Moved Kellnr repository to <a
+                                        href="https://github.com/kellnr/kellnr">Github - Kellnr</a></ChangeLogListItem>
+                                <ChangeLogListItem type="Update">Moved Kellnr installer repository to <a
+                                        href="https://github.com/kellnr/installer">Github - Kellnr Installer</a>
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Update">Moved Kellnr helm repository to <a
+                                        href="https://github.com/kellnr/helm">Github - Kellnr helm</a></ChangeLogListItem>
+                            </ChangeLogItem>
 
-                          <ChangeLogItem date="30. July 2023" version="3.1.0">
-                            <ChangeLogListItem type="Added">Initial support for authentication on pull <a href="https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#registry-auth">RFC #3139</a>. Enterprise only a.t.m.</ChangeLogListItem>
-                            <ChangeLogListItem type="Added"><i>crates_io_num_threads</i> allows to set the number of threads used to keep the crates.io index up-to-date</ChangeLogListItem>
-                            <ChangeLogListItem type="Added">Flag <i>git_index</i> to disable the git index and only use the new sparse index</ChangeLogListItem>
-                            <ChangeLogListItem type="Attention">The git index is disabled for new installations of <i>kellnr</i> per default</ChangeLogListItem>
-                            <ChangeLogListItem type="Fixed">Missing (un)yank in database index</ChangeLogListItem>
-                          </ChangeLogItem>
+                            <ChangeLogItem date="02. September 2023" version="3.2.0">
+                                <ChangeLogListItem type="Added">Removed license checks, Kellnr is fully free for commercial
+                                    usage from now on</ChangeLogListItem>
+                                <ChangeLogListItem type="Added"><i>Postgresql</i> now available as backend database,
+                                    additional to <i>sqlite</i></ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Authentication on pull now available in all Kellnr variants
+                                </ChangeLogListItem>
+                            </ChangeLogItem>
 
-                          <ChangeLogItem date="30. June 2023" version="3.0.1">
-                            <ChangeLogListItem type="Update">Update all dependencies</ChangeLogListItem>
-                            <ChangeLogListItem type="Update">Switch to new license validation backend</ChangeLogListItem>
-                            <ChangeLogListItem type="Fixed">Bug where the download number for uncommon crate names is counted incorrectly</ChangeLogListItem>
-                          </ChangeLogItem>
+                            <ChangeLogItem date="30. July 2023" version="3.1.0">
+                                <ChangeLogListItem type="Added">Initial support for authentication on pull <a
+                                        href="https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#registry-auth">RFC
+                                        #3139</a>. Enterprise only a.t.m.</ChangeLogListItem>
+                                <ChangeLogListItem type="Added"><i>crates_io_num_threads</i> allows to set the number of
+                                    threads used to keep the crates.io index up-to-date</ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Flag <i>git_index</i> to disable the git index and only use
+                                    the new sparse index</ChangeLogListItem>
+                                <ChangeLogListItem type="Attention">The git index is disabled for new installations of
+                                    <i>kellnr</i> per default</ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Missing (un)yank in database index</ChangeLogListItem>
+                            </ChangeLogItem>
 
-                          <ChangeLogItem date="29. May 2023" version="3.0.0">
-                            <ChangeLogListItem type="Update">New user interface with light and dark theme</ChangeLogListItem>
-                            <ChangeLogListItem type="Added">Display readme of crate in the UI, if available</ChangeLogListItem>
-                            <ChangeLogListItem type="Added">Stabilized HTTP (sparse) registry API. See <RouterLink to="documentation#sparse-index">Sparse Index Protocol</RouterLink></ChangeLogListItem>
-                            <ChangeLogListItem type="Attention">Before upgrading, backup the current version of <i>kellnr</i>.
-                              For more information see: <RouterLink to="documentation#backup">Backup</RouterLink>
-                            </ChangeLogListItem>
-                          </ChangeLogItem>
+                            <ChangeLogItem date="30. June 2023" version="3.0.1">
+                                <ChangeLogListItem type="Update">Update all dependencies</ChangeLogListItem>
+                                <ChangeLogListItem type="Update">Switch to new license validation backend
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Bug where the download number for uncommon crate names is
+                                    counted incorrectly</ChangeLogListItem>
+                            </ChangeLogItem>
+
+                            <ChangeLogItem date="29. May 2023" version="3.0.0">
+                                <ChangeLogListItem type="Update">New user interface with light and dark theme
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Display readme of crate in the UI, if available
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Stabilized HTTP (sparse) registry API. See <RouterLink
+                                        to="documentation#sparse-index">Sparse Index Protocol</RouterLink>
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Attention">Before upgrading, backup the current version of
+                                    <i>kellnr</i>.
+                                    For more information see: <RouterLink to="documentation#backup">Backup</RouterLink>
+                                </ChangeLogListItem>
+                            </ChangeLogItem>
 
                             <ChangeLogItem date="03. January 2023" version="2.3.4">
                                 <ChangeLogListItem type="Fixed">Error on publish where the config file cannot be found,
@@ -95,14 +123,15 @@ import ChangeLogItem from "@/components/changelog/ChangeLogItem.vue";
 
                             <ChangeLogItem date="20. December 2022" version="2.3.3">
                                 <ChangeLogListItem type="Added">Add <i>max_crates_size</i> and <i>max_docs_size
-                                    config</i> values to allow bigger uploads
+                                        config</i> values to allow bigger uploads
                                 </ChangeLogListItem>
                             </ChangeLogItem>
 
                             <ChangeLogItem date="17. December 2022" version="2.3.2">
                                 <ChangeLogListItem type="Added">Cache in UI for faster load times</ChangeLogListItem>
                                 <ChangeLogListItem type="Added">Docker tags now released as <i>Major</i>,
-                                    <i>Major.Minor</i> and <i>Major.Minor.Patch</i></ChangeLogListItem>
+                                    <i>Major.Minor</i> and <i>Major.Minor.Patch</i>
+                                </ChangeLogListItem>
                                 <ChangeLogListItem type="Fixed">Crates were not ordered alphabetically in the UI
                                 </ChangeLogListItem>
                                 <ChangeLogListItem type="Fixed">Crates not sorted by biggest version but last updated
@@ -260,23 +289,22 @@ import ChangeLogItem from "@/components/changelog/ChangeLogItem.vue";
                                 <ChangeLogListItem type="Added">Dark mode for the web interface</ChangeLogListItem>
                             </ChangeLogItem>
 
-                            <ChangeLogItem date="07. April 2021" version="1.0.0">
-                                <ChangeLogListItem type="Added">Full implementation of the private registry API for
-                                    Cargo (push & pull crates)
-                                </ChangeLogListItem>
-                                <ChangeLogListItem type="Added">Authentication and authorization</ChangeLogListItem>
-                                <ChangeLogListItem type="Added">Search & filter for crates</ChangeLogListItem>
-                                <ChangeLogListItem type="Added">Show information about a crate</ChangeLogListItem>
-                                <ChangeLogListItem type="Added">Host rustdocs directly besides the crate
-                                </ChangeLogListItem>
-                                <ChangeLogListItem type="Added">ARM aarch64 and Intel x64 support</ChangeLogListItem>
-                            </ChangeLogItem>
-                        </div>
+                        <ChangeLogItem date="07. April 2021" version="1.0.0">
+                            <ChangeLogListItem type="Added">Full implementation of the private registry API for
+                                Cargo (push & pull crates)
+                            </ChangeLogListItem>
+                            <ChangeLogListItem type="Added">Authentication and authorization</ChangeLogListItem>
+                            <ChangeLogListItem type="Added">Search & filter for crates</ChangeLogListItem>
+                            <ChangeLogListItem type="Added">Show information about a crate</ChangeLogListItem>
+                            <ChangeLogListItem type="Added">Host rustdocs directly besides the crate
+                            </ChangeLogListItem>
+                            <ChangeLogListItem type="Added">ARM aarch64 and Intel x64 support</ChangeLogListItem>
+                        </ChangeLogItem>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- Changelog End -->
-        <!--end section-->
-    </div>
-</template>
+        </div>
+    </section>
+    <!-- Changelog End -->
+    <!--end section-->
+</div></template>
