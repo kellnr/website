@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import CodeBlock from "@/components/elements/CodeBlock.vue";
 import TextBlock from "@/components/elements/TextBlock.vue";
+import WarnBlock from "@/components/elements/WarnBlock.vue";
 import TableBlock from "@/components/elements/TableBlock.vue";
 import SubHeader from "@/components/elements/SubHeader.vue";
 import MainHeader from "@/components/elements/MainHeader.vue";
@@ -97,6 +98,9 @@ import MainHeader from "@/components/elements/MainHeader.vue";
                   </li>
                   <li>
                     <router-link to="#cratesio-proxy">Crates.io Proxy Cache</router-link>
+                  </li>
+                  <li>
+                    <router-link to="#database">Database Backend</router-link>
                   </li>
                 </ul>
               </li>
@@ -516,6 +520,42 @@ helm uninstall kellnr</code></pre>
                   <td>false</td>
                   <td>(>=3.1.0) Enable/Disable authentication for crates pulls.</td>
                 </tr>
+                <tr>
+                  <td>postgresql.enabled</td>
+                  <td>KELLNR_POSTGRESQL__ENABLED</td>
+                  <td>false</td>
+                  <td>(>=3.2.0) Enable PostgreSQL instead of Sqlite</td>
+                </tr>
+                <tr>
+                  <td>postgresql.address</td>
+                  <td>KELLNR_POSTGRESQL__ADDRESS</td>
+                  <td>localhost</td>
+                  <td>(>=3.2.0) Address of the PostgreSQL server</td>
+                </tr>
+                <tr>
+                  <td>postgresql.port</td>
+                  <td>KELLNR_POSTGRESQL__PORT</td>
+                  <td>5432</td>
+                  <td>(>=3.2.0) Port of the PostgreSQL server</td>
+                </tr>
+                <tr>
+                  <td>postgresql.db</td>
+                  <td>KELLNR_POSTGRESQL__DB</td>
+                  <td>kellnr</td>
+                  <td>(>=3.2.0) Database name of the PostgreSQL server</td>
+                </tr>
+                <tr>
+                  <td>postgresql.user</td>
+                  <td>KELLNR_POSTGRESQL__USER</td>
+                  <td></td>
+                  <td>(>=3.2.0) User name of the PostgreSQL database</td>
+                </tr>
+                <tr>
+                  <td>postgresql.pwd</td>
+                  <td>KELLNR_POSTGRESQL__PWD</td>
+                  <td></td>
+                  <td>(>=3.2.0) Password of the PostgreSQL database</td>
+                </tr>
               </tbody>
             </TableBlock>
 
@@ -559,6 +599,26 @@ helm uninstall kellnr</code></pre>
               For information on how to configure cargo to Kellnr instead of crates.io, see
               <router-link to="#configure-cargo">Configure Cargo
               </router-link>.
+            </TextBlock>
+
+            <SubHeader id="database">Database Backend</SubHeader>
+            <TextBlock>
+              Kellnr uses <a href="https://sqlite.org/index.html">Sqlite</a> as its default database
+              backend. This is the default way to run Kellnr. If you want to use <a href="https://www.postgresql.org/">PostgreSQL</a> instead,
+              you can enable it by setting the <i>postgresql.enabled</i> value in the <i>default.toml</i>,
+              or the environment variable <i>KELLNR_POSTGRESQL__ENABLED</i> to <i>true</i>.<br />
+              <br />
+              If you enable PostgreSQL, you need to set the following values in the <i>default.toml</i>,
+              or the corresponding environment variables:
+              <ul>
+                <li><i>postgresql.address</i> or <i>KELLNR_POSTGRESQL__ADDRESS</i></li>
+                <li><i>postgresql.port</i> or <i>KELLNR_POSTGRESQL__PORT</i></li>
+                <li><i>postgresql.db</i> or <i>KELLNR_POSTGRESQL__DB</i></li>
+                <li><i>postgresql.user</i> or <i>KELLNR_POSTGRESQL__USER</i></li>
+                <li><i>postgresql.pwd</i> or <i>KELLNR_POSTGRESQL__PWD</i></li>
+              </ul>
+              The PostgreSQL database needs to be created manually before starting Kellnr. Kellnr will
+              create all tables and indexes automatically on first start.
             </TextBlock>
 
             <MainHeader id="configure-cargo">Configure Cargo</MainHeader>
@@ -741,6 +801,10 @@ git2 = "*" # Pulled from Kellnr proxy instead of crates.io</code></pre>
             Kellnr yourself, install the latest version of Rust, as rustdoc needs to generate the
             documentation.
           </TextBlock>
+
+          <WarnBlock>
+            To build <i>rustdocs</i>, the <i>crate</i> needs to be compiled. While that happens, arbitrary and potentially malicious code, included in a dependency, can be executed. Make sure you trust the code you build the docs for!
+          </WarnBlock>
 
           <SubHeader id="manual-rustdoc">Manual Rustdoc Upload</SubHeader>
           <TextBlock>
