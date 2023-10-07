@@ -47,7 +47,13 @@ import ChangeLogItem from "@/components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="24. September 2023" version="4.0.2" is-latest="true">
+                            <ChangeLogItem date="07. October 2023" version="4.0.3" is-latest="true">
+                                <ChangeLogListItem type="Fixed"><i>api_port_proxy</i> not respected in <i>config.json</i>
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">Updated dependencies</ChangeLogListItem>
+                            </ChangeLogItem>
+
+                            <ChangeLogItem date="24. September 2023" version="4.0.2">
                                 <ChangeLogListItem type="Fixed">Broken link to crates.io from dependencies
                                 </ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">From <i>vue-cli</i> to <i>vite</i> for the UI
@@ -89,7 +95,8 @@ import ChangeLogItem from "@/components/changelog/ChangeLogItem.vue";
                                 <ChangeLogListItem type="Added">Flag <i>git_index</i> to disable the git index and only use
                                     the new sparse index</ChangeLogListItem>
                                 <ChangeLogListItem type="Attention">The git index is disabled for new installations of
-                                    <i>kellnr</i> per default</ChangeLogListItem>
+                                    <i>kellnr</i> per default
+                                </ChangeLogListItem>
                                 <ChangeLogListItem type="Fixed">Missing (un)yank in database index</ChangeLogListItem>
                             </ChangeLogItem>
 
@@ -289,22 +296,22 @@ import ChangeLogItem from "@/components/changelog/ChangeLogItem.vue";
                                 <ChangeLogListItem type="Added">Dark mode for the web interface</ChangeLogListItem>
                             </ChangeLogItem>
 
-                        <ChangeLogItem date="07. April 2021" version="1.0.0">
-                            <ChangeLogListItem type="Added">Full implementation of the private registry API for
-                                Cargo (push & pull crates)
-                            </ChangeLogListItem>
-                            <ChangeLogListItem type="Added">Authentication and authorization</ChangeLogListItem>
-                            <ChangeLogListItem type="Added">Search & filter for crates</ChangeLogListItem>
-                            <ChangeLogListItem type="Added">Show information about a crate</ChangeLogListItem>
-                            <ChangeLogListItem type="Added">Host rustdocs directly besides the crate
-                            </ChangeLogListItem>
-                            <ChangeLogListItem type="Added">ARM aarch64 and Intel x64 support</ChangeLogListItem>
-                        </ChangeLogItem>
+                            <ChangeLogItem date="07. April 2021" version="1.0.0">
+                                <ChangeLogListItem type="Added">Full implementation of the private registry API for
+                                    Cargo (push & pull crates)
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Authentication and authorization</ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Search & filter for crates</ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Show information about a crate</ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Host rustdocs directly besides the crate
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Added">ARM aarch64 and Intel x64 support</ChangeLogListItem>
+                            </ChangeLogItem>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Changelog End -->
-    <!--end section-->
-</div></template>
+        </section>
+        <!-- Changelog End -->
+        <!--end section-->
+    </div></template>
