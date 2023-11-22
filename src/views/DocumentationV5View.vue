@@ -549,10 +549,10 @@ helm uninstall kellnr</code></pre>
               <router-link to="#configure-cargo">Configure Cargo
               </router-link>
               for more information. Authentication on
-              pull is currently an <a
-                href="https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#registry-auth">RFC</a> and only
-              supported in cargo nightly. You
-              can enable it by setting the flag <i>auth_required</i> to <i>true</i> in the config.
+              pull can be enabled by setting the flag <i>auth_required</i> to <i>true</i> in the config. This will force cargo to authenticte on pull as well and the flag forces users of the web UI to log in, to see any details of crates.
+              <br/>
+              <br/>
+              For more information about authentication and how to configure cargo to use it see: <a href="https://doc.rust-lang.org/nightly/cargo/reference/registry-authentication.html">Registry Authentication</a>
             </TextBlock>
 
 
@@ -561,24 +561,19 @@ helm uninstall kellnr</code></pre>
               Kellnr can be used as a proxy cache for <a href="https://crates.io/">crates.io</a>. If the
               proxy is enabled, Kellnr caches all crates requested from <a href="https://crates.io/">crates.io</a>
               after their first download. All subsequent request for that crate are then served by Kellnr
-              instead of <a href="https://crates.io/">crates.io</a>. To enable the proxy, set the <i>crates_io_proxy</i>
-              value in the <i>default.toml</i>, or the environment variable <i>KELLNR_CRATES_IO_PROXY</i>
+              instead of <a href="https://crates.io/">crates.io</a>. To enable the proxy, set the <i>proxy.enabled</i>
+              value in the <i>default.toml</i>, or the environment variable <i>KELLNR_PROXY__ENABLED</i>
               to <i>true</i>.<br />
               <br />
               <b>Attention</b><br />
-              If you enable the proxy, Kellnr clones the full index from crates.io (not all crates), which
-              is several GB in size and needs to be unpacked, which takes several minutes. This has only
-              to be done on the first start, but Kellnr clones the index first and than starts up
-              completely. So please be patient, if you enabled the proxy for the first time and Kellnr
-              starts.<br />
+              If you enable the proxy, Kellnr caches every crate from crates.io that is requested through Kellnr. This means that the first download of a crate is a bit slower, as it is first downloaded from crates.io and than cached by Kellnr. All subsequent request are faster, as Kellnr now responses from the cache and crates.io is not requested anymore.
               <br />
               We strongly recommend to run Kellnr on fast SSD storage if you enable the crates.io proxy.
               The index is very IO heavy and the speed of the disk determines how fast cargo is able to
               resolve and update the index if you create a new Rust project.<br />
               <br />
               As the proxy caches all crates that are requested, it can grow significantly in size. The
-              index alone takes several GB. We recommend 50GB-100GB for the cached crates and the
-              index.<br />
+              index alone takes several GB. We recommend 50GB-100GB for the cached crates.<br />
               <br />
               For information on how to configure cargo to Kellnr instead of crates.io, see
               <router-link to="#configure-cargo">Configure Cargo
@@ -629,11 +624,7 @@ helm uninstall kellnr</code></pre>
 # The token is the authentication token for the user configured in Kellnr
 [registries]
 kellnr = { index = "sparse+https://yourkellnrhostname/api/v1/crates/", token = "yourauthtoken" }
-
-# DEPRECATED use the git index only if you need support for cargo &lt; 1.7.0
-kellnr = { index = "git://yourkellnrhostname/index", token = "yourauthtoken" }
-# ATTENTION: Per default the port 9418 is assumed. If you used the Helm Chart or other Kubernetes deployment, the port is 30418 and needs to be set.
-# E.g.: kellnr = { index = "git://yourkellnrhostname:30418/index", token = "yourauthtoken" }</code></pre>
+</code></pre>
             </CodeBlock>
           </div>
 
@@ -722,10 +713,7 @@ cargo publish --registry kellnr</code></pre>
 
 [registries.kellnr-cratesio]
 index = "sparse+https://yourkellnrhostname/api/v1/cratesio/"
-
-# DEPRECATED use the git index only if you need support for cargo &lt; 1.7.0
-# The default port for Helm deployments is 30418
-index = "git://yourkellnrhostname:9418/cratesio"</code></pre>
+</code></pre>
           </CodeBlock>
           <TextBlock>
             To pull a crate from the cache, specify Kellnr in the <i>Cargo.toml</i>.
@@ -775,9 +763,7 @@ git2 = "*" # Pulled from Kellnr proxy instead of crates.io</code></pre>
           <TextBlock>
             With <a href="https://doc.rust-lang.org/rustdoc/index.html">rustdoc</a>, the Rust ecosystem has
             a widely adapted solution to document crates. Kellnr is able to host the corresponding
-            documentation for a crate, such that no additional web server is needed. Starting with Kellnr
-            v2.0.0, rustdocs are autogenerated for each uploaded crate, if the rustdoc_auto_gen flag is set
-            to true (default).<br />
+            documentation for a crate, such that no additional web server is needed. Enable automatic rustdoc generation by setting the <i>docs.enabled</i> flag to <i>true</i>.<br />
             <br />
             <b>Attention</b><br />
             As crates on Kellnr can have dependencies to other crates on Kellnr, it is important that Kellnr
@@ -834,12 +820,12 @@ curl -H "Authorization: {authorzation token}" http://{Kellnr host}/api/v1/docs/{
           <MainHeader id="backup">Backup</MainHeader>
           <TextBlock>
             Kellnr stores all data in one folder. The default folder is <i>/opt/kdata</i> if not changed by the
-            <i>data_dir</i>
-            variable in the <i>default.toml</i> or the <i>KELLNR_DATA_DIR</i> environment variable. To backup Kellnr,
+            <i>registry.data_dir</i>
+            variable in the <i>default.toml</i> or the <i>KELLNR_REGISTRY__DATA_DIR</i> environment variable. To backup Kellnr,
             simply
             backup the data folder. The data folder contains all data needed to restore Kellnr. It is recommended to
             backup
-            the data folder regularly, as it contains all uploaded crates and the database.
+            the data folder regularly, as it contains all uploaded crates and the Sqlite database. If yu use PostgreSql instead, do not forget to backed the database separatly.
           </TextBlock>
         </div>
       </div>
