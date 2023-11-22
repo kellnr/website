@@ -66,7 +66,7 @@ import ChangeLogItem from "@/components/changelog/ChangeLogItem.vue";
                             </ChangeLogItem>
 
                             <ChangeLogItem date="17. September 2023" version="4.0.0">
-                                <ChangeLogListItem type="Attention">Kellnr is not available as open-source under the MIT
+                                <ChangeLogListItem type="Attention">Kellnr is now available as open-source under the MIT
                                     license</ChangeLogListItem>
                                 <ChangeLogListItem type="Update">Moved Kellnr repository to <a
                                         href="https://github.com/kellnr/kellnr">Github - Kellnr</a></ChangeLogListItem>

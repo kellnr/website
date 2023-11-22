@@ -15,6 +15,7 @@ import ContactView from "@/views/ContactView.vue";
 import Release3Vue from '@/views/posts/Release3.vue';
 import DomainModeling from "@/views/posts/DomainModeling.vue";
 import OpenSource from "@/views/posts/OpenSource.vue";
+import Release5RC1 from "@/views/posts/Release5RC1.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -112,6 +113,11 @@ const router = createRouter({
             path: '/blog/open-source',
             name: 'open-source',
             component: OpenSource
+        },
+        {
+            path: '/blog/release5rc1',
+            name: 'release5rc1',
+            component: Release5RC1
         },
         // Default route to redirect all unknown paths to the landing page
         {

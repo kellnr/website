@@ -40,6 +40,9 @@ import HeroCard from "@/components/blog/HeroCard.vue";
     <section class="section">
       <div class="container">
         <div class="row">
+          <HeroCard title="Kellnr Version 5.0.0-rc1" date="22th November, 2023"
+            link="release5rc1" img="images/kellnr/blog/kellnr-logo.png"></HeroCard>
+
           <HeroCard title="Kellnr goes Open-Source" date="20th September, 2023"
             link="open-source" img="images/kellnr/blog/kellnr-logo.png"></HeroCard>
 
