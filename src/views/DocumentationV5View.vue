@@ -165,21 +165,21 @@ import MainHeader from "@/components/elements/MainHeader.vue";
 docker run --rm -it \
     -p 8000:8000 \
     -p 9418:9418 \
-    -e "KELLNR_API_ADDRESS=kellnr.example.com" ghcr.io/kellnr/kellnr:4.0.0
+    -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" ghcr.io/kellnr/kellnr:5.0.0
 
 # To run the container with persistence for all data (crates, users) mount a volume into the container
 docker run --rm -it \
     -p 8000:8000 \
     -p 9418:9418 \
-    -e "KELLNR_API_ADDRESS=kellnr.example.com" \
-    -v $(pwd):/opt/kdata ghcr.io/kellnr/kellnr:4.0.0</code></pre>
+    -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" \
+    -v $(pwd):/opt/kdata ghcr.io/kellnr/kellnr:5.0.0</code></pre>
             </CodeBlock>
 
             <TextBlock>
               You may want to change the admin password used to log into
-              the web-ui and the admin token, used by Cargo to authenticate to Kellnr. The <b>API
-                address</b> is the <b>hostname</b>, where Kellnr is reachable. If not set correctly, Cargo
-              will not be able to publish crates to Kellnr.
+              the web-ui and the admin token, used by Cargo to authenticate to Kellnr. The <b>hostname</b> is, where
+              Kellnr is reachable. If not set correctly, Cargo
+              will not be able to publish crates to Kellnr. Defaults to <i>localhost</i>.<br />
               The values can be set with environment variables on the first start of Kellnr. If you ran
               the container with a mounted volume for persistence, all variables are ignored.
             </TextBlock>
@@ -378,183 +378,167 @@ helm uninstall kellnr</code></pre>
                 <tr>
                   <th scope="col">default.toml</th>
                   <th scope="col">environment variable</th>
-                  <th scope="col">Default</th>
-                  <th scope="col">Remark</th>
+                  <th scope="col">default value</th>
+                  <th scope="col">description</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>admin_pwd</td>
-                  <td>KELLNR_ADMIN_PWD</td>
+                  <td>[setup]<br/>admin_pwd</td>
+                  <td>KELLNR_SETUP__ADMIN_PWD</td>
                   <td>kellnr</td>
                   <td>Password for the admin user. Used on first start only.</td>
                 </tr>
                 <tr>
-                  <td>admin_token</td>
-                  <td>KELLNR_ADMIN_TOKEN</td>
+                  <td>[setup]<br/>admin_token</td>
+                  <td>KELLNR_SETUP__ADMIN_TOKEN</td>
                   <td>Zy9HhJ02RJmg0GCrgLfaCVfU6IwDfhXD</td>
                   <td>Authentication token for the admin user. Used on first start only.</td>
                 </tr>
                 <tr>
-                  <td>api_port</td>
-                  <td>KELLNR_API_PORT</td>
-                  <td>8000</td>
-                  <td>Port on which Kellnr is reachable.</td>
+                  <td>[registry]<br/>data_dir</td>
+                  <td>KELLNR_REGISTRY__DATA_DIR</td>
+                  <td>/opt/kdata</td>
+                  <td>Directory where Kellnr stores all its data.</td>
                 </tr>
                 <tr>
-                  <td>api_protocol</td>
-                  <td>KELLNR_API_PROTOCOL</td>
+                  <td>[registry]<br/>session_age_seconds</td>
+                  <td>KELLNR_REGISTRY__SESSION_AGE_SECONDS</td>
+                  <td>28800</td>
+                  <td>Seconds until a user is logged out of his browser session.</td>
+                </tr>
+                <tr>
+                  <td>[registry]<br/>cache_size</td>
+                  <td>KELLNR_REGISTRY_CACHE_SIZE</td>
+                  <td>1000</td>
+                  <td>Number of crates cached in-memory to decrease disk I/O. If set to "0" the
+                    cache is disabled.
+                  </td>
+                </tr>
+                <tr>
+                  <td>[registry]<br/>max_crate_size</td>
+                  <td>KELLNR_REGISTRY__MAX_CRATE_SIZE</td>
+                  <td>10 MB</td>
+                  <td>Max. size of crates allowed to be uploaded in MB.</td>
+                </tr>
+                <tr>
+                  <td>[registry]<br/>auth_required</td>
+                  <td>KELLNR_REGISTRY__AUTH_REQUIRED</td>
+                  <td>false</td>
+                  <td>Enable/Disable authentication for crates pulls and disable anonymous users for the web UI.</td>
+                </tr>
+                <tr>
+                  <td>[local]<br/>ip</td>
+                  <td>KELLNR_LOCAL__IP</td>
+                  <td>0.0.0.0</td>
+                  <td>IP address where Kellnr listens. Usually this does not need to be changed.</td>
+                </tr>
+                <tr>
+                  <td>[local]<br/>port</td>
+                  <td>KELLNR_LOCAL__PORT</td>
+                  <td>8000</td>
+                  <td>Port where Kellnr listens.</td>
+                </tr>
+                <tr>
+                  <td>[origin]<br/>hostname</td>
+                  <td>KELLNR_ORIGIN__HOSTNAME</td>
+                  <td>localhost</td>
+                  <td>Hostname where Kellnr is reachable from, e.g. DNS name behind a reverse proxy.</td>
+                </tr>
+                <tr>
+                  <td>[origin]<br/>port</td>
+                  <td>KELLNR_ORIGIN__PORT</td>
+                  <td>8000</td>
+                  <td>If a proxy is in front of Kellnr with a different port as Kellnr itself,
+                    the port from the proxy has to be set here. Else set to to the same value as
+                    "local.port".
+                  </td>
+                </tr>
+                <tr>
+                  <td>[origin]<br/>protocol</td>
+                  <td>KELLNR_ORIGIN__PROTOCOL</td>
                   <td>http</td>
                   <td>Either "http" or "https". This does not enable TLS on Kellnr, but needs to be set if
                     a TLS proxy is used in front of Kellnr.
                   </td>
                 </tr>
                 <tr>
-                  <td>index_address</td>
-                  <td>KELLNR_INDEX_ADDRESS</td>
-                  <td>0.0.0.0</td>
-                  <td>Address/domain of the git index of Kellnr. Usually this does not need to be
-                    changed.
-                  </td>
-                </tr>
-                <tr>
-                  <td>index_port</td>
-                  <td>KELLNR_INDEX_PORT</td>
-                  <td>9418</td>
-                  <td>Port of the git index of Kellnr.</td>
-                </tr>
-                <tr>
-                  <td>session_age_seconds</td>
-                  <td>KELLNR_SESSION_AGE_SECONDS</td>
-                  <td>28800</td>
-                  <td>Seconds until a user is logged out of his browser session.</td>
-                </tr>
-                <tr>
-                  <td>web_address</td>
-                  <td>KELLNR_WEB_ADDRESS</td>
-                  <td>0.0.0.0</td>
-                  <td>IP address of the web interface. Usually this does not need to be changed.</td>
-                </tr>
-                <tr>
-                  <td>crates_io_proxy</td>
-                  <td>KELLNR_CRATES_IO_PROXY</td>
-                  <td>false</td>
-                  <td>Enable/Disable crates.io proxy cache.</td>
-                </tr>
-                <tr>
-                  <td>crates_io_num_threads</td>
-                  <td>KELLNR_CRATES_IO_NUM_THREADS</td>
-                  <td>10</td>
-                  <td>(>=3.1.0) Number of threads used to keep crates.io cache up-to-date.</td>
-                </tr>
-                <tr>
-                  <td>data_dir</td>
-                  <td>KELLNR_DATA_DIR</td>
-                  <td>/opt/kdata</td>
-                  <td>Directory where Kellnr stores all its data.</td>
-                </tr>
-                <tr>
-                  <td>log_level</td>
-                  <td>KELLNR_LOG_LEVEL</td>
+                  <td>[log]<br/>level</td>
+                  <td>KELLNR_LOG__LEVEL</td>
                   <td>info</td>
                   <td>Log level for debugging. Either "trace", "debug", "info", "warn" or "error".</td>
                 </tr>
                 <tr>
-                  <td>api_port_proxy</td>
-                  <td>KELLNR_API_PORT_PROXY</td>
-                  <td>8000</td>
-                  <td>(>= 1.5.2) If a proxy is in front of Kellnr with a different port as Kellnr itself,
-                    the port from the proxy has to be set here. Else set to to the same value as
-                    "api_port".
-                  </td>
-                </tr>
-                <tr>
-                  <td>rustdoc_auto_gen</td>
-                  <td>KELLNR_RUSTDOC_AUTO_GEN</td>
-                  <td>true</td>
-                  <td>(>= 2.0.0) If "true", rustdocs are generated for each uploaded crate
-                    automatically.
-                  </td>
-                </tr>
-                <tr>
-                  <td>cache_size</td>
-                  <td>KELLNR_CACHE_SIZE</td>
-                  <td>1000</td>
-                  <td>(>=2.1.0) Number of crates cached in-memory to decrease disk I/O. If set to "0" the
-                    cache is disabled.
-                  </td>
-                </tr>
-                <tr>
-                  <td>log_level_rocket</td>
-                  <td>KELLNR_LOG_LEVEL_ROCKET</td>
+                  <td>[log]<br/>level_web_server</td>
+                  <td>KELLNR_LOG__LEVEL_WEB_SERVER</td>
                   <td>warn</td>
                   <td>Log level for debugging. Either "trace", "debug", "info", "warn" or "error".</td>
                 </tr>
                 <tr>
-                  <td>log_format</td>
-                  <td>KELLNR_LOG_FORMAT</td>
+                  <td>[log]<br/>format</td>
+                  <td>KELLNR_LOG__FORMAT</td>
                   <td>compact</td>
                   <td>Format of the log output. Either "compact", "pretty" or "json".</td>
                 </tr>
                 <tr>
-                  <td>max_crate_size</td>
-                  <td>KELLNR_MAX_CRATE_SIZE</td>
-                  <td>100</td>
-                  <td>Max. size of crates allowed to be uploaded in MB.</td>
+                  <td>[proxy]<br/>enabled</td>
+                  <td>KELLNR_PROXY__ENABLED</td>
+                  <td>false</td>
+                  <td>Enable crates.io proxy to use Kellnr as a proxy-cache for crates.io.</td>
                 </tr>
                 <tr>
-                  <td>max_dosc_size</td>
-                  <td>KELLNR_MAX_DOCS_SIZE</td>
+                  <td>[proxy]<br/>num_threads</td>
+                  <td>KELLNR_PROXY__NUM_THREADS</td>
+                  <td>10</td>
+                  <td>Number of threads used to keep crates.io cache up-to-date.</td>
+                </tr>
+                <tr>
+                  <td>[docs]<br/>enabled</td>
+                  <td>KELLNR_DOCS__ENABLED</td>
+                  <td>false</td>
+                  <td>If "true", rustdocs are generated for each uploaded crate automatically.</td>
+                </tr>
+                <tr>
+                  <td>[docs]<br/>max_size</td>
+                  <td>KELLNR_DOCS__MAX_SIZE</td>
                   <td>100 MB</td>
                   <td>Max. size of crate docs allowed to be uploaded in MB.</td>
                 </tr>
                 <tr>
-                  <td>git_index</td>
-                  <td>KELLNR_GIT_INDEX</td>
-                  <td>false</td>
-                  <td>Enable/Disable the git index of Kellnr for cargo &lt; 1.7.0</td>
-                </tr>
-                <tr>
-                  <td>auth_required</td>
-                  <td>KELLNR_AUTH_REQUIRED</td>
-                  <td>false</td>
-                  <td>(>=3.1.0) Enable/Disable authentication for crates pulls.</td>
-                </tr>
-                <tr>
-                  <td>postgresql.enabled</td>
+                  <td>[postgresql]<br/>enabled</td>
                   <td>KELLNR_POSTGRESQL__ENABLED</td>
                   <td>false</td>
-                  <td>(>=3.2.0) Enable PostgreSQL instead of Sqlite</td>
+                  <td>Enable PostgreSQL instead of Sqlite</td>
                 </tr>
                 <tr>
-                  <td>postgresql.address</td>
+                  <td>[postgresql]<br/>address</td>
                   <td>KELLNR_POSTGRESQL__ADDRESS</td>
                   <td>localhost</td>
-                  <td>(>=3.2.0) Address of the PostgreSQL server</td>
+                  <td>Address of the PostgreSQL server</td>
                 </tr>
                 <tr>
-                  <td>postgresql.port</td>
+                  <td>[postgresql]<br/>port</td>
                   <td>KELLNR_POSTGRESQL__PORT</td>
                   <td>5432</td>
-                  <td>(>=3.2.0) Port of the PostgreSQL server</td>
+                  <td>Port of the PostgreSQL server</td>
                 </tr>
                 <tr>
-                  <td>postgresql.db</td>
+                  <td>[postgresql]<br/>db</td>
                   <td>KELLNR_POSTGRESQL__DB</td>
                   <td>kellnr</td>
-                  <td>(>=3.2.0) Database name of the PostgreSQL server</td>
+                  <td>Database name of the PostgreSQL server</td>
                 </tr>
                 <tr>
-                  <td>postgresql.user</td>
+                  <td>[postgresql]<br/>.user</td>
                   <td>KELLNR_POSTGRESQL__USER</td>
                   <td></td>
-                  <td>(>=3.2.0) User name of the PostgreSQL database</td>
+                  <td>User name of the PostgreSQL database</td>
                 </tr>
                 <tr>
-                  <td>postgresql.pwd</td>
+                  <td>[postgresql]<br/>pwd</td>
                   <td>KELLNR_POSTGRESQL__PWD</td>
                   <td></td>
-                  <td>(>=3.2.0) Password of the PostgreSQL database</td>
+                  <td>Password of the PostgreSQL database</td>
                 </tr>
               </tbody>
             </TableBlock>
@@ -604,7 +588,8 @@ helm uninstall kellnr</code></pre>
             <SubHeader id="database">Database Backend</SubHeader>
             <TextBlock>
               Kellnr uses <a href="https://sqlite.org/index.html">Sqlite</a> as its default database
-              backend. This is the default way to run Kellnr. If you want to use <a href="https://www.postgresql.org/">PostgreSQL</a> instead,
+              backend. This is the default way to run Kellnr. If you want to use <a
+                href="https://www.postgresql.org/">PostgreSQL</a> instead,
               you can enable it by setting the <i>postgresql.enabled</i> value in the <i>default.toml</i>,
               or the environment variable <i>KELLNR_POSTGRESQL__ENABLED</i> to <i>true</i>.<br />
               <br />
@@ -803,7 +788,9 @@ git2 = "*" # Pulled from Kellnr proxy instead of crates.io</code></pre>
           </TextBlock>
 
           <WarnBlock>
-            To build <i>rustdocs</i>, the <i>crate</i> needs to be compiled. While that happens, arbitrary and potentially malicious code, included in a dependency, can be executed. Make sure you trust the code you build the docs for!
+            To build <i>rustdocs</i>, the <i>crate</i> needs to be compiled. While that happens, arbitrary and potentially
+            malicious code, included in a dependency, can be executed. Make sure you trust the code you build the docs
+            for!
           </WarnBlock>
 
           <SubHeader id="manual-rustdoc">Manual Rustdoc Upload</SubHeader>
@@ -858,5 +845,4 @@ curl -H "Authorization: {authorzation token}" http://{Kellnr host}/api/v1/docs/{
       </div>
     </section>
     <!-- Documentation End -->
-  </div>
-</template>
+</div></template>
