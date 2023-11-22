@@ -16,6 +16,7 @@ import MainHeader from "@/components/elements/MainHeader.vue";
           <div class="col-lg-12 text-center">
             <div class="page-next-level">
               <h4 class="title"> Documentation </h4>
+              <h5 class="title">Kellnr v4</h5>
               <div class="page-next">
                 <nav aria-label="breadcrumb" class="d-inline-block">
                   <ul class="breadcrumb bg-white rounded shadow mb-0">
@@ -56,6 +57,9 @@ import MainHeader from "@/components/elements/MainHeader.vue";
         <div class="row">
           <div class="col-12">
 
+    <WarnBlock>
+      This is the documentation for Kellnr version 4.0.3 and below. If you are looking for the documentation for 5.0.0 and up go here: <router-link to="/documentation/v5">Documentation v5</router-link>
+    </WarnBlock>
             <ul class="list-group">
               <li class="list-group-item">
                 <router-link to="#installation">Installation</router-link>

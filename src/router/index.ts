@@ -45,7 +45,7 @@ const router = createRouter({
         {
             path: '/documentation/v4',
             name: 'documentationV4',
-            component: DocumentationV5View
+            component: DocumentationV4View
         },
         {
             path: '/documentation',

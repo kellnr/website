@@ -16,6 +16,7 @@ import MainHeader from "@/components/elements/MainHeader.vue";
           <div class="col-lg-12 text-center">
             <div class="page-next-level">
               <h4 class="title"> Documentation </h4>
+              <h5 class="title">Kellnr v5</h5>
               <div class="page-next">
                 <nav aria-label="breadcrumb" class="d-inline-block">
                   <ul class="breadcrumb bg-white rounded shadow mb-0">
@@ -55,7 +56,9 @@ import MainHeader from "@/components/elements/MainHeader.vue";
       <div class="container">
         <div class="row">
           <div class="col-12">
-
+    <WarnBlock>
+      This is the documentation for Kellnr version 5.0.0 and up. If you are looking for the documentation for 4.0.3 and below go here: <router-link to="/documentation/v4">Documentation v4</router-link>
+    </WarnBlock>
             <ul class="list-group">
               <li class="list-group-item">
                 <router-link to="#installation">Installation</router-link>
@@ -188,7 +191,7 @@ docker run --rm -it \
             <TextBlock>
               The installation script is tested on current Ubuntu Server versions. Any other modern Linux
               distribution may work, but we cannot guarantee that. If the script does not work for you,
-              please contact us and we try to find a solution. Have a look at "Manual Installation" which
+              please, feel free to reach out on Github. Have a look at "Manual Installation" which
               works independent from your distribution. The script will automatically install the right
               version for your architecture. Currently supported are x64 and aarch64 (arm64). <br />
               <br />
