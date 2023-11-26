@@ -15,7 +15,7 @@ import ContactView from "@/views/ContactView.vue";
 import Release3Vue from '@/views/posts/Release3.vue';
 import DomainModeling from "@/views/posts/DomainModeling.vue";
 import OpenSource from "@/views/posts/OpenSource.vue";
-import Release5RC1 from "@/views/posts/Release5RC1.vue";
+import Release5 from "@/views/posts/Release5.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,7 +51,7 @@ const router = createRouter({
         {
             path: '/documentation',
             name: 'documentation',
-            component: DocumentationV4View
+            component: DocumentationV5View
         },
         {
             path: '/contact',
@@ -115,9 +115,9 @@ const router = createRouter({
             component: OpenSource
         },
         {
-            path: '/blog/release5rc1',
-            name: 'release5rc1',
-            component: Release5RC1
+            path: '/blog/release5',
+            name: 'release5',
+            component: Release5
         },
         // Default route to redirect all unknown paths to the landing page
         {
