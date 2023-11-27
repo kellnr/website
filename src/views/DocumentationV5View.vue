@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import CodeBlock from "@/components/elements/CodeBlock.vue";
-import TextBlock from "@/components/elements/TextBlock.vue";
-import WarnBlock from "@/components/elements/WarnBlock.vue";
-import TableBlock from "@/components/elements/TableBlock.vue";
-import SubHeader from "@/components/elements/SubHeader.vue";
-import MainHeader from "@/components/elements/MainHeader.vue";
+import CodeBlock from "../components/elements/CodeBlock.vue";
+import TextBlock from "../components/elements/TextBlock.vue";
+import WarnBlock from "../components/elements/WarnBlock.vue";
+import TableBlock from "../components/elements/TableBlock.vue";
+import SubHeader from "../components/elements/SubHeader.vue";
+import MainHeader from "../components/elements/MainHeader.vue";
 </script>
 
 <template>
@@ -167,13 +167,11 @@ import MainHeader from "@/components/elements/MainHeader.vue";
 # All data (crates, users) will be deleted with the container when the container terminates
 docker run --rm -it \
     -p 8000:8000 \
-    -p 9418:9418 \
     -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" ghcr.io/kellnr/kellnr:5.0.0
 
 # To run the container with persistence for all data (crates, users) mount a volume into the container
 docker run --rm -it \
     -p 8000:8000 \
-    -p 9418:9418 \
     -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" \
     -v $(pwd):/opt/kdata ghcr.io/kellnr/kellnr:5.0.0</code></pre>
             </CodeBlock>
@@ -205,7 +203,7 @@ cd ~
 
 # Example: Download and install Kellnr as a systemd service with custom admin password for Kellnr
 # Required: "-a" Add the address (hostname or IP) where Kellnr will be reachable
-curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo bash -s -- -a kellnr.example.com -s -p myadminpwd
+curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo bash -s -- -s -p myadminpwd
 
 # Start the service (if installed with -s flag)
 sudo systemctl enable kellnr
@@ -217,7 +215,7 @@ sudo systemctl status kellnr
 # Open the ports defined in the default.toml
 # Example for Ubuntu:
 sudo ufw allow 8000
-sudo ufw allow 9418</code></pre>
+</code></pre>
             </CodeBlock>
 
             <TableBlock>
@@ -231,15 +229,9 @@ sudo ufw allow 9418</code></pre>
               </thead>
               <tbody>
                 <tr>
-                  <td>-a API address</td>
-                  <td>Address where Kellnr is reachable</td>
-                  <td>Hostname or IP where Kellnr is reachable</td>
-                  <td>Yes</td>
-                </tr>
-                <tr>
                   <td>-d /data/dir</td>
                   <td>Directory where Kellnr saves all data, e.g. uploaded crates</td>
-                  <td>Must be different to the installation directory</td>
+                  <td>Must be different to the installation directory. Default is <i>$HOME/kdata</i></td>
                   <td>No</td>
                 </tr>
                 <tr>
@@ -282,7 +274,6 @@ sudo ufw allow 9418</code></pre>
               <br />
               Required dependencies:
               <ul>
-                <li>git</li>
                 <li>zip (unzip)</li>
                 <li>curl</li>
               </ul>
@@ -302,13 +293,10 @@ unzip -o kellnr-latest.zip -d ./kellnr
 # You may want to change the
 #   - admin_pwd
 #   - data_dir (Path where Kellnr stores its data. Different from installation directory. Must exists on disk)
-# You must set the api_address to the address (hostname or IP) where Kellnr will be reachable
-vim ./kellnr/config/default.toml
 
 # Open the ports defined in the default.toml
 # Example for Ubuntu
 sudo ufw allow 8000
-sudo ufw allow 9418
 
 # Start Kellnr
 cd ./kellnr && ./kellnr</code></pre>

@@ -2,6 +2,7 @@
 import TextBlock from "../../components/elements/TextBlock.vue";
 import SubHeader from "../../components/elements/SubHeader.vue";
 import BlogPostTemplate from "../../components/blog/BlogPostTemplate.vue";
+import CodeBlock from "../../components/elements/CodeBlock.vue";
 </script>
 
 <template>

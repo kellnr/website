@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import BlogPostTemplate from "@/components/blog/BlogPostTemplate.vue";
+import BlogPostTemplate from "../../components/blog/BlogPostTemplate.vue";
 import TextBlock from "../../components/elements/TextBlock.vue";
 import SubHeader from "../../components/elements/SubHeader.vue";
-import ImageBlock from "../../components/elements/ImageBlock.vue";
-import CodeBlock from "@/components/elements/CodeBlock.vue";
-import ImproveRustCompileTimes from "@/views/posts/ImproveRustCompileTimes.vue";
+import CodeBlock from "../../components/elements/CodeBlock.vue";
 </script>
 
 <template>
