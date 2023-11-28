@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ChangeLogListItem from "@/components/changelog/ChangeLogListItem.vue";
-import ChangeLogItem from "@/components/changelog/ChangeLogItem.vue";
+import ChangeLogListItem from "../components/changelog/ChangeLogListItem.vue";
+import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
 </script>
 
 <template>
@@ -47,7 +47,13 @@ import ChangeLogItem from "@/components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="07. October 2023" version="4.0.3" is-latest="true">
+                            <ChangeLogItem date="28. November 2023" version="5.0.0" is-latest="true">
+                                <ChangeLogListItem type="Updated">Switch from rocket.rs to axum</ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">Refactored settings</ChangeLogListItem>
+                                <ChangeLogListItem type="Removed">Git index support</ChangeLogListItem>
+                            </ChangeLogItem>
+
+                            <ChangeLogItem date="07. October 2023" version="4.0.3">
                                 <ChangeLogListItem type="Fixed"><i>api_port_proxy</i> not respected in <i>config.json</i>
                                 </ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">Updated dependencies</ChangeLogListItem>

@@ -40,7 +40,7 @@ import HeroCard from "@/components/blog/HeroCard.vue";
     <section class="section">
       <div class="container">
         <div class="row">
-          <HeroCard title="Kellnr 5.0.0 Release" date="22th November, 2023"
+          <HeroCard title="Kellnr 5.0.0 Release" date="28th November, 2023"
             link="release5" img="images/kellnr/blog/kellnr-logo.png"></HeroCard>
 
           <HeroCard title="Kellnr goes Open-Source" date="20th September, 2023"

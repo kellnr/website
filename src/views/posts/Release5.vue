@@ -6,7 +6,7 @@ import CodeBlock from "../../components/elements/CodeBlock.vue";
 </script>
 
 <template>
-    <BlogPostTemplate title="Kellnr Version 5.0.0" date="22. November, 2023">
+    <BlogPostTemplate title="Kellnr Version 5.0.0" date="28. November, 2023">
         <TextBlock>
             I am happy to announce the first release of Kellnr 5.0.0. This is a major release that brings no new features as
             you might expect, but reduces technical debt that accumulated over the last three years. As this release
