@@ -1,7 +1,8 @@
 import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
 import LandingView from "@/views/LandingView.vue";
 import ChangelogView from "@/views/ChangelogView.vue";
-import DocumentationView from "@/views/DocumentationView.vue";
+import DocumentationV5View from "@/views/DocumentationV5View.vue";
+import DocumentationV4View from "@/views/DocumentationV4View.vue";
 import BlogView from "@/views/BlogView.vue";
 import AsyncClosuresInRust from "@/views/posts/AsyncClosuresInRust.vue";
 import RustSupplyChainSecurity from "@/views/posts/RustSupplyChainSecurity.vue";
@@ -14,6 +15,7 @@ import ContactView from "@/views/ContactView.vue";
 import Release3Vue from '@/views/posts/Release3.vue';
 import DomainModeling from "@/views/posts/DomainModeling.vue";
 import OpenSource from "@/views/posts/OpenSource.vue";
+import Release5 from "@/views/posts/Release5.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,9 +39,19 @@ const router = createRouter({
             component: ChangelogView
         },
         {
+            path: '/documentation/v5',
+            name: 'documentationV5',
+            component: DocumentationV5View
+        },
+        {
+            path: '/documentation/v4',
+            name: 'documentationV4',
+            component: DocumentationV4View
+        },
+        {
             path: '/documentation',
             name: 'documentation',
-            component: DocumentationView
+            component: DocumentationV5View
         },
         {
             path: '/contact',
@@ -101,6 +113,11 @@ const router = createRouter({
             path: '/blog/open-source',
             name: 'open-source',
             component: OpenSource
+        },
+        {
+            path: '/blog/release5',
+            name: 'release5',
+            component: Release5
         },
         // Default route to redirect all unknown paths to the landing page
         {
