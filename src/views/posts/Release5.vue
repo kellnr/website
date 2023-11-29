@@ -43,8 +43,6 @@ import CodeBlock from "../../components/elements/CodeBlock.vue";
             The 5.0.0 version removes the git index completely. With the introduction of the sparse API, based on HTTP, I
             deprecated the git index with Kellnr 3.1.0. While older cargo versions don't support the new API, everyone on a
             recent cargo version uses the new sparse API already per default.
-
-            The 5.0.0 version removes the git index completely. With the introduction of the sparse API, based on HTTP, I deprecated the git index with Kellnr 3.1.0. While older cargo versions don’t support the new API, everyone on a recent cargo version uses the new sparse API by default.
             <br />
             <br />
             The git index was a pain to maintain and not well suited for private registries like Kellnr. The new sparse API solves these issues and is the right way forward for Rust. As Kellnr is a one-man-show, I like to keep the code as small as possible to make it maintainable.
@@ -92,8 +90,6 @@ cache_size = 1000
 max_crate_size = 10
 # Enable required authentication for crate pulls.
 # If set to "false", anyone can download crates from Kellnr. Upload always requires authentication.
-# This feature is currently a nightly only feature in cargo and might break in the future,
-# as the RFC is not fully done yet.
 auth_required = false
 
 [docs]
