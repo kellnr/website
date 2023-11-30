@@ -25,19 +25,3 @@ npm run build
 ```sh
 npm run lint
 ```
-
-## Deploy
-
-Run the following command once to provision the server:
-
-```bash
-cd ansible
-ansible-playbook -i inventory.yaml -u root playbooks/provision.yaml
-```
-
-To deploy the new website version run:
-
-```bash
-cd ansible
-ansible-playbook -i inventory.yaml -u root playbooks/deploy.yaml
-```

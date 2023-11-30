@@ -1,8 +1,0 @@
-remote:
-  hosts:
-    srv-penet:
-      ansible_host: "213.165.76.152"
-
-all:
-  children:
-    remote:
