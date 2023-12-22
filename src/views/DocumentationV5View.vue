@@ -377,7 +377,7 @@ helm uninstall kellnr</code></pre>
                 <tr>
                   <td>[setup]<br/>admin_pwd</td>
                   <td>KELLNR_SETUP__ADMIN_PWD</td>
-                  <td>kellnr</td>
+                  <td>admin</td>
                   <td>Password for the admin user. Used on first start only.</td>
                 </tr>
                 <tr>
@@ -409,8 +409,8 @@ helm uninstall kellnr</code></pre>
                 <tr>
                   <td>[registry]<br/>max_crate_size</td>
                   <td>KELLNR_REGISTRY__MAX_CRATE_SIZE</td>
-                  <td>10 MB</td>
-                  <td>Max. size of crates allowed to be uploaded in MB.</td>
+                  <td>10</td>
+                  <td>Max size of crates allowed to be uploaded in MB.</td>
                 </tr>
                 <tr>
                   <td>[registry]<br/>auth_required</td>
@@ -433,7 +433,7 @@ helm uninstall kellnr</code></pre>
                 <tr>
                   <td>[origin]<br/>hostname</td>
                   <td>KELLNR_ORIGIN__HOSTNAME</td>
-                  <td>localhost</td>
+                  <td>127.0.0.1</td>
                   <td>Hostname where Kellnr is reachable from, e.g. DNS name behind a reverse proxy.</td>
                 </tr>
                 <tr>
@@ -492,8 +492,8 @@ helm uninstall kellnr</code></pre>
                 <tr>
                   <td>[docs]<br/>max_size</td>
                   <td>KELLNR_DOCS__MAX_SIZE</td>
-                  <td>100 MB</td>
-                  <td>Max. size of crate docs allowed to be uploaded in MB.</td>
+                  <td>100</td>
+                  <td>Max size of crate docs allowed to be uploaded in MB.</td>
                 </tr>
                 <tr>
                   <td>[postgresql]<br/>enabled</td>
@@ -602,7 +602,7 @@ helm uninstall kellnr</code></pre>
             <TextBlock>
               To allow all Rust projects on the current system the usage of Kellnr, it needs to be
               registered in your .cargo/config.toml. The advantage of this method is that Kellnr needs to
-              be configures only once and can be used from any Rust project from now on this system.<br />
+              be configured only once and can be used from any Rust project from now on this system.<br />
               <br />
               <ul>
                 <li>Windows default location: <i>%USERPROFILE%\.cargo\config.toml</i></li>
@@ -791,11 +791,11 @@ cargo doc</code></pre>
 cd ./target
 zip -r doc.zip ./doc
 # Upload documentation to Kellnr --> Replace values in brackets
-curl -H "Authorization: {authorzation token}" http://{Kellnr host}/api/v1/docs/{crate name}/{crate version} --upload-file {docs archive}# Package documentation for the upload
+curl -H "Authorization: {authorization token}" http://{Kellnr host}/api/v1/docs/{crate name}/{crate version} --upload-file {docs archive}# Package documentation for the upload
 cd ./target
 zip -r doc.zip ./doc
 # Upload documentation to Kellnr --> Replace values in brackets
-curl -H "Authorization: {authorzation token}" http://{Kellnr host}/api/v1/docs/{crate name}/{crate version} --upload-file {docs archive}</code></pre>
+curl -H "Authorization: {authorization token}" http://{Kellnr host}/api/v1/docs/{crate name}/{crate version} --upload-file {docs archive}</code></pre>
           </CodeBlock>
           <TextBlock>
             To upload the documentation, Kellnr checks that a crate with a corresponding version exists and
@@ -816,7 +816,7 @@ curl -H "Authorization: {authorzation token}" http://{Kellnr host}/api/v1/docs/{
             simply
             backup the data folder. The data folder contains all data needed to restore Kellnr. It is recommended to
             backup
-            the data folder regularly, as it contains all uploaded crates and the Sqlite database. If yu use PostgreSql instead, do not forget to backed the database separatly.
+            the data folder regularly, as it contains all uploaded crates and the Sqlite database. If you use PostgreSql instead, do not forget to backed the database separately.
           </TextBlock>
         </div>
       </div>
