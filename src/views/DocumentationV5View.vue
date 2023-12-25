@@ -377,7 +377,7 @@ helm uninstall kellnr</code></pre>
                 <tr>
                   <td>[setup]<br/>admin_pwd</td>
                   <td>KELLNR_SETUP__ADMIN_PWD</td>
-                  <td>kellnr</td>
+                  <td>admin</td>
                   <td>Password for the admin user. Used on first start only.</td>
                 </tr>
                 <tr>
