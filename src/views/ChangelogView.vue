@@ -47,7 +47,13 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="28. November 2023" version="5.0.0" is-latest="true">
+                            <ChangeLogItem date="01. January 2024" version="5.1.0" is-latest="true">
+                                <ChangeLogListItem type="Added">New landing page with statistics</ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">All dependencies</ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Username or password mismatch displayed as <i>Internal Server Error</i></ChangeLogListItem>
+                            </ChangeLogItem>
+
+                            <ChangeLogItem date="28. November 2023" version="5.0.0">
                                 <ChangeLogListItem type="Updated">Switch from rocket.rs to axum</ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">Refactored settings</ChangeLogListItem>
                                 <ChangeLogListItem type="Removed">Git index support</ChangeLogListItem>
