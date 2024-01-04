@@ -47,7 +47,11 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="01. January 2024" version="5.1.0" is-latest="true">
+                            <ChangeLogItem date="04. January 2024" version="5.1.1" is-latest="true">
+                                <ChangeLogListItem type="Fixed">Manual upload of rustdocs broken due to miscalculated upload size</ChangeLogListItem>
+                            </ChangeLogItem>
+
+                            <ChangeLogItem date="01. January 2024" version="5.1.0">
                                 <ChangeLogListItem type="Added">New landing page with statistics</ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">All dependencies</ChangeLogListItem>
                                 <ChangeLogListItem type="Fixed">Username or password mismatch displayed as <i>Internal Server Error</i></ChangeLogListItem>

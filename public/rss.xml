@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"
-      xmlns:media="http://search.yahoo.com/mrss/">
-    <updated>2024-01-01T19:00:00+00:00</updated>
+    xmlns:media="http://search.yahoo.com/mrss/">
+    <updated>2024-01-04T20:00:00+00:00</updated>
     <icon>https://kellnr.io/favicon.ico</icon>
     <id>kellnr.io/blog</id>
     <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
@@ -11,7 +11,18 @@
     <title>kellnr.io - The Rust Registry</title>
     <entry>
         <content type="html">
-            Version 5.1.0 of Kellnr, the private Rust registry, is released. New landing page and bug fixes.
+            Version 5.1.1 of Kellnr, the private Rust registry, is released. The new release fixes a
+            bug in the manual upload
+            of rustdocs, where the upload size was miscalculated.
+        </content>
+        <link href="https://kellnr.io" />
+        <published>2024-01-04T20:00:00+00:00</published>
+        <title>Kellnr 5.1.1 release</title>
+    </entry>
+    <entry>
+        <content type="html">
+            Version 5.1.0 of Kellnr, the private Rust registry, is released. New landing page and
+            bug fixes.
         </content>
         <link href="https://kellnr.io" />
         <published>2024-01-01T19:00:00+00:00</published>
@@ -19,7 +30,8 @@
     </entry>
     <entry>
         <content type="html">
-            Version 5.0.0 of Kellnr, the private Rust registry, is released. It switches from rocket.rs to axum, removes the git index support and has refactored settings.
+            Version 5.0.0 of Kellnr, the private Rust registry, is released. It switches from
+            rocket.rs to axum, removes the git index support and has refactored settings.
         </content>
         <link href="https://kellnr.io/blog/release5" />
         <published>2023-11-28T21:00:00+00:00</published>
@@ -27,17 +39,17 @@
     </entry>
     <entry>
         <content type="html">
-            Version 4.0.3 of Kellnr, the private Rust registry, is released. This release includes updated dependencies and bug fixes.
+            Version 4.0.3 of Kellnr, the private Rust registry, is released. This release includes
+            updated dependencies and bug fixes.
         </content>
         <link href="https://kellnr.io/changelog" />
         <published>2023-10-07T14:00:00+00:00</published>
         <title>Kellnr 4.0.3 release</title>
     </entry>
     <entry>
-        <content type="html">
-            Version 4.0.2 of Kellnr, the private Rust registry, is released. This release includes updated dependencies and bug fixes.
-            For more information see the <a href="https://kellnr.io/changelog">changelog</a>.
-        </content>
+        <content type="html"> Version 4.0.2 of Kellnr, the private Rust registry, is released. This
+            release includes updated dependencies and bug fixes. For more information see the <a
+                href="https://kellnr.io/changelog">changelog</a>. </content>
         <link href="https://kellnr.io/changelog" />
         <published>2023-09-24T15:40:00+00:00</published>
         <title>Kellnr 4.0.2 release</title>
@@ -52,7 +64,8 @@
     </entry>
     <entry>
         <content type="html">
-            Use domain modeling in Rust to achieve separation of concerns, code decoupling and a better understanding of your domain.
+            Use domain modeling in Rust to achieve separation of concerns, code decoupling and a
+            better understanding of your domain.
         </content>
         <link href="https://kellnr.io/blog/domain-modeling" />
         <published>2023-06-15T12:00:00+00:00</published>
@@ -60,7 +73,8 @@
     </entry>
     <entry>
         <content type="html">
-            Kellnr 3.0.0, the private rust registry, is released. This release includes a new UI and many improvements under the hood.
+            Kellnr 3.0.0, the private rust registry, is released. This release includes a new UI and
+            many improvements under the hood.
         </content>
         <link href="https://kellnr.io/blog/release3" />
         <published>2023-05-29T12:00:00+00:00</published>
