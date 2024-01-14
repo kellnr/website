@@ -8,6 +8,11 @@ const props = defineProps({
         type: String,
         required: true,
     },
+    author: {
+        type: String,
+        required: false,
+        default: "Stefan Hausotte",
+    },
 })
 </script>
 
@@ -19,7 +24,7 @@ const props = defineProps({
                     <div class="col-lg-12 text-center">
                         <div class="page-next-level">
                             <h4 class="title"> {{ props.title }} </h4>
-                            <span>{{ props.date }}</span>
+                            <span>{{ props.date }} by {{ props.author }}</span>
                             <div class="page-next">
                                 <nav aria-label="breadcrumb" class="d-inline-block">
                                     <ul class="breadcrumb bg-white rounded shadow mb-0">

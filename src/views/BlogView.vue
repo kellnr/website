@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import HeroCard from "@/components/blog/HeroCard.vue";
+import HeroCard from "../components/blog/HeroCard.vue";
 </script>
 
 <template>
