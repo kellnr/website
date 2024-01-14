@@ -15,6 +15,7 @@ import ContactView from "@/views/ContactView.vue";
 import Release3Vue from '@/views/posts/Release3.vue';
 import DomainModeling from "@/views/posts/DomainModeling.vue";
 import OpenSource from "@/views/posts/OpenSource.vue";
+import CrossPlatNativeLib from "@/views/posts/CrossPlatNativeLib.vue";
 import Release5 from "@/views/posts/Release5.vue";
 
 const router = createRouter({
@@ -115,9 +116,9 @@ const router = createRouter({
             component: OpenSource
         },
         {
-            path: '/blog/release5',
-            name: 'release5',
-            component: Release5
+            path: '/blog/cross-plat-native-lib',
+            name: 'cross-plat-native-lib',
+            component: CrossPlatNativeLib
         },
         // Default route to redirect all unknown paths to the landing page
         {

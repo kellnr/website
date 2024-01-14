@@ -40,20 +40,23 @@ import HeroCard from "../components/blog/HeroCard.vue";
     <section class="section">
       <div class="container">
         <div class="row">
-          <HeroCard title="Kellnr 5.0.0 Release" date="28th November, 2023"
+          <HeroCard title="Wrapping Cross-Platform Native Libraries in Rust" date="14. January, 2024"
+            link="cross-plat-native-lib" img="images/kellnr/blog/ferris.png"></HeroCard>
+
+          <HeroCard title="Kellnr 5.0.0 Release" date="28. November, 2023"
             link="release5" img="images/kellnr/blog/kellnr-logo.png"></HeroCard>
 
-          <HeroCard title="Kellnr goes Open-Source" date="20th September, 2023"
+          <HeroCard title="Kellnr goes Open-Source" date="20. September, 2023"
             link="open-source" img="images/kellnr/blog/kellnr-logo.png"></HeroCard>
 
-          <HeroCard title="Leveraging the Type System for Domain Modeling in Rust" date="15th June, 2023"
+          <HeroCard title="Leveraging the Type System for Domain Modeling in Rust" date="15. June, 2023"
             link="domain-modeling" img="images/kellnr/blog/ferris.png"></HeroCard>
 
           <HeroCard title="Kellnr 3.0.0 Release" link="release3" img="images/kellnr/blog/kellnr-logo.png"
-            date="29th May, 2023"></HeroCard>
+            date="29. May, 2023"></HeroCard>
 
           <HeroCard title="Rust Supply Chain Security" link="rust-supply-chain-security"
-            img="images/kellnr/blog/ferris.png" date="10th April, 2023"></HeroCard>
+            img="images/kellnr/blog/ferris.png" date="10. April, 2023"></HeroCard>
 
           <HeroCard title="Asynchronous Closures in Rust - Box and Pin" date="24. July, 2022"
             link="async-closures-in-rust" img="images/kellnr/blog/ferris.png"></HeroCard>
