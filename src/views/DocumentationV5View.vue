@@ -202,7 +202,6 @@ docker run --rm -it \
 cd ~
 
 # Example: Download and install Kellnr as a systemd service with custom admin password for Kellnr
-# Required: "-a" Add the address (hostname or IP) where Kellnr will be reachable
 curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo bash -s -- -s -p myadminpwd
 
 # Start the service (if installed with -s flag)
