@@ -47,7 +47,13 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="04. January 2024" version="5.1.1" is-latest="true">
+                            <ChangeLogItem date="05. February 2024" version="5.1.2" is-latest="true">
+                                <ChangeLogListItem type="Fixed">Upload size for crates in settings not respected</ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Same folder for crates from Kellnr and crates.io</ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Route for latest docs</ChangeLogListItem>
+                            </ChangeLogItem>
+
+                            <ChangeLogItem date="04. January 2024" version="5.1.1">
                                 <ChangeLogListItem type="Fixed">Manual upload of rustdocs broken due to miscalculated upload size</ChangeLogListItem>
                             </ChangeLogItem>
 
