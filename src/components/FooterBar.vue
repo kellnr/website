@@ -32,7 +32,7 @@
           <!--end col-->
 
           <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-            <h5 class="text-light footer-head">Usefull Links</h5>
+            <h5 class="text-light footer-head">Useful Links</h5>
             <ul class="list-unstyled footer-list mt-4">
               <li>
                 <router-link to="documentation" class="text-foot"><i class="mdi mdi-chevron-right mr-1"></i>
