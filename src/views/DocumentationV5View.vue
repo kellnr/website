@@ -56,9 +56,6 @@ import MainHeader from "../components/elements/MainHeader.vue";
       <div class="container">
         <div class="row">
           <div class="col-12">
-    <WarnBlock>
-      This is the documentation for Kellnr version 5.0.0 and up. If you are looking for the documentation for 4.0.3 and below go here: <router-link to="/documentation/v4">Documentation v4</router-link>
-    </WarnBlock>
             <ul class="list-group">
               <li class="list-group-item">
                 <router-link to="#installation">Installation</router-link>
