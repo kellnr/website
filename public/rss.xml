@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"
     xmlns:media="http://search.yahoo.com/mrss/">
-    <updated>2024-02-05T20:40:00+00:00</updated>
+    <updated>2024-03-14T22:30:00+00:00</updated>
     <icon>https://kellnr.io/favicon.ico</icon>
     <id>kellnr.io/blog</id>
     <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
@@ -9,6 +9,24 @@
     <logo>https://kellnr.io/favicon.ico</logo>
     <subtitle>Rust development related blog</subtitle>
     <title>kellnr.io - The Rust Registry</title>
+    <entry>
+        <content type="html">
+            Version 5.2.0 of Kellnr, the private Rust registry, is released. 
+            Cached crates can now be shown and searched from the UI. 
+            A "delete all" button was added to allow the deletion all versions of a crate.
+        </content>
+        <link href="https://kellnr.io" />
+        <published>2024-03-14T20:30:00+00:00</published>
+        <title>Kellnr 5.2.0 release</title>
+    </entry>
+    <entry>
+        <content type="html">
+            Version 5.1.2 of Kellnr, the private Rust registry, is released. Bug fixes and new crates.io status codes.
+        </content>
+        <link href="https://kellnr.io" />
+        <published>2024-02-14T20:00:00+00:00</published>
+        <title>Kellnr 5.1.3 release</title>
+    </entry>
     <entry>
         <content type="html">
             Version 5.1.2 of Kellnr, the private Rust registry, is released. Bug fixes and dependency updates.

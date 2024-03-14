@@ -47,7 +47,18 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="05. February 2024" version="5.1.2" is-latest="true">
+                            <ChangeLogItem date="14. March 2024" version="5.2.0" is-latest="true">
+                                <ChangeLogListItem type="Added">Switch to display and search cached crates in the UI</ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Delete button for all versions of a crate in the UI</ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">All crate and npm dependencies</ChangeLogListItem>
+                            </ChangeLogItem>
+
+                            <ChangeLogItem date="14. February 2024" version="5.1.3">
+                                <ChangeLogListItem type="Fixed">Docs and doc queue available in UI, even when auth is required</ChangeLogListItem>
+                                <ChangeLogListItem type="Added">New status code 4xx and 5xx used by crates.io: <a href="https://blog.rust-lang.org/2024/02/06/crates-io-status-codes.html">crates.io status codes</a></ChangeLogListItem>
+                            </ChangeLogItem>
+
+                            <ChangeLogItem date="05. February 2024" version="5.1.2">
                                 <ChangeLogListItem type="Fixed">Upload size for crates in settings not respected</ChangeLogListItem>
                                 <ChangeLogListItem type="Fixed">Same folder for crates from Kellnr and crates.io</ChangeLogListItem>
                                 <ChangeLogListItem type="Added">Route for latest docs</ChangeLogListItem>
