@@ -47,31 +47,56 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="14. March 2024" version="5.2.0" is-latest="true">
-                                <ChangeLogListItem type="Added">Switch to display and search cached crates in the UI</ChangeLogListItem>
-                                <ChangeLogListItem type="Added">Delete button for all versions of a crate in the UI</ChangeLogListItem>
+                            <ChangeLogItem date="14. March 2024" version="5.2.1" is-latest="true">
+                                <ChangeLogListItem type="Added">Option to mount certificates into the Docker <a
+                                        href="https://github.com/kellnr/kellnr/pull/260">#260</a></ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Responsive UI for mobile devices <a
+                                        href="https://github.com/kellnr/kellnr/pull/238">#238</a></ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Build docs with all features enabled <a
+                                        href="https://github.com/kellnr/kellnr/pull/257">#257</a></ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Crates from crates.io are missing the version and
+                                    documetation link in the UI after a search query <a
+                                        href="https://github.com/kellnr/kellnr/issues/253">#253</a></ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">static.crates.io used for faster downloads instead of
+                                    crates.io <a href="https://github.com/kellnr/kellnr/issues/230">#230</a>
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">All crate and npm dependencies</ChangeLogListItem>
+                            </ChangeLogItem>
+
+                            <ChangeLogItem date="14. March 2024" version="5.2.0">
+                                <ChangeLogListItem type="Added">Switch to display and search cached crates in the UI
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Delete button for all versions of a crate in the UI
+                                </ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">All crate and npm dependencies</ChangeLogListItem>
                             </ChangeLogItem>
 
                             <ChangeLogItem date="14. February 2024" version="5.1.3">
-                                <ChangeLogListItem type="Fixed">Docs and doc queue available in UI, even when auth is required</ChangeLogListItem>
-                                <ChangeLogListItem type="Added">New status code 4xx and 5xx used by crates.io: <a href="https://blog.rust-lang.org/2024/02/06/crates-io-status-codes.html">crates.io status codes</a></ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Docs and doc queue available in UI, even when auth is
+                                    required</ChangeLogListItem>
+                                <ChangeLogListItem type="Added">New status code 4xx and 5xx used by crates.io: <a
+                                        href="https://blog.rust-lang.org/2024/02/06/crates-io-status-codes.html">crates.io
+                                        status codes</a></ChangeLogListItem>
                             </ChangeLogItem>
 
                             <ChangeLogItem date="05. February 2024" version="5.1.2">
-                                <ChangeLogListItem type="Fixed">Upload size for crates in settings not respected</ChangeLogListItem>
-                                <ChangeLogListItem type="Fixed">Same folder for crates from Kellnr and crates.io</ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Upload size for crates in settings not respected
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Same folder for crates from Kellnr and crates.io
+                                </ChangeLogListItem>
                                 <ChangeLogListItem type="Added">Route for latest docs</ChangeLogListItem>
                             </ChangeLogItem>
 
                             <ChangeLogItem date="04. January 2024" version="5.1.1">
-                                <ChangeLogListItem type="Fixed">Manual upload of rustdocs broken due to miscalculated upload size</ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Manual upload of rustdocs broken due to miscalculated
+                                    upload size</ChangeLogListItem>
                             </ChangeLogItem>
 
                             <ChangeLogItem date="01. January 2024" version="5.1.0">
                                 <ChangeLogListItem type="Added">New landing page with statistics</ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">All dependencies</ChangeLogListItem>
-                                <ChangeLogListItem type="Fixed">Username or password mismatch displayed as <i>Internal Server Error</i></ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Username or password mismatch displayed as <i>Internal
+                                        Server Error</i></ChangeLogListItem>
                             </ChangeLogItem>
 
                             <ChangeLogItem date="28. November 2023" version="5.0.0">
@@ -81,7 +106,8 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                             </ChangeLogItem>
 
                             <ChangeLogItem date="07. October 2023" version="4.0.3">
-                                <ChangeLogListItem type="Fixed"><i>api_port_proxy</i> not respected in <i>config.json</i>
+                                <ChangeLogListItem type="Fixed"><i>api_port_proxy</i> not respected in
+                                    <i>config.json</i>
                                 </ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">Updated dependencies</ChangeLogListItem>
                             </ChangeLogItem>
@@ -107,15 +133,18 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                                         href="https://github.com/kellnr/installer">Github - Kellnr Installer</a>
                                 </ChangeLogListItem>
                                 <ChangeLogListItem type="Update">Moved Kellnr helm repository to <a
-                                        href="https://github.com/kellnr/helm">Github - Kellnr helm</a></ChangeLogListItem>
+                                        href="https://github.com/kellnr/helm">Github - Kellnr helm</a>
+                                </ChangeLogListItem>
                             </ChangeLogItem>
 
                             <ChangeLogItem date="02. September 2023" version="3.2.0">
-                                <ChangeLogListItem type="Added">Removed license checks, Kellnr is fully free for commercial
+                                <ChangeLogListItem type="Added">Removed license checks, Kellnr is fully free for
+                                    commercial
                                     usage from now on</ChangeLogListItem>
                                 <ChangeLogListItem type="Added"><i>Postgresql</i> now available as backend database,
                                     additional to <i>sqlite</i></ChangeLogListItem>
-                                <ChangeLogListItem type="Added">Authentication on pull now available in all Kellnr variants
+                                <ChangeLogListItem type="Added">Authentication on pull now available in all Kellnr
+                                    variants
                                 </ChangeLogListItem>
                             </ChangeLogItem>
 
@@ -125,7 +154,8 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                                         #3139</a>. Enterprise only a.t.m.</ChangeLogListItem>
                                 <ChangeLogListItem type="Added"><i>crates_io_num_threads</i> allows to set the number of
                                     threads used to keep the crates.io index up-to-date</ChangeLogListItem>
-                                <ChangeLogListItem type="Added">Flag <i>git_index</i> to disable the git index and only use
+                                <ChangeLogListItem type="Added">Flag <i>git_index</i> to disable the git index and only
+                                    use
                                     the new sparse index</ChangeLogListItem>
                                 <ChangeLogListItem type="Attention">The git index is disabled for new installations of
                                     <i>kellnr</i> per default
@@ -137,7 +167,8 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                                 <ChangeLogListItem type="Update">Update all dependencies</ChangeLogListItem>
                                 <ChangeLogListItem type="Update">Switch to new license validation backend
                                 </ChangeLogListItem>
-                                <ChangeLogListItem type="Fixed">Bug where the download number for uncommon crate names is
+                                <ChangeLogListItem type="Fixed">Bug where the download number for uncommon crate names
+                                    is
                                     counted incorrectly</ChangeLogListItem>
                             </ChangeLogItem>
 
@@ -347,4 +378,5 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
         </section>
         <!-- Changelog End -->
         <!--end section-->
-    </div></template>
+    </div>
+</template>
