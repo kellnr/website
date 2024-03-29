@@ -760,6 +760,23 @@ git2 = "*" # Pulled from Kellnr proxy instead of crates.io</code></pre>
             documentation.
           </TextBlock>
 
+          <CodeBlock>
+            <pre v-highlightjs><code class="bash"># If you need to inject your own ca-certificate to the docker container, it will be
+# automatically picked up by update-ca-certificates if you mount it like this:
+docker run --rm -it \
+    ... \
+    -v your-ca.crt:/usr/local/share/ca-certificates/user-ca.crt:ro
+
+# If you need to inject the local registry authentication to the container (auth_required=true):
+docker run --rm -it \
+    ... \
+    -v your-cargo-config.toml:/root/.cargo/config.toml:ro
+
+# which could look like:
+[registries]
+kellnr = { index = "sparse+https://yourkellnrhostname/api/v1/crates/", token = "yourauthtoken" }</code></pre>
+          </CodeBlock>
+
           <WarnBlock>
             To build <i>rustdocs</i>, the <i>crate</i> needs to be compiled. While that happens, arbitrary and potentially
             malicious code, included in a dependency, can be executed. Make sure you trust the code you build the docs
