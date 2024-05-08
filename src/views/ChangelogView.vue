@@ -47,7 +47,11 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="14. March 2024" version="5.2.1" is-latest="true">
+                            <ChangeLogItem date="08. May 2024" version="5.2.2" is-latest="true">
+                                <ChangeLogListItem type="Fixed">Multiple small bug fixes.</ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">All crate and npm dependencies</ChangeLogListItem>
+                            </ChangeLogItem>
+                            <ChangeLogItem date="14. March 2024" version="5.2.1">
                                 <ChangeLogListItem type="Added">Option to mount certificates into the Docker <a
                                         href="https://github.com/kellnr/kellnr/pull/260">#260</a></ChangeLogListItem>
                                 <ChangeLogListItem type="Added">Responsive UI for mobile devices <a
