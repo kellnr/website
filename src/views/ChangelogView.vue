@@ -47,7 +47,13 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="08. May 2024" version="5.2.2" is-latest="true">
+                            <ChangeLogItem date="16. May 2024" version="5.2.3" is-latest="true">
+                                <ChangeLogListItem type="Fixed">Wrong computation of SHA256 for uploaded crates</ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Corrupt layer in Docker image</ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">Use Ubuntu 24.04 as base image</ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">Rust depedencies</ChangeLogListItem>
+                            </ChangeLogItem>
+                            <ChangeLogItem date="08. May 2024" version="5.2.2">
                                 <ChangeLogListItem type="Fixed">Multiple small bug fixes.</ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">All crate and npm dependencies</ChangeLogListItem>
                             </ChangeLogItem>
