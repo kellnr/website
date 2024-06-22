@@ -1,22 +1,21 @@
 import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
-import LandingView from "@/views/LandingView.vue";
-import ChangelogView from "@/views/ChangelogView.vue";
-import DocumentationV5View from "@/views/DocumentationV5View.vue";
-import DocumentationV4View from "@/views/DocumentationV4View.vue";
-import BlogView from "@/views/BlogView.vue";
-import AsyncClosuresInRust from "@/views/posts/AsyncClosuresInRust.vue";
-import RustSupplyChainSecurity from "@/views/posts/RustSupplyChainSecurity.vue";
-import WasmCompiler4 from "@/views/posts/WasmCompiler4.vue";
-import WasmCompiler3 from "@/views/posts/WasmCompiler3.vue";
-import WasmCompiler2 from "@/views/posts/WasmCompiler2.vue";
-import WasmCompiler1 from "@/views/posts/WasmCompiler1.vue";
-import ImproveRustCompileTimes from "@/views/posts/ImproveRustCompileTimes.vue";
-import ContactView from "@/views/ContactView.vue";
-import Release3Vue from '@/views/posts/Release3.vue';
-import DomainModeling from "@/views/posts/DomainModeling.vue";
-import OpenSource from "@/views/posts/OpenSource.vue";
-import CrossPlatNativeLib from "@/views/posts/CrossPlatNativeLib.vue";
-import Release5 from "@/views/posts/Release5.vue";
+import LandingView from "../views/LandingView.vue";
+import ChangelogView from "../views/ChangelogView.vue";
+import DocumentationV5View from "../views/DocumentationV5View.vue";
+import BlogView from "../views/BlogView.vue";
+import AsyncClosuresInRust from "../views/posts/AsyncClosuresInRust.vue";
+import RustSupplyChainSecurity from "../views/posts/RustSupplyChainSecurity.vue";
+import WasmCompiler4 from "../views/posts/WasmCompiler4.vue";
+import WasmCompiler3 from "../views/posts/WasmCompiler3.vue";
+import WasmCompiler2 from "../views/posts/WasmCompiler2.vue";
+import WasmCompiler1 from "../views/posts/WasmCompiler1.vue";
+import ImproveRustCompileTimes from "../views/posts/ImproveRustCompileTimes.vue";
+import ContactView from "../views/ContactView.vue";
+import Release3Vue from '../views/posts/Release3.vue';
+import DomainModeling from "../views/posts/DomainModeling.vue";
+import OpenSource from "../views/posts/OpenSource.vue";
+import CrossPlatNativeLib from "../views/posts/CrossPlatNativeLib.vue";
+import Release5 from "../views/posts/Release5.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,11 +42,6 @@ const router = createRouter({
             path: '/documentation/v5',
             name: 'documentationV5',
             component: DocumentationV5View
-        },
-        {
-            path: '/documentation/v4',
-            name: 'documentationV4',
-            component: DocumentationV4View
         },
         {
             path: '/documentation',

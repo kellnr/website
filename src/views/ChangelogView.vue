@@ -50,6 +50,7 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                             <ChangeLogItem date="16. May 2024" version="5.2.3" is-latest="true">
                                 <ChangeLogListItem type="Fixed">Wrong computation of SHA256 for uploaded crates</ChangeLogListItem>
                                 <ChangeLogListItem type="Fixed">Corrupt layer in Docker image</ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Copy button for newly created tokens</ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">Use Ubuntu 24.04 as base image</ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">Rust depedencies</ChangeLogListItem>
                             </ChangeLogItem>
