@@ -609,8 +609,10 @@ helm uninstall kellnr</code></pre>
               <pre v-highlightjs><code class="bash"># Example .cargo/config.toml
 # The index needs to point to the host where your Kellnr instance runs
 # The token is the authentication token for the user configured in Kellnr
-[registries]
-kellnr = { index = "sparse+https://yourkellnrhostname/api/v1/crates/", token = "yourauthtoken" }
+[registries.kellnr]
+index = "sparse+https://yourkellnrhostname/api/v1/crates/"
+credential-provider = ["cargo:token"]
+token = "yourauthtoken"
 </code></pre>
             </CodeBlock>
           </div>
@@ -774,7 +776,10 @@ docker run --rm -it \
 
 # which could look like:
 [registries]
-kellnr = { index = "sparse+https://yourkellnrhostname/api/v1/crates/", token = "yourauthtoken" }</code></pre>
+[registries.kellnr]
+index = "sparse+https://yourkellnrhostname/api/v1/crates/"
+credential-provider = ["cargo:token"]
+token = "yourauthtoken"</code></pre>
           </CodeBlock>
 
           <WarnBlock>
