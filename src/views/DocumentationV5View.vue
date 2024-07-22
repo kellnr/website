@@ -184,7 +184,7 @@ docker run --rm -it \
 
             <SubHeader id="script">Script</SubHeader>
             <TextBlock>
-              The installation script is tested on current Ubuntu Server versions. Any other modern Linux
+              The installation script is tested on current Debian Server versions. Any other modern Linux
               distribution may work, but we cannot guarantee that. If the script does not work for you,
               please, feel free to reach out on Github. Have a look at "Manual Installation" which
               works independent from your distribution. The script will automatically install the right
@@ -208,9 +208,7 @@ sudo systemctl start kellnr
 # Check if the service runs
 sudo systemctl status kellnr
 
-# Open the ports defined in the default.toml
-# Example for Ubuntu:
-sudo ufw allow 8000
+# Open the ports defined in the default.toml (default 8000)
 </code></pre>
             </CodeBlock>
 
@@ -290,9 +288,7 @@ unzip -o kellnr-latest.zip -d ./kellnr
 #   - admin_pwd
 #   - data_dir (Path where Kellnr stores its data. Different from installation directory. Must exists on disk)
 
-# Open the ports defined in the default.toml
-# Example for Ubuntu
-sudo ufw allow 8000
+# Open the ports defined in the default.toml (default 8000)
 
 # Start Kellnr
 cd ./kellnr && ./kellnr</code></pre>
