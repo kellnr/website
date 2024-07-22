@@ -185,9 +185,10 @@ docker run --rm -it \
             <SubHeader id="script">Script</SubHeader>
             <TextBlock>
               The installation script is tested on current Debian Server versions. Any other modern Linux
-              distribution may work, but we cannot guarantee that. If the script does not work for you,
-              please, feel free to reach out on Github. Have a look at "Manual Installation" which
-              works independent from your distribution. The script will automatically install the right
+              distribution may work, but we cannot guarantee that. If the script does not work for your distribution,
+              try the <i>-m</i> flag. This forces the installer script to use a static binary compiled with <i>musl</i>,
+              which works independent of any distribution. If that does not work, have a look at "Manual Installation". 
+              The script will automatically install the right
               version for your architecture. Currently supported are x64 and aarch64 (arm64). <br />
               <br />
               Before starting the installation process, make sure you have the needed rights (sudo) and
@@ -256,6 +257,12 @@ sudo systemctl status kellnr
                   <td>-s</td>
                   <td>Create systemd service for Kellnr</td>
                   <td>Needs "sudo" rights</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>-m</td>
+                  <td>Install a static binary compiled with musl</td>
+                  <td>Defaults to "false"</td>
                   <td>No</td>
                 </tr>
               </tbody>
