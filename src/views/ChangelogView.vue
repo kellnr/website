@@ -47,7 +47,14 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="16. May 2024" version="5.2.3" is-latest="true">
+                            <ChangeLogItem date="24. July 2024" version="5.2.4" is-latest="true">
+                                <ChangeLogListItem type="Added">Static (musl) builds to support more Linux distributions</ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">Switched from Ubuntu as the builder to Cross-rs</ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">Switched from Ubuntu as the Docker base image to the official Rust image</ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">All dependencies</ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Permission denied on the docs build webpage</ChangeLogListItem>
+                            </ChangeLogItem>
+                            <ChangeLogItem date="16. May 2024" version="5.2.3">
                                 <ChangeLogListItem type="Fixed">Wrong computation of SHA256 for uploaded crates</ChangeLogListItem>
                                 <ChangeLogListItem type="Fixed">Corrupt layer in Docker image</ChangeLogListItem>
                                 <ChangeLogListItem type="Added">Copy button for newly created tokens</ChangeLogListItem>
