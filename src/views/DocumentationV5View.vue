@@ -414,8 +414,8 @@ helm uninstall kellnr</code></pre>
                 <tr>
                   <td>[registry]<br/>max_db_connections</td>
                   <td>KELLNR_REGISTRY__MAX_DB_CONNECTIONS</td>
-                  <td>10</td>
-                  <td>Max number of internal database connections.</td>
+                  <td>0</td>
+                  <td>Max number of internal database connections. "0" disables the limit.</td>
                 </tr>
                 <tr>
                   <td>[registry]<br/>auth_required</td>
