@@ -412,6 +412,12 @@ helm uninstall kellnr</code></pre>
                   <td>Max size of crates allowed to be uploaded in MB.</td>
                 </tr>
                 <tr>
+                  <td>[registry]<br/>max_db_connections</td>
+                  <td>KELLNR_REGISTRY__MAX_DB_CONNECTIONS</td>
+                  <td>10</td>
+                  <td>Max number of internal database connections.</td>
+                </tr>
+                <tr>
                   <td>[registry]<br/>auth_required</td>
                   <td>KELLNR_REGISTRY__AUTH_REQUIRED</td>
                   <td>false</td>
