@@ -549,7 +549,7 @@ helm uninstall kellnr</code></pre>
               <br/>
               <br/>
               If the <i>auth_required</i> flag is set to <i>true</i>, Kellnr needs to be able to authenticate against itself. If the doc generation is enabled, the docs can only be build sucessfully, if Kellnr can pull the dependencies from itself. 
-              To allow that, you have to provide Kellnr with a valid registry authentication token for itself. See [Config Search Path](https://doc.rust-lang.org/cargo/reference/config.html#hierarchical-structure), where Kellnr searches for a config.
+              To allow that, you have to provide Kellnr with a valid registry authentication token for itself. See <a href="https://doc.rust-lang.org/cargo/reference/config.html#hierarchical-structure">Cargo Config</a>, where Kellnr searches for a config.
               <br/>
               <br/>
               In the case of the Kellnr Docker image, you can mount a volume that contains the config file with the authentication token to <i>/usr/local/cargo/config.toml</i>.
