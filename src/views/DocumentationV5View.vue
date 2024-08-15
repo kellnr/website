@@ -548,6 +548,16 @@ helm uninstall kellnr</code></pre>
               pull can be enabled by setting the flag <i>auth_required</i> to <i>true</i> in the config. This will force cargo to authenticte on pull as well and the flag forces users of the web UI to log in, to see any details of crates.
               <br/>
               <br/>
+              If the <i>auth_required</i> flag is set to <i>true</i>, Kellnr needs to be able to authenticate against itself. If the doc generation is enabled, the docs can only be build sucessfully, if Kellnr can pull the dependencies from itself. 
+              To allow that, you have to provide Kellnr with a valid registry authentication token for itself. See [Config Search Path](https://doc.rust-lang.org/cargo/reference/config.html#hierarchical-structure), where Kellnr searches for a config.
+              <br/>
+              <br/>
+              In the case of the Kellnr Docker image, you can mount a volume that contains the config file with the authentication token to <i>/usr/local/cargo/config.toml</i>.
+              <br/>
+              <br/>
+              E.g. <i>docker run -v /path/to/config.toml:/usr/local/cargo/config.toml:ro ghcr.io/kellnr/kellnr:5.2.4</i>
+              <br/>
+              <br/>
               For more information about authentication and how to configure cargo to use it see: <a href="https://doc.rust-lang.org/nightly/cargo/reference/registry-authentication.html">Registry Authentication</a>
             </TextBlock>
 
