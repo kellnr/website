@@ -47,7 +47,12 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="24. July 2024" version="5.2.4" is-latest="true">
+                            <ChangeLogItem date="18. August 2024" version="5.2.5" is-latest="true">
+                                <ChangeLogListItem type="Added">Option <i>max_db_connections</i> to configure the max. concurrent database connections.</ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Missing <i>pkg-confing</i> and <i>libssl-dev</i> in Docker image.</ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">All dependencies</ChangeLogListItem>
+                            </ChangeLogItem>
+                            <ChangeLogItem date="24. July 2024" version="5.2.4">
                                 <ChangeLogListItem type="Added">Static (musl) builds to support more Linux distributions</ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">Switched from Ubuntu as the builder to Cross-rs</ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">Switched from Ubuntu as the Docker base image to the official Rust image</ChangeLogListItem>
