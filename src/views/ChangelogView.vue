@@ -47,7 +47,10 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="18. August 2024" version="5.2.6" is-latest="true">
+                            <ChangeLogItem date="09. December 2024" version="5.2.7" is-latest="true">
+                                <ChangeLogListItem type="Updated">All dependencies</ChangeLogListItem>
+                            </ChangeLogItem>
+                            <ChangeLogItem date="18. August 2024" version="5.2.6">
                                 <ChangeLogListItem type="Fixed">Cache invalidation if a crate is deleted <a href="https://github.com/kellnr/kellnr/pull/461">#461</a></ChangeLogListItem>
                                 <ChangeLogListItem type="Fixed">Return codes for the HTTP API <a href="https://github.com/kellnr/kellnr/pull/429">#429</a></ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">All dependencies</ChangeLogListItem>
