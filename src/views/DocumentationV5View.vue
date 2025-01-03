@@ -193,6 +193,8 @@ docker run --rm -it \
               <br />
               Before starting the installation process, make sure you have the needed rights (sudo) and
               checked the list with possible options below.
+              Remember that if you used rustup to install cargo there might be a high chance that rustc is only
+              installed for your own user and not root.
             </TextBlock>
 
             <CodeBlock>
@@ -201,6 +203,8 @@ cd ~
 
 # Example: Download and install Kellnr as a systemd service with custom admin password for Kellnr
 curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo bash -s -- -s -p myadminpwd
+# Alternatively, you can use the following command if you installed cargo using rustup:
+curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo PATH="$HOME/.cargo/bin:$PATH" bash -s -- -s -p myadminpwd
 
 # Start the service (if installed with -s flag)
 sudo systemctl enable kellnr
