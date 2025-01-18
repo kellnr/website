@@ -47,28 +47,49 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="09. December 2024" version="5.2.7" is-latest="true">
+                            <ChangeLogItem date="18. January 2025" version="5.3.0" is-latest="true">
+                                <ChangeLogListItem type="Updated">All dependencies</ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Empty user and password allowed <a
+                                        href="https://github.com/kellnr/kellnr/issues/572">#572</a></ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Missing crate description</ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Config and static directories are configrable<a
+                                        href="https://github.com/kellnr/kellnr/pull/535">#535</a></ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Support for download authentication<a
+                                        href="https://github.com/kellnr/kellnr/pull/209">#209</a></ChangeLogListItem>
+                                <ChangeLogListItem type="Added">API endpoint to list all versions of a crate<a
+                                        href="https://github.com/kellnr/kellnr/pull/576">#576</a></ChangeLogListItem>
+                            </ChangeLogItem>
+                            <ChangeLogItem date="09. December 2024" version="5.2.7">
                                 <ChangeLogListItem type="Updated">All dependencies</ChangeLogListItem>
                             </ChangeLogItem>
                             <ChangeLogItem date="18. August 2024" version="5.2.6">
-                                <ChangeLogListItem type="Fixed">Cache invalidation if a crate is deleted <a href="https://github.com/kellnr/kellnr/pull/461">#461</a></ChangeLogListItem>
-                                <ChangeLogListItem type="Fixed">Return codes for the HTTP API <a href="https://github.com/kellnr/kellnr/pull/429">#429</a></ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Cache invalidation if a crate is deleted <a
+                                        href="https://github.com/kellnr/kellnr/pull/461">#461</a></ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Return codes for the HTTP API <a
+                                        href="https://github.com/kellnr/kellnr/pull/429">#429</a></ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">All dependencies</ChangeLogListItem>
                             </ChangeLogItem>
                             <ChangeLogItem date="18. August 2024" version="5.2.5">
-                                <ChangeLogListItem type="Added">Option <i>max_db_connections</i> to configure the max. concurrent database connections.</ChangeLogListItem>
-                                <ChangeLogListItem type="Fixed">Missing <i>pkg-confing</i> and <i>libssl-dev</i> in Docker image.</ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Option <i>max_db_connections</i> to configure the max.
+                                    concurrent database connections.</ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Missing <i>pkg-confing</i> and <i>libssl-dev</i> in
+                                    Docker image.</ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">All dependencies</ChangeLogListItem>
                             </ChangeLogItem>
                             <ChangeLogItem date="24. July 2024" version="5.2.4">
-                                <ChangeLogListItem type="Added">Static (musl) builds to support more Linux distributions</ChangeLogListItem>
-                                <ChangeLogListItem type="Updated">Switched from Ubuntu as the builder to Cross-rs</ChangeLogListItem>
-                                <ChangeLogListItem type="Updated">Switched from Ubuntu as the Docker base image to the official Rust image</ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Static (musl) builds to support more Linux distributions
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">Switched from Ubuntu as the builder to Cross-rs
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">Switched from Ubuntu as the Docker base image to the
+                                    official Rust image</ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">All dependencies</ChangeLogListItem>
-                                <ChangeLogListItem type="Fixed">Permission denied on the docs build webpage</ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Permission denied on the docs build webpage
+                                </ChangeLogListItem>
                             </ChangeLogItem>
                             <ChangeLogItem date="16. May 2024" version="5.2.3">
-                                <ChangeLogListItem type="Fixed">Wrong computation of SHA256 for uploaded crates</ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Wrong computation of SHA256 for uploaded crates
+                                </ChangeLogListItem>
                                 <ChangeLogListItem type="Fixed">Corrupt layer in Docker image</ChangeLogListItem>
                                 <ChangeLogListItem type="Added">Copy button for newly created tokens</ChangeLogListItem>
                                 <ChangeLogListItem type="Updated">Use Ubuntu 24.04 as base image</ChangeLogListItem>
