@@ -193,7 +193,7 @@ docker run --rm -it \
             </TextBlock>
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Install Kellnr with yay
-yay -S kellnt</code></pre>
+yay -S kellnr</code></pre>
             </CodeBlock>        
 
             <SubHeader id="script">Script</SubHeader>
