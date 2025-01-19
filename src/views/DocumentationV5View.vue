@@ -66,6 +66,9 @@ import MainHeader from "../components/elements/MainHeader.vue";
                     <router-link to="#docker-container">Docker Container</router-link>
                   </li>
                   <li>
+                    <router-link to="#package-managers">Package Managers</router-link>
+                  </li>
+                  <li>
                     <router-link to="#script">Script</router-link>
                   </li>
                   <li>
@@ -181,6 +184,17 @@ docker run --rm -it \
               The values can be set with environment variables on the first start of Kellnr. If you ran
               the container with a mounted volume for persistence, all variables are ignored.
             </TextBlock>
+
+            <SubHeader id="package-managers">Package Managers</SubHeader>
+            <TextBlock>
+              Kellnr can be found in the Arch User Repo (aur): <a
+                href="https://aur.archlinux.org/packages/kellnr">Kellnr - AUR</a>
+              If you use the <a href="https://github.com/Jguer/yay">yay</a> package manager you can install Kellnr with the following command.
+            </TextBlock>
+            <CodeBlock>
+              <pre v-highlightjs><code class="bash"># Install Kellnr with yay
+yay -S kellnt</code></pre>
+            </CodeBlock>        
 
             <SubHeader id="script">Script</SubHeader>
             <TextBlock>
