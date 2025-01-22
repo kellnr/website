@@ -47,7 +47,12 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="18. January 2025" version="5.3.0" is-latest="true">
+                            <ChangeLogItem date="22. January 2025" version="5.3.1" is-latest="true">
+                                <ChangeLogListItem type="Fixed">Wrong version shown in web ui <a
+                                        href="https://github.com/kellnr/kellnr/issues/583">#583</a>
+                                </ChangeLogListItem>
+                            </ChangeLogItem>
+                            <ChangeLogItem date="18. January 2025" version="5.3.0">
                                 <ChangeLogListItem type="Updated">All dependencies</ChangeLogListItem>
                                 <ChangeLogListItem type="Fixed">Empty user and password allowed <a
                                         href="https://github.com/kellnr/kellnr/issues/572">#572</a></ChangeLogListItem>
