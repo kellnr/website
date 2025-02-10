@@ -1,4 +1,4 @@
-import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import LandingView from "../views/LandingView.vue";
 import ChangelogView from "../views/ChangelogView.vue";
 import DocumentationV5View from "../views/DocumentationV5View.vue";
@@ -16,6 +16,7 @@ import DomainModeling from "../views/posts/DomainModeling.vue";
 import OpenSource from "../views/posts/OpenSource.vue";
 import CrossPlatNativeLib from "../views/posts/CrossPlatNativeLib.vue";
 import Release5 from "../views/posts/Release5.vue";
+import RustAssembly from "../views/posts/RustAssembly.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -113,6 +114,11 @@ const router = createRouter({
             path: '/blog/cross-plat-native-lib',
             name: 'cross-plat-native-lib',
             component: CrossPlatNativeLib
+        },
+        {
+            path: '/blog/rust-assembly',
+            name: 'rust-assembly',
+            component: RustAssembly
         },
         // Default route to redirect all unknown paths to the landing page
         {

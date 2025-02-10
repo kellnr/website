@@ -40,14 +40,18 @@ import HeroCard from "../components/blog/HeroCard.vue";
     <section class="section">
       <div class="container">
         <div class="row">
+
+          <HeroCard title="Testing Assembly Code with Rust" date="08. Februar, 2025" link="rust-assembly"
+            img="images/kellnr/blog/ferris.png"></HeroCard>
+
           <HeroCard title="Wrapping Cross-Platform Native Libraries in Rust" date="14. January, 2024"
             link="cross-plat-native-lib" img="images/kellnr/blog/ferris.png"></HeroCard>
 
-          <HeroCard title="Kellnr 5.0.0 Release" date="28. November, 2023"
-            link="release5" img="images/kellnr/blog/kellnr-logo.png"></HeroCard>
+          <HeroCard title="Kellnr 5.0.0 Release" date="28. November, 2023" link="release5"
+            img="images/kellnr/blog/kellnr-logo.png"></HeroCard>
 
-          <HeroCard title="Kellnr goes Open-Source" date="20. September, 2023"
-            link="open-source" img="images/kellnr/blog/kellnr-logo.png"></HeroCard>
+          <HeroCard title="Kellnr goes Open-Source" date="20. September, 2023" link="open-source"
+            img="images/kellnr/blog/kellnr-logo.png"></HeroCard>
 
           <HeroCard title="Leveraging the Type System for Domain Modeling in Rust" date="15. June, 2023"
             link="domain-modeling" img="images/kellnr/blog/ferris.png"></HeroCard>
