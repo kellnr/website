@@ -167,13 +167,13 @@ import MainHeader from "../components/elements/MainHeader.vue";
 # All data (crates, users) will be deleted with the container when the container terminates
 docker run --rm -it \
     -p 8000:8000 \
-    -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" ghcr.io/kellnr/kellnr:5.0.0
+    -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" ghcr.io/kellnr/kellnr:5
 
 # To run the container with persistence for all data (crates, users) mount a volume into the container
 docker run --rm -it \
     -p 8000:8000 \
     -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" \
-    -v $(pwd):/opt/kdata ghcr.io/kellnr/kellnr:5.0.0</code></pre>
+    -v $(pwd):/opt/kdata ghcr.io/kellnr/kellnr:5</code></pre>
             </CodeBlock>
 
             <TextBlock>
@@ -303,6 +303,9 @@ sudo systemctl status kellnr
 # - x86_64-unknown-linux-gnu
 # - aarch64-unknown-linux-gnu
 # - armv7-unknown-linux-gnueabihf
+# - x86_64-unknown-linux-musl
+# - aarch64-unknown-linux-musl
+# - armv7-unknown-linux-musleabihf
 curl --output kellnr-latest.zip "https://github.com/kellnr/kellnr/releases/latest/download/kellnr-$ARCH.zip"
 
 # Unzip
@@ -440,6 +443,13 @@ helm uninstall kellnr</code></pre>
                   <td>KELLNR_REGISTRY__AUTH_REQUIRED</td>
                   <td>false</td>
                   <td>Enable/Disable authentication for crates pulls and disable anonymous users for the web UI.</td>
+                </tr>
+                <tr>
+                  <td>[registry]<br/>required_crate_fields </td>
+                  <td>KELLNR_REGISTRY__REQUIRED_CRATE_FIELDS</td>
+                  <td>[]</td>
+                  <td>Requires fields to be defined on upload crates. Leave empty to not add restrictions. If set to e.g. ["authors", "repository"], all uploaded crates have to have the authors and repository defined in their Cargo.toml's.
+                  </td>
                 </tr>
                 <tr>
                   <td>[local]<br/>ip</td>
