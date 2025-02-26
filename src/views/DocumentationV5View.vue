@@ -158,7 +158,7 @@ import MainHeader from "../components/elements/MainHeader.vue";
             <TextBlock>
               The easiest way to run Kellnr is a Docker container, as no further installation steps
               are required.
-              You can find the latest version tag on the <a href="https://github.com/kellnr/kellnr/releases">Kellnr
+              You can find the latest version tag on the <a href="https://github.com/kellnr/kellnr/pkgs/container/kellnr">Kellnr
                 releases</a> page.
             </TextBlock>
 
