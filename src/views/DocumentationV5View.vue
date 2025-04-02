@@ -158,22 +158,23 @@ import MainHeader from "../components/elements/MainHeader.vue";
             <TextBlock>
               The easiest way to run Kellnr is a Docker container, as no further installation steps
               are required.
-              You can find the latest version tag on the <a href="https://github.com/kellnr/kellnr/pkgs/container/kellnr">Kellnr
+              You can find the latest version tag on the <a
+                href="https://github.com/kellnr/kellnr/pkgs/container/kellnr">Kellnr
                 releases</a> page.
             </TextBlock>
 
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Run Kellnr non-persistent for testing.
-# All data (crates, users) will be deleted with the container when the container terminates
-docker run --rm -it \
-    -p 8000:8000 \
-    -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" ghcr.io/kellnr/kellnr:5
+                  # All data (crates, users) will be deleted with the container when the container terminates
+                  docker run --rm -it \
+                  -p 8000:8000 \
+                  -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" ghcr.io/kellnr/kellnr:5
 
-# To run the container with persistence for all data (crates, users) mount a volume into the container
-docker run --rm -it \
-    -p 8000:8000 \
-    -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" \
-    -v $(pwd):/opt/kdata ghcr.io/kellnr/kellnr:5</code></pre>
+                  # To run the container with persistence for all data (crates, users) mount a volume into the container
+                  docker run --rm -it \
+                  -p 8000:8000 \
+                  -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" \
+                  -v $(pwd):/opt/kdata ghcr.io/kellnr/kellnr:5</code></pre>
             </CodeBlock>
 
             <TextBlock>
@@ -189,19 +190,20 @@ docker run --rm -it \
             <TextBlock>
               Kellnr can be found in the Arch User Repo (aur): <a
                 href="https://aur.archlinux.org/packages/kellnr">Kellnr - AUR</a>
-              If you use the <a href="https://github.com/Jguer/yay">yay</a> package manager you can install Kellnr with the following command.
+              If you use the <a href="https://github.com/Jguer/yay">yay</a> package manager you can install Kellnr with
+              the following command.
             </TextBlock>
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Install Kellnr with yay
-yay -S kellnr</code></pre>
-            </CodeBlock>        
+                  yay -S kellnr</code></pre>
+            </CodeBlock>
 
             <SubHeader id="script">Script</SubHeader>
             <TextBlock>
               The installation script is tested on current Debian Server versions. Any other modern Linux
               distribution may work, but we cannot guarantee that. If the script does not work for your distribution,
               try the <i>-m</i> flag. This forces the installer script to use a static binary compiled with <i>musl</i>,
-              which works independent of any distribution. If that does not work, have a look at "Manual Installation". 
+              which works independent of any distribution. If that does not work, have a look at "Manual Installation".
               The script will automatically install the right
               version for your architecture. Currently supported are x64 and aarch64 (arm64). <br />
               <br />
@@ -213,22 +215,24 @@ yay -S kellnr</code></pre>
 
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Go to the directory where Kellnr should be installed. For example:
-cd ~
+                  cd ~
 
-# Example: Download and install Kellnr as a systemd service with custom admin password for Kellnr
-curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo bash -s -- -s -p myadminpwd
-# Alternatively, you can use the following command if you installed cargo using rustup:
-curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo PATH="$HOME/.cargo/bin:$PATH" bash -s -- -s -p myadminpwd
+                  # Example: Download and install Kellnr as a systemd service with custom admin password for Kellnr
+                  curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo bash -s -- -s -p
+                  myadminpwd
+                  # Alternatively, you can use the following command if you installed cargo using rustup:
+                  curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo
+                  PATH="$HOME/.cargo/bin:$PATH" bash -s -- -s -p myadminpwd
 
-# Start the service (if installed with -s flag)
-sudo systemctl enable kellnr
-sudo systemctl start kellnr
+                  # Start the service (if installed with -s flag)
+                  sudo systemctl enable kellnr
+                  sudo systemctl start kellnr
 
-# Check if the service runs
-sudo systemctl status kellnr
+                  # Check if the service runs
+                  sudo systemctl status kellnr
 
-# Open the ports defined in the default.toml (default 8000)
-</code></pre>
+                  # Open the ports defined in the default.toml (default 8000)
+                </code></pre>
             </CodeBlock>
 
             <TableBlock>
@@ -299,33 +303,34 @@ sudo systemctl status kellnr
             </TextBlock>
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Download latest Kellnr version
-# $ARCH can be:
-# - x86_64-unknown-linux-gnu
-# - aarch64-unknown-linux-gnu
-# - armv7-unknown-linux-gnueabihf
-# - x86_64-unknown-linux-musl
-# - aarch64-unknown-linux-musl
-# - armv7-unknown-linux-musleabihf
-curl --output kellnr-latest.zip "https://github.com/kellnr/kellnr/releases/latest/download/kellnr-$ARCH.zip"
+                  # $ARCH can be:
+                  # - x86_64-unknown-linux-gnu
+                  # - aarch64-unknown-linux-gnu
+                  # - x86_64-unknown-linux-musl
+                  # - aarch64-unknown-linux-musl
+                  curl --output kellnr-latest.zip
+                  "https://github.com/kellnr/kellnr/releases/latest/download/kellnr-$ARCH.zip"
 
-# Unzip
-unzip -o kellnr-latest.zip -d ./kellnr
+                  # Unzip
+                  unzip -o kellnr-latest.zip -d ./kellnr
 
-# Check the configuration file and edit if needed
-# You may want to change the
-#   - admin_pwd
-#   - data_dir (Path where Kellnr stores its data. Different from installation directory. Must exists on disk)
+                  # Check the configuration file and edit if needed
+                  # You may want to change the
+                  # - admin_pwd
+                  # - data_dir (Path where Kellnr stores its data. Different from installation directory. Must exists on
+                  disk)
 
-# Open the ports defined in the default.toml (default 8000)
+                  # Open the ports defined in the default.toml (default 8000)
 
-# Start Kellnr
-cd ./kellnr && ./kellnr</code></pre>
+                  # Start Kellnr
+                  cd ./kellnr && ./kellnr</code></pre>
             </CodeBlock>
 
             <SubHeader id="helm-chart">Helm Chart</SubHeader>
             <TextBlock>
               The recommended way to install Kellnr on Kubernetes is with a Helm Chart. You can find the
-              documentation for installing Kellnr with a Helm Chart here: <a href="https://github.com/kellnr/helm">Kellnr
+              documentation for installing Kellnr with a Helm Chart here: <a
+                href="https://github.com/kellnr/helm">Kellnr
                 Helm Chart</a>
             </TextBlock>
 
@@ -337,9 +342,9 @@ cd ./kellnr && ./kellnr</code></pre>
 
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Change to the directory containing the Kellnr installation
-cd ~
-# Run the uninstaller
-curl -s https://raw.githubusercontent.com/kellnr/installer/main/uninstall.sh | sudo bash</code></pre>
+                  cd ~
+                  # Run the uninstaller
+                  curl -s https://raw.githubusercontent.com/kellnr/installer/main/uninstall.sh | sudo bash</code></pre>
             </CodeBlock>
 
             <TextBlock>
@@ -350,7 +355,7 @@ curl -s https://raw.githubusercontent.com/kellnr/installer/main/uninstall.sh | s
 
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Uninstall Kellnr Helm Chart
-helm uninstall kellnr</code></pre>
+                  helm uninstall kellnr</code></pre>
             </CodeBlock>
 
             <MainHeader id="configuration">Configuration</MainHeader>
@@ -395,31 +400,31 @@ helm uninstall kellnr</code></pre>
               </thead>
               <tbody>
                 <tr>
-                  <td>[setup]<br/>admin_pwd</td>
+                  <td>[setup]<br />admin_pwd</td>
                   <td>KELLNR_SETUP__ADMIN_PWD</td>
                   <td>admin</td>
                   <td>Password for the admin user. Used on first start only.</td>
                 </tr>
                 <tr>
-                  <td>[setup]<br/>admin_token</td>
+                  <td>[setup]<br />admin_token</td>
                   <td>KELLNR_SETUP__ADMIN_TOKEN</td>
                   <td>Zy9HhJ02RJmg0GCrgLfaCVfU6IwDfhXD</td>
                   <td>Authentication token for the admin user. Used on first start only.</td>
                 </tr>
                 <tr>
-                  <td>[registry]<br/>data_dir</td>
+                  <td>[registry]<br />data_dir</td>
                   <td>KELLNR_REGISTRY__DATA_DIR</td>
                   <td>/opt/kdata</td>
                   <td>Directory where Kellnr stores all its data.</td>
                 </tr>
                 <tr>
-                  <td>[registry]<br/>session_age_seconds</td>
+                  <td>[registry]<br />session_age_seconds</td>
                   <td>KELLNR_REGISTRY__SESSION_AGE_SECONDS</td>
                   <td>28800</td>
                   <td>Seconds until a user is logged out of his browser session.</td>
                 </tr>
                 <tr>
-                  <td>[registry]<br/>cache_size</td>
+                  <td>[registry]<br />cache_size</td>
                   <td>KELLNR_REGISTRY_CACHE_SIZE</td>
                   <td>1000</td>
                   <td>Number of crates cached in-memory to decrease disk I/O. If set to "0" the
@@ -427,50 +432,52 @@ helm uninstall kellnr</code></pre>
                   </td>
                 </tr>
                 <tr>
-                  <td>[registry]<br/>max_crate_size</td>
+                  <td>[registry]<br />max_crate_size</td>
                   <td>KELLNR_REGISTRY__MAX_CRATE_SIZE</td>
                   <td>10</td>
                   <td>Max size of crates allowed to be uploaded in MB.</td>
                 </tr>
                 <tr>
-                  <td>[registry]<br/>max_db_connections</td>
+                  <td>[registry]<br />max_db_connections</td>
                   <td>KELLNR_REGISTRY__MAX_DB_CONNECTIONS</td>
                   <td>0</td>
                   <td>Max number of internal database connections. "0" disables the limit.</td>
                 </tr>
                 <tr>
-                  <td>[registry]<br/>auth_required</td>
+                  <td>[registry]<br />auth_required</td>
                   <td>KELLNR_REGISTRY__AUTH_REQUIRED</td>
                   <td>false</td>
                   <td>Enable/Disable authentication for crates pulls and disable anonymous users for the web UI.</td>
                 </tr>
                 <tr>
-                  <td>[registry]<br/>required_crate_fields </td>
+                  <td>[registry]<br />required_crate_fields </td>
                   <td>KELLNR_REGISTRY__REQUIRED_CRATE_FIELDS</td>
                   <td>[]</td>
-                  <td>Requires fields to be defined on upload crates. Leave empty to not add restrictions. If set to e.g. ["authors", "repository"], all uploaded crates have to have the authors and repository defined in their Cargo.toml's.
+                  <td>Requires fields to be defined on upload crates. Leave empty to not add restrictions. If set to
+                    e.g. ["authors", "repository"], all uploaded crates have to have the authors and repository defined
+                    in their Cargo.toml's.
                   </td>
                 </tr>
                 <tr>
-                  <td>[local]<br/>ip</td>
+                  <td>[local]<br />ip</td>
                   <td>KELLNR_LOCAL__IP</td>
                   <td>0.0.0.0</td>
                   <td>IP address where Kellnr listens. Usually this does not need to be changed.</td>
                 </tr>
                 <tr>
-                  <td>[local]<br/>port</td>
+                  <td>[local]<br />port</td>
                   <td>KELLNR_LOCAL__PORT</td>
                   <td>8000</td>
                   <td>Port where Kellnr listens.</td>
                 </tr>
                 <tr>
-                  <td>[origin]<br/>hostname</td>
+                  <td>[origin]<br />hostname</td>
                   <td>KELLNR_ORIGIN__HOSTNAME</td>
                   <td>127.0.0.1</td>
                   <td>Hostname where Kellnr is reachable from, e.g. DNS name behind a reverse proxy.</td>
                 </tr>
                 <tr>
-                  <td>[origin]<br/>port</td>
+                  <td>[origin]<br />port</td>
                   <td>KELLNR_ORIGIN__PORT</td>
                   <td>8000</td>
                   <td>If a proxy is in front of Kellnr with a different port as Kellnr itself,
@@ -479,7 +486,7 @@ helm uninstall kellnr</code></pre>
                   </td>
                 </tr>
                 <tr>
-                  <td>[origin]<br/>protocol</td>
+                  <td>[origin]<br />protocol</td>
                   <td>KELLNR_ORIGIN__PROTOCOL</td>
                   <td>http</td>
                   <td>Either "http" or "https". This does not enable TLS on Kellnr, but needs to be set if
@@ -487,82 +494,130 @@ helm uninstall kellnr</code></pre>
                   </td>
                 </tr>
                 <tr>
-                  <td>[log]<br/>level</td>
+                  <td>[log]<br />level</td>
                   <td>KELLNR_LOG__LEVEL</td>
                   <td>info</td>
                   <td>Log level for debugging. Either "trace", "debug", "info", "warn" or "error".</td>
                 </tr>
                 <tr>
-                  <td>[log]<br/>level_web_server</td>
+                  <td>[log]<br />level_web_server</td>
                   <td>KELLNR_LOG__LEVEL_WEB_SERVER</td>
                   <td>warn</td>
                   <td>Log level for debugging. Either "trace", "debug", "info", "warn" or "error".</td>
                 </tr>
                 <tr>
-                  <td>[log]<br/>format</td>
+                  <td>[log]<br />format</td>
                   <td>KELLNR_LOG__FORMAT</td>
                   <td>compact</td>
                   <td>Format of the log output. Either "compact", "pretty" or "json".</td>
                 </tr>
                 <tr>
-                  <td>[proxy]<br/>enabled</td>
+                  <td>[proxy]<br />enabled</td>
                   <td>KELLNR_PROXY__ENABLED</td>
                   <td>false</td>
                   <td>Enable crates.io proxy to use Kellnr as a proxy-cache for crates.io.</td>
                 </tr>
                 <tr>
-                  <td>[proxy]<br/>num_threads</td>
+                  <td>[proxy]<br />num_threads</td>
                   <td>KELLNR_PROXY__NUM_THREADS</td>
                   <td>10</td>
                   <td>Number of threads used to keep crates.io cache up-to-date.</td>
                 </tr>
                 <tr>
-                  <td>[docs]<br/>enabled</td>
+                  <td>[docs]<br />enabled</td>
                   <td>KELLNR_DOCS__ENABLED</td>
                   <td>false</td>
                   <td>If "true", rustdocs are generated for each uploaded crate automatically.</td>
                 </tr>
                 <tr>
-                  <td>[docs]<br/>max_size</td>
+                  <td>[docs]<br />max_size</td>
                   <td>KELLNR_DOCS__MAX_SIZE</td>
                   <td>100</td>
                   <td>Max size of crate docs allowed to be uploaded in MB.</td>
                 </tr>
                 <tr>
-                  <td>[postgresql]<br/>enabled</td>
+                  <td>[postgresql]<br />enabled</td>
                   <td>KELLNR_POSTGRESQL__ENABLED</td>
                   <td>false</td>
                   <td>Enable PostgreSQL instead of Sqlite</td>
                 </tr>
                 <tr>
-                  <td>[postgresql]<br/>address</td>
+                  <td>[postgresql]<br />address</td>
                   <td>KELLNR_POSTGRESQL__ADDRESS</td>
                   <td>localhost</td>
                   <td>Address of the PostgreSQL server</td>
                 </tr>
                 <tr>
-                  <td>[postgresql]<br/>port</td>
+                  <td>[postgresql]<br />port</td>
                   <td>KELLNR_POSTGRESQL__PORT</td>
                   <td>5432</td>
                   <td>Port of the PostgreSQL server</td>
                 </tr>
                 <tr>
-                  <td>[postgresql]<br/>db</td>
+                  <td>[postgresql]<br />db</td>
                   <td>KELLNR_POSTGRESQL__DB</td>
                   <td>kellnr</td>
                   <td>Database name of the PostgreSQL server</td>
                 </tr>
                 <tr>
-                  <td>[postgresql]<br/>.user</td>
+                  <td>[postgresql]<br />.user</td>
                   <td>KELLNR_POSTGRESQL__USER</td>
                   <td></td>
                   <td>User name of the PostgreSQL database</td>
                 </tr>
                 <tr>
-                  <td>[postgresql]<br/>pwd</td>
+                  <td>[postgresql]<br />pwd</td>
                   <td>KELLNR_POSTGRESQL__PWD</td>
                   <td></td>
                   <td>Password of the PostgreSQL database</td>
+                </tr>
+                <tr>
+                  <td>[s3]<br />enabled</td>
+                  <td>KELLNR_S3__ENABLED</td>
+                  <td>false</td>
+                  <td>Enable S3 storage instead of local file system</td>
+                </tr>
+                <tr>
+                  <td>[s3]<br />access_key</td>
+                  <td>KELLNR_S3__ACCESS_KEY</td>
+                  <td>minioadmin</td>
+                  <td>Access key for the S3 storage</td>
+                </tr>
+                <tr>
+                  <td>[s3]<br />secret_key</td>
+                  <td>KELLNR_S3__SECRET_KEY</td>
+                  <td>minioadmin</td>
+                  <td>Secret key for the S3 storage</td>
+                </tr>
+                <tr>
+                  <td>[s3]<br />region</td>
+                  <td>KELLNR_S3__REGION</td>
+                  <td>us-east-1</td>
+                  <td>Region of the S3 storage</td>
+                </tr>
+                <tr>
+                  <td>[s3]<br />endpoint</td>
+                  <td>KELLNR_S3__ENDPOINT</td>
+                  <td>http://localhost:9000</td>
+                  <td>Endpoint of the S3 storage</td>
+                </tr>
+                <tr>
+                  <td>[s3]<br />allow_http</td>
+                  <td>KELLNR_S3__ALLOW_HTTP</td>
+                  <td>true</td>
+                  <td>Allow unsecure S3 connection with HTTP</td>
+                </tr>
+                <tr>
+                  <td>[s3]<br />crates_bucket</td>
+                  <td>KELLNR_S3__CRATES_BUCKET</td>
+                  <td>kellnr-crates</td>
+                  <td>Bucket where Kellnr stores uploaded crates</td>
+                </tr>
+                <tr>
+                  <td>[s3]<br />cratesio_bucket</td>
+                  <td>KELLNR_S3__CRATESIO_BUCKET</td>
+                  <td>kellnr-cratesio</td>
+                  <td>Bucket for crates.io crates if the proxy is enabled</td>
                 </tr>
               </tbody>
             </TableBlock>
@@ -573,23 +628,35 @@ helm uninstall kellnr</code></pre>
               <router-link to="#configure-cargo">Configure Cargo
               </router-link>
               for more information. Authentication on
-              pull can be enabled by setting the flag <i>auth_required</i> to <i>true</i> in the config. This will force cargo to authenticte on pull as well and the flag forces users of the web UI to log in, to see any details of crates.
-              <br/>
-              <br/>
-              If the <i>auth_required</i> flag is set to <i>true</i>, Kellnr needs to be able to authenticate against itself. If the doc generation is enabled, the docs can only be build sucessfully, if Kellnr can pull the dependencies from itself. 
-              To allow that, you have to provide Kellnr with a valid registry authentication token for itself. See <a href="https://doc.rust-lang.org/cargo/reference/config.html#hierarchical-structure">Cargo Config</a>, where Kellnr searches for a config.
-              <br/>
-	      <br/>
-	      It is also possible to restrict crate pulls on a per-crate basis using crate access restriction (available in the web UI for administrator users in the settings tab). When only specific crate users are allowed to download crates, cargo shall be authenticated on pull using the credentials of a user added to the crate users list.
-	      <br/>
-              <br/>
-              In the case of the Kellnr Docker image, you can mount a volume that contains the config file with the authentication token to <i>/usr/local/cargo/config.toml</i>.
-              <br/>
-              <br/>
+              pull can be enabled by setting the flag <i>auth_required</i> to <i>true</i> in the config. This will force
+              cargo to authenticte on pull as well and the flag forces users of the web UI to log in, to see any details
+              of crates.
+              <br />
+              <br />
+              If the <i>auth_required</i> flag is set to <i>true</i>, Kellnr needs to be able to authenticate against
+              itself. If the doc generation is enabled, the docs can only be build sucessfully, if Kellnr can pull the
+              dependencies from itself.
+              To allow that, you have to provide Kellnr with a valid registry authentication token for itself. See <a
+                href="https://doc.rust-lang.org/cargo/reference/config.html#hierarchical-structure">Cargo Config</a>,
+              where Kellnr searches for a config.
+              <br />
+              <br />
+              It is also possible to restrict crate pulls on a per-crate basis using crate access restriction (available
+              in the web UI for administrator users in the settings tab). When only specific crate users are allowed to
+              download crates, cargo shall be authenticated on pull using the credentials of a user added to the crate
+              users list.
+              <br />
+              <br />
+              In the case of the Kellnr Docker image, you can mount a volume that contains the config file with the
+              authentication token to <i>/usr/local/cargo/config.toml</i>.
+              <br />
+              <br />
               E.g. <i>docker run -v /path/to/config.toml:/usr/local/cargo/config.toml:ro ghcr.io/kellnr/kellnr:5.2.4</i>
-              <br/>
-              <br/>
-              For more information about authentication and how to configure cargo to use it see: <a href="https://doc.rust-lang.org/nightly/cargo/reference/registry-authentication.html">Registry Authentication</a>
+              <br />
+              <br />
+              For more information about authentication and how to configure cargo to use it see: <a
+                href="https://doc.rust-lang.org/nightly/cargo/reference/registry-authentication.html">Registry
+                Authentication</a>
             </TextBlock>
 
 
@@ -603,7 +670,10 @@ helm uninstall kellnr</code></pre>
               to <i>true</i>.<br />
               <br />
               <b>Attention</b><br />
-              If you enable the proxy, Kellnr caches every crate from crates.io that is requested through Kellnr. This means that the first download of a crate is a bit slower, as it is first downloaded from crates.io and than cached by Kellnr. All subsequent request are faster, as Kellnr now responses from the cache and crates.io is not requested anymore.
+              If you enable the proxy, Kellnr caches every crate from crates.io that is requested through Kellnr. This
+              means that the first download of a crate is a bit slower, as it is first downloaded from crates.io and
+              than cached by Kellnr. All subsequent request are faster, as Kellnr now responses from the cache and
+              crates.io is not requested anymore.
               <br />
               We strongly recommend to run Kellnr on fast SSD storage if you enable the crates.io proxy.
               The index is very IO heavy and the speed of the disk determines how fast cargo is able to
@@ -657,13 +727,13 @@ helm uninstall kellnr</code></pre>
             </TextBlock>
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Example .cargo/config.toml
-# The index needs to point to the host where your Kellnr instance runs
-# The token is the authentication token for the user configured in Kellnr
-[registries.kellnr]
-index = "sparse+https://yourkellnrhostname/api/v1/crates/"
-credential-provider = ["cargo:token"]
-token = "yourauthtoken"
-</code></pre>
+                  # The index needs to point to the host where your Kellnr instance runs
+                  # The token is the authentication token for the user configured in Kellnr
+                  [registries.kellnr]
+                  index = "sparse+https://yourkellnrhostname/api/v1/crates/"
+                  credential-provider = ["cargo:token"]
+                  token = "yourauthtoken"
+                </code></pre>
             </CodeBlock>
           </div>
 
@@ -696,36 +766,36 @@ token = "yourauthtoken"
           </TextBlock>
           <CodeBlock>
             <pre v-highlightjs><code class="bash"># Example Cargo.toml which uses a dependency from Kellnr
-# The registry name has to be the one defined in .cargo/config.toml
-[package]
-authors = ["myauthor "]
-edition = "2018"
-name = "my_crate"
-version = "0.1.0"
+                # The registry name has to be the one defined in .cargo/config.toml
+                [package]
+                authors = ["myauthor "]
+                edition = "2018"
+                name = "my_crate"
+                version = "0.1.0"
 
-[dependencies]
-my_dep = {version = "1.1.0", registry = "kellnr"}</code></pre>
+                [dependencies]
+                my_dep = {version = "1.1.0", registry = "kellnr"}</code></pre>
           </CodeBlock>
           <CodeBlock>
             <pre v-highlightjs><code class="bash"># Example Cargo.toml to publish to Kellnr
-# The publish name has to be the one defined in .cargo/config.toml
-[package]
-authors = ["myauthor "]
-edition = "2018"
-name = "my_crate"
-version = "0.1.0"
-publish = ["kellnr"]
+                # The publish name has to be the one defined in .cargo/config.toml
+                [package]
+                authors = ["myauthor "]
+                edition = "2018"
+                name = "my_crate"
+                version = "0.1.0"
+                publish = ["kellnr"]
 
-[dependencies]
-# ... Dependencies ... </code></pre>
+                [dependencies]
+                # ... Dependencies ... </code></pre>
           </CodeBlock>
           <TextBlock>Instead of adding the <i>publish</i> field in the <i>Cargo.toml</i> the registry to
             publish to can be set dynamically on cargo <i>publish</i>.
           </TextBlock>
           <CodeBlock>
             <pre v-highlightjs><code class="bash"># Publish to Kellnr by setting the registry to use dynamically
-# The registry name has to be the one defined in .cargo/config.toml
-cargo publish --registry kellnr</code></pre>
+                # The registry name has to be the one defined in .cargo/config.toml
+                cargo publish --registry kellnr</code></pre>
           </CodeBlock>
 
           <SubHeader id="cratesio-proxy-cache">Crates.io Proxy Cache</SubHeader>
@@ -748,25 +818,25 @@ cargo publish --registry kellnr</code></pre>
           </TextBlock>
           <CodeBlock>
             <pre v-highlightjs><code class="bash"># .cargo/config
-# Set the Kellnr crates.io proxy. Important is the path "/cratesio".
+                # Set the Kellnr crates.io proxy. Important is the path "/cratesio".
 
-[registries.kellnr-cratesio]
-index = "sparse+https://yourkellnrhostname/api/v1/cratesio/"
-</code></pre>
+                [registries.kellnr-cratesio]
+                index = "sparse+https://yourkellnrhostname/api/v1/cratesio/"
+              </code></pre>
           </CodeBlock>
           <TextBlock>
             To pull a crate from the cache, specify Kellnr in the <i>Cargo.toml</i>.
           </TextBlock>
           <CodeBlock>
             <pre v-highlightjs><code class="bash">[package]
-name = "my_crate"
-version = "0.1.0"
-edition = "2021"
+                name = "my_crate"
+                version = "0.1.0"
+                edition = "2021"
 
-[dependencies]
-# specify the kellnr-cratesio proxy as the source
-git2 = { version ="*", registry = "kellnr-cratesio"}
-</code></pre>
+                [dependencies]
+                # specify the kellnr-cratesio proxy as the source
+                git2 = { version ="*", registry = "kellnr-cratesio"}
+              </code></pre>
           </CodeBlock>
 
           <SubHeader id="replace-cratesio">Replace Crates.io with Kellnr Proxy Cache</SubHeader>
@@ -777,10 +847,10 @@ git2 = { version ="*", registry = "kellnr-cratesio"}
           </TextBlock>
           <CodeBlock>
             <pre v-highlightjs><code class="bash"># .cargo/config
-[source.crates-io]
-replace-with = "kellnr-cratesio"
-[source.kellnr-cratesio]
-registry = "sparse+https://yourkellnrhostname/api/v1/cratesio/"</code></pre>
+                [source.crates-io]
+                replace-with = "kellnr-cratesio"
+                [source.kellnr-cratesio]
+                registry = "sparse+https://yourkellnrhostname/api/v1/cratesio/"</code></pre>
           </CodeBlock>
           <TextBlock>
             Now, all crates in the <i>Cargo.toml</i> are pulled from the Kellnr proxy instead from
@@ -788,12 +858,12 @@ registry = "sparse+https://yourkellnrhostname/api/v1/cratesio/"</code></pre>
           </TextBlock>
           <CodeBlock>
             <pre v-highlightjs><code class="bash">[package]
-name = "my_crate"
-version = "0.1.0"
-edition = "2021"
+                name = "my_crate"
+                version = "0.1.0"
+                edition = "2021"
 
-[dependencies]
-git2 = "*" # Pulled from Kellnr proxy instead of crates.io</code></pre>
+                [dependencies]
+                git2 = "*" # Pulled from Kellnr proxy instead of crates.io</code></pre>
           </CodeBlock>
 
           <MainHeader id="rustdoc">
@@ -802,7 +872,8 @@ git2 = "*" # Pulled from Kellnr proxy instead of crates.io</code></pre>
           <TextBlock>
             With <a href="https://doc.rust-lang.org/rustdoc/index.html">rustdoc</a>, the Rust ecosystem has
             a widely adapted solution to document crates. Kellnr is able to host the corresponding
-            documentation for a crate, such that no additional web server is needed. Enable automatic rustdoc generation by setting the <i>docs.enabled</i> flag to <i>true</i>.<br />
+            documentation for a crate, such that no additional web server is needed. Enable automatic rustdoc generation
+            by setting the <i>docs.enabled</i> flag to <i>true</i>.<br />
             <br />
             <b>Attention</b><br />
             As crates on Kellnr can have dependencies to other crates on Kellnr, it is important that Kellnr
@@ -813,27 +884,29 @@ git2 = "*" # Pulled from Kellnr proxy instead of crates.io</code></pre>
           </TextBlock>
 
           <CodeBlock>
-            <pre v-highlightjs><code class="bash"># If you need to inject your own ca-certificate to the docker container, it will be
-# automatically picked up by update-ca-certificates if you mount it like this:
-docker run --rm -it \
-    ... \
-    -v your-ca.crt:/usr/local/share/ca-certificates/user-ca.crt:ro
+            <pre v-highlightjs><code class="bash"># If you need to inject your own ca-certificate to the docker
+                container, it will be
+                # automatically picked up by update-ca-certificates if you mount it like this:
+                docker run --rm -it \
+                ... \
+                -v your-ca.crt:/usr/local/share/ca-certificates/user-ca.crt:ro
 
-# If you need to inject the local registry authentication to the container (auth_required=true):
-docker run --rm -it \
-    ... \
-    -v your-cargo-config.toml:/root/.cargo/config.toml:ro
+                # If you need to inject the local registry authentication to the container (auth_required=true):
+                docker run --rm -it \
+                ... \
+                -v your-cargo-config.toml:/root/.cargo/config.toml:ro
 
-# which could look like:
-[registries]
-[registries.kellnr]
-index = "sparse+https://yourkellnrhostname/api/v1/crates/"
-credential-provider = ["cargo:token"]
-token = "yourauthtoken"</code></pre>
+                # which could look like:
+                [registries]
+                [registries.kellnr]
+                index = "sparse+https://yourkellnrhostname/api/v1/crates/"
+                credential-provider = ["cargo:token"]
+                token = "yourauthtoken"</code></pre>
           </CodeBlock>
 
           <WarnBlock>
-            To build <i>rustdocs</i>, the <i>crate</i> needs to be compiled. While that happens, arbitrary and potentially
+            To build <i>rustdocs</i>, the <i>crate</i> needs to be compiled. While that happens, arbitrary and
+            potentially
             malicious code, included in a dependency, can be executed. Make sure you trust the code you build the docs
             for!
           </WarnBlock>
@@ -848,22 +921,23 @@ token = "yourauthtoken"</code></pre>
           </TextBlock>
           <CodeBlock>
             <pre v-highlightjs><code class="bash"># Generate documentation for your crate
-cargo doc</code></pre>
+                cargo doc</code></pre>
           </CodeBlock>
           <TextBlock>
             Next, zip and upload the documentation to Kellnr.
           </TextBlock>
           <CodeBlock>
-            <pre
-              v-highlightjs><code class="bash"># Package documentation for the upload
-cd ./target
-zip -r doc.zip ./doc
-# Upload documentation to Kellnr --> Replace values in brackets
-curl -H "Authorization: {authorization token}" http://{Kellnr host}/api/v1/docs/{crate name}/{crate version} --upload-file {docs archive}# Package documentation for the upload
-cd ./target
-zip -r doc.zip ./doc
-# Upload documentation to Kellnr --> Replace values in brackets
-curl -H "Authorization: {authorization token}" http://{Kellnr host}/api/v1/docs/{crate name}/{crate version} --upload-file {docs archive}</code></pre>
+            <pre v-highlightjs><code class="bash"># Package documentation for the upload
+                cd ./target
+                zip -r doc.zip ./doc
+                # Upload documentation to Kellnr --> Replace values in brackets
+                curl -H "Authorization: {authorization token}" http://{Kellnr host}/api/v1/docs/{crate name}/{crate
+                version} --upload-file {docs archive}# Package documentation for the upload
+                cd ./target
+                zip -r doc.zip ./doc
+                # Upload documentation to Kellnr --> Replace values in brackets
+                curl -H "Authorization: {authorization token}" http://{Kellnr host}/api/v1/docs/{crate name}/{crate
+                version} --upload-file {docs archive}</code></pre>
           </CodeBlock>
           <TextBlock>
             To upload the documentation, Kellnr checks that a crate with a corresponding version exists and
@@ -880,14 +954,17 @@ curl -H "Authorization: {authorization token}" http://{Kellnr host}/api/v1/docs/
           <TextBlock>
             Kellnr stores all data in one folder. The default folder is <i>/opt/kdata</i> if not changed by the
             <i>registry.data_dir</i>
-            variable in the <i>default.toml</i> or the <i>KELLNR_REGISTRY__DATA_DIR</i> environment variable. To backup Kellnr,
+            variable in the <i>default.toml</i> or the <i>KELLNR_REGISTRY__DATA_DIR</i> environment variable. To backup
+            Kellnr,
             simply
             backup the data folder. The data folder contains all data needed to restore Kellnr. It is recommended to
             backup
-            the data folder regularly, as it contains all uploaded crates and the Sqlite database. If you use PostgreSql instead, do not forget to backed the database separately.
+            the data folder regularly, as it contains all uploaded crates and the Sqlite database. If you use PostgreSql
+            instead, do not forget to backed the database separately.
           </TextBlock>
         </div>
       </div>
     </section>
     <!-- Documentation End -->
-</div></template>
+  </div>
+</template>

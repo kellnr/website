@@ -47,7 +47,30 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="22. January 2025" version="5.3.1" is-latest="true">
+                            <ChangeLogItem date="02. April 2025" version="5.4.0" is-latest="true">
+                                <ChangeLogListItem type="Added">User groups to manage permissions for crates with groups
+                                    instead of single users <a href="https://github.com/kellnr/kellnr/pull/649">#649</a>
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Added">S3 support for crate storage additional to the local
+                                    storage <a href="https://github.com/kellnr/kellnr/pull/623">#623</a>
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Required fields in <i>Cargo.toml</i> to deny crates with
+                                    missing information
+                                    <a href="https://github.com/kellnr/kellnr/pull/622">#622</a>
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Added">Read-only users that allow authenticated download of
+                                    crates, but no upload. <a
+                                        href="https://github.com/kellnr/kellnr/issues/601">#601</a></ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Wrong alignment of statistics cards on the landing page
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Logout sometimes incomplete <a
+                                        href="https://github.com/kellnr/kellnr/issues/602">#602</a></ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">Many smaller bugs</ChangeLogListItem>
+                                <ChangeLogListItem type="Updated">All dependencies</ChangeLogListItem>
+                                <ChangeLogListItem type="Removed">Support for ARM v7 architecture. It conflicts with the
+                                    new S3 feature.</ChangeLogListItem>
+                            </ChangeLogItem>
+                            <ChangeLogItem date="22. January 2025" version="5.3.1">
                                 <ChangeLogListItem type="Fixed">Wrong version shown in web ui <a
                                         href="https://github.com/kellnr/kellnr/issues/583">#583</a>
                                 </ChangeLogListItem>

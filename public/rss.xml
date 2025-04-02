@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"
     xmlns:media="http://search.yahoo.com/mrss/">
-    <updated>2025-01-22T20:00:00+00:00</updated>
+    <updated>2025-04-02T22:30:00+00:00</updated>
     <icon>https://kellnr.io/favicon.ico</icon>
     <id>kellnr.io/blog</id>
     <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
@@ -9,6 +9,18 @@
     <logo>https://kellnr.io/favicon.ico</logo>
     <subtitle>Rust development related blog</subtitle>
     <title>kellnr.io - The Rust Registry</title>
+    <entry>
+        <content type="html">
+            Version 5.4.0 of Kellnr, the private Rust registry, is released. 
+            The biggest new features are:
+            - Read-only users can now be created.
+            - User groups to manage permissions added.
+            - S3 storage backend to save crates added.
+        </content>
+        <link href="https://kellnr.io" />
+        <published>2025-04-02T22:30:00+00:00</published>
+        <title>Kellnr 5.4.0 release</title>
+    </entry>
     <entry>
         <content type="html">
             Version 5.3.1 of Kellnr, the private Rust registry, is released. 
