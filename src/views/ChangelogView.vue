@@ -47,7 +47,15 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="10. April 2025" version="5.4.1" is-latest="true">
+                            <ChangeLogItem date="17. April 2025" version="5.5.0" is-latest="true">
+                                <ChangeLogListItem type="Updated">
+                                    New UI with better design and improved responsiveness
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">
+                                    Store API tokens as hash values in the database
+                                </ChangeLogListItem>
+                            </ChangeLogItem>
+                            <ChangeLogItem date="10. April 2025" version="5.4.1">
                                 <ChangeLogListItem type="Fixed">Docs not building because crates are in wrong folder <a
                                         href="https://github.com/kellnr/kellnr/issues/670">#670</a>
                                 </ChangeLogListItem>
