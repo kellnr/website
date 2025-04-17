@@ -1,14 +1,10 @@
 <template>
   <div>
     <!-- Hero Start -->
-    <section
-        class="bg-home d-flex align-items-center"
-        style="
+    <section class="bg-home d-flex align-items-center" style="
         background: url('images/saas/home-shape.png' ) center center;
         height: auto;
-      "
-        id="home"
-    >
+      " id="home">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-12 text-center mt-0 mt-md-5 pt-0 pt-md-5">
@@ -19,14 +15,13 @@
                 Keep full control of your code at any time.
               </p>
               <div class="mt-4 pt-2">
-                <router-link to="documentation#installation" class="btn btn-primary"
-                >Get For Free <i class="mdi mdi-chevron-right"></i
-                ></router-link>
+                <router-link to="documentation#installation" class="btn btn-primary">Get For Free <i
+                    class="mdi mdi-chevron-right"></i></router-link>
               </div>
             </div>
 
             <div class="home-dashboard">
-              <img src="/images/kellnr/overview-light-macbook-4.png" alt="" class="img-fluid"/>
+              <img src="/images/kellnr/landing.png" alt="" class="img-fluid img-border" />
             </div>
           </div>
           <!--end col-->
@@ -133,62 +128,36 @@
       </div>
       <!--end container-->
 
-      <FeatureBox
-          orientation="left"
-          title="List and search your private crates"
-          checkbox1="Simple to use UI"
-          checkbox2="Easy access to crate information"
-          link="documentation"
-          image="images/kellnr/search-light.png"
-      >
+      <FeatureBox orientation="left" title="List and search your private crates" checkbox1="Simple to use UI"
+        checkbox2="Easy access to crate information" link="documentation" image="images/kellnr/search-light.png">
         <span class="text-primary font-weight-bold">Kellnr</span> makes is easy to find the crates you need.
         With one click
         you find all the information needed to use a crate in your code.
       </FeatureBox>
 
-      <FeatureBox
-          orientation="right"
-          title="Rustdocs beside your crates"
-          checkbox1="Auto-generate rustdocs for each crate"
-          checkbox2="Upload of custom rustdocs possible"
-          link="documentation#rustdoc"
-          image="images/kellnr/rustdoc-light.png"
-      >
+      <FeatureBox orientation="right" title="Rustdocs beside your crates"
+        checkbox1="Auto-generate rustdocs for each crate" checkbox2="Upload of custom rustdocs possible"
+        link="documentation#rustdoc" image="images/kellnr/rustdoc-light.png">
         Automatically generate rustdocs with <span class="text-primary font-weight-bold">Kellnr</span> for each
         uploaded crate or upload custom docs from your custom build process.
       </FeatureBox>
 
-      <FeatureBox
-          orientation="left"
-          title="Administer users and authorization"
-          checkbox1="Control which user owns which crate"
-          checkbox2="Add new users and authentication tokens easily"
-          image="images/kellnr/users-light.png"
-      >
+      <FeatureBox orientation="left" title="Users and Groups" checkbox1="Fine grained user management"
+        checkbox2="Group policies for users and crates" image="images/kellnr/users-light.png">
         Add and remove users and authentication tokens with ease. <span
           class="text-primary font-weight-bold">Kellnr</span>
         makes it easy to control who has access to your crates.
       </FeatureBox>
 
-      <FeatureBox
-          orientation="right"
-          title="Crates.io proxy and cache"
-          checkbox1="Transparently proxy crates.io"
-          checkbox2="Cache crates.io to keep your deployments fast"
-          link="documentation#cratesio-proxy"
-          image="images/kellnr/cratesio-proxy-light.png"
-      >
+      <FeatureBox orientation="right" title="Crates.io proxy and cache" checkbox1="Transparently proxy crates.io"
+        checkbox2="Cache crates.io to keep your deployments fast" link="documentation#cratesio-proxy"
+        image="images/kellnr/cratesio-proxy-light.png">
         <span class="text-primary font-weight-bold">Kellnr</span> transparently proxies and caches crates.io to
         keep your deployments fast and independent.
       </FeatureBox>
 
-      <FeatureBox
-          orientation="left"
-          title="Dark Mode"
-          checkbox1="Switch between light and dark mode"
-          checkbox2="Easy on the eyes"
-          image="images/kellnr/dependencies-dark.png"
-      >
+      <FeatureBox orientation="left" title="Dark Mode" checkbox1="Switch between light and dark mode"
+        checkbox2="Easy on the eyes" image="images/kellnr/dependencies-dark.png">
         Requested by many, <span class="text-primary font-weight-bold">Kellnr</span> comes with light and a dark mode to
         allow you to work in the environment you prefer.
       </FeatureBox>
@@ -206,10 +175,8 @@
               </p>
 
               <div class="mt-4">
-                <router-link to="documentation#installation" class="btn btn-primary mt-2 mr-2"
-                >Get Started Now
-                </router-link
-                >
+                <router-link to="documentation#installation" class="btn btn-primary mt-2 mr-2">Get Started Now
+                </router-link>
               </div>
             </div>
           </div>
@@ -222,15 +189,8 @@
     <!--end section-->
     <div class="position-relative">
       <div class="shape overflow-hidden text-footer">
-        <svg
-            viewBox="0 0 2880 250"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-              d="M720 125L2160 0H2880V250H0V125H720Z"
-              fill="currentColor"
-          ></path>
+        <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M720 125L2160 0H2880V250H0V125H720Z" fill="currentColor"></path>
         </svg>
       </div>
     </div>
@@ -241,3 +201,16 @@
 <script setup lang="ts">
 import FeatureBox from "@/components/landing/FeatureBox.vue";
 </script>
+
+<style scoped>
+.img-border {
+  border: 5px solid #ccc;
+  /* Light gray border */
+  border-radius: 10px;
+  /* Rounded corners */
+  padding: 5px;
+  /* Space between the border and the image */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Adds a subtle shadow for depth */
+}
+</style>
