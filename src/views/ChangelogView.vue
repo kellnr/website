@@ -47,7 +47,17 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
                 <div class="row justify-content-center">
                     <div class="col-lg-9">
                         <div class="p-4 shadow rounded border">
-                            <ChangeLogItem date="17. April 2025" version="5.5.0" is-latest="true">
+                            <ChangeLogItem date="30. May 2025" version="5.6.0" is-latest="true">
+                                <ChangeLogListItem type="Added">
+                                    Admin users can restict what crates a user can upload. <a
+                                        href="https://github.com/kellnr/kellnr/pull/671">#671</a>
+                                </ChangeLogListItem>
+                                <ChangeLogListItem type="Fixed">
+                                    Crate groups not fetched correctly in UI. <a
+                                        href="https://github.com/kellnr/kellnr/pull/690">#690</a>
+                                </ChangeLogListItem>
+                            </ChangeLogItem>
+                            <ChangeLogItem date="17. April 2025" version="5.5.0">
                                 <ChangeLogListItem type="Updated">
                                     New UI with better design and improved responsiveness
                                 </ChangeLogListItem>
