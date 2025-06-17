@@ -459,6 +459,16 @@ import MainHeader from "../components/elements/MainHeader.vue";
                   </td>
                 </tr>
                 <tr>
+                  <td>[registry]<br />new_crates_restricted</td>
+                  <td>KELLNR_REGISTRY__NEW_CRATES_RESTRICTED</td>
+                  <td>false</td>
+                  <td>If set to <i>true</i>, new crates can only be created by "crate users". This means an admin user
+                    has to push the first version of a crate
+                    and add crate users to the crate, before other users can push new versions of the crate. This
+                    restricts which user can push to which crate.
+                  </td>
+                </tr>
+                <tr>
                   <td>[local]<br />ip</td>
                   <td>KELLNR_LOCAL__IP</td>
                   <td>0.0.0.0</td>
