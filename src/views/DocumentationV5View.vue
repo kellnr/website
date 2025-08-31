@@ -534,6 +534,12 @@ import MainHeader from "../components/elements/MainHeader.vue";
                   <td>Number of threads used to keep crates.io cache up-to-date.</td>
                 </tr>
                 <tr>
+                  <td>[proxy]<br />download_on_update</td>
+                  <td>KELLNR_PROXY__DOWNLOAD_ON_UPDATE</td>
+                  <td>false</td>
+                  <td>Periodically pre-fetch crates from crates.io that had an update.</td>
+                </tr>
+                <tr>
                   <td>[docs]<br />enabled</td>
                   <td>KELLNR_DOCS__ENABLED</td>
                   <td>false</td>

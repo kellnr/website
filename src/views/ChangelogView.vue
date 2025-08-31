@@ -47,7 +47,20 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
         <div class="row justify-content-center">
           <div class="col-lg-9">
             <div class="p-4 shadow rounded border">
-              <ChangeLogItem date="24. July 2025" version="5.6.1" is-latest="true">
+              <ChangeLogItem date="21. August 2025" version="5.7.0" is-latest="true">
+                <ChangeLogListItem type="Added">
+                  Option <i>download_on_update</i> flag added. Allows kellnr to prefetch crate versions from crates.io <a
+                    href="https://github.com/kellnr/kellnr/issues/760">#760</a>
+                </ChangeLogListItem>
+                <ChangeLogListItem type="Added">
+                  Support for Bearer Token authentication in addition to Basic Auth <a
+                    href="https://github.com/kellnr/kellnr/issues/773">#773</a>
+                </ChangeLogListItem>
+                <ChangeLogListItem type="Updated">
+                  All dependencies updated
+                </ChangeLogListItem>
+              </ChangeLogItem>
+              <ChangeLogItem date="24. July 2025" version="5.6.1">
                 <ChangeLogListItem type="Added">
                   Separate health route for health checks in e.g. Docker <a
                     href="https://github.com/kellnr/kellnr/issues/756">#756</a>
