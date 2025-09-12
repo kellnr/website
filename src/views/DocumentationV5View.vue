@@ -160,7 +160,7 @@ import MainHeader from "../components/elements/MainHeader.vue";
               are required.
               You can find the latest version tag on the <a
                 href="https://github.com/kellnr/kellnr/pkgs/container/kellnr">Kellnr
-                releases</a> page.
+                images</a> page. There is a minimal image, which does not support building <i>rustdocs</i> with <i>kellnr</i>. However, uploading pre-built <i>rustdocs</i> is still possible. You find the minimal images here: <a href="https://github.com/kellnr/kellnr/pkgs/container/kellnr-minimal">Kellnr minimal images</a>.
             </TextBlock>
 
             <CodeBlock>
