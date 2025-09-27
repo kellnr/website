@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"
     xmlns:media="http://search.yahoo.com/mrss/">
-    <updated>2025-08-21T15:00:00+00:00</updated>
+    <updated>2025-09-27T15:00:00+00:00</updated>
     <icon>https://kellnr.io/favicon.ico</icon>
     <id>kellnr.io/blog</id>
     <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
@@ -9,6 +9,15 @@
     <logo>https://kellnr.io/favicon.ico</logo>
     <subtitle>Rust development related blog</subtitle>
     <title>kellnr.io - The Rust Registry</title>
+    <entry>
+        <content type="html">
+            Version 5.7.1 of Kellnr, the private Rust registry, is released. 
+            Contains multiple bug fixes and performance improvements.
+        </content>
+        <link href="https://kellnr.io" />
+        <published>2025-09-27T15:00:00+00:00</published>
+        <title>Kellnr 5.7.1 release</title>
+    </entry>
     <entry>
         <content type="html">
             Version 5.7.0 of Kellnr, the private Rust registry, is released. 

@@ -47,7 +47,25 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
         <div class="row justify-content-center">
           <div class="col-lg-9">
             <div class="p-4 shadow rounded border">
-              <ChangeLogItem date="21. August 2025" version="5.7.0" is-latest="true">
+              <ChangeLogItem date="27. September 2025" version="5.7.1" is-latest="true">
+                <ChangeLogListItem type="Fixed">
+                  Added missing database indices on to speed up lookups for the crates.io proxy <a href="https://github.com/kellnr/kellnr/pull/800">#800</a>
+                </ChangeLogListItem>
+                <ChangeLogListItem type="Fixed">
+                  Fixed broken docs queue list in web UI<a href="https://github.com/kellnr/kellnr/pull/807">#807</a>
+                </ChangeLogListItem>
+                <ChangeLogListItem type="Fixed">
+                  Fixed caching issue for crates that led to the wrong version of docs being created.<a href="https://github.com/kellnr/kellnr/issues/786">#786</a>
+                </ChangeLogListItem>
+                <ChangeLogListItem type="Added">
+                  Minimal Docker image for Kellnr that is optimized for size, but cannot build rustdocs.<a
+                    href="https://github.com/kellnr/kellnr/pull/797">#797</a>
+                </ChangeLogListItem>
+                <ChangeLogListItem type="Updated">
+                  All dependencies updated
+                </ChangeLogListItem>
+              </ChangeLogItem>
+              <ChangeLogItem date="21. August 2025" version="5.7.0">
                 <ChangeLogListItem type="Added">
                   Option <i>download_on_update</i> flag added. Allows kellnr to prefetch crate versions from crates.io <a
                     href="https://github.com/kellnr/kellnr/issues/760">#760</a>
