@@ -456,6 +456,8 @@ import MainHeader from "../components/elements/MainHeader.vue";
                   <td>Requires fields to be defined on upload crates. Leave empty to not add restrictions. If set to
                     e.g. ["authors", "repository"], all uploaded crates have to have the authors and repository defined
                     in their Cargo.toml's.
+                    If used from an environment variable, the value has to be a comma separated list without spaces, e.g. 
+                    "authors,repository"
                   </td>
                 </tr>
                 <tr>
