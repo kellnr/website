@@ -27,8 +27,8 @@ jobs:
       - name: Deployment Success
         if: success()
         run: |
-          echo "✅ Deployment completed successfully!"
-          echo "🌐 Website deployed to: https://kellnr.io"
+          echo "Deployment completed successfully!"
+          echo "Website deployed to: https://kellnr.io"
 
       - name: Deployment Failed
         if: failure()
