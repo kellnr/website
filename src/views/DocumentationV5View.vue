@@ -506,6 +506,12 @@ import MainHeader from "../components/elements/MainHeader.vue";
                   </td>
                 </tr>
                 <tr>
+                  <td>[origin]<br />path</td>
+                  <td>KELLNR_ORIGIN__PATH</td>
+                  <td></td>
+                  <td>Run Kellnr on a sub path of a URL, e.g. "/kellnring/" for https://www.example.com/kellnring/</td>
+                </tr>
+                <tr>
                   <td>[log]<br />level</td>
                   <td>KELLNR_LOG__LEVEL</td>
                   <td>info</td>
