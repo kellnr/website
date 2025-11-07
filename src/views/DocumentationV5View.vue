@@ -165,16 +165,16 @@ import MainHeader from "../components/elements/MainHeader.vue";
 
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Run Kellnr non-persistent for testing.
-                  # All data (crates, users) will be deleted with the container when the container terminates
-                  docker run --rm -it \
-                  -p 8000:8000 \
-                  -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" ghcr.io/kellnr/kellnr:5
+# All data (crates, users) will be deleted with the container when the container terminates
+docker run --rm -it \
+-p 8000:8000 \
+-e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" ghcr.io/kellnr/kellnr:5
 
-                  # To run the container with persistence for all data (crates, users) mount a volume into the container
-                  docker run --rm -it \
-                  -p 8000:8000 \
-                  -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" \
-                  -v $(pwd):/opt/kdata ghcr.io/kellnr/kellnr:5</code></pre>
+# To run the container with persistence for all data (crates, users) mount a volume into the container
+docker run --rm -it \
+-p 8000:8000 \
+-e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" \
+-v $(pwd):/opt/kdata ghcr.io/kellnr/kellnr:5</code></pre>
             </CodeBlock>
 
             <TextBlock>
@@ -195,7 +195,7 @@ import MainHeader from "../components/elements/MainHeader.vue";
             </TextBlock>
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Install Kellnr with yay
-                  yay -S kellnr</code></pre>
+yay -S kellnr</code></pre>
             </CodeBlock>
 
             <SubHeader id="script">Script</SubHeader>
@@ -215,24 +215,24 @@ import MainHeader from "../components/elements/MainHeader.vue";
 
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Go to the directory where Kellnr should be installed. For example:
-                  cd ~
+cd ~
 
-                  # Example: Download and install Kellnr as a systemd service with custom admin password for Kellnr
-                  curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo bash -s -- -s -p
-                  myadminpwd
-                  # Alternatively, you can use the following command if you installed cargo using rustup:
-                  curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo
-                  PATH="$HOME/.cargo/bin:$PATH" bash -s -- -s -p myadminpwd
+# Example: Download and install Kellnr as a systemd service with custom admin password for Kellnr
+curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo bash -s -- -s -p
+myadminpwd
+# Alternatively, you can use the following command if you installed cargo using rustup:
+curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo
+PATH="$HOME/.cargo/bin:$PATH" bash -s -- -s -p myadminpwd
 
-                  # Start the service (if installed with -s flag)
-                  sudo systemctl enable kellnr
-                  sudo systemctl start kellnr
+# Start the service (if installed with -s flag)
+sudo systemctl enable kellnr
+sudo systemctl start kellnr
 
-                  # Check if the service runs
-                  sudo systemctl status kellnr
+# Check if the service runs
+sudo systemctl status kellnr
 
-                  # Open the ports defined in the default.toml (default 8000)
-                </code></pre>
+# Open the ports defined in the default.toml (default 8000)
+</code></pre>
             </CodeBlock>
 
             <TableBlock>
@@ -303,27 +303,27 @@ import MainHeader from "../components/elements/MainHeader.vue";
             </TextBlock>
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Download latest Kellnr version
-                  # $ARCH can be:
-                  # - x86_64-unknown-linux-gnu
-                  # - aarch64-unknown-linux-gnu
-                  # - x86_64-unknown-linux-musl
-                  # - aarch64-unknown-linux-musl
-                  curl --output kellnr-latest.zip
-                  "https://github.com/kellnr/kellnr/releases/latest/download/kellnr-$ARCH.zip"
+# $ARCH can be:
+# - x86_64-unknown-linux-gnu
+# - aarch64-unknown-linux-gnu
+# - x86_64-unknown-linux-musl
+# - aarch64-unknown-linux-musl
+curl --output kellnr-latest.zip
+"https://github.com/kellnr/kellnr/releases/latest/download/kellnr-$ARCH.zip"
 
-                  # Unzip
-                  unzip -o kellnr-latest.zip -d ./kellnr
+# Unzip
+unzip -o kellnr-latest.zip -d ./kellnr
 
-                  # Check the configuration file and edit if needed
-                  # You may want to change the
-                  # - admin_pwd
-                  # - data_dir (Path where Kellnr stores its data. Different from installation directory. Must exists on
-                  disk)
+# Check the configuration file and edit if needed
+# You may want to change the
+# - admin_pwd
+# - data_dir (Path where Kellnr stores its data. Different from installation directory. Must exists on
+disk)
 
-                  # Open the ports defined in the default.toml (default 8000)
+# Open the ports defined in the default.toml (default 8000)
 
-                  # Start Kellnr
-                  cd ./kellnr && ./kellnr</code></pre>
+# Start Kellnr
+cd ./kellnr && ./kellnr</code></pre>
             </CodeBlock>
 
             <SubHeader id="helm-chart">Helm Chart</SubHeader>
@@ -342,9 +342,9 @@ import MainHeader from "../components/elements/MainHeader.vue";
 
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Change to the directory containing the Kellnr installation
-                  cd ~
-                  # Run the uninstaller
-                  curl -s https://raw.githubusercontent.com/kellnr/installer/main/uninstall.sh | sudo bash</code></pre>
+cd ~
+# Run the uninstaller
+curl -s https://raw.githubusercontent.com/kellnr/installer/main/uninstall.sh | sudo bash</code></pre>
             </CodeBlock>
 
             <TextBlock>
@@ -355,7 +355,7 @@ import MainHeader from "../components/elements/MainHeader.vue";
 
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Uninstall Kellnr Helm Chart
-                  helm uninstall kellnr</code></pre>
+helm uninstall kellnr</code></pre>
             </CodeBlock>
 
             <MainHeader id="configuration">Configuration</MainHeader>
@@ -750,13 +750,13 @@ import MainHeader from "../components/elements/MainHeader.vue";
               </ul>
             </TextBlock>
             <CodeBlock>
-              <pre v-highlightjs><code class="bash"># Example .cargo/config.toml
-                  # The index needs to point to the host where your Kellnr instance runs
-                  # The token is the authentication token for the user configured in Kellnr
-                  [registries.kellnr]
-                  index = "sparse+https://yourkellnrhostname/api/v1/crates/"
-                  credential-provider = ["cargo:token"]
-                  token = "yourauthtoken"
+              <pre v-highlightjs><code class="toml"># Example .cargo/config.toml
+# The index needs to point to the host where your Kellnr instance runs
+# The token is the authentication token for the user configured in Kellnr
+[registries.kellnr]
+index = "sparse+https://yourkellnrhostname/api/v1/crates/"
+credential-provider = ["cargo:token"]
+token = "yourauthtoken"
                 </code></pre>
             </CodeBlock>
           </div>
@@ -789,37 +789,37 @@ import MainHeader from "../components/elements/MainHeader.vue";
             your <i>Cargo.toml</i>.
           </TextBlock>
           <CodeBlock>
-            <pre v-highlightjs><code class="bash"># Example Cargo.toml which uses a dependency from Kellnr
-                # The registry name has to be the one defined in .cargo/config.toml
-                [package]
-                authors = ["myauthor "]
-                edition = "2018"
-                name = "my_crate"
-                version = "0.1.0"
+            <pre v-highlightjs><code class="toml"># Example Cargo.toml which uses a dependency from Kellnr
+# The registry name has to be the one defined in .cargo/config.toml
+[package]
+authors = ["myauthor "]
+edition = "2018"
+name = "my_crate"
+version = "0.1.0"
 
-                [dependencies]
-                my_dep = {version = "1.1.0", registry = "kellnr"}</code></pre>
+[dependencies]
+my_dep = {version = "1.1.0", registry = "kellnr"}</code></pre>
           </CodeBlock>
           <CodeBlock>
-            <pre v-highlightjs><code class="bash"># Example Cargo.toml to publish to Kellnr
-                # The publish name has to be the one defined in .cargo/config.toml
-                [package]
-                authors = ["myauthor "]
-                edition = "2018"
-                name = "my_crate"
-                version = "0.1.0"
-                publish = ["kellnr"]
+            <pre v-highlightjs><code class="toml"># Example Cargo.toml to publish to Kellnr
+# The publish name has to be the one defined in .cargo/config.toml
+[package]
+authors = ["myauthor "]
+edition = "2018"
+name = "my_crate"
+version = "0.1.0"
+publish = ["kellnr"]
 
-                [dependencies]
-                # ... Dependencies ... </code></pre>
+[dependencies]
+# ... Dependencies ... </code></pre>
           </CodeBlock>
           <TextBlock>Instead of adding the <i>publish</i> field in the <i>Cargo.toml</i> the registry to
             publish to can be set dynamically on cargo <i>publish</i>.
           </TextBlock>
           <CodeBlock>
             <pre v-highlightjs><code class="bash"># Publish to Kellnr by setting the registry to use dynamically
-                # The registry name has to be the one defined in .cargo/config.toml
-                cargo publish --registry kellnr</code></pre>
+# The registry name has to be the one defined in .cargo/config.toml
+cargo publish --registry kellnr</code></pre>
           </CodeBlock>
 
           <SubHeader id="cratesio-proxy-cache">Crates.io Proxy Cache</SubHeader>
@@ -841,26 +841,25 @@ import MainHeader from "../components/elements/MainHeader.vue";
             the <i>~./.cargo/config</i> file.
           </TextBlock>
           <CodeBlock>
-            <pre v-highlightjs><code class="bash"># .cargo/config
-                # Set the Kellnr crates.io proxy. Important is the path "/cratesio".
+            <pre v-highlightjs><code class="toml"># .cargo/config
+# Set the Kellnr crates.io proxy. Important is the path "/cratesio".
 
-                [registries.kellnr-cratesio]
-                index = "sparse+https://yourkellnrhostname/api/v1/cratesio/"
-              </code></pre>
+[registries.kellnr-cratesio]
+index = "sparse+https://yourkellnrhostname/api/v1/cratesio/"</code></pre>
           </CodeBlock>
           <TextBlock>
             To pull a crate from the cache, specify Kellnr in the <i>Cargo.toml</i>.
           </TextBlock>
           <CodeBlock>
-            <pre v-highlightjs><code class="bash">[package]
-                name = "my_crate"
-                version = "0.1.0"
-                edition = "2021"
+            <pre v-highlightjs><code class="toml">[package]
+name = "my_crate"
+version = "0.1.0"
+edition = "2021"
 
-                [dependencies]
-                # specify the kellnr-cratesio proxy as the source
-                git2 = { version ="*", registry = "kellnr-cratesio"}
-              </code></pre>
+[dependencies]
+# specify the kellnr-cratesio proxy as the source
+git2 = { version ="*", registry = "kellnr-cratesio"}
+</code></pre>
           </CodeBlock>
 
           <SubHeader id="replace-cratesio">Replace Crates.io with Kellnr Proxy Cache</SubHeader>
@@ -870,24 +869,24 @@ import MainHeader from "../components/elements/MainHeader.vue";
             in your project or home folder.
           </TextBlock>
           <CodeBlock>
-            <pre v-highlightjs><code class="bash"># .cargo/config
-                [source.crates-io]
-                replace-with = "kellnr-cratesio"
-                [source.kellnr-cratesio]
-                registry = "sparse+https://yourkellnrhostname/api/v1/cratesio/"</code></pre>
+            <pre v-highlightjs><code class="toml"># .cargo/config
+[source.crates-io]
+replace-with = "kellnr-cratesio"
+[source.kellnr-cratesio]
+registry = "sparse+https://yourkellnrhostname/api/v1/cratesio/"</code></pre>
           </CodeBlock>
           <TextBlock>
             Now, all crates in the <i>Cargo.toml</i> are pulled from the Kellnr proxy instead from
             crates.io, no need to specify Kellnr as the registry anymore.
           </TextBlock>
           <CodeBlock>
-            <pre v-highlightjs><code class="bash">[package]
-                name = "my_crate"
-                version = "0.1.0"
-                edition = "2021"
+            <pre v-highlightjs><code class="toml">[package]
+name = "my_crate"
+version = "0.1.0"
+edition = "2021"
 
-                [dependencies]
-                git2 = "*" # Pulled from Kellnr proxy instead of crates.io</code></pre>
+[dependencies]
+git2 = "*" # Pulled from Kellnr proxy instead of crates.io</code></pre>
           </CodeBlock>
 
           <MainHeader id="rustdoc">
@@ -909,23 +908,25 @@ import MainHeader from "../components/elements/MainHeader.vue";
 
           <CodeBlock>
             <pre v-highlightjs><code class="bash"># If you need to inject your own ca-certificate to the docker
-                container, it will be
-                # automatically picked up by update-ca-certificates if you mount it like this:
-                docker run --rm -it \
-                ... \
-                -v your-ca.crt:/usr/local/share/ca-certificates/user-ca.crt:ro
+container, it will be
+# automatically picked up by update-ca-certificates if you mount it like this:
+docker run --rm -it \
+... \
+-v your-ca.crt:/usr/local/share/ca-certificates/user-ca.crt:ro
 
-                # If you need to inject the local registry authentication to the container (auth_required=true):
-                docker run --rm -it \
-                ... \
-                -v your-cargo-config.toml:/root/.cargo/config.toml:ro
+# If you need to inject the local registry authentication to the container (auth_required=true):
+docker run --rm -it \
+... \
+-v your-cargo-config.toml:/root/.cargo/config.toml:ro</code></pre>
+          </CodeBlock>
 
-                # which could look like:
-                [registries]
-                [registries.kellnr]
-                index = "sparse+https://yourkellnrhostname/api/v1/crates/"
-                credential-provider = ["cargo:token"]
-                token = "yourauthtoken"</code></pre>
+          <CodeBlock>
+            <pre v-highlightjs><code class="toml"># which could look like:
+[registries]
+[registries.kellnr]
+index = "sparse+https://yourkellnrhostname/api/v1/crates/"
+credential-provider = ["cargo:token"]
+token = "yourauthtoken"</code></pre>
           </CodeBlock>
 
           <WarnBlock>
@@ -945,23 +946,23 @@ import MainHeader from "../components/elements/MainHeader.vue";
           </TextBlock>
           <CodeBlock>
             <pre v-highlightjs><code class="bash"># Generate documentation for your crate
-                cargo doc</code></pre>
+cargo doc</code></pre>
           </CodeBlock>
           <TextBlock>
             Next, zip and upload the documentation to Kellnr.
           </TextBlock>
           <CodeBlock>
             <pre v-highlightjs><code class="bash"># Package documentation for the upload
-                cd ./target
-                zip -r doc.zip ./doc
-                # Upload documentation to Kellnr --> Replace values in brackets
-                curl -H "Authorization: {authorization token}" http://{Kellnr host}/api/v1/docs/{crate name}/{crate
-                version} --upload-file {docs archive}# Package documentation for the upload
-                cd ./target
-                zip -r doc.zip ./doc
-                # Upload documentation to Kellnr --> Replace values in brackets
-                curl -H "Authorization: {authorization token}" http://{Kellnr host}/api/v1/docs/{crate name}/{crate
-                version} --upload-file {docs archive}</code></pre>
+cd ./target
+zip -r doc.zip ./doc
+# Upload documentation to Kellnr --> Replace values in brackets
+curl -H "Authorization: {authorization token}" http://{Kellnr host}/api/v1/docs/{crate name}/{crate
+version} --upload-file {docs archive}# Package documentation for the upload
+cd ./target
+zip -r doc.zip ./doc
+# Upload documentation to Kellnr --> Replace values in brackets
+curl -H "Authorization: {authorization token}" http://{Kellnr host}/api/v1/docs/{crate name}/{crate
+version} --upload-file {docs archive}</code></pre>
           </CodeBlock>
           <TextBlock>
             To upload the documentation, Kellnr checks that a crate with a corresponding version exists and
