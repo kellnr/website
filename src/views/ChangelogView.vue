@@ -47,7 +47,26 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
         <div class="row justify-content-center">
           <div class="col-lg-9">
             <div class="p-4 shadow rounded border">
-              <ChangeLogItem date="03. November 2025" version="5.8.0" is-latest="true">
+              <ChangeLogItem date="28. December 2025" version="5.9.0" is-latest="true">
+                <ChangeLogListItem type="Fixed">
+                  Fix issue with sub-path hosting <a href="https://github.com/kellnr/kellnr/pull/862">#862</a>
+                </ChangeLogListItem>
+                <ChangeLogListItem type="Fixed">
+                  Remove S3 default credentials <a href="https://github.com/kellnr/kellnr/pull/873">#873</a>
+                </ChangeLogListItem>
+                <ChangeLogListItem type="Added">
+                  Initial web-hook API to get events from kellnr <a
+                    href="https://github.com/kellnr/kellnr/pull/814">#814</a>
+                </ChangeLogListItem>
+                <ChangeLogListItem type="Added">
+                  Kellnr is now a single binary that contains all required web resources to run <a
+                    href="https://github.com/kellnr/kellnr/issues/881">#881</a>
+                </ChangeLogListItem>
+                <ChangeLogListItem type="Updated">
+                  All dependencies updated
+                </ChangeLogListItem>
+              </ChangeLogItem>
+              <ChangeLogItem date="03. November 2025" version="5.8.0">
                 <ChangeLogListItem type="Fixed">
                   Fix crate group user query <a href="https://github.com/kellnr/kellnr/pull/824">#824</a>
                 </ChangeLogListItem>
