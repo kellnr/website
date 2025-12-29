@@ -105,6 +105,9 @@ import MainHeader from "../components/elements/MainHeader.vue";
                   <li>
                     <router-link to="#database">Database Backend</router-link>
                   </li>
+                  <li>
+                    <router-link to="#webhooks">Webhooks</router-link>
+                  </li>
                 </ul>
               </li>
               <li class="list-group-item">
@@ -456,7 +459,7 @@ helm uninstall kellnr</code></pre>
                   <td>Requires fields to be defined on upload crates. Leave empty to not add restrictions. If set to
                     e.g. ["authors", "repository"], all uploaded crates have to have the authors and repository defined
                     in their Cargo.toml's.
-                    If used from an environment variable, the value has to be a comma separated list without spaces, e.g. 
+                    If used from an environment variable, the value has to be a comma separated list without spaces, e.g.
                     "authors,repository"
                   </td>
                 </tr>
@@ -731,6 +734,70 @@ helm uninstall kellnr</code></pre>
               The PostgreSQL database needs to be created manually before starting Kellnr. Kellnr will
               create all tables and indexes automatically on first start.
             </TextBlock>
+
+            <SubHeader id="webhooks">Webhooks</SubHeader>
+            <TextBlock>
+              Kellnr offers a basic webhook functionality allowing callback notifications
+            when crates are added or modified.<br /><br />
+              Webhooks can be registered by admin users via API calls:
+            </TextBlock>
+
+            <CodeBlock>
+              <pre v-highlightjs><code class="bash">curl kellnr_url/api/v1/webhook -X POST \
+-H "Authorization: Bearer ADMIN-TOKEN" \
+-H "Content-Type: application/json" \
+-d '{
+  "type": "crate_yank",
+  "callback_url": "http://my-other-service:8000/crate-yank",
+  "name": "My yank webhook"
+}'
+
+# Successful response will contain registered webhook's id:
+{"id":"f9e8a090-7144-48ff-89d6-fa774d24f59b"}
+
+# Sample payload sent after a yank event:
+{
+  "data": { "crate_name": "test_crate", "crate_version": "0.1.2" },
+  "timestamp": "2025-09-24T15:19:04.842575427Z",
+  "type": "crate_yank"
+}</code></pre>
+            </CodeBlock>
+
+            <TextBlock>
+              Available event types are:
+              <ul>
+                <li><i>crate_add</i></li>
+                <li><i>crate_update</i></li>
+                <li><i>crate_yank</i></li>
+                <li><i>crate_unyank</i></li>
+              </ul>
+
+              Unsuccessful deliveries are retried in increasing time intervals, based on Github's guidelines:
+              <a href="https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md#deliverability-and-reliability">
+                https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md#deliverability-and-reliability
+              </a>
+
+              <br /><br />
+              Other administration tasks are also performed via API calls:
+            </TextBlock>
+
+            <CodeBlock>
+              <pre v-highlightjs><code class="bash"># View specific webhook
+curl kellnr_url/api/v1/webhook/f9e8a090-7144-48ff-89d6-fa774d24f59b \
+    -X GET -H "Authorization: Bearer ADMIN-TOKEN"
+
+# View all
+curl kellnr_url/api/v1/webhook -X GET -H "Authorization: Bearer ADMIN-TOKEN"
+
+# Unregister a given webhook
+curl kellnr_url/api/v1/webhook/f9e8a090-7144-48ff-89d6-fa774d24f59b \
+    -X DELETE -H "Authorization: Bearer ADMIN-TOKEN"
+
+# Test a webhook (sends a dummy payload to the callback_url)
+curl kellnr_url/api/v1/webhook/f9e8a090-7144-48ff-89d6-fa774d24f59b/test \
+    -X GET -H "Authorization: Bearer ADMIN-TOKEN"
+</code></pre>
+            </CodeBlock>
 
             <MainHeader id="configure-cargo">Configure Cargo</MainHeader>
             <TextBlock>
