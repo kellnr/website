@@ -47,7 +47,12 @@ import ChangeLogItem from "../components/changelog/ChangeLogItem.vue";
         <div class="row justify-content-center">
           <div class="col-lg-9">
             <div class="p-4 shadow rounded border">
-              <ChangeLogItem date="28. December 2025" version="5.9.0" is-latest="true">
+              <ChangeLogItem date="29. December 2025" version="5.9.1" is-latest="true">
+                <ChangeLogListItem type="Fixed">
+                  Fix wrong config and data directory path <a href="https://github.com/kellnr/kellnr/issues/902">#902</a>
+                </ChangeLogListItem>
+              </ChangeLogItem>
+              <ChangeLogItem date="28. December 2025" version="5.9.0">
                 <ChangeLogListItem type="Fixed">
                   Fix issue with sub-path hosting <a href="https://github.com/kellnr/kellnr/pull/862">#862</a>
                 </ChangeLogListItem>
