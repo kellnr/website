@@ -3,19 +3,14 @@
     {
       "version": "5.9.1",
       "date": "29. December 2025",
-      "isLatest": true,
       "entries": [
         {
           "type": "Fixed",
-          "content": "Fix wrong config and data directory path",
-          "links": [
-            {
-              "label": "#902",
-              "url": "https://github.com/kellnr/kellnr/issues/902"
-            }
-          ]
+          "content": "fix: broken config and data dir path #902 by @secana in https://github.com/kellnr/kellnr/pull/903",
+          "links": []
         }
-      ]
+      ],
+      "isLatest": true
     },
     {
       "version": "5.9.0",
