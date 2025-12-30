@@ -213,7 +213,7 @@
       "entries": [
         {
           "type": "Added",
-          "content": "Admin users can restict what crates a user can upload.",
+          "content": "Admin users can restrict what crates a user can upload.",
           "links": [
             {
               "label": "#671",
