@@ -533,7 +533,7 @@
         },
         {
           "type": "Changed",
-          "content": "Rust depedencies",
+          "content": "Rust dependencies",
           "links": []
         }
       ]
