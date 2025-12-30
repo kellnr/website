@@ -1,0 +1,88 @@
+{
+  "posts": [
+    {
+      "id": "cross-plat-native-lib",
+      "title": "Wrapping Cross-Platform Native Libraries in Rust",
+      "url": "https://kellnr.io/blog/cross-plat-native-lib",
+      "published": "2024-01-14T20:40:00+00:00",
+      "summaryHtml": "Learn how a native shared C library is wrapped in a cross-platform Rust library and used in a cross-platform Rust application."
+    },
+    {
+      "id": "release5",
+      "title": "Kellnr 5.0.0 release",
+      "url": "https://kellnr.io/blog/release5",
+      "published": "2023-11-28T21:00:00+00:00",
+      "summaryHtml": "Version 5.0.0 of Kellnr, the private Rust registry, is released. It switches from rocket.rs to axum, removes the git index support and has refactored settings."
+    },
+    {
+      "id": "open-source",
+      "title": "Kellnr goes Open Source",
+      "url": "https://kellnr.io/blog/open-source",
+      "published": "2023-09-20T21:32:00+00:00",
+      "summaryHtml": "Kellnr, the private Rust registry, is now open source under the MIT license."
+    },
+    {
+      "id": "domain-modeling",
+      "title": "Leveraging the Type System for Domain Modeling in Rust",
+      "url": "https://kellnr.io/blog/domain-modeling",
+      "published": "2023-06-15T12:00:00+00:00",
+      "summaryHtml": "Use domain modeling in Rust to achieve separation of concerns, code decoupling and a better understanding of your domain."
+    },
+    {
+      "id": "release3",
+      "title": "Kellnr 3.0.0 Release",
+      "url": "https://kellnr.io/blog/release3",
+      "published": "2023-05-29T12:00:00+00:00",
+      "summaryHtml": "Kellnr 3.0.0, the private rust registry, is released. This release includes a new UI and many improvements under the hood."
+    },
+    {
+      "id": "rust-supply-chain-security",
+      "title": "Rust Supply Chain Security",
+      "url": "https://kellnr.io/blog/rust-supply-chain-security",
+      "published": "2023-04-10T12:00:00+00:00",
+      "summaryHtml": "What are the security risks of using Rust in your supply chain and how to mitigate them."
+    },
+    {
+      "id": "async-closures-in-rust",
+      "title": "Asynchronous Closures in Rust - Box and Pin",
+      "url": "https://kellnr.io/blog/async-closures-in-rust",
+      "published": "2022-07-24T12:00:00+00:00",
+      "summaryHtml": "Understand asynchronous closures in Rust and how they relate to Box and Pin."
+    },
+    {
+      "id": "wasm-compiler4",
+      "title": "WebAssembly Compiler - Building a Runtime",
+      "url": "https://kellnr.io/blog/wasm-compiler4",
+      "published": "2021-06-24T12:00:00+00:00",
+      "summaryHtml": "Write a WebAssembly runtime in Rust that can execute WebAssembly modules."
+    },
+    {
+      "id": "wasm-compiler3",
+      "title": "WebAssembly Compiler - Building a Compiler",
+      "url": "https://kellnr.io/blog/wasm-compiler3",
+      "published": "2021-06-05T12:00:00+00:00",
+      "summaryHtml": "Write a compiler in Rust to compile a WebAssembly AST to binary."
+    },
+    {
+      "id": "wasm-compiler2",
+      "title": "WebAssembly Compiler - Building a Parser",
+      "url": "https://kellnr.io/blog/wasm-compiler2",
+      "published": "2021-05-30T12:00:00+00:00",
+      "summaryHtml": "Write a parser in Rust for the WebAssembly text format."
+    },
+    {
+      "id": "wasm-compiler1",
+      "title": "WebAssembly Compiler - Text format and AST",
+      "url": "https://kellnr.io/blog/wasm-compiler1",
+      "published": "2021-05-27T12:00:00+00:00",
+      "summaryHtml": "Understand and parse a WebAssembly abstract-syntax-tree (AST) using Rust."
+    },
+    {
+      "id": "compile-times-sccache",
+      "title": "Improve Rust compile times with sccache",
+      "url": "https://kellnr.io/blog/compile-times-sccache",
+      "published": "2021-04-21T12:00:00+00:00",
+      "summaryHtml": "Improve build times by utilizing sccache and S3 to cache compilation results over multiply builds in your Rust CI/CD pipeline."
+    }
+  ]
+}
