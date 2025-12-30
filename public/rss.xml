@@ -1,354 +1,1132 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"
-    xmlns:media="http://search.yahoo.com/mrss/">
-    <updated>2025-12-29T23:00:00+00:00</updated>
-    <icon>https://kellnr.io/favicon.ico</icon>
-    <id>kellnr.io/blog</id>
-    <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
-    <link rel="alternate" href="https://kellnr.io/blog" type="text/html" />
-    <logo>https://kellnr.io/favicon.ico</logo>
-    <subtitle>Rust development related blog</subtitle>
-    <title>kellnr.io - The Rust Registry</title>
-    <entry>
-        <content type="html">
-            Version 5.9.1 of Kellnr, the private Rust registry, is released. 
-            Fixes a bug where the wrong config and data directory path is used.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2025-12-29T23:00:00+00:00</published>
-        <title>Kellnr 5.9.1 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.9.0 of Kellnr, the private Rust registry, is released. 
-            Adds web-hook support to kellnr. Fixes multiple bugs and updates dependencies.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2025-12-28T23:00:00+00:00</published>
-        <title>Kellnr 5.9.0 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.8.0 of Kellnr, the private Rust registry, is released. 
-            Adds support for running Kellnr on an URL path. Fixes multiple bugs and updates dependencies.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2025-11-03T23:00:00+00:00</published>
-        <title>Kellnr 5.8.0 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.7.1 of Kellnr, the private Rust registry, is released. 
-            Contains multiple bug fixes and performance improvements.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2025-09-27T15:00:00+00:00</published>
-        <title>Kellnr 5.7.1 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.7.0 of Kellnr, the private Rust registry, is released. 
-            New: Bearer Token support and pre-fetch of new crate versions.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2025-08-31T15:00:00+00:00</published>
-        <title>Kellnr 5.7.0 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.6.1 of Kellnr, the private Rust registry, is released. 
-            New: Separate health route.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2025-07-24T21:00:00+00:00</published>
-        <title>Kellnr 5.6.1 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.6.0 of Kellnr, the private Rust registry, is released. 
-            New: Admin user can restict what crates a user can upload.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2025-05-30T17:30:00+00:00</published>
-        <title>Kellnr 5.6.0 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.5.0 of Kellnr, the private Rust registry, is released. 
-            New UI with better design and responsiveness.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2025-04-17T15:00:00+00:00</published>
-        <title>Kellnr 5.5.0 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.4.1 of Kellnr, the private Rust registry, is released. 
-            Fixes a bug where docs are not build due to the crate being in the wrong folder on disk.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2025-04-10T17:30:00+00:00</published>
-        <title>Kellnr 5.4.1 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.4.0 of Kellnr, the private Rust registry, is released. 
-            The biggest new features are:
-            - Read-only users can now be created.
-            - User groups to manage permissions added.
-            - S3 storage backend to save crates added.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2025-04-02T22:30:00+00:00</published>
-        <title>Kellnr 5.4.0 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.3.1 of Kellnr, the private Rust registry, is released. 
-            - Fixed wrong version shown in web ui.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2025-01-22T20:00:00+00:00</published>
-        <title>Kellnr 5.3.1 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.3.0 of Kellnr, the private Rust registry, is released. 
-            - Updated all dependencies to the latest version.
-            - Fixed missing crate descriptions
-            - Fixed empty users and passwords
-            - Added authenitcation for crate downloads
-            - Added new API endpoint to list all crate versions
-            - Made config and static directory configurable
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2025-01-18T16:30:00+00:00</published>
-        <title>Kellnr 5.3.0 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.2.7 of Kellnr, the private Rust registry, is released. 
-            Updated all dependencies to the latest version.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2024-12-09T22:30:00+00:00</published>
-        <title>Kellnr 5.2.7 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.2.6 of Kellnr, the private Rust registry, is released. 
-            Cache invalidation if a crate is deleted fixed and error codes for the HTTP API fixed. Updated all dependencies to the latest version.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2024-09-29T16:20:00+00:00</published>
-        <title>Kellnr 5.2.6 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.2.5 of Kellnr, the private Rust registry, is released. 
-            Multiple bug fixes and improvements to increase the performance of the crates.io cache. Missing dependencies in Docker image are now fixed.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2024-08-18T11:25:00+00:00</published>
-        <title>Kellnr 5.2.5 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.2.4 of Kellnr, the private Rust registry, is released. 
-            We switched from Ubuntu as the builder to cross-rs, which allows us to build for multiple platforms. Kellnr has official static (musl) releases, now. Besides that, we fixed some bugs and updated all dependencies.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2024-07-24T22:40:00+00:00</published>
-        <title>Kellnr 5.2.4 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.2.3 of Kellnr, the private Rust registry, is released. 
-            Updates to Ubuntu 24.04 as the base image and fixes some bugs.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2024-05-14T20:00:00+00:00</published>
-        <title>Kellnr 5.2.3 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.2.2 of Kellnr, the private Rust registry, is released. 
-            Contains multiple bug fixes and improvements.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2024-05-08T23:50:00+00:00</published>
-        <title>Kellnr 5.2.2 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.2.1 of Kellnr, the private Rust registry, is released. 
-            Contains multiple bug fixes and improvements.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2024-03-30T00:30:00+00:00</published>
-        <title>Kellnr 5.2.1 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.2.0 of Kellnr, the private Rust registry, is released. 
-            Cached crates can now be shown and searched from the UI. 
-            A "delete all" button was added to allow the deletion all versions of a crate.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2024-03-14T20:30:00+00:00</published>
-        <title>Kellnr 5.2.0 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.1.2 of Kellnr, the private Rust registry, is released. Bug fixes and new crates.io status codes.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2024-02-14T20:00:00+00:00</published>
-        <title>Kellnr 5.1.3 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.1.2 of Kellnr, the private Rust registry, is released. Bug fixes and dependency updates.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2024-02-05T20:40:00+00:00</published>
-        <title>Kellnr 5.1.2 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Learn how a native shared C library is wrapped in a cross-platform Rust library and
-            used in a cross-platform Rust application.
-        </content>
-        <link href="https://kellnr.io/blog/cross-plat-native-lib" />
-        <published>2024-01-14T20:40:00+00:00</published>
-        <title>Wrapping Cross-Platform Native Libraries in Rust</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.1.1 of Kellnr, the private Rust registry, is released. The new release fixes a
-            bug in the manual upload
-            of rustdocs, where the upload size was miscalculated.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2024-01-04T20:00:00+00:00</published>
-        <title>Kellnr 5.1.1 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.1.0 of Kellnr, the private Rust registry, is released. New landing page and
-            bug fixes.
-        </content>
-        <link href="https://kellnr.io" />
-        <published>2024-01-01T19:00:00+00:00</published>
-        <title>Kellnr 5.1.0 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 5.0.0 of Kellnr, the private Rust registry, is released. It switches from
-            rocket.rs to axum, removes the git index support and has refactored settings.
-        </content>
-        <link href="https://kellnr.io/blog/release5" />
-        <published>2023-11-28T21:00:00+00:00</published>
-        <title>Kellnr 5.0.0 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Version 4.0.3 of Kellnr, the private Rust registry, is released. This release includes
-            updated dependencies and bug fixes.
-        </content>
-        <link href="https://kellnr.io/changelog" />
-        <published>2023-10-07T14:00:00+00:00</published>
-        <title>Kellnr 4.0.3 release</title>
-    </entry>
-    <entry>
-        <content type="html"> Version 4.0.2 of Kellnr, the private Rust registry, is released. This
-            release includes updated dependencies and bug fixes. For more information see the <a
-                href="https://kellnr.io/changelog">changelog</a>. </content>
-        <link href="https://kellnr.io/changelog" />
-        <published>2023-09-24T15:40:00+00:00</published>
-        <title>Kellnr 4.0.2 release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Kellnr, the private Rust registry, is now open source under the MIT license.
-        </content>
-        <link href="https://kellnr.io/blog/open-source" />
-        <published>2023-09-20T21:32:00+00:00</published>
-        <title>Kellnr goes Open Source</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Use domain modeling in Rust to achieve separation of concerns, code decoupling and a
-            better understanding of your domain.
-        </content>
-        <link href="https://kellnr.io/blog/domain-modeling" />
-        <published>2023-06-15T12:00:00+00:00</published>
-        <title>Leveraging the Type System for Domain Modeling in Rust</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Kellnr 3.0.0, the private rust registry, is released. This release includes a new UI and
-            many improvements under the hood.
-        </content>
-        <link href="https://kellnr.io/blog/release3" />
-        <published>2023-05-29T12:00:00+00:00</published>
-        <title>Kellnr 3.0.0 Release</title>
-    </entry>
-    <entry>
-        <content type="html">
-            What are the security risks of using Rust in your supply chain and how to mitigate them.
-        </content>
-        <link href="https://kellnr.io/blog/rust-supply-chain-security" />
-        <published>2023-04-10T12:00:00+00:00</published>
-        <title>Rust Supply Chain Security</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Understand asynchronous closures in Rust and how they relate to Box and Pin.
-        </content>
-        <link href="https://kellnr.io/blog/async-closures-in-rust" />
-        <published>2022-07-24T12:00:00+00:00</published>
-        <title>Asynchronous Closures in Rust - Box and Pin</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Write a WebAssembly runtime in Rust that can execute WebAssembly modules.
-        </content>
-        <link href="https://kellnr.io/blog/wasm-compiler4" />
-        <published>2021-06-24T12:00:00+00:00</published>
-        <title>WebAssembly Compiler - Building a Runtime</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Write a compiler in Rust to compile a WebAssembly AST to binary.
-        </content>
-        <link href="https://kellnr.io/blog/wasm-compiler3" />
-        <published>2021-06-05T12:00:00+00:00</published>
-        <title>WebAssembly Compiler - Building a Compiler</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Write a parser in Rust for the WebAssembly text format.
-        </content>
-        <link href="https://kellnr.io/blog/wasm-compiler2" />
-        <published>2021-05-30T12:00:00+00:00</published>
-        <title>WebAssembly Compiler - Building a Parser</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Understand and parse a WebAssembly abstract-syntax-tree (AST) using Rust.
-        </content>
-        <link href="https://kellnr.io/blog/wasm-compiler1" />
-        <published>2021-05-27T12:00:00+00:00</published>
-        <title>WebAssembly Compiler - Text format and AST</title>
-    </entry>
-    <entry>
-        <content type="html">
-            Improve build times by utilizing sccache and S3 to cache compilation results
-            over multiply builds in your Rust CI/CD pipeline.
-        </content>
-        <link href="https://kellnr.io/blog/compile-times-sccache" />
-        <published>2021-04-21T12:00:00+00:00</published>
-        <title>Improve Rust compile times with sccache</title>
-    </entry>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+  <id>kellnr.io/blog</id>
+  <title>kellnr.io - The Rust Registry</title>
+  <subtitle>Rust development related blog</subtitle>
+  <updated>2025-12-29T12:00:00.000Z</updated>
+  <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
+  <link rel="alternate" href="https://kellnr.io/blog" type="text/html" />
+  <icon>https://kellnr.io/favicon.ico</icon>
+  <logo>https://kellnr.io/favicon.ico</logo>
+  <entry>
+    <id>https://kellnr.io/changelog#5.9.1</id>
+    <title>Kellnr 5.9.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2025-12-29T12:00:00.000Z</published>
+    <updated>2025-12-29T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.9.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Fix wrong config and data directory path <a href="https://github.com/kellnr/kellnr/issues/902" target="_blank" rel="noopener noreferrer">#902</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.9.0</id>
+    <title>Kellnr 5.9.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2025-12-28T12:00:00.000Z</published>
+    <updated>2025-12-28T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.9.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Initial web-hook API to get events from kellnr <a href="https://github.com/kellnr/kellnr/pull/814" target="_blank" rel="noopener noreferrer">#814</a></li>
+<li>Kellnr is now a single binary that contains all required web resources to run <a href="https://github.com/kellnr/kellnr/issues/881" target="_blank" rel="noopener noreferrer">#881</a></li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>All dependencies updated</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Fix issue with sub-path hosting <a href="https://github.com/kellnr/kellnr/pull/862" target="_blank" rel="noopener noreferrer">#862</a></li>
+<li>Remove S3 default credentials <a href="https://github.com/kellnr/kellnr/pull/873" target="_blank" rel="noopener noreferrer">#873</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.8.0</id>
+    <title>Kellnr 5.8.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2025-11-03T12:00:00.000Z</published>
+    <updated>2025-11-03T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.8.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Allow S3 config with env-vars <a href="https://github.com/kellnr/kellnr/pull/833" target="_blank" rel="noopener noreferrer">#833</a></li>
+<li>Support for running kellnr on a URL sub-path <a href="https://github.com/kellnr/kellnr/pull/815" target="_blank" rel="noopener noreferrer">#815</a></li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>All dependencies updated</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Fix crate group user query <a href="https://github.com/kellnr/kellnr/pull/824" target="_blank" rel="noopener noreferrer">#824</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.7.1</id>
+    <title>Kellnr 5.7.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2025-09-27T12:00:00.000Z</published>
+    <updated>2025-09-27T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.7.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Minimal Docker image for Kellnr that is optimized for size, but cannot build rustdocs. <a href="https://github.com/kellnr/kellnr/pull/797" target="_blank" rel="noopener noreferrer">#797</a></li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>All dependencies updated</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Added missing database indices on to speed up lookups for the crates.io proxy <a href="https://github.com/kellnr/kellnr/pull/800" target="_blank" rel="noopener noreferrer">#800</a></li>
+<li>Fixed broken docs queue list in web UI <a href="https://github.com/kellnr/kellnr/pull/807" target="_blank" rel="noopener noreferrer">#807</a></li>
+<li>Fixed caching issue for crates that led to the wrong version of docs being created. <a href="https://github.com/kellnr/kellnr/issues/786" target="_blank" rel="noopener noreferrer">#786</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.7.0</id>
+    <title>Kellnr 5.7.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2025-08-21T12:00:00.000Z</published>
+    <updated>2025-08-21T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.7.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Option <i>download_on_update</i> flag added. Allows kellnr to prefetch crate versions from crates.io <a href="https://github.com/kellnr/kellnr/issues/760" target="_blank" rel="noopener noreferrer">#760</a></li>
+<li>Support for Bearer Token authentication in addition to Basic Auth <a href="https://github.com/kellnr/kellnr/issues/773" target="_blank" rel="noopener noreferrer">#773</a></li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>All dependencies updated</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.6.1</id>
+    <title>Kellnr 5.6.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2025-07-24T12:00:00.000Z</published>
+    <updated>2025-07-24T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.6.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Separate health route for health checks in e.g. Docker <a href="https://github.com/kellnr/kellnr/issues/756" target="_blank" rel="noopener noreferrer">#756</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.6.0</id>
+    <title>Kellnr 5.6.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2025-05-30T12:00:00.000Z</published>
+    <updated>2025-05-30T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.6.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Admin users can restict what crates a user can upload. <a href="https://github.com/kellnr/kellnr/pull/671" target="_blank" rel="noopener noreferrer">#671</a></li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Crate groups not fetched correctly in UI. <a href="https://github.com/kellnr/kellnr/pull/690" target="_blank" rel="noopener noreferrer">#690</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.5.0</id>
+    <title>Kellnr 5.5.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2025-04-17T12:00:00.000Z</published>
+    <updated>2025-04-17T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.5.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>New UI with better design and improved responsiveness</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Store API tokens as hash values in the database</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.4.1</id>
+    <title>Kellnr 5.4.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2025-04-10T12:00:00.000Z</published>
+    <updated>2025-04-10T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.4.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Docs not building because crates are in wrong folder <a href="https://github.com/kellnr/kellnr/issues/670" target="_blank" rel="noopener noreferrer">#670</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.4.0</id>
+    <title>Kellnr 5.4.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2025-04-02T12:00:00.000Z</published>
+    <updated>2025-04-02T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.4.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>User groups to manage permissions for crates with groups instead of single users <a href="https://github.com/kellnr/kellnr/pull/649" target="_blank" rel="noopener noreferrer">#649</a></li>
+<li>S3 support for crate storage additional to the local storage <a href="https://github.com/kellnr/kellnr/pull/623" target="_blank" rel="noopener noreferrer">#623</a></li>
+<li>Required fields in <i>Cargo.toml</i> to deny crates with missing information <a href="https://github.com/kellnr/kellnr/pull/622" target="_blank" rel="noopener noreferrer">#622</a></li>
+<li>Read-only users that allow authenticated download of crates, but no upload. <a href="https://github.com/kellnr/kellnr/issues/601" target="_blank" rel="noopener noreferrer">#601</a></li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>All dependencies</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Wrong alignment of statistics cards on the landing page</li>
+<li>Logout sometimes incomplete <a href="https://github.com/kellnr/kellnr/issues/602" target="_blank" rel="noopener noreferrer">#602</a></li>
+<li>Many smaller bugs</li>
+</ul>
+<br/>
+<strong>Removed:</strong>
+<ul>
+<li>Support for ARM v7 architecture. It conflicts with the new S3 feature.</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.3.1</id>
+    <title>Kellnr 5.3.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2025-01-22T12:00:00.000Z</published>
+    <updated>2025-01-22T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.3.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Wrong version shown in web ui <a href="https://github.com/kellnr/kellnr/issues/583" target="_blank" rel="noopener noreferrer">#583</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.3.0</id>
+    <title>Kellnr 5.3.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2025-01-18T12:00:00.000Z</published>
+    <updated>2025-01-18T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.3.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Config and static directories are configrable <a href="https://github.com/kellnr/kellnr/pull/535" target="_blank" rel="noopener noreferrer">#535</a></li>
+<li>Support for download authentication <a href="https://github.com/kellnr/kellnr/pull/209" target="_blank" rel="noopener noreferrer">#209</a></li>
+<li>API endpoint to list all versions of a crate <a href="https://github.com/kellnr/kellnr/pull/576" target="_blank" rel="noopener noreferrer">#576</a></li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>All dependencies</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Empty user and password allowed <a href="https://github.com/kellnr/kellnr/issues/572" target="_blank" rel="noopener noreferrer">#572</a></li>
+<li>Missing crate description</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.2.7</id>
+    <title>Kellnr 5.2.7 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2024-12-09T12:00:00.000Z</published>
+    <updated>2024-12-09T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.2.7 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>All dependencies</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.2.6</id>
+    <title>Kellnr 5.2.6 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2024-08-18T12:00:00.000Z</published>
+    <updated>2024-08-18T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.2.6 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>All dependencies</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Cache invalidation if a crate is deleted <a href="https://github.com/kellnr/kellnr/pull/461" target="_blank" rel="noopener noreferrer">#461</a></li>
+<li>Return codes for the HTTP API <a href="https://github.com/kellnr/kellnr/pull/429" target="_blank" rel="noopener noreferrer">#429</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.2.5</id>
+    <title>Kellnr 5.2.5 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2024-08-18T12:00:00.000Z</published>
+    <updated>2024-08-18T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.2.5 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Option <i>max_db_connections</i> to configure the max. concurrent database connections.</li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>All dependencies</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Missing <i>pkg-confing</i> and <i>libssl-dev</i> in Docker image.</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.2.4</id>
+    <title>Kellnr 5.2.4 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2024-07-24T12:00:00.000Z</published>
+    <updated>2024-07-24T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.2.4 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Static (musl) builds to support more Linux distributions</li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>Switched from Ubuntu as the builder to Cross-rs</li>
+<li>Switched from Ubuntu as the Docker base image to the official Rust image</li>
+<li>All dependencies</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Permission denied on the docs build webpage</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.2.3</id>
+    <title>Kellnr 5.2.3 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2024-05-16T12:00:00.000Z</published>
+    <updated>2024-05-16T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.2.3 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Copy button for newly created tokens</li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>Use Ubuntu 24.04 as base image</li>
+<li>Rust depedencies</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Wrong computation of SHA256 for uploaded crates</li>
+<li>Corrupt layer in Docker image</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.2.2</id>
+    <title>Kellnr 5.2.2 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2024-05-08T12:00:00.000Z</published>
+    <updated>2024-05-08T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.2.2 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>All crate and npm dependencies</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Multiple small bug fixes.</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.2.1</id>
+    <title>Kellnr 5.2.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2024-03-14T12:00:00.000Z</published>
+    <updated>2024-03-14T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.2.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Option to mount certificates into the Docker <a href="https://github.com/kellnr/kellnr/pull/260" target="_blank" rel="noopener noreferrer">#260</a></li>
+<li>Responsive UI for mobile devices <a href="https://github.com/kellnr/kellnr/pull/238" target="_blank" rel="noopener noreferrer">#238</a></li>
+<li>Build docs with all features enabled <a href="https://github.com/kellnr/kellnr/pull/257" target="_blank" rel="noopener noreferrer">#257</a></li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>static.crates.io used for faster downloads instead of crates.io <a href="https://github.com/kellnr/kellnr/issues/230" target="_blank" rel="noopener noreferrer">#230</a></li>
+<li>All crate and npm dependencies</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Crates from crates.io are missing the version and documetation link in the UI after a search query <a href="https://github.com/kellnr/kellnr/issues/253" target="_blank" rel="noopener noreferrer">#253</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.2.0</id>
+    <title>Kellnr 5.2.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2024-03-14T12:00:00.000Z</published>
+    <updated>2024-03-14T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.2.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Switch to display and search cached crates in the UI</li>
+<li>Delete button for all versions of a crate in the UI</li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>All crate and npm dependencies</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.1.3</id>
+    <title>Kellnr 5.1.3 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2024-02-14T12:00:00.000Z</published>
+    <updated>2024-02-14T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.1.3 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>New status code 4xx and 5xx used by crates.io: <a href="https://blog.rust-lang.org/2024/02/06/crates-io-status-codes.html" target="_blank" rel="noopener noreferrer">crates.io status codes</a></li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Docs and doc queue available in UI, even when auth is required</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.1.2</id>
+    <title>Kellnr 5.1.2 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2024-02-05T12:00:00.000Z</published>
+    <updated>2024-02-05T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.1.2 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Route for latest docs</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Upload size for crates in settings not respected</li>
+<li>Same folder for crates from Kellnr and crates.io</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/blog/cross-plat-native-lib</id>
+    <title>Wrapping Cross-Platform Native Libraries in Rust</title>
+    <link href="https://kellnr.io/blog/cross-plat-native-lib" />
+    <published>2024-01-14T20:40:00+00:00</published>
+    <updated>2024-01-14T20:40:00+00:00</updated>
+    <content type="html"><![CDATA[Learn how a native shared C library is wrapped in a cross-platform Rust library and used in a cross-platform Rust application.]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.1.1</id>
+    <title>Kellnr 5.1.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2024-01-04T12:00:00.000Z</published>
+    <updated>2024-01-04T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.1.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Manual upload of rustdocs broken due to miscalculated upload size</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.1.0</id>
+    <title>Kellnr 5.1.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2024-01-01T12:00:00.000Z</published>
+    <updated>2024-01-01T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.1.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>New landing page with statistics</li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>All dependencies</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Username or password mismatch displayed as <i>Internal Server Error</i></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/blog/release5</id>
+    <title>Kellnr 5.0.0 release</title>
+    <link href="https://kellnr.io/blog/release5" />
+    <published>2023-11-28T21:00:00+00:00</published>
+    <updated>2023-11-28T21:00:00+00:00</updated>
+    <content type="html"><![CDATA[Version 5.0.0 of Kellnr, the private Rust registry, is released. It switches from rocket.rs to axum, removes the git index support and has refactored settings.]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.0.0</id>
+    <title>Kellnr 5.0.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2023-11-28T12:00:00.000Z</published>
+    <updated>2023-11-28T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.0.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>Switch from rocket.rs to axum</li>
+<li>Refactored settings</li>
+</ul>
+<br/>
+<strong>Removed:</strong>
+<ul>
+<li>Git index support</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#4.0.3</id>
+    <title>Kellnr 4.0.3 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2023-10-07T12:00:00.000Z</published>
+    <updated>2023-10-07T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 4.0.3 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>Updated dependencies</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li><i>api_port_proxy</i> not respected in <i>config.json</i></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#4.0.2</id>
+    <title>Kellnr 4.0.2 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2023-09-24T12:00:00.000Z</published>
+    <updated>2023-09-24T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 4.0.2 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>From <i>vue-cli</i> to <i>vite</i> for the UI</li>
+<li>Updated dependencies</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Broken link to crates.io from dependencies</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/blog/open-source</id>
+    <title>Kellnr goes Open Source</title>
+    <link href="https://kellnr.io/blog/open-source" />
+    <published>2023-09-20T21:32:00+00:00</published>
+    <updated>2023-09-20T21:32:00+00:00</updated>
+    <content type="html"><![CDATA[Kellnr, the private Rust registry, is now open source under the MIT license.]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#4.0.1</id>
+    <title>Kellnr 4.0.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2023-09-19T12:00:00.000Z</published>
+    <updated>2023-09-19T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 4.0.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Delete button in UI not working</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#4.0.0</id>
+    <title>Kellnr 4.0.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2023-09-17T12:00:00.000Z</published>
+    <updated>2023-09-17T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 4.0.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>Kellnr is now available as open-source under the MIT license</li>
+<li>Moved Kellnr repository to <a href="https://github.com/kellnr/kellnr" target="_blank" rel="noopener noreferrer">Github - Kellnr</a></li>
+<li>Moved Kellnr installer repository to <a href="https://github.com/kellnr/installer" target="_blank" rel="noopener noreferrer">Github - Kellnr Installer</a></li>
+<li>Moved Kellnr helm repository to <a href="https://github.com/kellnr/helm" target="_blank" rel="noopener noreferrer">Github - Kellnr helm</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#3.2.0</id>
+    <title>Kellnr 3.2.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2023-09-02T12:00:00.000Z</published>
+    <updated>2023-09-02T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 3.2.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Removed license checks, Kellnr is fully free for commercial usage from now on</li>
+<li><i>Postgresql</i> now available as backend database, additional to <i>sqlite</i></li>
+<li>Authentication on pull now available in all Kellnr variants</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#3.1.0</id>
+    <title>Kellnr 3.1.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2023-07-30T12:00:00.000Z</published>
+    <updated>2023-07-30T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 3.1.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Initial support for authentication on pull <a href="https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#registry-auth" target="_blank" rel="noopener noreferrer">RFC #3139</a></li>
+<li><i>crates_io_num_threads</i> allows to set the number of threads used to keep the crates.io index up-to-date</li>
+<li>Flag <i>git_index</i> to disable the git index and only use the new sparse index</li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>The git index is disabled for new installations of <i>kellnr</i> per default</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Missing (un)yank in database index</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#3.0.1</id>
+    <title>Kellnr 3.0.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2023-06-30T12:00:00.000Z</published>
+    <updated>2023-06-30T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 3.0.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>Update all dependencies</li>
+<li>Switch to new license validation backend</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Bug where the download number for uncommon crate names is counted incorrectly</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/blog/domain-modeling</id>
+    <title>Leveraging the Type System for Domain Modeling in Rust</title>
+    <link href="https://kellnr.io/blog/domain-modeling" />
+    <published>2023-06-15T12:00:00+00:00</published>
+    <updated>2023-06-15T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[Use domain modeling in Rust to achieve separation of concerns, code decoupling and a better understanding of your domain.]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#3.0.0</id>
+    <title>Kellnr 3.0.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2023-05-29T12:00:00.000Z</published>
+    <updated>2023-05-29T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 3.0.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Display readme of crate in the UI, if available</li>
+<li>Stabilized HTTP (sparse) registry API. See <RouterLink to="documentation#sparse-index">Sparse Index Protocol</RouterLink></li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>New user interface with light and dark theme</li>
+<li>Before upgrading, backup the current version of <i>kellnr</i>. For more information see: <RouterLink to="documentation#backup">Backup</RouterLink></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/blog/release3</id>
+    <title>Kellnr 3.0.0 Release</title>
+    <link href="https://kellnr.io/blog/release3" />
+    <published>2023-05-29T12:00:00+00:00</published>
+    <updated>2023-05-29T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[Kellnr 3.0.0, the private rust registry, is released. This release includes a new UI and many improvements under the hood.]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/blog/rust-supply-chain-security</id>
+    <title>Rust Supply Chain Security</title>
+    <link href="https://kellnr.io/blog/rust-supply-chain-security" />
+    <published>2023-04-10T12:00:00+00:00</published>
+    <updated>2023-04-10T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[What are the security risks of using Rust in your supply chain and how to mitigate them.]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#2.3.4</id>
+    <title>Kellnr 2.3.4 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2023-01-03T12:00:00.000Z</published>
+    <updated>2023-01-03T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 2.3.4 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Error on publish where the config file cannot be found, if it is in an unexpected location is fixed</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#2.3.3</id>
+    <title>Kellnr 2.3.3 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2022-12-20T12:00:00.000Z</published>
+    <updated>2022-12-20T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 2.3.3 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Add <i>max_crates_size</i> and <i>max_docs_size config</i> values to allow bigger uploads</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#2.3.2</id>
+    <title>Kellnr 2.3.2 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2022-12-17T12:00:00.000Z</published>
+    <updated>2022-12-17T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 2.3.2 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Cache in UI for faster load times</li>
+<li>Docker tags now released as <i>Major</i>, <i>Major.Minor</i> and <i>Major.Minor.Patch</i></li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Crates were not ordered alphabetically in the UI</li>
+<li>Crates not sorted by biggest version but last updated</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#2.3.1</id>
+    <title>Kellnr 2.3.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2022-12-07T12:00:00.000Z</published>
+    <updated>2022-12-07T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 2.3.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Crates published to Kellnr are listed in the UI but are not available in the index pulled by Cargo</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#2.3.0</id>
+    <title>Kellnr 2.3.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2022-12-04T12:00:00.000Z</published>
+    <updated>2022-12-04T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 2.3.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Adds license information in the admin settings view</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#2.2.1</id>
+    <title>Kellnr 2.2.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2022-11-27T12:00:00.000Z</published>
+    <updated>2022-11-27T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 2.2.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Better logging (more levels, different formats)</li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>The log levels changed. If you run into an error on startup, check the log levels in the documentation</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>High resource usage (CPU & RAM)</li>
+<li>Stability issues with the crates.io index mirror</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#2.2.0</id>
+    <title>Kellnr 2.2.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2022-11-11T12:00:00.000Z</published>
+    <updated>2022-11-11T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 2.2.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>"Delete" button to remove crates from the index</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#2.1.2</id>
+    <title>Kellnr 2.1.2 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2022-10-31T12:00:00.000Z</published>
+    <updated>2022-10-31T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 2.1.2 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Fixes a bug where transitive dependencies are broken when crates are renamed</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#2.1.1</id>
+    <title>Kellnr 2.1.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2022-10-02T12:00:00.000Z</published>
+    <updated>2022-10-02T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 2.1.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Fixes a bug where the same crate is shown multiple times in the UI</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#2.1.0</id>
+    <title>Kellnr 2.1.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2022-09-27T12:00:00.000Z</published>
+    <updated>2022-09-27T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 2.1.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Add an in-memory cache for crate downloads. This takes load from the disk and reduces I/O</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#2.0.0</id>
+    <title>Kellnr 2.0.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2022-09-19T12:00:00.000Z</published>
+    <updated>2022-09-19T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 2.0.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Automatic rustdoc creation for uploaded crates. Flag "rustdoc_auto_gen" has to be set to <i>true</i></li>
+<li>Add function to trigger build of rustdocs from the UI for the owner of a crate</li>
+<li>Add function to trigger a rebuild of the crates.io index from the UI if it got out-of-sync</li>
+<li>The Docker version of Kellnr import TLS certificates on startup, if placed in a special folder. This allows Kellnr to trust its own certificate or another proxy</li>
+<li>Helm chart added support for additional DNS servers to use, such that Kellnr is able to download from itself</li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>Kellnr is now compiled for Ubuntu 22.04 LTS instead of 20.04 LTS</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Page reload for the first added user fixed</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/blog/async-closures-in-rust</id>
+    <title>Asynchronous Closures in Rust - Box and Pin</title>
+    <link href="https://kellnr.io/blog/async-closures-in-rust" />
+    <published>2022-07-24T12:00:00+00:00</published>
+    <updated>2022-07-24T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[Understand asynchronous closures in Rust and how they relate to Box and Pin.]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#1.6.0</id>
+    <title>Kellnr 1.6.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2022-05-28T12:00:00.000Z</published>
+    <updated>2022-05-28T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 1.6.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>HTTP API support to pull crates (currently in cargo-nightly)</li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>New UI styling</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Stability issues</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#1.5.2</id>
+    <title>Kellnr 1.5.2 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2022-04-06T12:00:00.000Z</published>
+    <updated>2022-04-06T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 1.5.2 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>New config flag <i>api_port_proxy</i>. Allows Kellnr to be run with a proxy that has a different port than Kellnr itself</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#1.5.1</id>
+    <title>Kellnr 1.5.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2022-03-03T12:00:00.000Z</published>
+    <updated>2022-03-03T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 1.5.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>UI components</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Stability issues</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#1.4.2</id>
+    <title>Kellnr 1.4.2 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2021-12-08T12:00:00.000Z</published>
+    <updated>2021-12-08T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 1.4.2 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Overview UI for crates</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Parsing of features on crate publish</li>
+<li>Allow arbitrary badges</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#1.4.1</id>
+    <title>Kellnr 1.4.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2021-11-11T12:00:00.000Z</published>
+    <updated>2021-11-11T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 1.4.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Broken docs link when a crate has a hyphen in the name</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#1.4.0</id>
+    <title>Kellnr 1.4.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2021-11-09T12:00:00.000Z</published>
+    <updated>2021-11-09T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 1.4.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Kellnr can now proxy and cache crates.io</li>
+<li>Fully async IO API for better performance</li>
+<li>Settings can only be changed in the config file or per environment variable</li>
+<li>Settings shows current startup config</li>
+<li>Support <i>https</i> as the protocol if a reverse-proxy provides TLS</li>
+<li>Helm Chart added support for TLS certificates</li>
+</ul>
+<br/>
+<strong>Removed:</strong>
+<ul>
+<li>Changing the setting with the UI was removed</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#1.3.0</id>
+    <title>Kellnr 1.3.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2021-09-10T12:00:00.000Z</published>
+    <updated>2021-09-10T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 1.3.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Less strict license checks</li>
+<li>New license backend</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#1.2.1</id>
+    <title>Kellnr 1.2.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2021-07-13T12:00:00.000Z</published>
+    <updated>2021-07-13T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 1.2.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Version not correctly shown in UI fixed</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#1.2.0</id>
+    <title>Kellnr 1.2.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2021-07-04T12:00:00.000Z</published>
+    <updated>2021-07-04T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 1.2.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Multiarch Docker image</li>
+<li>Added support for ARMv7 additional to AARCH64 and AMD64</li>
+<li>Performance improvements through fully async API</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/blog/wasm-compiler4</id>
+    <title>WebAssembly Compiler - Building a Runtime</title>
+    <link href="https://kellnr.io/blog/wasm-compiler4" />
+    <published>2021-06-24T12:00:00+00:00</published>
+    <updated>2021-06-24T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[Write a WebAssembly runtime in Rust that can execute WebAssembly modules.]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/blog/wasm-compiler3</id>
+    <title>WebAssembly Compiler - Building a Compiler</title>
+    <link href="https://kellnr.io/blog/wasm-compiler3" />
+    <published>2021-06-05T12:00:00+00:00</published>
+    <updated>2021-06-05T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[Write a compiler in Rust to compile a WebAssembly AST to binary.]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/blog/wasm-compiler2</id>
+    <title>WebAssembly Compiler - Building a Parser</title>
+    <link href="https://kellnr.io/blog/wasm-compiler2" />
+    <published>2021-05-30T12:00:00+00:00</published>
+    <updated>2021-05-30T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[Write a parser in Rust for the WebAssembly text format.]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/blog/wasm-compiler1</id>
+    <title>WebAssembly Compiler - Text format and AST</title>
+    <link href="https://kellnr.io/blog/wasm-compiler1" />
+    <published>2021-05-27T12:00:00+00:00</published>
+    <updated>2021-05-27T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[Understand and parse a WebAssembly abstract-syntax-tree (AST) using Rust.]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#1.1.1</id>
+    <title>Kellnr 1.1.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2021-05-13T12:00:00.000Z</published>
+    <updated>2021-05-13T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 1.1.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Improved UI for low resolution displays</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>Bug in statistics web interface</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#1.1.0</id>
+    <title>Kellnr 1.1.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2021-05-05T12:00:00.000Z</published>
+    <updated>2021-05-05T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 1.1.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Statistics panel on web interface</li>
+<li>Number of unique crates</li>
+<li>Number of unique versions</li>
+<li>Number of total crate downloads</li>
+<li>Top three downloaded crates</li>
+<li>Dark mode for the web interface</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/blog/compile-times-sccache</id>
+    <title>Improve Rust compile times with sccache</title>
+    <link href="https://kellnr.io/blog/compile-times-sccache" />
+    <published>2021-04-21T12:00:00+00:00</published>
+    <updated>2021-04-21T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[Improve build times by utilizing sccache and S3 to cache compilation results over multiply builds in your Rust CI/CD pipeline.]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#1.0.0</id>
+    <title>Kellnr 1.0.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2021-04-07T12:00:00.000Z</published>
+    <updated>2021-04-07T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 1.0.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>Full implementation of the private registry API for Cargo (push & pull crates)</li>
+<li>Authentication and authorization</li>
+<li>Search & filter for crates</li>
+<li>Show information about a crate</li>
+<li>Host rustdocs directly besides the crate</li>
+<li>ARM aarch64 and Intel x64 support</li>
+</ul>]]></content>
+  </entry>
 </feed>

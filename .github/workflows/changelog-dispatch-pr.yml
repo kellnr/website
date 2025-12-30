@@ -1,0 +1,70 @@
+name: Changelog Dispatch PR
+
+on:
+  repository_dispatch:
+    types:
+      - kellnr_release_notes
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: changelog-dispatch-pr
+  cancel-in-progress: false
+
+jobs:
+  create-changelog-pr:
+    name: Create PR for changelog.json update
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update changelog.json from dispatch payload
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 .github/scripts/apply_release_notes_to_changelog.py \
+            --payload-stdin \
+            --changelog-json src/data/changelog.json <<'PAYLOAD'
+          ${{ toJson(github.event.client_payload) }}
+          PAYLOAD
+
+      - name: Generate PR body summary
+        id: pr_body
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 .github/scripts/apply_release_notes_to_changelog.py \
+            --payload-stdin \
+            --print-summary \
+            --dry-run \
+            --changelog-json src/data/changelog.json <<'PAYLOAD' > pr_body.md
+          ${{ toJson(github.event.client_payload) }}
+          PAYLOAD
+
+          echo "path=pr_body.md" >> "$GITHUB_OUTPUT"
+
+      - name: Create pull request
+        id: cpr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(changelog): add release ${{ github.event.client_payload.version }}"
+          branch: "automation/changelog-${{ github.event.client_payload.version }}"
+          delete-branch: true
+          title: "Changelog: release ${{ github.event.client_payload.version }}"
+          body-path: ${{ steps.pr_body.outputs.path }}
+
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          echo "PR URL: ${{ steps.cpr.outputs.pull-request-url }}"
+          echo "PR number: ${{ steps.cpr.outputs.pull-request-number }}"
