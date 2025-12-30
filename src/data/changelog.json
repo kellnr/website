@@ -363,7 +363,7 @@
       "entries": [
         {
           "type": "Added",
-          "content": "Config and static directories are configrable",
+          "content": "Config and static directories are configurable",
           "links": [
             {
               "label": "#535",
