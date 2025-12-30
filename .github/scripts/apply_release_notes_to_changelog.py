@@ -402,14 +402,13 @@ def main(argv: List[str]) -> int:
     # Optionally print Markdown summary for PR bodies.
     if args.print_summary:
         sys.stdout.write(build_markdown_summary(payload, release))
-        # Continue to apply changes unless --dry-run is used.
-        sys.stdout.write("\n---\n\n")
 
     changelog = load_changelog(changelog_path)
     changed = apply_release(changelog, release)
 
     if args.dry_run:
-        sys.stdout.write(dump_json_pretty(changelog))
+        # In dry-run mode we avoid printing the full changelog JSON by default,
+        # because GitHub PR diffs are sufficient and PR bodies should stay short.
         return 0
 
     if changed:
