@@ -1,3 +1,13 @@
+## Release 5.9.1
+- Date: 29. December 2025
+- Tag: `v5.9.1`
+- Source: `kellnr/kellnr`
+
+### Fixed
+- fix: broken config and data dir path #902 by @secana in https://github.com/kellnr/kellnr/pull/903
+
+---
+
 {
   "releases": [
     {
