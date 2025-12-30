@@ -41,15 +41,17 @@ jobs:
         run: |
           set -euo pipefail
 
-          python3 .github/scripts/apply_release_notes_to_changelog.py \
-            --payload-stdin \
-            --print-summary \
-            --dry-run \
-            --changelog-json src/data/changelog.json <<'PAYLOAD' > pr_body.md
+          {
+            echo "body<<EOF"
+            python3 .github/scripts/apply_release_notes_to_changelog.py \
+              --payload-stdin \
+              --print-summary \
+              --dry-run \
+              --changelog-json src/data/changelog.json <<'PAYLOAD'
           ${{ toJson(github.event.client_payload) }}
           PAYLOAD
-
-          echo "path=pr_body.md" >> "$GITHUB_OUTPUT"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Create pull request
         id: cpr
@@ -60,7 +62,7 @@ jobs:
           branch: "automation/changelog-${{ github.event.client_payload.version }}"
           delete-branch: true
           title: "Changelog: release ${{ github.event.client_payload.version }}"
-          body-path: ${{ steps.pr_body.outputs.path }}
+          body: ${{ steps.pr_body.outputs.body }}
 
       - name: Summary
         if: always()
