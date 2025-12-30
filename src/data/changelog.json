@@ -466,7 +466,7 @@
         },
         {
           "type": "Fixed",
-          "content": "Missing <i>pkg-confing</i> and <i>libssl-dev</i> in Docker image.",
+          "content": "Missing <i>pkg-config</i> and <i>libssl-dev</i> in Docker image.",
           "links": []
         },
         {
