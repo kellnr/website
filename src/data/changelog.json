@@ -590,7 +590,7 @@
         },
         {
           "type": "Fixed",
-          "content": "Crates from crates.io are missing the version and documetation link in the UI after a search query",
+          "content": "Crates from crates.io are missing the version and documentation link in the UI after a search query",
           "links": [
             {
               "label": "#253",
