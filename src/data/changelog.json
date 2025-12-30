@@ -1,0 +1,1361 @@
+{
+  "releases": [
+    {
+      "version": "5.9.1",
+      "date": "29. December 2025",
+      "isLatest": true,
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "Fix wrong config and data directory path",
+          "links": [
+            {
+              "label": "#902",
+              "url": "https://github.com/kellnr/kellnr/issues/902"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "version": "5.9.0",
+      "date": "28. December 2025",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Initial web-hook API to get events from kellnr",
+          "links": [
+            {
+              "label": "#814",
+              "url": "https://github.com/kellnr/kellnr/pull/814"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "Kellnr is now a single binary that contains all required web resources to run",
+          "links": [
+            {
+              "label": "#881",
+              "url": "https://github.com/kellnr/kellnr/issues/881"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "Fix issue with sub-path hosting",
+          "links": [
+            {
+              "label": "#862",
+              "url": "https://github.com/kellnr/kellnr/pull/862"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "Remove S3 default credentials",
+          "links": [
+            {
+              "label": "#873",
+              "url": "https://github.com/kellnr/kellnr/pull/873"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "All dependencies updated",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.8.0",
+      "date": "03. November 2025",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Allow S3 config with env-vars",
+          "links": [
+            {
+              "label": "#833",
+              "url": "https://github.com/kellnr/kellnr/pull/833"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "Support for running kellnr on a URL sub-path",
+          "links": [
+            {
+              "label": "#815",
+              "url": "https://github.com/kellnr/kellnr/pull/815"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "Fix crate group user query",
+          "links": [
+            {
+              "label": "#824",
+              "url": "https://github.com/kellnr/kellnr/pull/824"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "All dependencies updated",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.7.1",
+      "date": "27. September 2025",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Minimal Docker image for Kellnr that is optimized for size, but cannot build rustdocs.",
+          "links": [
+            {
+              "label": "#797",
+              "url": "https://github.com/kellnr/kellnr/pull/797"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "Added missing database indices on to speed up lookups for the crates.io proxy",
+          "links": [
+            {
+              "label": "#800",
+              "url": "https://github.com/kellnr/kellnr/pull/800"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "Fixed broken docs queue list in web UI",
+          "links": [
+            {
+              "label": "#807",
+              "url": "https://github.com/kellnr/kellnr/pull/807"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "Fixed caching issue for crates that led to the wrong version of docs being created.",
+          "links": [
+            {
+              "label": "#786",
+              "url": "https://github.com/kellnr/kellnr/issues/786"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "All dependencies updated",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.7.0",
+      "date": "21. August 2025",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Option <i>download_on_update</i> flag added. Allows kellnr to prefetch crate versions from crates.io",
+          "links": [
+            {
+              "label": "#760",
+              "url": "https://github.com/kellnr/kellnr/issues/760"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "Support for Bearer Token authentication in addition to Basic Auth",
+          "links": [
+            {
+              "label": "#773",
+              "url": "https://github.com/kellnr/kellnr/issues/773"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "All dependencies updated",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.6.1",
+      "date": "24. July 2025",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Separate health route for health checks in e.g. Docker",
+          "links": [
+            {
+              "label": "#756",
+              "url": "https://github.com/kellnr/kellnr/issues/756"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "version": "5.6.0",
+      "date": "30. May 2025",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Admin users can restict what crates a user can upload.",
+          "links": [
+            {
+              "label": "#671",
+              "url": "https://github.com/kellnr/kellnr/pull/671"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "Crate groups not fetched correctly in UI.",
+          "links": [
+            {
+              "label": "#690",
+              "url": "https://github.com/kellnr/kellnr/pull/690"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "version": "5.5.0",
+      "date": "17. April 2025",
+      "entries": [
+        {
+          "type": "Changed",
+          "content": "New UI with better design and improved responsiveness",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Store API tokens as hash values in the database",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.4.1",
+      "date": "10. April 2025",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "Docs not building because crates are in wrong folder",
+          "links": [
+            {
+              "label": "#670",
+              "url": "https://github.com/kellnr/kellnr/issues/670"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "version": "5.4.0",
+      "date": "02. April 2025",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "User groups to manage permissions for crates with groups instead of single users",
+          "links": [
+            {
+              "label": "#649",
+              "url": "https://github.com/kellnr/kellnr/pull/649"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "S3 support for crate storage additional to the local storage",
+          "links": [
+            {
+              "label": "#623",
+              "url": "https://github.com/kellnr/kellnr/pull/623"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "Required fields in <i>Cargo.toml</i> to deny crates with missing information",
+          "links": [
+            {
+              "label": "#622",
+              "url": "https://github.com/kellnr/kellnr/pull/622"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "Read-only users that allow authenticated download of crates, but no upload.",
+          "links": [
+            {
+              "label": "#601",
+              "url": "https://github.com/kellnr/kellnr/issues/601"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "Wrong alignment of statistics cards on the landing page",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Logout sometimes incomplete",
+          "links": [
+            {
+              "label": "#602",
+              "url": "https://github.com/kellnr/kellnr/issues/602"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "Many smaller bugs",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "All dependencies",
+          "links": []
+        },
+        {
+          "type": "Removed",
+          "content": "Support for ARM v7 architecture. It conflicts with the new S3 feature.",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.3.1",
+      "date": "22. January 2025",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "Wrong version shown in web ui",
+          "links": [
+            {
+              "label": "#583",
+              "url": "https://github.com/kellnr/kellnr/issues/583"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "version": "5.3.0",
+      "date": "18. January 2025",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Config and static directories are configrable",
+          "links": [
+            {
+              "label": "#535",
+              "url": "https://github.com/kellnr/kellnr/pull/535"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "Support for download authentication",
+          "links": [
+            {
+              "label": "#209",
+              "url": "https://github.com/kellnr/kellnr/pull/209"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "API endpoint to list all versions of a crate",
+          "links": [
+            {
+              "label": "#576",
+              "url": "https://github.com/kellnr/kellnr/pull/576"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "Empty user and password allowed",
+          "links": [
+            {
+              "label": "#572",
+              "url": "https://github.com/kellnr/kellnr/issues/572"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "Missing crate description",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "All dependencies",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.2.7",
+      "date": "09. December 2024",
+      "entries": [
+        {
+          "type": "Changed",
+          "content": "All dependencies",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.2.6",
+      "date": "18. August 2024",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "Cache invalidation if a crate is deleted",
+          "links": [
+            {
+              "label": "#461",
+              "url": "https://github.com/kellnr/kellnr/pull/461"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "Return codes for the HTTP API",
+          "links": [
+            {
+              "label": "#429",
+              "url": "https://github.com/kellnr/kellnr/pull/429"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "All dependencies",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.2.5",
+      "date": "18. August 2024",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Option <i>max_db_connections</i> to configure the max. concurrent database connections.",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Missing <i>pkg-confing</i> and <i>libssl-dev</i> in Docker image.",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "All dependencies",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.2.4",
+      "date": "24. July 2024",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Static (musl) builds to support more Linux distributions",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Permission denied on the docs build webpage",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Switched from Ubuntu as the builder to Cross-rs",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Switched from Ubuntu as the Docker base image to the official Rust image",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "All dependencies",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.2.3",
+      "date": "16. May 2024",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Copy button for newly created tokens",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Wrong computation of SHA256 for uploaded crates",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Corrupt layer in Docker image",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Use Ubuntu 24.04 as base image",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Rust depedencies",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.2.2",
+      "date": "08. May 2024",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "Multiple small bug fixes.",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "All crate and npm dependencies",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.2.1",
+      "date": "14. March 2024",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Option to mount certificates into the Docker",
+          "links": [
+            {
+              "label": "#260",
+              "url": "https://github.com/kellnr/kellnr/pull/260"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "Responsive UI for mobile devices",
+          "links": [
+            {
+              "label": "#238",
+              "url": "https://github.com/kellnr/kellnr/pull/238"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "Build docs with all features enabled",
+          "links": [
+            {
+              "label": "#257",
+              "url": "https://github.com/kellnr/kellnr/pull/257"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "Crates from crates.io are missing the version and documetation link in the UI after a search query",
+          "links": [
+            {
+              "label": "#253",
+              "url": "https://github.com/kellnr/kellnr/issues/253"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "static.crates.io used for faster downloads instead of crates.io",
+          "links": [
+            {
+              "label": "#230",
+              "url": "https://github.com/kellnr/kellnr/issues/230"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "All crate and npm dependencies",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.2.0",
+      "date": "14. March 2024",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Switch to display and search cached crates in the UI",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Delete button for all versions of a crate in the UI",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "All crate and npm dependencies",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.1.3",
+      "date": "14. February 2024",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "New status code 4xx and 5xx used by crates.io: <a href=\"https://blog.rust-lang.org/2024/02/06/crates-io-status-codes.html\" target=\"_blank\" rel=\"noopener noreferrer\">crates.io status codes</a>",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Docs and doc queue available in UI, even when auth is required",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.1.2",
+      "date": "05. February 2024",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Route for latest docs",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Upload size for crates in settings not respected",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Same folder for crates from Kellnr and crates.io",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.1.1",
+      "date": "04. January 2024",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "Manual upload of rustdocs broken due to miscalculated upload size",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.1.0",
+      "date": "01. January 2024",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "New landing page with statistics",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Username or password mismatch displayed as <i>Internal Server Error</i>",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "All dependencies",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "5.0.0",
+      "date": "28. November 2023",
+      "entries": [
+        {
+          "type": "Changed",
+          "content": "Switch from rocket.rs to axum",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Refactored settings",
+          "links": []
+        },
+        {
+          "type": "Removed",
+          "content": "Git index support",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "4.0.3",
+      "date": "07. October 2023",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "<i>api_port_proxy</i> not respected in <i>config.json</i>",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Updated dependencies",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "4.0.2",
+      "date": "24. September 2023",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "Broken link to crates.io from dependencies",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "From <i>vue-cli</i> to <i>vite</i> for the UI",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Updated dependencies",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "4.0.1",
+      "date": "19. September 2023",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "Delete button in UI not working",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "4.0.0",
+      "date": "17. September 2023",
+      "entries": [
+        {
+          "type": "Changed",
+          "content": "Kellnr is now available as open-source under the MIT license",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Moved Kellnr repository to",
+          "links": [
+            {
+              "label": "Github - Kellnr",
+              "url": "https://github.com/kellnr/kellnr"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "Moved Kellnr installer repository to",
+          "links": [
+            {
+              "label": "Github - Kellnr Installer",
+              "url": "https://github.com/kellnr/installer"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "Moved Kellnr helm repository to",
+          "links": [
+            {
+              "label": "Github - Kellnr helm",
+              "url": "https://github.com/kellnr/helm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "version": "3.2.0",
+      "date": "02. September 2023",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Removed license checks, Kellnr is fully free for commercial usage from now on",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "<i>Postgresql</i> now available as backend database, additional to <i>sqlite</i>",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Authentication on pull now available in all Kellnr variants",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "3.1.0",
+      "date": "30. July 2023",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Initial support for authentication on pull",
+          "links": [
+            {
+              "label": "RFC #3139",
+              "url": "https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#registry-auth"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "<i>crates_io_num_threads</i> allows to set the number of threads used to keep the crates.io index up-to-date",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Flag <i>git_index</i> to disable the git index and only use the new sparse index",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "The git index is disabled for new installations of <i>kellnr</i> per default",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Missing (un)yank in database index",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "3.0.1",
+      "date": "30. June 2023",
+      "entries": [
+        {
+          "type": "Changed",
+          "content": "Update all dependencies",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Switch to new license validation backend",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Bug where the download number for uncommon crate names is counted incorrectly",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "3.0.0",
+      "date": "29. May 2023",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Display readme of crate in the UI, if available",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Stabilized HTTP (sparse) registry API. See <RouterLink to=\"documentation#sparse-index\">Sparse Index Protocol</RouterLink>",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "New user interface with light and dark theme",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Before upgrading, backup the current version of <i>kellnr</i>. For more information see: <RouterLink to=\"documentation#backup\">Backup</RouterLink>",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "2.3.4",
+      "date": "03. January 2023",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "Error on publish where the config file cannot be found, if it is in an unexpected location is fixed",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "2.3.3",
+      "date": "20. December 2022",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Add <i>max_crates_size</i> and <i>max_docs_size config</i> values to allow bigger uploads",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "2.3.2",
+      "date": "17. December 2022",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Cache in UI for faster load times",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Docker tags now released as <i>Major</i>, <i>Major.Minor</i> and <i>Major.Minor.Patch</i>",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Crates were not ordered alphabetically in the UI",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Crates not sorted by biggest version but last updated",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "2.3.1",
+      "date": "07. December 2022",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "Crates published to Kellnr are listed in the UI but are not available in the index pulled by Cargo",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "2.3.0",
+      "date": "04. December 2022",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Adds license information in the admin settings view",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "2.2.1",
+      "date": "27. November 2022",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Better logging (more levels, different formats)",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "The log levels changed. If you run into an error on startup, check the log levels in the documentation",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "High resource usage (CPU & RAM)",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Stability issues with the crates.io index mirror",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "2.2.0",
+      "date": "11. November 2022",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "\"Delete\" button to remove crates from the index",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "2.1.2",
+      "date": "31. October 2022",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "Fixes a bug where transitive dependencies are broken when crates are renamed",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "2.1.1",
+      "date": "02. October 2022",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "Fixes a bug where the same crate is shown multiple times in the UI",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "2.1.0",
+      "date": "27. September 2022",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Add an in-memory cache for crate downloads. This takes load from the disk and reduces I/O",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "2.0.0",
+      "date": "19. September 2022",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Automatic rustdoc creation for uploaded crates. Flag \"rustdoc_auto_gen\" has to be set to <i>true</i>",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Add function to trigger build of rustdocs from the UI for the owner of a crate",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Add function to trigger a rebuild of the crates.io index from the UI if it got out-of-sync",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "The Docker version of Kellnr import TLS certificates on startup, if placed in a special folder. This allows Kellnr to trust its own certificate or another proxy",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Helm chart added support for additional DNS servers to use, such that Kellnr is able to download from itself",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Kellnr is now compiled for Ubuntu 22.04 LTS instead of 20.04 LTS",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Page reload for the first added user fixed",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "1.6.0",
+      "date": "28. May 2022",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "HTTP API support to pull crates (currently in cargo-nightly)",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "New UI styling",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Stability issues",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "1.5.2",
+      "date": "06. April 2022",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "New config flag <i>api_port_proxy</i>. Allows Kellnr to be run with a proxy that has a different port than Kellnr itself",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "1.5.1",
+      "date": "03. March 2022",
+      "entries": [
+        {
+          "type": "Changed",
+          "content": "UI components",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Stability issues",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "1.4.2",
+      "date": "08. December 2021",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Overview UI for crates",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Parsing of features on crate publish",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Allow arbitrary badges",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "1.4.1",
+      "date": "11.November 2021",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "Broken docs link when a crate has a hyphen in the name",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "1.4.0",
+      "date": "09. November 2021",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Kellnr can now proxy and cache crates.io",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Fully async IO API for better performance",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Settings can only be changed in the config file or per environment variable",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Settings shows current startup config",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Support <i>https</i> as the protocol if a reverse-proxy provides TLS",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Helm Chart added support for TLS certificates",
+          "links": []
+        },
+        {
+          "type": "Removed",
+          "content": "Changing the setting with the UI was removed",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "1.3.0",
+      "date": "10. September 2021",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Less strict license checks",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "New license backend",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "1.2.1",
+      "date": "13. July 2021",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "Version not correctly shown in UI fixed",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "1.2.0",
+      "date": "04. July 2021",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Multiarch Docker image",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Added support for ARMv7 additional to AARCH64 and AMD64",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Performance improvements through fully async API",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "1.1.1",
+      "date": "13. May 2021",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Improved UI for low resolution displays",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "Bug in statistics web interface",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "05. May 2021",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Statistics panel on web interface",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Number of unique crates",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Number of unique versions",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Number of total crate downloads",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Top three downloaded crates",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Dark mode for the web interface",
+          "links": []
+        }
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "date": "07. April 2021",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "Full implementation of the private registry API for Cargo (push & pull crates)",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Authentication and authorization",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Search & filter for crates",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Show information about a crate",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "Host rustdocs directly besides the crate",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "ARM aarch64 and Intel x64 support",
+          "links": []
+        }
+      ]
+    }
+  ]
+}
