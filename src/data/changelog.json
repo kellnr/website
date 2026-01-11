@@ -1,6 +1,23 @@
 {
   "releases": [
     {
+      "version": "5.10.1-rc.1",
+      "date": "11. January 2026",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "fix: Package default.config in release package",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "ci: Add \"cargo publish\" to release kellnr to crates.io",
+          "links": []
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "5.10.0",
       "date": "11. January 2026",
       "entries": [
@@ -114,8 +131,7 @@
           "content": "test: fix latest kellnr image resolve by @secana in https://github.com/kellnr/kellnr/pull/941",
           "links": []
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "5.9.1",
