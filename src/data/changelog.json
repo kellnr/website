@@ -1,9 +1,125 @@
 {
   "releases": [
     {
+      "version": "5.10.0",
+      "date": "11. January 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "feat: Show available crate groups in dropdown element in UI #700 by @secana in https://github.com/kellnr/kellnr/pull/929",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "feat: addremove crate owners in UI by @secana in https://github.com/kellnr/kellnr/pull/940",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "refactor: pre compiled ui resources by @secana in https://github.com/kellnr/kellnr/pull/917",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "ci: Add pipeline to update website automatically by @secana in https://github.com/kellnr/kellnr/pull/904",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "ci: Add release-plz by @secana in https://github.com/kellnr/kellnr/pull/908",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "test: replace-lua-tests-with-playwright by @secana in https://github.com/kellnr/kellnr/pull/910",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "chore: use `license` field and other Cargo.toml cleanups by @nyurik in https://github.com/kellnr/kellnr/pull/912",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "chore: Change license to MIT OR Apache-2.0 by @Copilot in https://github.com/kellnr/kellnr/pull/919",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "build(deps): bump syn from 2.0.111 to 2.0.112 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/924",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "build(deps-dev): bump globals from 16.5.0 to 17.0.0 in /ui by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/925",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "chore: format code and sort imports across multiple files by @nyurik in https://github.com/kellnr/kellnr/pull/922",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "chore: Prepare for crates.io publishing by @secana in https://github.com/kellnr/kellnr/pull/926",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "build(deps): bump rsa from 0.9.9 to 0.9.10 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/927",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "chore: Update sea-orm dependencies to latest rc by @secana in https://github.com/kellnr/kellnr/pull/932",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "build(deps): bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/933",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "build(deps): bump url from 2.5.7 to 2.5.8 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/934",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "build(deps): bump toml from 0.9.10+spec-1.1.0 to 0.9.11+spec-1.1.0 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/935",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "build(deps): bump quote from 1.0.42 to 1.0.43 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/936",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "build(deps): bump syn from 2.0.113 to 2.0.114 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/937",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "build(deps): bump serde_json from 1.0.148 to 1.0.149 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/938",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "ci: publish to kellnr to cratesio by @secana in https://github.com/kellnr/kellnr/pull/939",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "test: fix latest kellnr image resolve by @secana in https://github.com/kellnr/kellnr/pull/941",
+          "links": []
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "5.9.1",
       "date": "29. December 2025",
-      "isLatest": true,
       "entries": [
         {
           "type": "Fixed",
