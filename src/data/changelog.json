@@ -1,6 +1,33 @@
 {
   "releases": [
     {
+      "version": "5.10.1",
+      "date": "12. January 2026",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "fix: Broken crc dependency in lzma-rust2 crate",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "fix: libstd not found on macOS",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "chore: Update Rust Docker images",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "chore: Update flake.nix",
+          "links": []
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "5.10.0",
       "date": "11. January 2026",
       "entries": [
@@ -114,8 +141,7 @@
           "content": "test: fix latest kellnr image resolve by @secana in https://github.com/kellnr/kellnr/pull/941",
           "links": []
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "5.9.1",
