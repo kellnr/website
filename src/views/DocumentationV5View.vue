@@ -304,6 +304,8 @@ sudo systemctl status kellnr
             <CodeBlock>
               <pre v-highlightjs><code class="bash"># Install Kellnr with Cargo
 cargo install kellnr
+# If you run into issues with OpenSSL, try the following command:
+cargo install kellnr --features vendored-openssl
 # Run kellnr (if not in PATH, the binary is located in $HOME/.cargo/bin/)
 kellnr</code></pre>
             </CodeBlock>
