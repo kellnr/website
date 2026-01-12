@@ -6,22 +6,22 @@
       "entries": [
         {
           "type": "Fixed",
-          "content": "fix: Broken crc dependency in lzma-rust2 crate",
+          "content": "Broken crc dependency in lzma-rust2 crate",
           "links": []
         },
         {
           "type": "Fixed",
-          "content": "fix: libstd not found on macOS",
+          "content": "libstd not found on macOS",
           "links": []
         },
         {
           "type": "Changed",
-          "content": "chore: Update Rust Docker images",
+          "content": "Update Rust Docker images",
           "links": []
         },
         {
           "type": "Changed",
-          "content": "chore: Update flake.nix",
+          "content": "Update flake.nix",
           "links": []
         }
       ],
@@ -33,113 +33,223 @@
       "entries": [
         {
           "type": "Added",
-          "content": "feat: Show available crate groups in dropdown element in UI #700 by @secana in https://github.com/kellnr/kellnr/pull/929",
-          "links": []
+          "content": "Show available crate groups in dropdown element in UI",
+          "links": [
+            {
+              "label": "#929",
+              "url": "https://github.com/kellnr/kellnr/pull/929"
+            }
+          ]
         },
         {
           "type": "Added",
-          "content": "feat: addremove crate owners in UI by @secana in https://github.com/kellnr/kellnr/pull/940",
-          "links": []
+          "content": "addremove crate owners in UI",
+          "links": [
+            {
+              "label": "#940",
+              "url": "https://github.com/kellnr/kellnr/pull/940"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "refactor: pre compiled ui resources by @secana in https://github.com/kellnr/kellnr/pull/917",
-          "links": []
+          "content": "pre compiled ui resources",
+          "links": [
+            {
+              "label": "#917",
+              "url": "https://github.com/kellnr/kellnr/pull/917"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "ci: Add pipeline to update website automatically by @secana in https://github.com/kellnr/kellnr/pull/904",
-          "links": []
+          "content": "Add pipeline to update website automatically",
+          "links": [
+            {
+              "label": "#904",
+              "url": "https://github.com/kellnr/kellnr/pull/904"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "ci: Add release-plz by @secana in https://github.com/kellnr/kellnr/pull/908",
-          "links": []
+          "content": "Add release-plz",
+          "links": [
+            {
+              "label": "#908",
+              "url": "https://github.com/kellnr/kellnr/pull/908"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "test: replace-lua-tests-with-playwright by @secana in https://github.com/kellnr/kellnr/pull/910",
-          "links": []
+          "content": "replace-lua-tests-with-playwright",
+          "links": [
+            {
+              "label": "#910",
+              "url": "https://github.com/kellnr/kellnr/pull/910"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "chore: use `license` field and other Cargo.toml cleanups by @nyurik in https://github.com/kellnr/kellnr/pull/912",
-          "links": []
+          "content": "use `license` field and other Cargo.toml cleanups",
+          "links": [
+            {
+              "label": "#912",
+              "url": "https://github.com/kellnr/kellnr/pull/912"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "chore: Change license to MIT OR Apache-2.0 by @Copilot in https://github.com/kellnr/kellnr/pull/919",
-          "links": []
+          "content": "Change license to MIT OR Apache-2.0",
+          "links": [
+            {
+              "label": "#919",
+              "url": "https://github.com/kellnr/kellnr/pull/919"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "build(deps): bump syn from 2.0.111 to 2.0.112 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/924",
-          "links": []
+          "content": "bump syn from 2.0.111 to 2.0.112",
+          "links": [
+            {
+              "label": "#924",
+              "url": "https://github.com/kellnr/kellnr/pull/924"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "build(deps-dev): bump globals from 16.5.0 to 17.0.0 in /ui by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/925",
-          "links": []
+          "content": "bump globals from 16.5.0 to 17.0.0 in /ui",
+          "links": [
+            {
+              "label": "#925",
+              "url": "https://github.com/kellnr/kellnr/pull/925"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "chore: format code and sort imports across multiple files by @nyurik in https://github.com/kellnr/kellnr/pull/922",
-          "links": []
+          "content": "format code and sort imports across multiple files",
+          "links": [
+            {
+              "label": "#922",
+              "url": "https://github.com/kellnr/kellnr/pull/922"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "chore: Prepare for crates.io publishing by @secana in https://github.com/kellnr/kellnr/pull/926",
-          "links": []
+          "content": "Prepare for crates.io publishing",
+          "links": [
+            {
+              "label": "#926",
+              "url": "https://github.com/kellnr/kellnr/pull/926"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "build(deps): bump rsa from 0.9.9 to 0.9.10 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/927",
-          "links": []
+          "content": "bump rsa from 0.9.9 to 0.9.10",
+          "links": [
+            {
+              "label": "#927",
+              "url": "https://github.com/kellnr/kellnr/pull/927"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "chore: Update sea-orm dependencies to latest rc by @secana in https://github.com/kellnr/kellnr/pull/932",
-          "links": []
+          "content": "Update sea-orm dependencies to latest rc",
+          "links": [
+            {
+              "label": "#932",
+              "url": "https://github.com/kellnr/kellnr/pull/932"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "build(deps): bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/933",
-          "links": []
+          "content": "bump dependabot/fetch-metadata from 2.4.0 to 2.5.0",
+          "links": [
+            {
+              "label": "#933",
+              "url": "https://github.com/kellnr/kellnr/pull/933"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "build(deps): bump url from 2.5.7 to 2.5.8 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/934",
-          "links": []
+          "content": "bump url from 2.5.7 to 2.5.8",
+          "links": [
+            {
+              "label": "#934",
+              "url": "https://github.com/kellnr/kellnr/pull/934"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "build(deps): bump toml from 0.9.10+spec-1.1.0 to 0.9.11+spec-1.1.0 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/935",
-          "links": []
+          "content": "bump toml from 0.9.10+spec-1.1.0 to 0.9.11+spec-1.1.0",
+          "links": [
+            {
+              "label": "#935",
+              "url": "https://github.com/kellnr/kellnr/pull/935"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "build(deps): bump quote from 1.0.42 to 1.0.43 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/936",
-          "links": []
+          "content": "bump quote from 1.0.42 to 1.0.43",
+          "links": [
+            {
+              "label": "#936",
+              "url": "https://github.com/kellnr/kellnr/pull/936"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "build(deps): bump syn from 2.0.113 to 2.0.114 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/937",
-          "links": []
+          "content": "bump syn from 2.0.113 to 2.0.114",
+          "links": [
+            {
+              "label": "#937",
+              "url": "https://github.com/kellnr/kellnr/pull/937"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "build(deps): bump serde_json from 1.0.148 to 1.0.149 by @dependabot[bot] in https://github.com/kellnr/kellnr/pull/938",
-          "links": []
+          "content": "bump serde_json from 1.0.148 to 1.0.149",
+          "links": [
+            {
+              "label": "#938",
+              "url": "https://github.com/kellnr/kellnr/pull/938"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "ci: publish to kellnr to cratesio by @secana in https://github.com/kellnr/kellnr/pull/939",
-          "links": []
+          "content": "publish to kellnr to cratesio",
+          "links": [
+            {
+              "label": "#939",
+              "url": "https://github.com/kellnr/kellnr/pull/939"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "test: fix latest kellnr image resolve by @secana in https://github.com/kellnr/kellnr/pull/941",
-          "links": []
+          "content": "fix latest kellnr image resolve",
+          "links": [
+            {
+              "label": "#941",
+              "url": "https://github.com/kellnr/kellnr/pull/941"
+            }
+          ]
         }
       ]
     },
