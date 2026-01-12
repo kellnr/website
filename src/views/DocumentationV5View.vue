@@ -306,6 +306,8 @@ sudo systemctl status kellnr
 cargo install kellnr
 # If you run into issues with OpenSSL, try the following command:
 cargo install kellnr --features vendored-openssl
+# Set the data diretory where kellnr stores its data
+export KELLNR_REGISTRY__DATA_DIR="/path/to/data/dir"
 # Run kellnr (if not in PATH, the binary is located in $HOME/.cargo/bin/)
 kellnr</code></pre>
             </CodeBlock>
