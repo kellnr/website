@@ -72,6 +72,9 @@ import MainHeader from "../components/elements/MainHeader.vue";
                     <router-link to="#script">Script</router-link>
                   </li>
                   <li>
+                    <router-link to="#cargo-install">Cargo Install</router-link>
+                  </li>
+                  <li>
                     <router-link to="#manual-installation">Manual Installation</router-link>
                   </li>
                   <li>
@@ -292,6 +295,18 @@ sudo systemctl status kellnr
                 </tr>
               </tbody>
             </TableBlock>
+
+            <SubHeader id="cargo-install">Cargo Install</SubHeader>
+            <TextBlock>
+              If you have Rust and Cargo installed on your system, you can install Kellnr with Cargo as
+              well. This will build Kellnr from source on your system.
+            </TextBlock>
+            <CodeBlock>
+              <pre v-highlightjs><code class="bash"># Install Kellnr with Cargo
+cargo install kellnr
+# Run kellnr (if not in PATH, the binary is located in $HOME/.cargo/bin/)
+kellnr</code></pre>
+            </CodeBlock>
 
             <SubHeader id="manual-installation">Manual Installation</SubHeader>
             <TextBlock>
