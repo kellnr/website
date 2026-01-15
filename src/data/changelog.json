@@ -1,6 +1,43 @@
 {
   "releases": [
     {
+      "version": "5.11.0",
+      "date": "15. January 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "feat: Crate user only downloads not enforced when auth required = false by @secana in https://github.com/kellnr/kellnr/pull/949",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "feat: Add allow_ownerless_crates setting by @maciekglowka in https://github.com/kellnr/kellnr/pull/952",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "feat: Allow configuration of proxy URL and index #880 by @secana in https://github.com/kellnr/kellnr/pull/954",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "feat: Configurable cookie signing key #928 by @secana in https://github.com/kellnr/kellnr/pull/951",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "feat: Implement token cache, to relieve some pressure on db and in high throughput scenarios by @perfectra1n in https://github.com/kellnr/kellnr/pull/953",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "ci: Run the CI job only on pull by @secana in https://github.com/kellnr/kellnr/pull/956",
+          "links": []
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "5.10.1",
       "date": "12. January 2026",
       "entries": [
@@ -24,8 +61,7 @@
           "content": "Update flake.nix",
           "links": []
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "5.10.0",
