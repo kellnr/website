@@ -493,6 +493,13 @@ helm uninstall kellnr</code></pre>
                   </td>
                 </tr>
                 <tr>
+                  <td>[registry]<br />allow_ownerless_crates</td>
+                  <td>KELLNR_REGISTRY__ALLOW_OWNERLESS_CRATES</td>
+                  <td>false</td>
+                  <td>If set to <i>true</i>, crates are allowed to have no owner. Else, at least one owner is required.
+                  </td>
+                </tr>
+                <tr>
                   <td>[registry]<br />token_cache_enabled</td>
                   <td>KELLNR_REGISTRY__TOKEN_CACHE_ENABLED</td>
                   <td>true</td>
