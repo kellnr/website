@@ -493,6 +493,36 @@ helm uninstall kellnr</code></pre>
                   </td>
                 </tr>
                 <tr>
+                  <td>[registry]<br />token_cache_enabled</td>
+                  <td>KELLNR_REGISTRY__TOKEN_CACHE_ENABLED</td>
+                  <td>true</td>
+                  <td>If set to <i>true</i>, instead of validating the <i>Cargo</i> token each time against the DB, cache it.</td>
+                </tr>
+                <tr>
+                  <td>[registry]<br />token_cache_ttl_seconds</td>
+                  <td>KELLNR_REGISTRY__TOKEN_CACHE_TTL_SECONDS</td>
+                  <td>1800</td>
+                  <td>Cache TTL (30 mins).</td>
+                </tr>
+                <tr>
+                  <td>[registry]<br />token_cache_max_capacity</td>
+                  <td>KELLNR_REGISTRY__TOKEN_CACHE_MAX_CAPACITY</td>
+                  <td>10000</td>
+                  <td>Maximum cached tokens.</td>
+                </tr>
+                <tr>
+                  <td>[registry]<br />token_db_retry_count</td>
+                  <td>KELLNR_REGISTRY__TOKEN_DB_RETRY_COUNT</td>
+                  <td>3</td>
+                  <td>Number of retries.</td>
+                </tr>
+                <tr>
+                  <td>[registry]<br />token_db_retry_delay_ms</td>
+                  <td>KELLNR_REGISTRY__TOKEN_DB_RETRY_DELAY_MS</td>
+                  <td>100</td>
+                  <td>Delay between retries in milliseconds</td>
+                </tr>
+                <tr>
                   <td>[local]<br />ip</td>
                   <td>KELLNR_LOCAL__IP</td>
                   <td>0.0.0.0</td>
