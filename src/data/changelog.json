@@ -6,33 +6,63 @@
       "entries": [
         {
           "type": "Added",
-          "content": "feat: Crate user only downloads not enforced when auth required = false by @secana in https://github.com/kellnr/kellnr/pull/949",
-          "links": []
+          "content": "feat: Crate user only downloads not enforced when auth required = false by @secana",
+          "links": [
+            {
+              "label": "#949",
+              "url": "https://github.com/kellnr/kellnr/pull/949"
+            }
+          ]
         },
         {
           "type": "Added",
-          "content": "feat: Add allow_ownerless_crates setting by @maciekglowka in https://github.com/kellnr/kellnr/pull/952",
-          "links": []
+          "content": "feat: Add allow_ownerless_crates setting by @maciekglowka",
+          "links": [
+            {
+              "label": "#952",
+              "url": "https://github.com/kellnr/kellnr/pull/952"
+            }
+          ]
         },
         {
           "type": "Added",
-          "content": "feat: Allow configuration of proxy URL and index #880 by @secana in https://github.com/kellnr/kellnr/pull/954",
-          "links": []
+          "content": "feat: Allow configuration of proxy URL and index #880 by @secana",
+          "links": [
+            {
+              "label": "#954",
+              "url": "https://github.com/kellnr/kellnr/pull/954"
+            }
+          ]
         },
         {
           "type": "Added",
-          "content": "feat: Configurable cookie signing key #928 by @secana in https://github.com/kellnr/kellnr/pull/951",
-          "links": []
+          "content": "feat: Configurable cookie signing key #928 by @secana",
+          "links": [
+            {
+              "label": "#951",
+              "url": "https://github.com/kellnr/kellnr/pull/951"
+            }
+          ]
         },
         {
           "type": "Added",
-          "content": "feat: Implement token cache, to relieve some pressure on db and in high throughput scenarios by @perfectra1n in https://github.com/kellnr/kellnr/pull/953",
-          "links": []
+          "content": "feat: Implement token cache, to relieve some pressure on db and in high throughput scenarios by @perfectra1n",
+          "links": [
+            {
+              "label": "#953",
+              "url": "https://github.com/kellnr/kellnr/pull/953"
+            }
+          ]
         },
         {
           "type": "Changed",
-          "content": "ci: Run the CI job only on pull by @secana in https://github.com/kellnr/kellnr/pull/956",
-          "links": []
+          "content": "ci: Run the CI job only on pull by @secana",
+          "links": [
+            {
+              "label": "#956",
+              "url": "https://github.com/kellnr/kellnr/pull/956"
+            }
+          ]
         }
       ],
       "isLatest": true
