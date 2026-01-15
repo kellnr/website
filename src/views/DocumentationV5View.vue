@@ -493,6 +493,13 @@ helm uninstall kellnr</code></pre>
                   </td>
                 </tr>
                 <tr>
+                  <td>[registry]<br />allow_ownerless_crates</td>
+                  <td>KELLNR_REGISTRY__ALLOW_OWNERLESS_CRATES</td>
+                  <td>false</td>
+                  <td>If set to <i>true</i>, crates are allowed to have no owner. Else, at least one owner is required.
+                  </td>
+                </tr>
+                <tr>
                   <td>[local]<br />ip</td>
                   <td>KELLNR_LOCAL__IP</td>
                   <td>0.0.0.0</td>
