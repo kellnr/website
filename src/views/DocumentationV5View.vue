@@ -520,7 +520,7 @@ helm uninstall kellnr</code></pre>
                   <td>[registry]<br />token_db_retry_delay_ms</td>
                   <td>KELLNR_REGISTRY__TOKEN_DB_RETRY_DELAY_MS</td>
                   <td>100</td>
-                  <td>Delay between retries in milli-seconds</td>
+                  <td>Delay between retries in milliseconds</td>
                 </tr>
                 <tr>
                   <td>[local]<br />ip</td>
