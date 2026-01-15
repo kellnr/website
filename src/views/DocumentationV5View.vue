@@ -466,6 +466,14 @@ helm uninstall kellnr</code></pre>
                   <td>Max number of internal database connections. "0" disables the limit.</td>
                 </tr>
                 <tr>
+                  <td>[registry]<br />cookie_signing_key</td>
+                  <td>KELLNR_REGISTRY__COOKIE_SIGNING_KEY</td>
+                  <td>None</td>
+                  <td>Signing key for UI auth. cookies. If not set, a random one is generated. 
+                    Needs to be set to an (at least 64 byte) long string, if you intend to run multiple instances
+                    of kellnr which share a login.</td>
+                </tr>
+                <tr>
                   <td>[registry]<br />auth_required</td>
                   <td>KELLNR_REGISTRY__AUTH_REQUIRED</td>
                   <td>false</td>
