@@ -54,7 +54,8 @@ import re
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, Set
+
 
 KAC_TYPE_ORDER: Tuple[str, ...] = (
     "Added",
@@ -76,6 +77,18 @@ ALLOWED_ENTRY_TYPES: Tuple[str, ...] = (
 )
 
 _TRAILING_GH_REF_RE = re.compile(r"(?:\s|\()#(\d+)\)?\s*$")
+
+# Matches GitHub pull/issue URLs inside a sentence.
+# Examples:
+#   https://github.com/kellnr/kellnr/pull/949
+#   https://github.com/kellnr/kellnr/issues/880
+_GH_URL_RE = re.compile(
+    r"https?://github\.com/(?P<repo>[^\s/]+/[^\s/]+)/(?:pull|issues)/(?P<num>\d+)"
+)
+
+# Common GitHub release-note phrasing: "... in <url>" at the end.
+_TRAILING_IN_URL_RE = re.compile(r"\s+in\s+https?://github\.com/[^\s]+\s*$")
+
 
 
 class PayloadError(RuntimeError):
@@ -164,25 +177,63 @@ def _entry_item_from_text(text: str, source_repo: str) -> Dict[str, Any]:
     Convert a single bullet line into:
       { "content": "...", "links": [ {label, url}, ... ] }
 
-    Heuristic: if text ends with '#123' or '(#123)' and source_repo is present,
-    convert it into a link to https://github.com/<source_repo>/issues/123 and strip it from content.
+    Supported patterns:
+    - GitHub URLs embedded in the text (preferred):
+        https://github.com/<owner>/<repo>/pull/<n>
+        https://github.com/<owner>/<repo>/issues/<n>
+      These are extracted into `links` and removed from `content`.
+
+    - Fallback heuristic: if text ends with '#123' or '(#123)' and source_repo is present,
+      convert it into a link to https://github.com/<source_repo>/issues/123 and strip it from content.
+
+    This ensures the changelog schema stays consistent: links in `links`, not in `content`.
     """
     s = (text or "").strip()
     links: List[Dict[str, str]] = []
 
-    m = _TRAILING_GH_REF_RE.search(s)
-    if m and source_repo:
-        num = m.group(1)
-        links.append(
-            {
-                "label": f"#{num}",
-                # Use /issues/ as a stable target; GitHub auto-resolves PRs too.
-                "url": f"https://github.com/{source_repo}/issues/{num}",
-            }
-        )
-        s = _TRAILING_GH_REF_RE.sub("", s).rstrip()
+    # 1) Extract explicit GitHub URLs anywhere in the string.
+    # Prefer PR links; dedupe by URL.
+    found_urls: List[Tuple[str, str]] = []
+    for m in _GH_URL_RE.finditer(s):
+        repo = m.group("repo")
+        num = m.group("num")
+        # Preserve the matched URL shape as-is (pull vs issues).
+        url = m.group(0)
+        found_urls.append((num, url))
+
+    if found_urls:
+        # Prefer /pull/ URLs when both exist.
+        found_urls.sort(key=lambda x: ("/pull/" not in x[1], x[1]))
+        seen: Set[str] = set()
+
+        for num, url in found_urls:
+            if url in seen:
+                continue
+            seen.add(url)
+            links.append({"label": f"#{num}", "url": url})
+
+        # Remove trailing 'in <url>' noise and any remaining bare URLs.
+        s = _TRAILING_IN_URL_RE.sub("", s).rstrip()
+        s = _GH_URL_RE.sub("", s)
+        # Normalize whitespace left behind.
+        s = re.sub(r"\s{2,}", " ", s).strip()
+
+    # 2) Fallback: extract trailing '#123'
+    if not links:
+        m = _TRAILING_GH_REF_RE.search(s)
+        if m and source_repo:
+            num = m.group(1)
+            links.append(
+                {
+                    "label": f"#{num}",
+                    # Use /issues/ as a stable target; GitHub auto-resolves PRs too.
+                    "url": f"https://github.com/{source_repo}/issues/{num}",
+                }
+            )
+            s = _TRAILING_GH_REF_RE.sub("", s).rstrip()
 
     return {"content": s, "links": links}
+
 
 
 def build_release_from_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
