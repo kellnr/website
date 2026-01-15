@@ -494,7 +494,7 @@ helm uninstall kellnr</code></pre>
                 </tr>
                 <tr>
                   <td>[registry]<br />token_cache_enabled</td>
-                  <td>KELLNR_REGISTRY__TOKEN_CACHE_ENABELD</td>
+                  <td>KELLNR_REGISTRY__TOKEN_CACHE_ENABLED</td>
                   <td>true</td>
                   <td>If set to <i>true</i>, instead of validating the <i>Cargo</i> token each time against the DB, cache it.</td>
                 </tr>
