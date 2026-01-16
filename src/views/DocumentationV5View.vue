@@ -447,7 +447,7 @@ helm uninstall kellnr</code></pre>
                 </tr>
                 <tr>
                   <td>[registry]<br />cache_size</td>
-                  <td>KELLNR_REGISTRY_CACHE_SIZE</td>
+                  <td>KELLNR_REGISTRY__CACHE_SIZE</td>
                   <td>1000</td>
                   <td>Number of crates cached in-memory to decrease disk I/O. If set to "0" the
                     cache is disabled.
@@ -560,7 +560,7 @@ helm uninstall kellnr</code></pre>
                   <td>KELLNR_ORIGIN__PORT</td>
                   <td>8000</td>
                   <td>If a proxy is in front of Kellnr with a different port as Kellnr itself,
-                    the port from the proxy has to be set here. Else set to to the same value as
+                    the port from the proxy has to be set here. Else set to the same value as
                     "local.port".
                   </td>
                 </tr>
@@ -651,7 +651,7 @@ helm uninstall kellnr</code></pre>
                   <td>Database name of the PostgreSQL server</td>
                 </tr>
                 <tr>
-                  <td>[postgresql]<br />.user</td>
+                  <td>[postgresql]<br />user</td>
                   <td>KELLNR_POSTGRESQL__USER</td>
                   <td></td>
                   <td>User name of the PostgreSQL database</td>
@@ -720,12 +720,12 @@ helm uninstall kellnr</code></pre>
               </router-link>
               for more information. Authentication on
               pull can be enabled by setting the flag <i>auth_required</i> to <i>true</i> in the config. This will force
-              cargo to authenticte on pull as well and the flag forces users of the web UI to log in, to see any details
+              cargo to authenticate on pull as well and the flag forces users of the web UI to log in, to see any details
               of crates.
               <br />
               <br />
               If the <i>auth_required</i> flag is set to <i>true</i>, Kellnr needs to be able to authenticate against
-              itself. If the doc generation is enabled, the docs can only be build sucessfully, if Kellnr can pull the
+              itself. If the doc generation is enabled, the docs can only be build successfully, if Kellnr can pull the
               dependencies from itself.
               To allow that, you have to provide Kellnr with a valid registry authentication token for itself. See <a
                 href="https://doc.rust-lang.org/cargo/reference/config.html#hierarchical-structure">Cargo Config</a>,
@@ -763,7 +763,7 @@ helm uninstall kellnr</code></pre>
               <b>Attention</b><br />
               If you enable the proxy, Kellnr caches every crate from crates.io that is requested through Kellnr. This
               means that the first download of a crate is a bit slower, as it is first downloaded from crates.io and
-              than cached by Kellnr. All subsequent request are faster, as Kellnr now responses from the cache and
+              then cached by Kellnr. All subsequent request are faster, as Kellnr now responds from the cache and
               crates.io is not requested anymore.
               <br />
               We strongly recommend to run Kellnr on fast SSD storage if you enable the crates.io proxy.
