@@ -1,6 +1,73 @@
 {
   "releases": [
     {
+      "version": "5.12.0",
+      "date": "17. January 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "feat: Make cards on frontpage clickable by @secana",
+          "links": [
+            {
+              "label": "#964",
+              "url": "https://github.com/kellnr/kellnr/pull/964"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "ci: Improve release-plz config by @secana",
+          "links": [
+            {
+              "label": "#957",
+              "url": "https://github.com/kellnr/kellnr/pull/957"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "chore: Add .editorconfig for consistent coding styles by @nyurik",
+          "links": [
+            {
+              "label": "#959",
+              "url": "https://github.com/kellnr/kellnr/pull/959"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "chore: Update Cargo.toml deps, clean up configuration by @nyurik",
+          "links": [
+            {
+              "label": "#960",
+              "url": "https://github.com/kellnr/kellnr/pull/960"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "ci: Refactor YAML syntax for consistency and readability by @nyurik",
+          "links": [
+            {
+              "label": "#958",
+              "url": "https://github.com/kellnr/kellnr/pull/958"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "test: Add playwright UI tests by @secana",
+          "links": [
+            {
+              "label": "#963",
+              "url": "https://github.com/kellnr/kellnr/pull/963"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "5.11.0",
       "date": "15. January 2026",
       "entries": [
@@ -64,8 +131,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "5.10.1",
