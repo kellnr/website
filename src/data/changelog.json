@@ -1,6 +1,43 @@
 {
   "releases": [
     {
+      "version": "5.13.0",
+      "date": "20. January 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "improved UI ([#966]())",
+          "links": [
+            {
+              "label": "#966",
+              "url": "https://github.com/kellnr/kellnr/pull/966"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "add workflow trigger",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Merge branch 'main' of github.com:kellnr/kellnr",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "switch from release-plz to k-releaser ([#965]())",
+          "links": [
+            {
+              "label": "#965",
+              "url": "https://github.com/kellnr/kellnr/pull/965"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "5.12.0",
       "date": "17. January 2026",
       "entries": [
@@ -64,8 +101,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "5.11.0",
