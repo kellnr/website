@@ -1,6 +1,13 @@
 {
   "posts": [
     {
+      "id": "review-2025",
+      "title": "Kellnr 2025 - A Year in Review",
+      "url": "https://kellnr.io/blog/review-2025",
+      "published": "2026-01-20T12:00:00+00:00",
+      "summaryHtml": "A look back at Kellnr's development in 2025: S3 storage, webhooks, new web interface, and contributions from 16 community members across 9 releases."
+    },
+    {
       "id": "cross-plat-native-lib",
       "title": "Wrapping Cross-Platform Native Libraries in Rust",
       "url": "https://kellnr.io/blog/cross-plat-native-lib",

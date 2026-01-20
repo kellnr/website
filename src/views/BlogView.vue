@@ -41,6 +41,9 @@ import HeroCard from "../components/blog/HeroCard.vue";
       <div class="container">
         <div class="row">
 
+          <HeroCard title="Kellnr 2025 - A Year in Review" date="20. January, 2026" link="review-2025"
+            img="images/kellnr/blog/kellnr-logo.png"></HeroCard>
+
           <HeroCard title="Testing Assembly Code with Rust" date="08. Februar, 2025" link="rust-assembly"
             img="images/kellnr/blog/ferris.png"></HeroCard>
 
