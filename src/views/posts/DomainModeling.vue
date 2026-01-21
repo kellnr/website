@@ -17,10 +17,10 @@ import CodeBlock from "../../components/elements/CodeBlock.vue";
       registration and login. To register, users need to provide their name, age, and email address. Initially, we can
       write a naive function to handle this:
     </TextBlock>
-    <CodeBlock>
-<pre v-highlightjs><code class="rust">pub fn register_user(name: &amp;str, age: i32, email: &amp;str) {
+    <CodeBlock lang="rust">
+pub fn register_user(name: &amp;str, age: i32, email: &amp;str) {
     // Perform user registration...
-}</code></pre>
+}
     </CodeBlock>
     <TextBlock>
       For now, let's focus on the function signature rather than its implementation. The function takes a name, age,
@@ -46,33 +46,33 @@ import CodeBlock from "../../components/elements/CodeBlock.vue";
       </ul>
       To incorporate these validations, we can enhance our <i>register_user</i> function as follows:
     </TextBlock>
-    <CodeBlock>
-      <pre v-highlightjs><code class="rust">pub fn register_user(name: &amp;str, age: i32, email: &amp;str) {
+    <CodeBlock lang="rust">
+pub fn register_user(name: &amp;str, age: i32, email: &amp;str) {
     let forename = &amp;name[..name.find(' ').unwrap()];
     let surname = &amp;name[name.find(' ').unwrap() + 1..];
 
     if forename.len() &lt; 2 || forename.len() &gt; 20 {
-        eprintln!(&quot;Forename is too short or too long&quot;);
+        eprintln!("Forename is too short or too long");
         return;
     }
 
     if surname.len() &lt; 2 || surname.len() &gt; 20 {
-        eprintln!(&quot;Surname is too short or too long&quot;);
+        eprintln!("Surname is too short or too long");
         return;
     }
 
     if forename.chars().any(|c| !c.is_alphabetic()) {
-        eprintln!(&quot;Forename contains non-alphabetic characters&quot;);
+        eprintln!("Forename contains non-alphabetic characters");
         return;
     }
 
     if surname.chars().any(|c| !c.is_alphabetic()) {
-        eprintln!(&quot;Surname contains non-alphabetic characters&quot;);
+        eprintln!("Surname contains non-alphabetic characters");
         return;
     }
 
     // Perform user registration...
-}</code></pre>
+}
     </CodeBlock>
     <TextBlock>
       Although this implementation may seem acceptable, it suffers from several issues:
@@ -99,8 +99,7 @@ import CodeBlock from "../../components/elements/CodeBlock.vue";
       Fortunately, we can employ the type system to address these issues. Instead of treating a name as a generic
       string, we can create a dedicated type for it.
     </TextBlock>
-    <CodeBlock>
-      <pre v-highlightjs><code class="rust">
+    <CodeBlock lang="rust">
 // A name with clear division between forename and surname
 pub struct Name {
     forename: String,
@@ -127,9 +126,9 @@ impl Name {
 
     fn validate_length(name: &amp;str) -&gt; Result&lt;&amp;str, &amp;'static str&gt; {
         if name.len() &lt; 2 {
-            Err(&quot;Name too short&quot;)
+            Err("Name too short")
         } else if name.len() &gt; 20 {
-            Err(&quot;Name too long&quot;)
+            Err("Name too long")
         } else {
             Ok(name)
         }
@@ -137,12 +136,12 @@ impl Name {
 
     fn validate_char_set(name: &amp;str) -&gt; Result&lt;&amp;str, &amp;'static str&gt; {
         if name.chars().any(|c| !c.is_alphabetic()) {
-            Err(&quot;Name contains non alphabetic characters&quot;)
+            Err("Name contains non alphabetic characters")
         } else {
             Ok(name)
         }
     }
-}</code></pre>
+}
     </CodeBlock>
     <TextBlock>
       In the code above, we've introduced a new <i>Name</i> struct with <i>forename</i> and <i>surname</i> fields. We've
@@ -156,10 +155,10 @@ impl Name {
       instead of a
       generic string:
     </TextBlock>
-    <CodeBlock>
-<pre v-highlightjs><code class="rust">pub fn register_user(name: Name, age: i32, email: &amp;str) {
+    <CodeBlock lang="rust">
+pub fn register_user(name: Name, age: i32, email: &amp;str) {
     // Perform user registration...
-}</code></pre>
+}
     </CodeBlock>
     <TextBlock>
       By making this change, we've achieved several benefits:
@@ -184,46 +183,46 @@ impl Name {
 
       Let's write some non exhaustive tests for the <i>Name</i> type.
     </TextBlock>
-    <CodeBlock>
-<pre v-highlightjs><code class="rust">#[cfg(test)]
+    <CodeBlock lang="rust">
+#[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn valid_name() {
-        assert!(Name::try_from((&quot;Forename&quot;, &quot;Surname&quot;)).is_ok());
+        assert!(Name::try_from(("Forename", "Surname")).is_ok());
     }
 
     #[test]
     fn invalid_forename_to_short() {
-        assert!(Name::try_from((&quot;&quot;, &quot;Surname&quot;)).is_err());
+        assert!(Name::try_from(("", "Surname")).is_err());
     }
 
     #[test]
     fn invalid_surname_to_short() {
-        assert!(Name::try_from((&quot;Forename&quot;, &quot;S&quot;)).is_err());
+        assert!(Name::try_from(("Forename", "S")).is_err());
     }
 
     #[test]
     fn invalid_surname_too_long() {
-        assert!(Name::try_from((&quot;Forename&quot;, &quot;SurnameSurnameSurnameSurname&quot;)).is_err());
+        assert!(Name::try_from(("Forename", "SurnameSurnameSurnameSurname")).is_err());
     }
 
     #[test]
     fn invalid_forename_too_long() {
-        assert!(Name::try_from((&quot;ForenameForenameForenameForename&quot;, &quot;Surname&quot;)).is_err());
+        assert!(Name::try_from(("ForenameForenameForenameForename", "Surname")).is_err());
     }
 
     #[test]
     fn invalid_forename_contains_non_alphabetic_characters() {
-        assert!(Name::try_from((&quot;Forename1&quot;, &quot;Surname&quot;)).is_err());
+        assert!(Name::try_from(("Forename1", "Surname")).is_err());
     }
 
     #[test]
     fn invalid_surname_contains_non_alphabetic_characters() {
-        assert!(Name::try_from((&quot;Forename&quot;, &quot;Surname1&quot;)).is_err());
+        assert!(Name::try_from(("Forename", "Surname1")).is_err());
     }
-}</code></pre>
+}
     </CodeBlock>
     <TextBlock>
       If we need to have more or less restrictions in the future, they are easy to add or remove and we can test them in
@@ -244,8 +243,8 @@ mod tests {
       <br/>
       Here's an improved implementation using a <i>DateTime</i> to store the age:
     </TextBlock>
-    <CodeBlock>
-<pre v-highlightjs><code class="rust">pub struct Age {
+    <CodeBlock lang="rust">
+pub struct Age {
     birth_date: DateTime&lt;Utc&gt;,
 }
 
@@ -254,15 +253,15 @@ impl TryFrom&lt;DateTime&lt;Utc&gt;&gt; for Age {
 
     fn try_from(value: DateTime&lt;Utc&gt;) -&gt; Result&lt;Self, Self::Error&gt; {
         let now = Utc::now();
-        let age = now.years_since(value).ok_or(&quot;Invalid date&quot;)?;
+        let age = now.years_since(value).ok_or("Invalid date")?;
 
         if age &lt; 18 || age &gt; 130 {
-            Err(&quot;Age must be greater than 18 years old and less or equal to 130 years old&quot;)
+            Err("Age must be greater than 18 years old and less or equal to 130 years old")
         } else {
             Ok(Age { birth_date: value })
         }
     }
-}</code></pre>
+}
     </CodeBlock>
     <TextBlock>
       Using a <i>DateTime</i> allows us to calculate the age whenever it is needed, ensuring it remains accurate over
@@ -271,8 +270,8 @@ impl TryFrom&lt;DateTime&lt;Utc&gt;&gt; for Age {
       <br/>
       Let's also include some tests to validate our implementation:
     </TextBlock>
-    <CodeBlock>
-<pre v-highlightjs><code class="rust">#[cfg(test)]
+    <CodeBlock lang="rust">
+#[cfg(test)]
 mod tests {
     use super::*;
     use chrono::TimeZone;
@@ -294,7 +293,7 @@ mod tests {
         let birth_date = Utc.with_ymd_and_hms(1800, 1, 1, 0, 0, 0).unwrap();
         assert!(Age::try_from(birth_date).is_err());
     }
-}</code></pre>
+}
     </CodeBlock>
     <TextBlock>
       These tests cover valid and invalid age scenarios.
@@ -302,10 +301,10 @@ mod tests {
       <br/>
       Finally, we can refactor the <i>register_user</i> function to utilize the <i>Age</i> type:
     </TextBlock>
-    <CodeBlock>
-<pre v-highlightjs><code class="rust">pub fn register_user(name: Name, age: Age, email: &amp;str) {
+    <CodeBlock lang="rust">
+pub fn register_user(name: Name, age: Age, email: &amp;str) {
     // Perform user registration...
-}</code></pre>
+}
     </CodeBlock>
     <TextBlock>
       By incorporating the <i>Age</i> type, we ensure that only valid ages are accepted during user registration.
@@ -317,8 +316,8 @@ mod tests {
       fields, we can create a dedicated type for email and implement the TryFrom trait for it. To accomplish this, we'll
       use the regex crate for pattern matching.
     </TextBlock>
-    <CodeBlock>
-<pre v-highlightjs><code class="rust">use regex::Regex;
+    <CodeBlock lang="rust">
+use regex::Regex;
 
 pub struct Email {
     email: String,
@@ -329,11 +328,11 @@ impl TryFrom&lt;&amp;str&gt; for Email {
 
     fn try_from(value: &amp;str) -&gt; Result&lt;Self, Self::Error&gt; {
         // Note that this is not a 100% correct regex for email validation but it's good enough for this example
-        let email_regex = Regex::new(r&quot;^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)&quot;)
+        let email_regex = Regex::new(r"^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)")
             .unwrap(); // Safe to unwrap as the regex is static and correct
         match email_regex.is_match(value) {
             true =&gt; Ok(Self { email: value.to_owned() }),
-            false =&gt; Err(&quot;Invalid email&quot;),
+            false =&gt; Err("Invalid email"),
         }
     }
 }
@@ -344,34 +343,34 @@ mod tests {
 
     #[test]
     fn valid_email() {
-        assert!(Email::try_from(&quot;foo.bar@foobar.com&quot;,).is_ok());
+        assert!(Email::try_from("foo.bar@foobar.com",).is_ok());
     }
 
     #[test]
     fn invalid_email_no_post_part() {
-        assert!(Email::try_from(&quot;a@&quot;).is_err());
+        assert!(Email::try_from("a@").is_err());
     }
 
     #[test]
     fn invalid_email_no_domain() {
-        assert!(Email::try_from(&quot;a@aaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;).is_err());
+        assert!(Email::try_from("a@aaaaaaaaaaaaaaaaaaaaaaaaaaa").is_err());
     }
 
     #[test]
     fn invalid_email_invalid_char() {
-        assert!(Email::try_from(&quot;f&Uuml;&ouml;@foobar.com&quot;).is_err());
+        assert!(Email::try_from("fUeoe@foobar.com").is_err());
     }
-}</code></pre>
+}
     </CodeBlock>
     <TextBlock>
       To validate the email, we can now leverage this <i>Email</i> type. Here's an updated version of the <i>register_user</i>
       function that uses the
       <i>Email</i> type as a parameter:
     </TextBlock>
-    <CodeBlock>
-<pre v-highlightjs><code class="rust">pub fn register_user(name: Name, age: Age, email: Email) {
+    <CodeBlock lang="rust">
+pub fn register_user(name: Name, age: Age, email: Email) {
     // Perform user registration...
-}</code></pre>
+}
     </CodeBlock>
     <TextBlock>
       By separating the validation logic into the <i>Email</i> type, the code reads more clearly and improves
@@ -413,13 +412,13 @@ mod tests {
       <br/>
       In our simple example we this could look like the following:
     </TextBlock>
-    <CodeBlock>
-<pre v-highlightjs><code class="rust">pub fn register_user(name: Name, age: Age, email: Email) {
+    <CodeBlock lang="rust">
+pub fn register_user(name: Name, age: Age, email: Email) {
     // Do the registration...
 
     // Format our types as primitive types
     db.insert_user(name.to_string(), age.to_rfc3339(), email.to_string());
-}</code></pre>
+}
     </CodeBlock>
     <TextBlock>
       This approach offers two advantages. First, we can utilize our new types within the application while interacting

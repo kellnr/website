@@ -33,8 +33,8 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
 
         <SubHeader id="runtime">Runtime</SubHeader>
         <TextBlock>
-            So far, we’ve built a WASM text format parser and a compiler that takes the text format as an input and
-            generates a WASM binary. In this post, we’re going to build a minimal runtime to execute a WASM function
+            So far, we've built a WASM text format parser and a compiler that takes the text format as an input and
+            generates a WASM binary. In this post, we're going to build a minimal runtime to execute a WASM function
             from a WASM binary. To keep the runtime as small as possible we cut some corners. For example, we will only
             implement function calls with i32 as a parameter and we reuse the existing Abstract Syntax Tree (AST),
             instead of creating a new structure that fits a more general runtime. Furthermore, we are parsing a byte
@@ -53,8 +53,7 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
             like.
         </TextBlock>
 
-        <CodeBlock>
-<pre v-highlightjs><code class="asm">// wasm magic
+        <CodeBlock lang="asm">// wasm magic
 0x00, // \0
 0x61, // a
 0x73, // s
@@ -104,8 +103,7 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
 0x20, // local.get
 0x01, // local index
 0x6a, // i32.add
-0x0b, // end</code></pre>
-        </CodeBlock>
+0x0b, // end</CodeBlock>
 
         <TextBlock>
             While we used <a href="https://github.com/Geal/nom">nom</a> as a parser combinator for the WASM text format,
@@ -116,8 +114,7 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
             structure, that helps us read values from the WASM binary in its raw form.
         </TextBlock>
 
-        <CodeBlock>
-<pre v-highlightjs><code class="rust">use std::{cell::Cell, convert::TryInto};
+        <CodeBlock lang="rust">use std::{cell::Cell, convert::TryInto};
 
 pub struct Reader {
     // The wasm binary data
@@ -155,23 +152,21 @@ impl Reader {
         let prev = self.pos.replace(self.pos.get() + 1);
         self.data[prev]
     }
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The <i>Reader</i> helps us a lot, as it tracks what we've already read from the binary. Now, let's check if
             the header is correct.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">// Check if the magic header and version are correct
+        <CodeBlock lang="rust">// Check if the magic header and version are correct
 fn check_header(wasm: &amp;Reader) -&gt; Result&lt;(), RuntimeError&gt; {
     // The wasm binary has to be at least 8 bytes (4 magic + 4 version) in size
     if wasm.len() &lt; 8 {
         return Err(RuntimeError::ModuleToShort);
     }
     // Check the magic header
-    if wasm.bytes(4) != *b&quot;\0asm&quot; {
+    if wasm.bytes(4) != *b"\0asm" {
         return Err(RuntimeError::WrongMagicHeader);
     }
     // Check the version
@@ -179,8 +174,7 @@ fn check_header(wasm: &amp;Reader) -&gt; Result&lt;(), RuntimeError&gt; {
         return Err(RuntimeError::WrongVersionHeader);
     }
     Ok(())
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The function returns a <i>Result</i>, which is unit if everything is fine and if not, returns an <i>RuntimeError</i>.
@@ -188,8 +182,7 @@ fn check_header(wasm: &amp;Reader) -&gt; Result&lt;(), RuntimeError&gt; {
             <i>RuntimeError</i> enum before we proceed.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">#[derive(Debug, PartialEq, Eq)]
+        <CodeBlock lang="rust">#[derive(Debug, PartialEq, Eq)]
 pub enum RuntimeError {
     ModuleToShort,
     WrongMagicHeader,
@@ -201,16 +194,14 @@ pub enum RuntimeError {
     InvalidInstruction,
     ExportNotFound,
     InvalidArgNumber,
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The next part of the binary is the <i>type</i> section. It contains a list of function types available in
             the binary.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">// Parse the type section
+        <CodeBlock lang="rust">// Parse the type section
 fn parse_type_section(wasm: &amp;Reader) -&gt; Result&lt;Vec&lt;Type&gt;, RuntimeError&gt; {
     // Check the section code
     if wasm.byte() != section::TYPE {
@@ -232,7 +223,7 @@ fn parse_type_section(wasm: &amp;Reader) -&gt; Result&lt;Vec&lt;Type&gt;, Runtim
     }
 
     for _ in 0..num_types {
-        // Read the &quot;type&quot; of the type. As we only support FuncType
+        // Read the "type" of the type. As we only support FuncType
         // we can skip the byte.
         let _func = wasm.byte();
 
@@ -250,8 +241,7 @@ fn parse_type_section(wasm: &amp;Reader) -&gt; Result&lt;Vec&lt;Type&gt;, Runtim
         types.push((params, results));
     }
     Ok(types)
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The function gives us a list of all function types. In our case we have the <i>add</i> function with the
@@ -263,8 +253,7 @@ fn parse_type_section(wasm: &amp;Reader) -&gt; Result&lt;Vec&lt;Type&gt;, Runtim
             type section.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">// Parse the type section
+        <CodeBlock lang="rust">// Parse the type section
 fn parse_func_section(wasm: &amp;Reader) -&gt; Result&lt;Vec&lt;i32&gt;, RuntimeError&gt; {
     // Check the section code
     if wasm.byte() != section::FUNC {
@@ -282,8 +271,7 @@ fn parse_func_section(wasm: &amp;Reader) -&gt; Result&lt;Vec&lt;i32&gt;, Runtime
     }
 
     Ok(f_types)
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The function section does not contain the code of the function. The code is in the <i>code section</i>,
@@ -294,8 +282,7 @@ fn parse_func_section(wasm: &amp;Reader) -&gt; Result&lt;Vec&lt;i32&gt;, Runtime
             functions are callable from the outside.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">// Parse the export section
+        <CodeBlock lang="rust">// Parse the export section
 fn parse_export_section(wasm: &amp;Reader) -&gt; Result&lt;Vec&lt;Export&gt;, RuntimeError&gt; {
     // Check the section code
     if wasm.byte() != section::EXPORT {
@@ -325,16 +312,14 @@ fn parse_export_section(wasm: &amp;Reader) -&gt; Result&lt;Vec&lt;Export&gt;, Ru
         exports.push(Export { name, e_desc })
     }
     Ok(exports)
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The function gives us the exported function, in our case the <i>add</i> function. The last section is the
             <i>code section</i>, which contains the instructions for each function, as well as optional local variables.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">// Parse the code section
+        <CodeBlock lang="rust">// Parse the code section
 pub fn parse_code_section(wasm: &amp;Reader) -&gt; Result&lt;Vec&lt;(StackType, Vec&lt;Instr&gt;)&gt;, RuntimeError&gt; {
     // Check the section code
     if wasm.byte() != section::CODE {
@@ -362,7 +347,7 @@ pub fn parse_code_section(wasm: &amp;Reader) -&gt; Result&lt;Vec&lt;(StackType, 
             locals.push(vt);
         }
 
-        // Parse instructions for the function until the &quot;end&quot;
+        // Parse instructions for the function until the "end"
         // instruction is found
         loop {
             let instr = match wasm.byte() {
@@ -377,8 +362,7 @@ pub fn parse_code_section(wasm: &amp;Reader) -&gt; Result&lt;Vec&lt;(StackType, 
     }
 
     Ok(code)
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The <i>code section</i> can contain multiple functions and each function can contain multiple locals and
@@ -386,8 +370,7 @@ pub fn parse_code_section(wasm: &amp;Reader) -&gt; Result&lt;Vec&lt;(StackType, 
             parsed all section separately, let's combine them all to get an AST back from the binary code.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">// Parse a whole WASM module
+        <CodeBlock lang="rust">// Parse a whole WASM module
 pub fn parse_wasm(wasm: &amp;Reader) -&gt; Result&lt;Module, RuntimeError&gt; {
     // Parse all section one after the other
     check_header(wasm)?;
@@ -416,8 +399,7 @@ pub fn parse_wasm(wasm: &amp;Reader) -&gt; Result&lt;Module, RuntimeError&gt; {
         exports,
         funcs: join_code_func(),
     })
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             Alright, we can get an AST back from a WASM binary, but we still haven't executed any code yet.
@@ -430,8 +412,7 @@ pub fn parse_wasm(wasm: &amp;Reader) -&gt; Result&lt;Module, RuntimeError&gt; {
             call an exported function in the binary, let's create a function that does exactly that.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">// Invoke an exported function by its name with a list of i32 parameters
+        <CodeBlock lang="rust">// Invoke an exported function by its name with a list of i32 parameters
 pub fn invoke_function(ast: &amp;Module, func: &amp;str, params: &amp;[i32]) -&gt; Result&lt;i32, RuntimeError&gt; {
     // First, check if an export with the name exists
     let export = match ast.exports.iter().find(|e| e.name == func) {
@@ -464,8 +445,7 @@ pub fn invoke_function(ast: &amp;Module, func: &amp;str, params: &amp;[i32]) -&g
     // Get the function result from the processor state
     // and return it
     Ok(processor.get_result())
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The <i>invoke_function</i> takes the AST we created with the disassembler above. Additionally, it takes the
@@ -474,8 +454,7 @@ pub fn invoke_function(ast: &amp;Module, func: &amp;str, params: &amp;[i32]) -&g
             AST, it gets executed by a virtual processor, which we will define next.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">// The processor contains a stack
+        <CodeBlock lang="rust">// The processor contains a stack
 // on which it works when instructions
 // are executed.
 pub struct Processor {
@@ -515,8 +494,7 @@ impl Processor {
     pub fn get_result(&amp;mut self) -&gt; i32 {
         self.stack.pop::&lt;i32&gt;()
     }
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The <i>Processor</i> for our WASM code is simple, as we have only two different instructions. What we
@@ -533,8 +511,7 @@ impl Processor {
             <i>Stack</i> structure looks.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">// The Stack contains a mutable vector.
+        <CodeBlock lang="rust">// The Stack contains a mutable vector.
 // The vector grows if a value is pushed and
 // shrinks if a value is popped.
 pub struct Stack {
@@ -599,8 +576,7 @@ impl Stackable for i32 {
     fn byte_size() -&gt; usize {
         4
     }
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The <i>Stack</i> is a wrapper around a mutable vector, which grows if a value is pushed and shrinks if a
@@ -619,44 +595,40 @@ impl Stackable for i32 {
             into one convenient function.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">// Take a WASM binary, a function name and function parameters.
+        <CodeBlock lang="rust">// Take a WASM binary, a function name and function parameters.
 // Execute the exported function with the given parameters and
 // return the result.
 pub fn invoke_function(wasm: Vec&lt;u8&gt;, f_name: &amp;str, params: &amp;[i32]) -&gt; Result&lt;i32, RuntimeError&gt; {
     let reader = Reader::new(wasm);
     let ast = parse_wasm(&amp;reader)?;
     interpreter::invoke_function(&amp;ast, f_name, params)
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             Now, let's revisit our <i>main</i> function from the last blog posts and add the runtime.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">fn main() {
-    // Parse the &quot;add.wat&quot; file with the WASM text representation.
-    let wat = read_to_string(&quot;./add.wat&quot;).expect(&quot;Failed to read wat file.&quot;);
+        <CodeBlock lang="rust">fn main() {
+    // Parse the "add.wat" file with the WASM text representation.
+    let wat = read_to_string("./add.wat").expect("Failed to read wat file.");
     let ast = parser::parse(&amp;wat);
 
     // Compile the WASM text representation to WASM binary code and save the
-    // compiled module in the file &quot;add.wasm&quot;
+    // compiled module in the file "add.wasm"
     let wasm = compiler::compile(&amp;ast);
-    let mut file = File::create(&quot;add.wasm&quot;).expect(&quot;Failed to create wasm file.&quot;);
-    file.write_all(&amp;wasm).expect(&quot;Failed to write wasm file.&quot;);
+    let mut file = File::create("add.wasm").expect("Failed to create wasm file.");
+    file.write_all(&amp;wasm).expect("Failed to write wasm file.");
 
-    // Read the compiled WASM module &quot;add.wasm&quot; and execute the function &quot;add&quot; from it.
+    // Read the compiled WASM module "add.wasm" and execute the function "add" from it.
     let mut wasm = vec![];
-    File::open(&quot;add.wasm&quot;)
+    File::open("add.wasm")
         .unwrap()
         .read_to_end(&amp;mut wasm)
         .unwrap();
 
-    let result = runtime::invoke_function(wasm, &quot;add&quot;, &amp;[5, 6]).unwrap();
-    println!(&quot;5 + 6 = {}&quot;, result);
-}</code></pre>
-        </CodeBlock>
+    let result = runtime::invoke_function(wasm, "add", &amp;[5, 6]).unwrap();
+    println!("5 + 6 = {}", result);
+}</CodeBlock>
 
         <TextBlock>
             Finally, we have the full pipeline. We take a file <i>add.wat</i> with WASM text format code and parse it

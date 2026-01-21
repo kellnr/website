@@ -53,7 +53,9 @@ const props = defineProps({
         <section class="section">
             <div class="container">
                 <div class="row">
-                    <slot></slot>
+                    <div class="col-lg-10 col-md-12 mx-auto">
+                        <slot></slot>
+                    </div>
                 </div>
             </div>
         </section>

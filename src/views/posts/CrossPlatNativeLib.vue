@@ -54,8 +54,7 @@ import CodeBlock from "../../components/elements/CodeBlock.vue";
       create a new directory called <i>vendor</i>. This contains all libraries and headers in sub-folders that we need for
       our crate. The full directory-tree looks like this:
     </TextBlock>
-    <CodeBlock>
-      <pre v-highlightjs><code class="bash">
+    <CodeBlock lang="bash">
 coolmath-sys
 ├── Cargo.toml
 ├── src
@@ -63,13 +62,13 @@ coolmath-sys
 └── vendor
     ├── inc
     │   └── coolmath.h
-    └── lib 
+    └── lib
         ├── libcoolmath_linx64.so
         ├── libcoolmath_linarm64.so
         ├── libcoolmath_macx64.dylib
         ├── libcoolmath_macarm64.dylib
         ├── coolmath_winx64.dll
-        └── coolmath_winarm64.dll </code></pre>
+        └── coolmath_winarm64.dll
     </CodeBlock>
 
     <SubHeader id="build-script">Build Script</SubHeader>
@@ -81,10 +80,9 @@ coolmath-sys
       its just one, the <i>coolmath.h</i>, but if you need more headers, add them to the <i>wrapper.h</i>.
     </TextBlock>
 
-    <CodeBlock>
-      <pre v-highlightjs><code class="h">// wrapper.h
+    <CodeBlock lang="c">// wrapper.h
 // Include all headers that bindgen needs to generate bindings for.
-#include "vendor/inc/coolmath.h"</code></pre>
+#include "vendor/inc/coolmath.h"
     </CodeBlock>
 
     <TextBlock>
@@ -92,18 +90,16 @@ coolmath-sys
       following code to your <i>Cargo.toml</i> file.
     </TextBlock>
 
-    <CodeBlock>
-      <pre v-highlightjs><code class="toml"># ... your Cargo.toml
+    <CodeBlock lang="toml"># ... your Cargo.toml
 [build-dependencies]
-bindgen = "0.69.1"</code></pre>
+bindgen = "0.69.1"
     </CodeBlock>
 
     <TextBlock>
       The <i>build.rs</i> is the most interesting part. All the magic to create a sys-crate happens here. You find the build script for our fictional library below.
     </TextBlock>
 
-    <CodeBlock>
-      <pre v-highlightjs><code class="rust">use std::{env, fs};
+    <CodeBlock lang="rust">use std::{env, fs};
 use std::path::{PathBuf, Path};
 
 fn main() {
@@ -117,39 +113,39 @@ fn main() {
     // If on Linux or MacOS, tell the linker where the shared libraries are
     // on runtime (i.e. LD_LIBRARY_PATH)
     match target_and_arch() {
-        (Target::Linux, _) | (Target::MacOS, _) => {
+        (Target::Linux, _) | (Target::MacOS, _) =&gt; {
             println!("cargo:rustc-link-arg=-Wl,-rpath,{}",
                      env::var("OUT_DIR").unwrap());
         }
-        _ => {}
+        _ =&gt; {}
     }
 
     // Tell cargo to link against the shared library for the specific platform.
-    // IMPORTANT: On macOS and Linux the shared library must be linked without 
-    // the "lib" prefix and the ".so" suffix. On Windows the ".dll" suffix must 
+    // IMPORTANT: On macOS and Linux the shared library must be linked without
+    // the "lib" prefix and the ".so" suffix. On Windows the ".dll" suffix must
     // be omitted.
     match target_and_arch() {
-        (Target::Windows, Arch::X86_64) => {
+        (Target::Windows, Arch::X86_64) =&gt; {
             println!("cargo:rustc-link-lib=coolmath_winx64");
             copy_dylib_to_target_dir("coolmath_winx64.dll");
         }
-        (Target::Windows, Arch::AARCH64) => {
+        (Target::Windows, Arch::AARCH64) =&gt; {
             println!("cargo:rustc-link-lib=coolmath_winarm64");
             copy_dylib_to_target_dir("coolmath_winarm64.dll");
         }
-        (Target::Linux, Arch::X86_64) => {
+        (Target::Linux, Arch::X86_64) =&gt; {
             println!("cargo:rustc-link-lib=coolmath_linx64");
             copy_dylib_to_target_dir("libcoolmath_linx64.so");
         }
-        (Target::Linux, Arch::AARCH64) => {
+        (Target::Linux, Arch::AARCH64) =&gt; {
             println!("cargo:rustc-link-lib=coolmath_linarm64");
             copy_dylib_to_target_dir("libcoolmath_linarm64.so");
         }
-        (Target::MacOS, Arch::X86_64) => {
+        (Target::MacOS, Arch::X86_64) =&gt; {
             println!("cargo:rustc-link-lib=coolmath_macx64");
             copy_dylib_to_target_dir("libcoolmath_macx64.dylib");
         }
-        (Target::MacOS, Arch::AARCH64) => {
+        (Target::MacOS, Arch::AARCH64) =&gt; {
             println!("cargo:rustc-link-lib=coolmath_macarm64");
             copy_dylib_to_target_dir("libcoolmath_macarm64.dylib");
         }
@@ -182,10 +178,10 @@ fn main() {
         .expect("Couldn't write bindings!");
 }
 
-fn copy_dylib_to_target_dir(dylib: &str) {
+fn copy_dylib_to_target_dir(dylib: &amp;str) {
     let out_dir = env::var("OUT_DIR").unwrap();
     let src = Path::new("vendor/lib");
-    let dst = Path::new(&out_dir);
+    let dst = Path::new(&amp;out_dir);
     let _ = fs::copy(src.join(dylib), dst.join(dylib));
 }
 
@@ -200,22 +196,22 @@ enum Arch {
     AARCH64,
 }
 
-fn target_and_arch() -> (Target, Arch) {
+fn target_and_arch() -&gt; (Target, Arch) {
     let os = env::var("CARGO_CFG_TARGET_OS").unwrap();
     let arch = env::var("CARGO_CFG_TARGET_ARCH").unwrap();
     match (os.as_str(), arch.as_str()) {
         // Windows targets
-        ("windows", "x86_64") => (Target::Windows, Arch::X86_64),
-        ("windows", "aarch64") => (Target::Windows, Arch::AARCH64),
+        ("windows", "x86_64") =&gt; (Target::Windows, Arch::X86_64),
+        ("windows", "aarch64") =&gt; (Target::Windows, Arch::AARCH64),
         // Linux targets
-        ("linux", "x86_64") => (Target::Linux, Arch::X86_64),
-        ("linux", "aarch64") => (Target::Linux, Arch::AARCH64),
+        ("linux", "x86_64") =&gt; (Target::Linux, Arch::X86_64),
+        ("linux", "aarch64") =&gt; (Target::Linux, Arch::AARCH64),
         // MacOS targets
-        ("macos", "x86_64") => (Target::MacOS, Arch::X86_64),
-        ("macos", "aarch64") => (Target::MacOS, Arch::AARCH64),
-        _ => panic!("Unsupported operating system {} and architecture {}", os, arch),
+        ("macos", "x86_64") =&gt; (Target::MacOS, Arch::X86_64),
+        ("macos", "aarch64") =&gt; (Target::MacOS, Arch::AARCH64),
+        _ =&gt; panic!("Unsupported operating system {} and architecture {}", os, arch),
     }
-}</code></pre>
+}
     </CodeBlock>
 
     <TextBlock>
@@ -228,12 +224,10 @@ fn target_and_arch() -> (Target, Arch) {
       issues, where the linker tries to link against the wrong platform.
     </TextBlock>
 
-    <CodeBlock>
-      <pre v-highlightjs><code class="rust">// Alternative to environment variables are #[cfg(...)] directives.
+    <CodeBlock lang="rust">// Alternative to environment variables are #[cfg(...)] directives.
 // Unfortunately, they do not work correctly for cross-platform builds.
 // For example, the following code does not work:
 #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
-      </code></pre>
     </CodeBlock>
 
     <SubHeader id="lib">Include wrapped code in our library</SubHeader>
@@ -244,13 +238,12 @@ fn target_and_arch() -> (Target, Arch) {
       to use.
     </TextBlock>
 
-    <CodeBlock>
-      <pre v-highlightjs><code class="rust">// src/lib.rs
+    <CodeBlock lang="rust">// src/lib.rs
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 
-include!(concat!(env!("OUT_DIR"), "/bindings.rs"));</code></pre>
+include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
     </CodeBlock>
 
     <SubHeader id="special-cases">Special Cases</SubHeader>
@@ -273,7 +266,7 @@ include!(concat!(env!("OUT_DIR"), "/bindings.rs"));</code></pre>
       runtime and itself is not needed at runtime, only at compile time. The import library is usually created by
       the compiler when you compile a dynamic library. But we do not have the source code for the library, so we cannot
       compile it. We need to create the import library ourselves. There are several ways to do that, but I simply used
-      tools that are already installed, 
+      tools that are already installed,
       if you have the typical Windows developer tools installed which come with any version of Visual Studio.
     </TextBlock>
 
@@ -309,8 +302,7 @@ include!(concat!(env!("OUT_DIR"), "/bindings.rs"));</code></pre>
       looks like this:
     </TextBlock>
 
-    <CodeBlock>
-      <pre v-highlightjs><code class="bash">
+    <CodeBlock lang="bash">
 coolmath-sys
 ├── Cargo.toml
 ├── wrapper.h
@@ -320,7 +312,7 @@ coolmath-sys
 └── vendor
     ├── inc
     │   └── coolmath.h
-    └── lib 
+    └── lib
         ├── libcoolmath_linx64.so
         ├── libcoolmath_linarm64.so
         ├── libcoolmath_macx64.dylib
@@ -328,8 +320,7 @@ coolmath-sys
         ├── coolmath_winx64.dll
         ├── coolmath_winx64.lib
         ├── coolmath_winarm64.dll
-        └── coolmath_winarm64.lib 
-      </code></pre>
+        └── coolmath_winarm64.lib
     </CodeBlock>
 
     <TextBlock>
@@ -344,10 +335,9 @@ coolmath-sys
       as a dependency in the <i>Cargo.toml</i>.
     </TextBlock>
 
-    <CodeBlock>
-      <pre v-highlightjs><code class="toml"># ... your Cargo.toml
+    <CodeBlock lang="toml"># ... your Cargo.toml
 [dependencies]
-coolmath-sys = { version = "0.1.0", registry = "kellnr" }</code></pre>
+coolmath-sys = { version = "0.1.0", registry = "kellnr" }
     </CodeBlock>
 
     <TextBlock>

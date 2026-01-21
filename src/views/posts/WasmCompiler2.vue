@@ -48,11 +48,9 @@ import ImageBlock from "@/components/elements/ImageBlock.vue";
             keywords and signs from the programming language. Let's add <i>nom</i> to our project, to be able to use it.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="toml"># Cargo.toml
+        <CodeBlock lang="toml"># Cargo.toml
 [dependencies]
-nom = "6"</code></pre>
-        </CodeBlock>
+nom = "6"</CodeBlock>
 
         <TextBlock>
             For reference, here is the code Wasm code from the first blog post of the series, which we would like to
@@ -60,15 +58,13 @@ nom = "6"</code></pre>
             exported, such that it can be called from the outside with a Wasm runtime.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="wasm">(module
+        <CodeBlock lang="wasm">(module
   (func $add (param $lhs i32) (param $rhs i32) (result i32)
     local.get $lhs
     local.get $rhs
     i32.add)
   (export "add" (func $add))
-)</code></pre>
-        </CodeBlock>
+)</CodeBlock>
 
         <SubHeader id="tokens">Tokens</SubHeader>
         <TextBlock>
@@ -82,8 +78,7 @@ nom = "6"</code></pre>
             The corresponding parsers with an additional whitespace parser can be implemented in a few lines of code.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">// Skip whitespace
+        <CodeBlock lang="rust">// Skip whitespace
 // Given a string, skip zero or more whitespace characters,
 // until a non-whitespace character is reached.
 pub fn ws(input: &amp;str) -&gt; IResult&lt;&amp;str, &amp;str&gt; {
@@ -91,40 +86,39 @@ pub fn ws(input: &amp;str) -&gt; IResult&lt;&amp;str, &amp;str&gt; {
 }
 
 // Func
-// Parse the string &quot;func&quot; which can be between
+// Parse the string "func" which can be between
 // zero or more whitespace characters.
 pub fn func(input: &amp;str) -&gt; IResult&lt;&amp;str, &amp;str&gt; {
-    bws(tag(&quot;func&quot;))(input)
+    bws(tag("func"))(input)
 }
 
 // Param
-// Parse the string &quot;param&quot; which can be between
+// Parse the string "param" which can be between
 // zero or more whitespace characters.
 pub fn param(input: &amp;str) -&gt; IResult&lt;&amp;str, &amp;str&gt; {
-    bws(tag(&quot;param&quot;))(input)
+    bws(tag("param"))(input)
 }
 
 // Result
-// Parse the string &quot;result&quot; which can be between
+// Parse the string "result" which can be between
 // zero or more whitespace characters.
 pub fn result(input: &amp;str) -&gt; IResult&lt;&amp;str, &amp;str&gt; {
-    bws(tag(&quot;result&quot;))(input)
+    bws(tag("result"))(input)
 }
 
 // Export
-// Parse the string &quot;export&quot; which can be between
+// Parse the string "export" which can be between
 // zero or more whitespace characters.
 pub fn export(input: &amp;str) -&gt; IResult&lt;&amp;str, &amp;str&gt; {
-    bws(tag(&quot;export&quot;))(input)
+    bws(tag("export"))(input)
 }
 
 // Module
-// Parse the string &quot;module&quot; which can be between
+// Parse the string "module" which can be between
 // zero or more whitespace characters.
 pub fn module(input: &amp;str) -&gt; IResult&lt;&amp;str, &amp;str&gt; {
-    bws(tag(&quot;module&quot;))(input)
-}</code></pre>
-        </CodeBlock>
+    bws(tag("module"))(input)
+}</CodeBlock>
 
         <TextBlock>
             Each of the functions takes an input string and returns a result that is either an error, if the input was
@@ -138,50 +132,48 @@ pub fn module(input: &amp;str) -&gt; IResult&lt;&amp;str, &amp;str&gt; {
             some tests that show how the parsers are used.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">#[cfg(test)]
+        <CodeBlock lang="rust">#[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn func_parse() {
-        assert_eq!(func(&quot;func&quot;), Ok((&quot;&quot;, &quot;func&quot;)));
-        assert_eq!(func(&quot;func foobar&quot;), Ok((&quot;foobar&quot;, &quot;func&quot;)));
-        assert!(func(&quot;notfunc&quot;).is_err());
+        assert_eq!(func("func"), Ok(("", "func")));
+        assert_eq!(func("func foobar"), Ok(("foobar", "func")));
+        assert!(func("notfunc").is_err());
     }
 
     #[test]
     fn ws_parse() {
-        assert_eq!(ws(&quot;  foo&quot;), Ok((&quot;foo&quot;, &quot;  &quot;)));
-        assert_eq!(ws(&quot; \nfoo&quot;), Ok((&quot;foo&quot;, &quot; \n&quot;)));
-        assert_eq!(ws(&quot;foo&quot;), Ok((&quot;foo&quot;, &quot;&quot;)));
+        assert_eq!(ws("  foo"), Ok(("foo", "  ")));
+        assert_eq!(ws(" \nfoo"), Ok(("foo", " \n")));
+        assert_eq!(ws("foo"), Ok(("foo", "")));
     }
 
     #[test]
     fn param_parse() {
-        assert_eq!(param(&quot;param&quot;), Ok((&quot;&quot;, &quot;param&quot;)));
-        assert_eq!(param(&quot;param123&quot;), Ok((&quot;123&quot;, &quot;param&quot;)));
+        assert_eq!(param("param"), Ok(("", "param")));
+        assert_eq!(param("param123"), Ok(("123", "param")));
     }
 
     #[test]
     fn result_parse() {
-        assert_eq!(result(&quot;result&quot;), Ok((&quot;&quot;, &quot;result&quot;)));
-        assert_eq!(result(&quot;result123&quot;), Ok((&quot;123&quot;, &quot;result&quot;)));
+        assert_eq!(result("result"), Ok(("", "result")));
+        assert_eq!(result("result123"), Ok(("123", "result")));
     }
 
     #[test]
     fn export_parse() {
-        assert_eq!(export(&quot; export &quot;), Ok((&quot;&quot;, &quot;export&quot;)));
-        assert!(export(&quot;noexport&quot;).is_err());
+        assert_eq!(export(" export "), Ok(("", "export")));
+        assert!(export("noexport").is_err());
     }
 
     #[test]
     fn module_parse() {
-        assert_eq!(module(&quot; module &quot;), Ok((&quot;&quot;, &quot;module&quot;)));
-        assert!(module(&quot;nomodule&quot;).is_err());
+        assert_eq!(module(" module "), Ok(("", "module")));
+        assert!(module("nomodule").is_err());
     }
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             You may have noticed that we use the <i>between-whitespace (bws)</i> function a lot, which we have not
@@ -191,8 +183,7 @@ mod tests {
             is between parentheses.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">// Parenthesis
+        <CodeBlock lang="rust">// Parenthesis
 // Apply a given parser between paranthesis.
 // Returns the result of the given parser without the parenthesis.
 pub fn pt&lt;I, O, E: ParseError&lt;I&gt;, G&gt;(inner: G) -&gt; impl FnMut(I) -&gt; IResult&lt;I, O, E&gt;
@@ -214,8 +205,7 @@ where
     &lt;I as InputTakeAtPosition&gt;::Item: AsChar + Clone,
 {
     delimited(multispace0, inner, multispace0)
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             Ok, that looks difficult. The two parsers are taking a parser inner as an argument. The given parser is than
@@ -243,15 +233,14 @@ where
             parser for <i>u32</i>.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">// Identifier
+        <CodeBlock lang="rust">// Identifier
 // Parse an identifier from a special character set
 // defined by the Wasm specification. The identifier
-// has to start with a &quot;$&quot; sign and can be between whitespaces.
+// has to start with a "$" sign and can be between whitespaces.
 pub fn id(input: &amp;str) -&gt; IResult&lt;&amp;str, &amp;str&gt; {
-    let additional_chars = &quot;!#$%&amp;&prime;&lowast;+&minus;./:&lt;=&gt;?@∖^_`|~&quot;;
+    let additional_chars = "!#$%&amp;'*+-./:<>=?@\\^_`|~";
     let id_char = alt((alphanumeric1, is_a(additional_chars)));
-    let id = recognize(pair(tag(&quot;$&quot;), many1(id_char)));
+    let id = recognize(pair(tag("$"), many1(id_char)));
     bws(id)(input)
 }
 
@@ -259,7 +248,7 @@ pub fn id(input: &amp;str) -&gt; IResult&lt;&amp;str, &amp;str&gt; {
 // Parse an unsigned 32 bit integer value.
 pub fn u32(input: &amp;str) -&gt; IResult&lt;&amp;str, u32&gt; {
     map(digit1, |d: &amp;str| {
-        d.parse().expect(&quot;Integer format not supported&quot;)
+        d.parse().expect("Integer format not supported")
     })(input)
 }
 
@@ -268,11 +257,10 @@ pub fn u32(input: &amp;str) -&gt; IResult&lt;&amp;str, u32&gt; {
 // can be between whitespaces.
 pub fn literal(input: &amp;str) -&gt; IResult&lt;&amp;str, String&gt; {
     map(
-        bws(delimited(char('&quot;'), is_not(&quot;\&quot;&quot;), char('&quot;'))),
+        bws(delimited(char('"'), is_not("\""), char('"'))),
         |s: &amp;str| s.to_string(),
     )(input)
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             Let's go over each function to see what it does and how it works. The <i>id</i> function takes a string as
@@ -320,32 +308,30 @@ pub fn literal(input: &amp;str) -&gt; IResult&lt;&amp;str, String&gt; {
             Again, let's write a few tests to make the usage of the parser clearer.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">#[cfg(test)]
+        <CodeBlock lang="rust">#[cfg(test)]
 mod tests {
     use super::*;
     #[test]
     fn id_parse() {
-        assert_eq!(id(&quot;$valid_id%#! foo &quot;), Ok((&quot;foo &quot;, &quot;$valid_id%#!&quot;)));
-        assert_eq!(id(&quot;  $valid_id%#! foo &quot;), Ok((&quot;foo &quot;, &quot;$valid_id%#!&quot;)));
-        assert!(id(&quot;valid_id%#! foo &quot;).is_err());
+        assert_eq!(id("$valid_id%#! foo "), Ok(("foo ", "$valid_id%#!")));
+        assert_eq!(id("  $valid_id%#! foo "), Ok(("foo ", "$valid_id%#!")));
+        assert!(id("valid_id%#! foo ").is_err());
     }
 
     #[test]
     fn u32_parse() {
-        assert_eq!(u32(&quot;12&quot;), Ok((&quot;&quot;, 12)));
+        assert_eq!(u32("12"), Ok(("", 12)));
     }
 
     #[test]
     fn literal_parse() {
         assert_eq!(
-            literal(&quot;\&quot;valid#+123\&quot;&quot;),
-            Ok((&quot;&quot;, &quot;valid#+123&quot;.to_string()))
+            literal("\"valid#+123\""),
+            Ok(("", "valid#+123".to_string()))
         );
-        assert!(literal(&quot;invalid&quot;).is_err());
+        assert!(literal("invalid").is_err());
     }
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <SubHeader id="context">Context</SubHeader>
 
@@ -362,8 +348,7 @@ mod tests {
             create an extensible compiler, we add an additional context struct.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">#[derive(Clone, PartialEq, Eq, Debug)]
+        <CodeBlock lang="rust">#[derive(Clone, PartialEq, Eq, Debug)]
 pub struct Ctx {
     pub locals: Vec&lt;Option&lt;String&gt;&gt;,
     pub types: Field&lt;Type&gt;,
@@ -375,8 +360,7 @@ pub struct Ctx {
 pub struct Field&lt;T&gt; {
     pub ids: Vec&lt;Option&lt;String&gt;&gt;,
     pub list: Vec&lt;T&gt;,
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The context is defined through a struct <i>Ctx</i>. The struct contains possible local variables, the types,
@@ -403,8 +387,7 @@ pub struct Field&lt;T&gt; {
             our context.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">impl&lt;T&gt; Field&lt;T&gt; {
+        <CodeBlock lang="rust">impl&lt;T&gt; Field&lt;T&gt; {
     // Create a new and empty field
     pub fn new() -&gt; Self {
         Self {
@@ -428,15 +411,13 @@ pub struct Field&lt;T&gt; {
     pub fn add_id(&amp;mut self, id: Option&lt;String&gt;) {
         self.ids.push(id)
     }
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             For the context, we need a few more functions to help us parse more complex Wasm structures.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">impl Ctx {
+        <CodeBlock lang="rust">impl Ctx {
     // Create an new and empty context
     pub fn new() -&gt; Self {
         Self {
@@ -456,15 +437,15 @@ pub struct Field&lt;T&gt; {
                 .ids
                 .iter()
                 .position(|i| i == &amp;Some(id.to_owned()))
-                .expect(&quot;Func id has to exists&quot;),
+                .expect("Func id has to exists"),
         }
     }
 
     // Insert a local id into the list of locals
-    pub fn insert_local_id(&amp;mut self, id: &amp;Option&lt;string&gt;
+    pub fn insert_local_id(&amp;mut self, id: &amp;Option&lt;String&gt;
     ) {
         if id.is_some() &amp;&amp; self.locals.contains(id) {
-            panic!(&quot;Local identifiers have to be unique in the scope of the function&quot;)
+            panic!("Local identifiers have to be unique in the scope of the function")
         } else {
             self.locals.push((*id).clone());
         }
@@ -478,20 +459,20 @@ pub struct Field&lt;T&gt; {
                 .locals
                 .iter()
                 .position(|x| x == &amp;Some(id.clone()))
-                .expect(&quot;Identifier not found&quot;),
+                .expect("Identifier not found"),
         }
     }
 
     // Insert a function id to the list of functions and
     // return the index of the newly added id.
-    pub fn insert_func_id(&amp;mut self, id: Option&lt;string&gt;
+    pub fn insert_func_id(&amp;mut self, id: Option&lt;String&gt;
      ) -&gt; usize {
         self.funcs.add_id(id);
         self.funcs.ids.len() - 1
     }
 
     // Insert a function type into the list of types.
-    pub fn insert_id_func_type(&amp;mut self, id: Option&lt;string&gt;, t: &amp;FuncType) {
+    pub fn insert_id_func_type(&amp;mut self, id: Option&lt;String&gt;, t: &amp;FuncType) {
         self.types.add(id, (*t).clone());
     }
 
@@ -505,7 +486,7 @@ pub struct Field&lt;T&gt; {
     // index of the newly added type.
     pub fn insert_func_type_get_idx(&amp;mut self, ft: &amp;FuncType) -&gt; usize {
         self.insert_id_func_type(None, ft);
-        self.get_idx_from_func_type(&amp;ft).expect(&quot;Type has to exist&quot;)
+        self.get_idx_from_func_type(&amp;ft).expect("Type has to exist")
     }
 
     // Insert the function type into the list of type only
@@ -524,11 +505,10 @@ pub struct Field&lt;T&gt; {
     }
 
     // Insert an export to the list of exports
-    pub fn insert_export(&amp;mut self, id: &amp;Option&lt;string&gt;, export: &amp;Export) {
+    pub fn insert_export(&amp;mut self, id: &amp;Option&lt;String&gt;, export: &amp;Export) {
         self.exports.add((*id).clone(), (*export).clone());
     }
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             While this is a lot of code with many functions, they basically all do the same. There is a function that
@@ -557,9 +537,8 @@ pub struct Field&lt;T&gt; {
 
         <ImageBlock src="/images/kellnr/blog/wasm/wat-types.png" alt="wasm text"></ImageBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">// An Index can either be an unsigned integer, e.g. &quot;1&quot;
-// or an identifier, e.g. &quot;$add&quot;.
+        <CodeBlock lang="rust">// An Index can either be an unsigned integer, e.g. "1"
+// or an identifier, e.g. "$add".
 pub enum Index {
     Idx(usize),
     Id(String),
@@ -570,8 +549,7 @@ pub fn index(input: &amp;str) -&gt; IResult&lt;&amp;str, Index&gt; {
     let idx = map(values::u32, |u| Index::Idx(u as usize));
     let id = map(values::id, |id| Index::Id(id.to_string()));
     alt((idx, id))(input)
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             For the index parser, we are using our value <i>u32</i> and <i>id</i> parsers, we defined above. In our
@@ -590,24 +568,20 @@ pub fn index(input: &amp;str) -&gt; IResult&lt;&amp;str, Index&gt; {
             post, here is the <i>ValueType</i> definition again.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">#[derive(Debug, PartialEq, Clone, Copy, Eq)]
+        <CodeBlock lang="rust">#[derive(Debug, PartialEq, Clone, Copy, Eq)]
 pub enum ValueType {
     I32,
     I64,
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The corresponding parser function looks like this:
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">pub fn value_type(input: &amp;str) -&gt; IResult&lt;&amp;str, ValueType&gt; {
-    let types = alt((value(I32, tag(&quot;i32&quot;)), value(I64, tag(&quot;i64&quot;))));
+        <CodeBlock lang="rust">pub fn value_type(input: &amp;str) -&gt; IResult&lt;&amp;str, ValueType&gt; {
+    let types = alt((value(I32, tag("i32")), value(I64, tag("i64"))));
     bws(types)(input)
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The function takes an input <i>string</i> and returns one of the possible <i>ValueType</i> instances. One of
@@ -617,10 +591,8 @@ pub enum ValueType {
             the definition for the <i>FuncType</i> from the AST.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">pub type StackType = Vec&lt;ValueType&gt;;
-pub type FuncType = (StackType, StackType);</code></pre>
-        </CodeBlock>
+        <CodeBlock lang="rust">pub type StackType = Vec&lt;ValueType&gt;;
+pub type FuncType = (StackType, StackType);</CodeBlock>
 
         <TextBlock>
             The <i>FuncType</i> is just an alias for a tuple of <i>StackTypes</i>, which is a vector of
@@ -632,12 +604,11 @@ pub type FuncType = (StackType, StackType);</code></pre>
             type <i>i32</i> and one return value of the type <i>i32</i>.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">// Takes a given string and context and returns a FuncType.
+        <CodeBlock lang="rust">// Takes a given string and context and returns a FuncType.
 pub fn func_type&lt;'a&gt;(input: &amp;'a str, ctx: &amp;mut Rc&lt;RefCell&lt;Ctx&gt;&gt;) -&gt; IResult&lt;&amp;'a str, FuncType&gt; {
     // Declare a helper enum, as we need to parse
-    // either a Return value &quot;R&quot; or a parameter &quot;P&quot;.
-    // The parameter has an optional idenfifier, like &quot;$lhs&quot; or &quot;$rhs&quot;
+    // either a Return value "R" or a parameter "P".
+    // The parameter has an optional idenfifier, like "$lhs" or "$rhs"
     // in our example.
     #[derive(Clone)]
     enum PR {
@@ -660,10 +631,10 @@ pub fn func_type&lt;'a&gt;(input: &amp;'a str, ctx: &amp;mut Rc&lt;RefCell&lt;Ct
         PR::R,
     );
 
-    // Parse a type &quot;t&quot; that is either a parameter &quot;p&quot; or a result type &quot;r&quot;.
+    // Parse a type "t" that is either a parameter "p" or a result type "r".
     let t = alt((p, r));
 
-    // Parse multiple types &quot;t&quot;
+    // Parse multiple types "t"
     let (input, many_t) = many0(t)(input)?;
 
     // Get all result types from the list
@@ -693,8 +664,7 @@ pub fn func_type&lt;'a&gt;(input: &amp;'a str, ctx: &amp;mut Rc&lt;RefCell&lt;Ct
     // the FuncType tuple and return the result.
     let ft = (params, results);
     Ok((input, ft))
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             Fortunately, that's the most complex parser we have to write to parse our Wasm example. It is also the first
@@ -707,8 +677,7 @@ pub fn func_type&lt;'a&gt;(input: &amp;'a str, ctx: &amp;mut Rc&lt;RefCell&lt;Ct
             from.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">// Takes an input string and a context and returns
+        <CodeBlock lang="rust">// Takes an input string and a context and returns
 // The index of the parsed FuncType in the types list of
 // the context.
 pub fn type_use&lt;'a&gt;(input: &amp;'a str, ctx: &amp;mut Rc&lt;RefCell&lt;Ctx&gt;&gt;) -&gt; IResult&lt;&amp;'a str, usize&gt; {
@@ -720,8 +689,7 @@ pub fn type_use&lt;'a&gt;(input: &amp;'a str, ctx: &amp;mut Rc&lt;RefCell&lt;Ctx
     // the index of the added type.
     let index = ctx.borrow_mut().upsert_func_type(&amp;ft);
     Ok((input, index))
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             While the function seems straight forward, there is one point we need to have a closer look at. Due to the
@@ -744,8 +712,7 @@ pub fn type_use&lt;'a&gt;(input: &amp;'a str, ctx: &amp;mut Rc&lt;RefCell&lt;Ctx
             check if they work and show how they are used.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">#[cfg(test)]
+        <CodeBlock lang="rust">#[cfg(test)]
 mod tests {
     use super::*;
 
@@ -753,12 +720,12 @@ mod tests {
     fn func_type_parse_1() {
         let mut ctx = Rc::new(RefCell::new(Ctx::new()));
         assert_eq!(
-            func_type(&quot;(param $lhs i32)&quot;, &amp;mut ctx),
-            Ok((&quot;&quot;, (vec![I32], vec![])))
+            func_type("(param $lhs i32)", &amp;mut ctx),
+            Ok(("", (vec![I32], vec![])))
         );
         assert_eq!(
             Ctx {
-                locals: vec![Some(&quot;$lhs&quot;.to_string())],
+                locals: vec![Some("$lhs".to_string())],
                 ..Ctx::new()
             },
             *ctx.borrow_mut()
@@ -769,12 +736,12 @@ mod tests {
     fn func_type_parse_2() {
         let mut ctx = Rc::new(RefCell::new(Ctx::new()));
         assert_eq!(
-            func_type(&quot;(param $lhs i32) (param $rhs i32) &quot;, &amp;mut ctx),
-            Ok((&quot; &quot;, (vec![I32, I32], vec![])))
+            func_type("(param $lhs i32) (param $rhs i32) ", &amp;mut ctx),
+            Ok((" ", (vec![I32, I32], vec![])))
         );
         assert_eq!(
             Ctx {
-                locals: vec![Some(&quot;$lhs&quot;.to_string()), Some(&quot;$rhs&quot;.to_string())],
+                locals: vec![Some("$lhs".to_string()), Some("$rhs".to_string())],
                 ..Ctx::new()
             },
             *ctx.borrow_mut()
@@ -785,8 +752,8 @@ mod tests {
     fn func_type_parse_3() {
         let mut ctx = Rc::new(RefCell::new(Ctx::new()));
         assert_eq!(
-            func_type(&quot;(xparam $lhs u32)&quot;, &amp;mut ctx),
-            Ok((&quot;(xparam $lhs u32)&quot;, (vec![], vec![])))
+            func_type("(xparam $lhs u32)", &amp;mut ctx),
+            Ok(("(xparam $lhs u32)", (vec![], vec![])))
         );
     }
 
@@ -794,8 +761,8 @@ mod tests {
     fn func_type_parse_4() {
         let mut ctx = Rc::new(RefCell::new(Ctx::new()));
         assert_eq!(
-            func_type(&quot;param $lhs u32&quot;, &amp;mut ctx),
-            Ok((&quot;param $lhs u32&quot;, (vec![], vec![])))
+            func_type("param $lhs u32", &amp;mut ctx),
+            Ok(("param $lhs u32", (vec![], vec![])))
         );
     }
 
@@ -803,8 +770,8 @@ mod tests {
     fn func_type_parse_5() {
         let mut ctx = Rc::new(RefCell::new(Ctx::new()));
         assert_eq!(
-            func_type(&quot;(param xlhs u32)&quot;, &amp;mut ctx),
-            Ok((&quot;(param xlhs u32)&quot;, (vec![], vec![])))
+            func_type("(param xlhs u32)", &amp;mut ctx),
+            Ok(("(param xlhs u32)", (vec![], vec![])))
         );
     }
 
@@ -812,8 +779,8 @@ mod tests {
     fn func_type_parse_6() {
         let mut ctx = Rc::new(RefCell::new(Ctx::new()));
         assert_eq!(
-            func_type(&quot;(param $lhs i32)&quot;, &amp;mut ctx),
-            Ok((&quot;&quot;, (vec![I32], vec![])))
+            func_type("(param $lhs i32)", &amp;mut ctx),
+            Ok(("", (vec![I32], vec![])))
         );
     }
 
@@ -821,8 +788,8 @@ mod tests {
     fn func_type_parse_7() {
         let mut ctx = Rc::new(RefCell::new(Ctx::new()));
         assert_eq!(
-            func_type(&quot;(param $lhs i32) (param $rhs i32) (result i64)&quot;, &amp;mut ctx),
-            Ok((&quot;&quot;, (vec![I32, I32], vec![I64])))
+            func_type("(param $lhs i32) (param $rhs i32) (result i64)", &amp;mut ctx),
+            Ok(("", (vec![I32, I32], vec![I64])))
         );
     }
 
@@ -830,19 +797,18 @@ mod tests {
     fn func_type_parse_8() {
         let mut ctx = Rc::new(RefCell::new(Ctx::new()));
         assert_eq!(
-            func_type(&quot;(param i32) (param i32) (result i64)&quot;, &amp;mut ctx),
-            Ok((&quot;&quot;, (vec![I32, I32], vec![I64])))
+            func_type("(param i32) (param i32) (result i64)", &amp;mut ctx),
+            Ok(("", (vec![I32, I32], vec![I64])))
         );
     }
 
     #[test]
     fn value_type_parse() {
-        assert_eq!(value_type(&quot;i32&quot;), Ok((&quot;&quot;, I32)));
-        assert_eq!(value_type(&quot;i64&quot;), Ok((&quot;&quot;, I64)));
-        assert!(value_type(&quot;x32&quot;).is_err());
+        assert_eq!(value_type("i32"), Ok(("", I32)));
+        assert_eq!(value_type("i64"), Ok(("", I64)));
+        assert!(value_type("x32").is_err());
     }
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <SubHeader id="instructions">Instructions</SubHeader>
 
@@ -855,10 +821,9 @@ mod tests {
 
         <ImageBlock src="/images/kellnr/blog/wasm/wat-instr.png" alt="wasm text"></ImageBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">// Parse the local.get instruction followed by an Index from a string.
+        <CodeBlock lang="rust">// Parse the local.get instruction followed by an Index from a string.
 fn local_get&lt;'a&gt;(input: &amp;'a str, ctx: &amp;Rc&lt;RefCell&lt;Ctx&gt;&gt;) -&gt; IResult&lt;&amp;'a str, Instr&gt; {
-    let local_get = bws(tag(&quot;local.get&quot;));
+    let local_get = bws(tag("local.get"));
     let (input, i) = preceded(local_get, index)(input)?;
     // Get the index from the context for the parsed Index.
     let i = ctx.borrow().get_local_idx(&amp;i);
@@ -867,7 +832,7 @@ fn local_get&lt;'a&gt;(input: &amp;'a str, ctx: &amp;Rc&lt;RefCell&lt;Ctx&gt;&gt
 
 // Parse the i32.add instruction from a string
 fn i32_add(input: &amp;str) -&gt; IResult&lt;&amp;str, Instr&gt; {
-    map(bws(tag(&quot;i32.add&quot;)), |_| I32Add)(input)
+    map(bws(tag("i32.add")), |_| I32Add)(input)
 }
 
 // Parse one or more instructions from a string
@@ -876,8 +841,7 @@ pub fn instrs&lt;'a&gt;(input: &amp;'a str, ctx: &amp;mut Rc&lt;RefCell&lt;Ctx&g
     let lg = |i| local_get(i, ctx);
     let instruction = alt((lg, i32_add));
     many1(bws(instruction))(input)
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The <i>i32_add</i> function is straight forward. It parses the <i>i32.add</i> tag and maps it to the
@@ -895,8 +859,7 @@ pub fn instrs&lt;'a&gt;(input: &amp;'a str, ctx: &amp;mut Rc&lt;RefCell&lt;Ctx&g
             usage of the function clearer, let's write a few tests.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">#[cfg(test)]
+        <CodeBlock lang="rust">#[cfg(test)]
 mod tests {
     use super::*;
     use crate::ast::Instr::LocalGet;
@@ -904,20 +867,20 @@ mod tests {
     #[test]
     fn local_get_parse() {
         let ctx = Rc::new(RefCell::new(Ctx {
-            locals: vec![Some(&quot;$lhs&quot;.to_string())],
+            locals: vec![Some("$lhs".to_string())],
             ..Ctx::new()
         }));
-        assert_eq!(local_get(&quot;local.get 1&quot;, &amp;ctx), Ok((&quot;&quot;, Instr::LocalGet(1))));
+        assert_eq!(local_get("local.get 1", &amp;ctx), Ok(("", Instr::LocalGet(1))));
         assert_eq!(
-            local_get(&quot;local.get $lhs&quot;, &amp;ctx),
-            Ok((&quot;&quot;, Instr::LocalGet(0)))
+            local_get("local.get $lhs", &amp;ctx),
+            Ok(("", Instr::LocalGet(0)))
         );
     }
 
     #[test]
     fn i32_add_parse() {
-        assert_eq!(i32_add(&quot; i32.add &quot;), Ok((&quot;&quot;, I32Add)));
-        assert!(i32_add(&quot;local.get&quot;).is_err());
+        assert_eq!(i32_add(" i32.add "), Ok(("", I32Add)));
+        assert!(i32_add("local.get").is_err());
     }
 
     #[test]
@@ -925,16 +888,15 @@ mod tests {
         let mut ctx = Rc::new(RefCell::new(Ctx::new()));
         assert_eq!(
             instrs(
-                &quot;local.get 1\
+                "local.get 1\
                 i32.add\
-                local.get 2&quot;,
+                local.get 2",
                 &amp;mut ctx
             ),
-            Ok((&quot;&quot;, vec![LocalGet(1), I32Add, LocalGet(2)]))
+            Ok(("", vec![LocalGet(1), I32Add, LocalGet(2)]))
         );
     }
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <SubHeader id="module">Module</SubHeader>
 
@@ -945,8 +907,7 @@ mod tests {
 
         <ImageBlock src="/images/kellnr/blog/wasm/wat-module.png" alt="wasm module"></ImageBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">// Parse a function with its type definition and instructions.
+        <CodeBlock lang="rust">// Parse a function with its type definition and instructions.
 fn func&lt;'a&gt;(input: &amp;'a str, ctx: &amp;mut Rc&lt;RefCell&lt;Ctx&gt;&gt;) -&gt; IResult&lt;&amp;'a str, Func&gt; {
     fn inner&lt;'a&gt;(input: &amp;'a str, ctx: &amp;mut Rc&lt;RefCell&lt;Ctx&gt;&gt;) -&gt; IResult&lt;&amp;'a str, Func&gt; {
         // Parse the identifier of the function
@@ -1012,9 +973,8 @@ pub fn module(input: &amp;str) -&gt; IResult&lt;&amp;str, Module&gt; {
         exports: ctx.borrow().exports.list.clone(),
     };
     // Return the parsed module (AST)
-    Ok((&quot;&quot;, module))
-}</code></pre>
-        </CodeBlock>
+    Ok(("", module))
+}</CodeBlock>
 
         <TextBlock>
             And that's it. We are now able to parse the whole Wasm code example into an Abstract Syntax Tree, which we
@@ -1022,8 +982,7 @@ pub fn module(input: &amp;str) -&gt; IResult&lt;&amp;str, Module&gt; {
             that parses the whole module.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">#[cfg(test)]
+        <CodeBlock lang="rust">#[cfg(test)]
 mod tests {
     use super::*;
     use crate::ast::Instr::*;
@@ -1034,10 +993,10 @@ mod tests {
     fn func_parse() {
         let mut ctx = Rc::new(RefCell::new(Ctx::new()));
 
-        let wat = &quot;(func $add (param $lhs i32) (param $rhs i32) (result i32)
+        let wat = "(func $add (param $lhs i32) (param $rhs i32) (result i32)
               local.get $lhs
               local.get $rhs
-              i32.add)&quot;;
+              i32.add)";
 
         let expected = Func {
             f_type: 0,
@@ -1045,17 +1004,17 @@ mod tests {
             body: vec![LocalGet(0), LocalGet(1), I32Add],
         };
 
-        assert_eq!(func(&amp;wat, &amp;mut ctx), Ok((&quot;&quot;, expected.clone())));
+        assert_eq!(func(&amp;wat, &amp;mut ctx), Ok(("", expected.clone())));
         assert_eq!(
             ctx,
             Rc::new(RefCell::new(Ctx {
-                locals: vec![Some(&quot;$lhs&quot;.to_string()), Some(&quot;$rhs&quot;.to_string())],
+                locals: vec![Some("$lhs".to_string()), Some("$rhs".to_string())],
                 types: Field {
                     ids: vec![None],
                     list: vec![(vec![I32, I32], vec![I32])],
                 },
                 funcs: Field {
-                    ids: vec![Some(&quot;$add&quot;.to_string())],
+                    ids: vec![Some("$add".to_string())],
                     list: vec![expected]
                 },
                 exports: Field::new()
@@ -1067,20 +1026,20 @@ mod tests {
     fn export_parse() {
         let mut ctx = Rc::new(RefCell::new(Ctx {
             funcs: Field {
-                ids: vec![Some(&quot;$add&quot;.to_string())],
+                ids: vec![Some("$add".to_string())],
                 list: vec![],
             },
             ..Ctx::new()
         }));
 
         let expected = Export {
-            name: &quot;add&quot;.to_string(),
+            name: "add".to_string(),
             e_desc: FuncExport(0),
         };
 
         assert_eq!(
-            export(&quot;(export \&quot;add\&quot; (func $add))&quot;, &amp;mut ctx),
-            Ok((&quot;&quot;, expected))
+            export("(export \"add\" (func $add))", &amp;mut ctx),
+            Ok(("", expected))
         );
         assert_eq!(
             ctx,
@@ -1088,13 +1047,13 @@ mod tests {
                 locals: vec![],
                 types: Field::new(),
                 funcs: Field {
-                    ids: vec![Some(&quot;$add&quot;.to_string())],
+                    ids: vec![Some("$add".to_string())],
                     list: vec![]
                 },
                 exports: Field {
-                    ids: vec![Some(&quot;add&quot;.to_string())],
+                    ids: vec![Some("add".to_string())],
                     list: vec![Export {
-                        name: &quot;add&quot;.to_string(),
+                        name: "add".to_string(),
                         e_desc: EDesc::FuncExport(0)
                     }]
                 }
@@ -1104,13 +1063,13 @@ mod tests {
 
     #[test]
     fn module_parse() {
-        let wat = &quot;(module
+        let wat = "(module
                 (func $add (param $lhs i32) (param $rhs i32) (result i32)
                   local.get $lhs
                   local.get $rhs
                   i32.add)
-                (export \&quot;add\&quot; (func $add))
-            )&quot;;
+                (export \"add\" (func $add))
+            )";
 
         let expected = Module {
             types: vec![(vec![I32, I32], vec![I32])],
@@ -1120,15 +1079,14 @@ mod tests {
                 body: vec![LocalGet(0), LocalGet(1), I32Add],
             }],
             exports: vec![Export {
-                name: &quot;add&quot;.to_string(),
+                name: "add".to_string(),
                 e_desc: FuncExport(0),
             }],
         };
 
-        assert_eq!(module(&amp;wat), Ok((&quot;&quot;, expected)));
+        assert_eq!(module(&amp;wat), Ok(("", expected)));
     }
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The <i>module_parse</i> test contains the complete Wasm code and checks if the expected AST is created from
@@ -1137,12 +1095,10 @@ mod tests {
             takes a Wasm module as an input and returns the corresponding AST.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">pub fn parse(wat: &amp;str) -&gt; Module {
-    let (_, ast) = module::module(wat).expect(&quot;Ups, something went wrong!&quot;);
+        <CodeBlock lang="rust">pub fn parse(wat: &amp;str) -&gt; Module {
+    let (_, ast) = module::module(wat).expect("Ups, something went wrong!");
     ast
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <SubHeader id="whats-next">What's next?</SubHeader>
 
