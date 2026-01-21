@@ -8,6 +8,13 @@
       "summaryHtml": "A look back at Kellnr's development in 2025: S3 storage, webhooks, new web interface, and contributions from 16 community members across 9 releases."
     },
     {
+      "id": "rust-assembly",
+      "title": "Testing Assembly Code with Rust",
+      "url": "https://kellnr.io/blog/rust-assembly",
+      "published": "2025-02-08T12:00:00+00:00",
+      "summaryHtml": "Learn how to test inline assembly code in Rust applications using unit tests and integration testing strategies."
+    },
+    {
       "id": "cross-plat-native-lib",
       "title": "Wrapping Cross-Platform Native Libraries in Rust",
       "url": "https://kellnr.io/blog/cross-plat-native-lib",

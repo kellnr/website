@@ -340,6 +340,14 @@
 </ul>]]></content>
   </entry>
   <entry>
+    <id>https://kellnr.io/blog/rust-assembly</id>
+    <title>Testing Assembly Code with Rust</title>
+    <link href="https://kellnr.io/blog/rust-assembly" />
+    <published>2025-02-08T12:00:00+00:00</published>
+    <updated>2025-02-08T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[Learn how to test inline assembly code in Rust applications using unit tests and integration testing strategies.]]></content>
+  </entry>
+  <entry>
     <id>https://kellnr.io/changelog#5.3.1</id>
     <title>Kellnr 5.3.1 release</title>
     <link href="https://kellnr.io/changelog" />
