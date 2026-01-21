@@ -110,37 +110,10 @@ onMounted(() => {
     }
 
     var links = document.getElementsByClassName("side-nav-link-ref");
-    var matchingMenuItem = null;
     for (var i = 0; i < links.length; i++) {
-        if (window.location.pathname === links[i].pathname) {
-            matchingMenuItem = links[i];
+        if (window.location.pathname === (links[i] as HTMLAnchorElement).pathname) {
+            links[i].classList.add("active");
             break;
-        }
-    }
-
-    if (matchingMenuItem) {
-        matchingMenuItem.classList.add("active");
-        var parent = matchingMenuItem.parentElement;
-
-        /**
-         * TODO: This is hard coded way of expading/activating parent menu dropdown and working till level 3.
-         * We should come up with non hard coded approach
-         */
-        if (parent) {
-            parent.classList.add("active");
-            const parent2 = parent.parentElement;
-            if (parent2) {
-                parent2.classList.add("active");
-                const parent3 = parent2.parentElement;
-                if (parent3) {
-                    parent3.classList.add("active");
-                    const parent4 = parent3.parentElement;
-                    if (parent4) {
-                        const parent5 = parent4.parentElement;
-                        parent5.classList.add("active");
-                    }
-                }
-            }
         }
     }
 });

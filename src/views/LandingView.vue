@@ -15,7 +15,7 @@ import FeatureBox from "@/components/landing/FeatureBox.vue";
           </p>
           <div class="hero-actions">
             <router-link to="documentation#installation" class="btn-primary">
-              Get Started Free
+              Get Started
               <i class="mdi mdi-arrow-right"></i>
             </router-link>
             <a href="https://github.com/kellnr/kellnr" class="btn-secondary" target="_blank" rel="noopener">
