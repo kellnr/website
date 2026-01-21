@@ -55,15 +55,13 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
             perspective, there is a lot of work to do to extract an AST from the code.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="wasm">(module
+        <CodeBlock lang="wasm">(module
   (func $add (param $lhs i32) (param $rhs i32) (result i32)
     local.get $lhs
     local.get $rhs
     i32.add)
   (export "add" (func $add))
-)</code></pre>
-        </CodeBlock>
+)</CodeBlock>
 
         <TextBlock>
             Let us try to understand what the code does. On the highest level, Wasm is organized in a <a
@@ -147,14 +145,12 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
             for our parser.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">#[derive(Debug, PartialEq)]
+        <CodeBlock lang="rust">#[derive(Debug, PartialEq)]
 pub struct Module {
     pub types: Vec&lt;Type&gt;,
     pub funcs: Vec&lt;Func&gt;,
     pub exports: Vec&lt;Export&gt;,
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             As our top level structure, we create a module that contains a list of types, functions and exports. We have
@@ -166,16 +162,14 @@ pub struct Module {
             a Wasm module can hold more than one function, type or export. Next, let us define what a <i>Type</i> is.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">#[derive(Debug, PartialEq, Clone, Copy, Eq)]
+        <CodeBlock lang="rust">#[derive(Debug, PartialEq, Clone, Copy, Eq)]
 pub enum ValueType {
     I32,
     I64,
 }
 pub type StackType = Vec&lt;ValueType&gt;;
 pub type FuncType = (StackType, StackType);
-pub type Type = FuncType;</code></pre>
-        </CodeBlock>
+pub type Type = FuncType;</CodeBlock>
 
         <TextBlock>
             A <i>Type</i> is just an alias for a <a
@@ -199,8 +193,7 @@ pub type Type = FuncType;</code></pre>
             two functions take the same parameters and return the same type, they share a type definition.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">#[derive(Debug, PartialEq, Clone, Eq)]
+        <CodeBlock lang="rust">#[derive(Debug, PartialEq, Clone, Eq)]
 pub enum Instr {
     LocalGet(usize),
     I32Add,
@@ -211,8 +204,7 @@ pub struct Func {
     pub f_type: i32,
     pub locals: Vec&lt;ValueType&gt;,
     pub body: Vec&lt;Instr&gt;,
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The <a href="https://webassembly.github.io/spec/core/syntax/modules.html#functions">Func</a> contains a <i>f_type</i>
@@ -230,8 +222,7 @@ pub struct Func {
             the list of exports. Lets see how they are defined.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="rust">#[derive(Debug, PartialEq, Clone, Eq)]
+        <CodeBlock lang="rust">#[derive(Debug, PartialEq, Clone, Eq)]
 pub enum EDesc {
     FuncExport(usize),
 }
@@ -240,8 +231,7 @@ pub enum EDesc {
 pub struct Export {
     pub name: String,
     pub e_desc: EDesc,
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             An <a href="https://webassembly.github.io/spec/core/syntax/modules.html#syntax-export">export</a> has a <a

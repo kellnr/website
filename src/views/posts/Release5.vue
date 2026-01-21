@@ -62,8 +62,7 @@ import CodeBlock from "../../components/elements/CodeBlock.vue";
             new <a href="https://github.com/kellnr/helm/blob/main/charts/kellnr/values.yaml">values.yaml</a>.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="toml">
+        <CodeBlock lang="toml">
 ####################################################################################
 #                                                                                  #
 # Values used only on the first startup. Can be changed using the UI on runtime.   #
@@ -141,7 +140,6 @@ port = 5432
 db = "kellnr"
 user = ""
 pwd = ""
-</code></pre>
         </CodeBlock>
 
         <SubHeader id="outlook">Your Help Is Required</SubHeader>

@@ -3,11 +3,61 @@
   <id>kellnr.io/blog</id>
   <title>kellnr.io - The Rust Registry</title>
   <subtitle>Rust development related blog</subtitle>
-  <updated>2026-01-15T12:00:00.000Z</updated>
+  <updated>2026-01-20T12:00:00.000Z</updated>
   <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
   <link rel="alternate" href="https://kellnr.io/blog" type="text/html" />
   <icon>https://kellnr.io/favicon.ico</icon>
   <logo>https://kellnr.io/favicon.ico</logo>
+  <entry>
+    <id>https://kellnr.io/changelog#5.13.0</id>
+    <title>Kellnr 5.13.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2026-01-20T12:00:00.000Z</published>
+    <updated>2026-01-20T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.13.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>improved UI ([#966]()) <a href="https://github.com/kellnr/kellnr/pull/966" target="_blank" rel="noopener noreferrer">#966</a></li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>add workflow trigger</li>
+<li>Merge branch 'main' of github.com:kellnr/kellnr</li>
+<li>switch from release-plz to k-releaser ([#965]()) <a href="https://github.com/kellnr/kellnr/pull/965" target="_blank" rel="noopener noreferrer">#965</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/blog/review-2025</id>
+    <title>Kellnr 2025 - A Year in Review</title>
+    <link href="https://kellnr.io/blog/review-2025" />
+    <published>2026-01-20T12:00:00+00:00</published>
+    <updated>2026-01-20T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[A look back at Kellnr's development in 2025: S3 storage, webhooks, new web interface, and contributions from 16 community members across 9 releases.]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.12.0</id>
+    <title>Kellnr 5.12.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2026-01-17T12:00:00.000Z</published>
+    <updated>2026-01-17T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.12.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>feat: Make cards on frontpage clickable by @secana <a href="https://github.com/kellnr/kellnr/pull/964" target="_blank" rel="noopener noreferrer">#964</a></li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>ci: Improve release-plz config by @secana <a href="https://github.com/kellnr/kellnr/pull/957" target="_blank" rel="noopener noreferrer">#957</a></li>
+<li>chore: Add .editorconfig for consistent coding styles by @nyurik <a href="https://github.com/kellnr/kellnr/pull/959" target="_blank" rel="noopener noreferrer">#959</a></li>
+<li>chore: Update Cargo.toml deps, clean up configuration by @nyurik <a href="https://github.com/kellnr/kellnr/pull/960" target="_blank" rel="noopener noreferrer">#960</a></li>
+<li>ci: Refactor YAML syntax for consistency and readability by @nyurik <a href="https://github.com/kellnr/kellnr/pull/958" target="_blank" rel="noopener noreferrer">#958</a></li>
+<li>test: Add playwright UI tests by @secana <a href="https://github.com/kellnr/kellnr/pull/963" target="_blank" rel="noopener noreferrer">#963</a></li>
+</ul>]]></content>
+  </entry>
   <entry>
     <id>https://kellnr.io/changelog#5.11.0</id>
     <title>Kellnr 5.11.0 release</title>
@@ -288,6 +338,14 @@
 <ul>
 <li>Support for ARM v7 architecture. It conflicts with the new S3 feature.</li>
 </ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/blog/rust-assembly</id>
+    <title>Testing Assembly Code with Rust</title>
+    <link href="https://kellnr.io/blog/rust-assembly" />
+    <published>2025-02-08T12:00:00+00:00</published>
+    <updated>2025-02-08T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[Learn how to test inline assembly code in Rust applications using unit tests and integration testing strategies.]]></content>
   </entry>
   <entry>
     <id>https://kellnr.io/changelog#5.3.1</id>
@@ -1189,7 +1247,7 @@
     <link href="https://kellnr.io/blog/compile-times-sccache" />
     <published>2021-04-21T12:00:00+00:00</published>
     <updated>2021-04-21T12:00:00+00:00</updated>
-    <content type="html"><![CDATA[Improve build times by utilizing sccache and S3 to cache compilation results over multiply builds in your Rust CI/CD pipeline.]]></content>
+    <content type="html"><![CDATA[Improve build times by utilizing sccache and S3 to cache compilation results over multiple builds in your Rust CI/CD pipeline.]]></content>
   </entry>
   <entry>
     <id>https://kellnr.io/changelog#1.0.0</id>

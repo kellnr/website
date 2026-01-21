@@ -37,22 +37,19 @@ import ImageBlock from "@/components/elements/ImageBlock.vue";
             binary format, which is executable by a Wasm runtime. The Wasm code we want to compile is shown below.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="wasm">(module
+        <CodeBlock lang="wasm">(module
   (func $add (param $lhs i32) (param $rhs i32) (result i32)
     local.get $lhs
     local.get $rhs
     i32.add)
-  (export &quot;add&quot; (func $add))
-)</code></pre>
-        </CodeBlock>
+  (export "add" (func $add))
+)</CodeBlock>
 
         <TextBlock>
             The code is parsed to an AST that looks like the Rust snipped below.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">Module {
+        <CodeBlock lang="rust">Module {
         types: vec![(vec![I32, I32], vec![I32])],
 
         funcs: vec![Func {
@@ -62,11 +59,10 @@ import ImageBlock from "@/components/elements/ImageBlock.vue";
         }],
 
         exports: vec![Export {
-            name: &quot;add&quot;.to_string(),
+            name: "add".to_string(),
             e_desc: FuncExport(0),
         }],
-    };</code></pre>
-        </CodeBlock>
+    };</CodeBlock>
 
         <SubHeader id="binary-format">Binary Format</SubHeader>
         <TextBlock>
@@ -88,8 +84,7 @@ import ImageBlock from "@/components/elements/ImageBlock.vue";
             our compiler needs to do, let's annotate the hex dump with some comments.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="asm">// wasm magic
+        <CodeBlock lang="asm">// wasm magic
 0x00, // \0
 0x61, // a
 0x73, // s
@@ -139,8 +134,7 @@ import ImageBlock from "@/components/elements/ImageBlock.vue";
 0x20, // local.get
 0x01, // local index
 0x6a, // i32.add
-0x0b, // end</code></pre>
-        </CodeBlock>
+0x0b, // end</CodeBlock>
 
         <TextBlock>
             The first eight bytes contain the string "asm" and the Wasm version "1". This header is the same in every
@@ -185,13 +179,12 @@ import ImageBlock from "@/components/elements/ImageBlock.vue";
             </ol>
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">use crate::ast::ValueType;
+        <CodeBlock lang="rust">use crate::ast::ValueType;
 
-// &quot;asm header&quot;
+// "asm header"
 pub const MAGIC: &amp;[u8] = &amp;[0x00, 0x61, 0x73, 0x6d];
 
-// &quot;version header&quot;
+// "version header"
 pub const VERSION: &amp;[u8] = &amp;[0x01, 0x00, 0x00, 0x00];
 
 // Encode ValueType
@@ -230,8 +223,7 @@ pub mod indices {
 pub mod control_flow {
     pub const FUNC: u8 = 0x60;
     pub const END: u8 = 0x0b;
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             Integers must be in the <a href="https://en.wikipedia.org/wiki/LEB128">Little Endian Base 128 (LEB128)</a>
@@ -241,8 +233,7 @@ pub mod control_flow {
             of code.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">pub fn from_u32(value: u32) -&gt; Vec&lt;u8&gt; {
+        <CodeBlock lang="rust">pub fn from_u32(value: u32) -&gt; Vec&lt;u8&gt; {
     fn encode(i: u32, r: &amp;[u8]) -&gt; Vec&lt;u8&gt; {
         let b = i &amp; 0x7fu32;
         let ii = i &gt;&gt; 7;
@@ -254,8 +245,7 @@ pub mod control_flow {
         }
     }
     encode(value, &amp;[]).to_vec()
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             As we want to focus on the implementation of our Wasm compiler, we will not have a closer look at how the
@@ -269,18 +259,15 @@ pub mod control_flow {
             function type from the add function. Here is the relevant snipped from the AST:
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">// Function type of &quot;add&quot;
+        <CodeBlock lang="rust">// Function type of "add"
 // e.g. add(5, 6) -&gt; 11
-types: vec![(vec![I32, I32], vec![I32])]</code></pre>
-        </CodeBlock>
+types: vec![(vec![I32, I32], vec![I32])]</CodeBlock>
 
         <TextBlock>
             The <i>types</i> vector needs to be encoded to the following binary blob.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="asm">// section "Type" (1)
+        <CodeBlock lang="asm">// section "Type" (1)
 0x01, // section code
 0x07, // section size
 0x01, // num types
@@ -290,8 +277,7 @@ types: vec![(vec![I32, I32], vec![I32])]</code></pre>
 0x7f, // i32
 0x7f, // i32
 0x01, // num results
-0x7f, // i32</code></pre>
-        </CodeBlock>
+0x7f, // i32</CodeBlock>
 
         <TextBlock>
             It starts with the <i>section code</i>, which is 1 in the case of the type section, followed by the size of
@@ -304,8 +290,7 @@ types: vec![(vec![I32, I32], vec![I32])]</code></pre>
                 section</i>.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">// Encode the type section based on
+        <CodeBlock lang="rust">// Encode the type section based on
 // the list of types from the AST
 fn encode_type_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
     // Encode one type
@@ -329,14 +314,13 @@ fn encode_type_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
         .concat();
 
     vec![
-        vec![section::TYPE], // Section code &quot;1&quot;
+        vec![section::TYPE], // Section code "1"
         from_u32((body.len() + 1) as u32), // Size of section
         from_u32(ast.types.len() as u32), // Number of types
         body, // The encoded types
     ]
     .concat()
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             We use a lot of vector concatenation to build the binary blob from the AST. This is not the fastest
@@ -355,33 +339,28 @@ fn encode_type_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
             implement is the following:
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">funcs: vec![Func {
+        <CodeBlock lang="rust">funcs: vec![Func {
     f_type: 0,
     // locals: vec![], // Encoded in the code section
     // body: vec![LocalGet(0), LocalGet(1), I32Add], // Encoded in the code section
-}],</code></pre>
-        </CodeBlock>
+}],</CodeBlock>
 
         <TextBlock>
             We expect the following binary blob as the output of our <i>function section</i> compiler function.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="asm">// section "Function" (3)
+        <CodeBlock lang="asm">// section "Function" (3)
 0x03, // section code
 0x02, // section size
 0x01, // num functions
-0x00, // function 0 signature index</code></pre>
-        </CodeBlock>
+0x00, // function 0 signature index</CodeBlock>
 
         <TextBlock>Let's implement the <i>function section</i> compiler function. Like the <i>type section</i> compiler
             function, it
             takes the AST and returns a byte vector with the encoded information.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">// Compile the function section from the AST
+        <CodeBlock lang="rust">// Compile the function section from the AST
 fn encode_func_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
     // If there are no functions,
     // return an empty byte array.
@@ -405,8 +384,7 @@ fn encode_func_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
         ]
         .concat()
     }
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             The function above encodes the list of functions from the AST. It maps the <i>f_type</i> which is the
@@ -425,19 +403,16 @@ fn encode_func_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
             about.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">exports: vec![Export {
-    name: &quot;add&quot;.to_string(),
+        <CodeBlock lang="rust">exports: vec![Export {
+    name: "add".to_string(),
     e_desc: FuncExport(0),
-}],</code></pre>
-        </CodeBlock>
+}],</CodeBlock>
 
         <TextBlock>
             The expected output of the <i>export section</i> compiler function is listed below.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="asm">// section "Export" (7)
+        <CodeBlock lang="asm">// section "Export" (7)
 0x07, // section export
 0x07, // section size
 0x01, // num exports
@@ -448,8 +423,7 @@ fn encode_func_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
 0x64, // d
 0x00, // 0
 // export kind
-0x00, // export func index</code></pre>
-        </CodeBlock>
+0x00, // export func index</CodeBlock>
 
         <TextBlock>
             Let's implement the <i>export section</i> compiler function. If you compare the function with the previous
@@ -459,13 +433,12 @@ fn encode_func_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
             array.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">// Encode all exports from the AST
+        <CodeBlock lang="rust">// Encode all exports from the AST
 fn encode_export_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
     // Encode one export
     fn encode_export(export: &amp;Export) -&gt; Vec&lt;u8&gt; {
         vec![
-            from_u32(export.name.len() as u32), // Length of name (&quot;add&quot; = 3&quot;)
+            from_u32(export.name.len() as u32), // Length of name ("add" = 3")
             export.name.as_bytes().to_vec(), // Export name as byte array
             match export.e_desc {
                 EDesc::FuncExport(_) =&gt; vec![indices::FUNC], // Export type
@@ -494,8 +467,7 @@ fn encode_export_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
         ]
         .concat()
     }
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             Now, only one section if missing: The <i>code section</i>. It contains the instructions that are executed
@@ -510,13 +482,11 @@ fn encode_export_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
             of the AST we are talking about.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">funcs: vec![Func {
+        <CodeBlock lang="rust">funcs: vec![Func {
     // f_type: 0, Encoded in the function section
     locals: vec![],
     body: vec![LocalGet(0), LocalGet(1), I32Add],
-}],</code></pre>
-        </CodeBlock>
+}],</CodeBlock>
 
         <TextBlock>
             The only part of the <i>funcs</i> vector we care about is the <i>body</i> part, as we don't have any
@@ -527,8 +497,7 @@ fn encode_export_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
             expected output.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="asm">// section "Code" (10)
+        <CodeBlock lang="asm">// section "Code" (10)
 0x0a, // section code
 0x09, // section size
 0x01, // num function
@@ -540,8 +509,7 @@ fn encode_export_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
 0x20, // local.get
 0x01, // local index
 0x6a, // i32.add
-0x0b, // end</code></pre>
-        </CodeBlock>
+0x0b, // end</CodeBlock>
 
         <TextBlock>
             We start with the typical section header (section code, section size, number of elements) and right after
@@ -549,8 +517,7 @@ fn encode_export_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
             mark the end of the function body. Let's implement the <i>code section</i> compiler function.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">// Encode the body (instructions) of all functions
+        <CodeBlock lang="rust">// Encode the body (instructions) of all functions
 fn encode_code_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
     // Encode one function body
     fn encode_func(func: &amp;Func) -&gt; Vec&lt;u8&gt; {
@@ -569,7 +536,7 @@ fn encode_code_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
                 .map(encode_instr)
                 .collect::&lt;Vec&lt;Vec&lt;u8&gt;&gt;&gt;()
                 .concat(),
-            // Mark the function body with an &quot;end&quot;
+            // Mark the function body with an "end"
             vec![control_flow::END],
         ]
         .concat();
@@ -592,8 +559,7 @@ fn encode_code_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
         // Build section header with body
         vec![vec![section::CODE], from_u32((body.len()) as u32), body].concat()
     }
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             That is the last section we needed to encode. The function takes the AST and returns the encoded functions
@@ -607,8 +573,7 @@ fn encode_code_section(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
             from an AST.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">// Compile a Wasm module AST to a Wasm binary
+        <CodeBlock lang="rust">// Compile a Wasm module AST to a Wasm binary
 pub fn compile(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
     vec![
         MAGIC,
@@ -619,8 +584,7 @@ pub fn compile(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
         &amp;encode_code_section(&amp;ast),
     ]
     .concat()
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             That's it! We set the <i>magic</i> and <i>version</i> headers followed by all sections. Note that the order
@@ -628,8 +592,7 @@ pub fn compile(ast: &amp;Module) -&gt; Vec&lt;u8&gt; {
             matters! Now, let's write a test that takes our AST and checks if the correct binary blob gets returned.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">#[cfg(test)]
+        <CodeBlock lang="rust">#[cfg(test)]
 mod tests {
     use super::*;
     use crate::ast::EDesc::FuncExport;
@@ -647,7 +610,7 @@ mod tests {
                 body: vec![LocalGet(0), LocalGet(1), I32Add],
             }],
             exports: vec![Export {
-                name: &quot;add&quot;.to_string(),
+                name: "add".to_string(),
                 e_desc: FuncExport(0),
             }],
         };
@@ -663,7 +626,7 @@ mod tests {
             0x00, // 0
             0x00, // 0
             0x00, // 0
-            // section &quot;Type&quot; (1)
+            // section "Type" (1)
             0x01, // section code
             0x07, // section size
             0x01, // num types
@@ -674,24 +637,24 @@ mod tests {
             0x7f, // i32
             0x01, // num results
             0x7f, // i32
-            // section &quot;Function&quot; (3)
+            // section "Function" (3)
             0x03, // section code
             0x02, // section size
             0x01, // num functions
             0x00, // function 0 signature index
-            // section &quot;Export&quot; (7)
+            // section "Export" (7)
             0x07, // section export
             0x07, // section size
             0x01, // num exports
             0x03, // string length
-            // &quot;add&quot; export name
+            // "add" export name
             0x61, // a
             0x64, // d
             0x64, // d
             0x00, // 0
             // export kind
             0x00, // export func index
-            // section &quot;Code&quot; (10)
+            // section "Code" (10)
             0x0a, // section code
             0x09, // section size
             0x01, // num function
@@ -708,8 +671,7 @@ mod tests {
 
         assert_eq!(compile(&amp;ast), wasm);
     }
-}</code></pre>
-        </CodeBlock>
+}</CodeBlock>
 
         <TextBlock>
             If we did nothing wrong, the <i>assert_eq!</i> should be true, proving that our <i>compile</i> function
@@ -729,40 +691,34 @@ mod tests {
             Wasm code and compiles it to a binary <i>add.wasm</i> file.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">use std::fs::{read_to_string, File};
+        <CodeBlock lang="rust">use std::fs::{read_to_string, File};
 use std::io::Write;
 mod ast;
 mod compiler;
 mod parser;
 
 fn main() {
-    let wat = read_to_string(&quot;./add.wat&quot;).expect(&quot;Failed to read wat file.&quot;);
+    let wat = read_to_string("./add.wat").expect("Failed to read wat file.");
     let ast = parser::parse(&amp;wat);
     let wasm = compiler::compile(&amp;ast);
-    let mut file = File::create(&quot;add.wasm&quot;).expect(&quot;Failed to create wasm file.&quot;);
-    file.write_all(&amp;wasm).expect(&quot;Failed to write wasm file.&quot;);
-}</code></pre>
-        </CodeBlock>
+    let mut file = File::create("add.wasm").expect("Failed to create wasm file.");
+    file.write_all(&amp;wasm).expect("Failed to write wasm file.");
+}</CodeBlock>
 
         <TextBlock>
             This gives us the <i>add.wasm</i> binary file that can now execute with <i>Wasmtime</i>.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="bash"># Execute in shell
-wasmtime add.wasm --invoke add 1 4</code></pre>
-        </CodeBlock>
+        <CodeBlock lang="bash"># Execute in shell
+wasmtime add.wasm --invoke add 1 4</CodeBlock>
 
         <TextBlock>
             The output should looks like this:
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="bash">warning: using `--invoke` with a function that takes arguments is experimental and may break in the future
+        <CodeBlock lang="bash">warning: using `--invoke` with a function that takes arguments is experimental and may break in the future
 warning: using `--invoke` with a function that returns values is experimental and may break in the future
-5</code></pre>
-        </CodeBlock>
+5</CodeBlock>
 
         <TextBlock>
             Ignore the first two lines, as they are just a warning that the invoke feature is not stable in

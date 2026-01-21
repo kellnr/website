@@ -10,7 +10,8 @@ export default defineConfig({
       compilerOptions: {
         isCustomElement: (tag) => {
           return tag.startsWith('stripe-buy-button')
-        }
+        },
+        whitespace: 'preserve'
       }
     }
   })],
@@ -18,5 +19,8 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  css: {
+    devSourcemap: false
   }
 })

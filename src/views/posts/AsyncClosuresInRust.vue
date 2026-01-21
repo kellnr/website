@@ -21,8 +21,8 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
             execute is a closure, often called lambda function as well.
         </TextBlock>
 
-        <CodeBlock>
-<pre v-highlightjs><code class="rust">// Execute multiple mathematical operations by calling a function that takes
+        <CodeBlock lang="rust">
+// Execute multiple mathematical operations by calling a function that takes
 // a closure as an argument.
 fn calculator() {
     // Closure that increments a value.
@@ -40,13 +40,13 @@ fn calculator() {
 }
 
 // Take a closure "operation" and apply it to the value "value".
-fn do_math (value: i64, operation: C) -> i64
+fn do_math&lt;C&gt;(value: i64, operation: C) -&gt; i64
 where
-    C: FnOnce(i64) -> i64,
+    C: FnOnce(i64) -&gt; i64,
 {
     // Apply the closure to the value and return the result.
     operation(value)
-} </code></pre>
+}
         </CodeBlock>
 
         <TextBlock>
@@ -59,8 +59,8 @@ where
             Let's zoom in on two details of the above code.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">let increment = |x: i64| x + 1;</code></pre>
+        <CodeBlock lang="rust">
+let increment = |x: i64| x + 1;
         </CodeBlock>
 
         <TextBlock>
@@ -78,10 +78,10 @@ where
             takes an <i>i64</i> and returns an <i>i64</i> it will work.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">fn do_math (value: i64, operation: C) -> i64
+        <CodeBlock lang="rust">
+fn do_math&lt;C&gt;(value: i64, operation: C) -&gt; i64
 where
-    C: FnOnce(i64) -> i64 </code></pre>
+    C: FnOnce(i64) -&gt; i64
         </CodeBlock>
 
         <TextBlock>
@@ -110,8 +110,8 @@ where
                 issue for the feature for more</a> information.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">fn calculator() {
+        <CodeBlock lang="rust">
+fn calculator() {
     let increment = |x: i64| async { x + 1 }; // add "async"
     let decrement = |x: i64| async { x - 1 }; // add "async"
     let result = do_math(5, increment);
@@ -120,18 +120,18 @@ where
     assert_eq!(result, 4);
 }
 
-fn do_math (value: i64, operation: C) -> i64
+fn do_math&lt;C&gt;(value: i64, operation: C) -&gt; i64
 where
-    C: FnOnce(i64) -> i64,
+    C: FnOnce(i64) -&gt; i64,
 {
     operation(value)
-}  </code></pre>
+}
         </CodeBlock>
 
         <TextBlock>If we compile the code above, we get the following complain.</TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">error[E0271]: type mismatch resolving `&lt;[closure@src/async_closures.rs:2:21: 2:45] as FnOnce&lt;(i64,)&gt;&gt;::Output == i64`
+        <CodeBlock lang="rust">
+error[E0271]: type mismatch resolving `&lt;[closure@src/async_closures.rs:2:21: 2:45] as FnOnce&lt;(i64,)&gt;&gt;::Output == i64`
   --&gt; src/async_closures.rs:6:18
    |
 2  |     let increment = |x: i64| async { x + 1 };
@@ -142,18 +142,19 @@ where
    |
   ::: /home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/future/mod.rs:72:43
    |
-72 | pub const fn from_generator (gen: T) -&gt; impl Future |   ------------------------------- the found opaque type
+72 | pub const fn from_generator&lt;T&gt;(gen: T) -&gt; impl Future&lt;Output = T::Return&gt;
+   |                                           ------------------------------- the found opaque type
    |
    = note: expected type `i64`
-           found opaque type `impl futures::Future `
+           found opaque type `impl futures::Future&lt;Output = i64&gt;`
 note: required by a bound in `async_closures::do_math`
   --&gt; src/async_closures.rs:15:23
    |
-13 | fn do_math (value: i64, operation: C) -&gt; i64
+13 | fn do_math&lt;C&gt;(value: i64, operation: C) -&gt; i64
    |    ------- required by a bound in this
 14 | where
 15 |     C: FnOnce(i64) -&gt; i64,
-   |                       ^^^ required by this bound in `async_closures::do_math`</code></pre>
+   |                       ^^^ required by this bound in `async_closures::do_math`
         </CodeBlock>
 
         <TextBlock>
@@ -161,47 +162,46 @@ note: required by a bound in `async_closures::do_math`
             clean up the mess is the following:
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">= note: expected type `i64`
-    found opaque type `impl futures::Future ` </code></pre>
+        <CodeBlock lang="rust">
+= note: expected type `i64`
+    found opaque type `impl futures::Future&lt;Output = i64&gt;`
         </CodeBlock>
 
         <TextBlock>
-            The compiler hints that we changed the type of the closure from <i>|i64| -&gt; i64 to |i64| -&gt; impl
+            The compiler hints that we changed the type of the closure from <i>|i64| -> i64 to |i64| -> impl
             futures::Future&lt;Output = i64&gt;</i> by adding the <i>async</i> keyword and now our <i>do_math</i>
-            function can't take the closure as an argument as it still expects a <i>|i64| -&gt; i64 closure (FnOnce(i64)
-            -&gt; i64)</i>.<br/>
+            function can't take the closure as an argument as it still expects a <i>|i64| -> i64 closure (FnOnce(i64)
+            -> i64)</i>.<br/>
             <br/>
             That should be easy to fix. We adjust the type <i>C</i> constraint of the <i>do_math</i> function to return
             a future. This should to the trick, as that's what the compiler is complaining about.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">async fn do_math&lt;C&gt;(value: i64, operation: C) -&gt; i64
+        <CodeBlock lang="rust">
+async fn do_math&lt;C&gt;(value: i64, operation: C) -&gt; i64
 where
     C: FnOnce(i64) -&gt; Future&lt;Output = i64&gt;,
 {
     operation(value)
-}</code></pre>
+}
         </CodeBlock>
 
         <TextBlock>
             And compile...
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">error[E0782]: trait objects must include the `dyn` keyword
+        <CodeBlock lang="rust">
+error[E0782]: trait objects must include the `dyn` keyword
   --&gt; src/async_closures.rs:17:23
    |
-17 |     C: FnOnce(i64) -&gt; Future ,
+17 |     C: FnOnce(i64) -&gt; Future&lt;Output = i64&gt;,
    |                       ^^^^^^^^^^^^^^^^^^^^
    |
 help: add `dyn` keyword before this trait
    |
-17 -     C: FnOnce(i64) -&gt; Future ,
-17 +     C: FnOnce(i64) -&gt; dyn Future ,
+17 -     C: FnOnce(i64) -&gt; Future&lt;Output = i64&gt;,
+17 +     C: FnOnce(i64) -&gt; dyn Future&lt;Output = i64&gt;,
    |
- </code></pre>
         </CodeBlock>
 
         <TextBlock>
@@ -213,21 +213,21 @@ help: add `dyn` keyword before this trait
             distinction explicit. So, let's add the <i>dyn</i> keyword to our code and see what happens.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">async fn do_math&lt;C&gt;(value: i64, operation: C) -&gt; i64
+        <CodeBlock lang="rust">
+async fn do_math&lt;C&gt;(value: i64, operation: C) -&gt; i64
 where
-    C: FnOnce(i64) -&gt; dyn Future&lt;Output = i64&gt;, // add &quot;dyn&quot;
+    C: FnOnce(i64) -&gt; dyn Future&lt;Output = i64&gt;, // add "dyn"
 {
     operation(value)
-}</code></pre>
+}
         </CodeBlock>
 
         <TextBlock>
             Compiler output:
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">error[E0271]: type mismatch resolving `&lt;[closure@src/async_closures.rs:4:21: 4:45] as FnOnce&lt;(i64,)&gt;&gt;::Output == (dyn futures::Future + 'static)`
+        <CodeBlock lang="rust">
+error[E0271]: type mismatch resolving `&lt;[closure@src/async_closures.rs:4:21: 4:45] as FnOnce&lt;(i64,)&gt;&gt;::Output == (dyn futures::Future&lt;Output = i64&gt; + 'static)`
   --&gt; src/async_closures.rs:8:18
    |
 4  |     let increment = |x: i64| async { x + 1 };
@@ -238,29 +238,30 @@ where
    |
   ::: /home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/future/mod.rs:72:43
    |
-72 | pub const fn from_generator (gen: T) -&gt; impl Future |  ------------------------------- the found opaque type
+72 | pub const fn from_generator&lt;T&gt;(gen: T) -&gt; impl Future&lt;Output = T::Return&gt;
+   |                                           ------------------------------- the found opaque type
    |
-   = note: expected trait object `(dyn futures::Future + 'static)`
-               found opaque type `impl futures::Future `
+   = note: expected trait object `(dyn futures::Future&lt;Output = i64&gt; + 'static)`
+               found opaque type `impl futures::Future&lt;Output = i64&gt;`
 note: required by a bound in `async_closures::do_math`
   --&gt; src/async_closures.rs:17:23
    |
-15 | fn do_math (value: i64, operation: C) -&gt; i64
+15 | fn do_math&lt;C&gt;(value: i64, operation: C) -&gt; i64
    |    ------- required by a bound in this
 16 | where
-17 |     C: FnOnce(i64) -&gt; dyn Future ,
+17 |     C: FnOnce(i64) -&gt; dyn Future&lt;Output = i64&gt;,
    |                       ^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `async_closures::do_math`
 error[E0308]: mismatched types
   --&gt; src/async_closures.rs:19:5
    |
-15 | fn do_math (value: i64, operation: C) -&gt; i64
+15 | fn do_math&lt;C&gt;(value: i64, operation: C) -&gt; i64
    |                                            --- expected `i64` because of return type
 ...
 19 |     operation(value)
    |     ^^^^^^^^^^^^^^^^ expected `i64`, found trait object `dyn futures::Future`
    |
    = note:      expected type `i64`
-           found trait object `(dyn futures::Future + 'static)`</code></pre>
+           found trait object `(dyn futures::Future&lt;Output = i64&gt; + 'static)`
         </CodeBlock>
 
         <TextBlock>
@@ -280,8 +281,8 @@ error[E0308]: mismatched types
             code with all the added async and <i>await</i> keywords looks like this:
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">use futures::Future;
+        <CodeBlock lang="rust">
+use futures::Future;
 async fn calculator() {
     let increment = |x: i64| async { x + 1 };
     let decrement = |x: i64| async { x - 1 };
@@ -295,15 +296,15 @@ where
     C: FnOnce(i64) -&gt; dyn Future&lt;Output = i64&gt;,
 {
     operation(value).await
-}</code></pre>
+}
         </CodeBlock>
 
         <TextBlock>
             Everything is beautiful asynchronous code now. Let's compile the code again and see the code work.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">error[E0271]: type mismatch resolving `&lt;[closure@src/async_closures.rs:4:21: 4:45] as FnOnce&lt;(i64,)&gt;&gt;::Output == (dyn futures::Future&lt;Output = i64&gt; + 'static)`
+        <CodeBlock lang="rust">
+error[E0271]: type mismatch resolving `&lt;[closure@src/async_closures.rs:4:21: 4:45] as FnOnce&lt;(i64,)&gt;&gt;::Output == (dyn futures::Future&lt;Output = i64&gt; + 'static)`
   --&gt; src/async_closures.rs:8:18
    |
 4  |     let increment = |x: i64| async { x + 1 };
@@ -341,7 +342,7 @@ help: remove the `.await`
    |
 19 -     operation(value).await
 19 +     operation(value)
-   |</code></pre>
+   |
         </CodeBlock>
 
         <TextBlock>
@@ -366,21 +367,21 @@ help: remove the `.await`
             transparent. Let's box our return type:
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">async fn do_math&lt;C&gt;(value: i64, operation: C) -&gt; i64
+        <CodeBlock lang="rust">
+async fn do_math&lt;C&gt;(value: i64, operation: C) -&gt; i64
 where
     C: FnOnce(i64) -&gt; Box&lt;dyn Future&lt;Output = i64&gt;&gt;, // Add Box
 {
     operation(value).await
-}</code></pre>
+}
         </CodeBlock>
 
         <TextBlock>
             And again, the compiler is unhappy.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">error[E0277]: `dyn futures::Future&lt;Output = i64&gt;` cannot be unpinned
+        <CodeBlock lang="rust">
+error[E0277]: `dyn futures::Future&lt;Output = i64&gt;` cannot be unpinned
   --&gt; src/async_closures.rs:19:21
    |
 19 |     operation(value).await
@@ -395,7 +396,7 @@ help: remove the `.await`
    |
 19 -     operation(value).await
 19 +     operation(value)
-   |</code></pre>
+   |
         </CodeBlock>
 
         <TextBlock>
@@ -406,8 +407,8 @@ help: remove the `.await`
             specific memory location. That is, for example, useful for self-referential structures. Let's fix our code:
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">use std::pin::Pin;
+        <CodeBlock lang="rust">
+use std::pin::Pin;
 use futures::Future;
 async fn calculator() {
     let increment = |x: i64| async { x + 1 };
@@ -422,15 +423,15 @@ where
     C: FnOnce(i64) -&gt; Pin&lt;Box&lt;dyn Future&lt;Output = i64&gt;&gt;&gt;, // Add Pin
 {
     operation(value).await
-}</code></pre>
+}
         </CodeBlock>
 
         <TextBlock>
             Fingers crossed, is the compiler happy now?
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">error[E0271]: type mismatch resolving `&lt;[closure@src/async_closures.rs:6:21: 6:45] as FnOnce&lt;(i64,)&gt;&gt;::Output == Pin&lt;Box&lt;(dyn futures::Future&lt;Output = i64&gt; + 'static)&gt;&gt;`
+        <CodeBlock lang="rust">
+error[E0271]: type mismatch resolving `&lt;[closure@src/async_closures.rs:6:21: 6:45] as FnOnce&lt;(i64,)&gt;&gt;::Output == Pin&lt;Box&lt;(dyn futures::Future&lt;Output = i64&gt; + 'static)&gt;&gt;`
   --&gt; src/async_closures.rs:10:18
    |
 6  |     let increment = |x: i64| async { x + 1 };
@@ -453,7 +454,7 @@ note: required by a bound in `async_closures::do_math`
    |          ------- required by a bound in this
 18 | where
 19 |     C: FnOnce(i64) -&gt; Pin&lt;Box&lt;dyn Future&lt;Output = i64&gt;&gt;&gt;,
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `async_closures::do_math`</code></pre>
+   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `async_closures::do_math`
         </CodeBlock>
 
         <TextBlock>
@@ -462,8 +463,8 @@ note: required by a bound in `async_closures::do_math`
         </TextBlock>
 
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">use std::pin::Pin;
+        <CodeBlock lang="rust">
+use std::pin::Pin;
 use futures::Future;
 async fn calculator() {
     let increment = |x: i64| Box::pin(async move { x + 1 }) as Pin&lt;Box&lt;dyn Future&lt;Output = i64&gt;&gt;&gt;;
@@ -478,7 +479,7 @@ where
     C: FnOnce(i64) -&gt; Pin&lt;Box&lt;dyn Future&lt;Output = i64&gt;&gt;&gt;,
 {
     operation(value).await
-}</code></pre>
+}
         </CodeBlock>
 
         <TextBlock>
@@ -496,8 +497,8 @@ where
             the syntactic sugar, our program looks like this:
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">use futures::{future::BoxFuture, FutureExt};
+        <CodeBlock lang="rust">
+use futures::{future::BoxFuture, FutureExt};
 async fn calculator() {
     let increment = |x: i64| async move { x + 1 }.boxed(); // Use boxed()
     let decrement = |x: i64| async move { x - 1 }.boxed(); // Use boxed()
@@ -511,7 +512,7 @@ where
     C: FnOnce(i64) -&gt; BoxFuture&lt;'static, i64&gt;, // Use BoxFuture
 {
     operation(value).await
-}</code></pre>
+}
         </CodeBlock>
 
         <TextBlock>
@@ -527,8 +528,8 @@ where
             in mind that in a more complex setup, this may not work.
         </TextBlock>
 
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">use std::future::Future;
+        <CodeBlock lang="rust">
+use std::future::Future;
 async fn calculator() {
     let increment = |x: i64| async move { x + 1 };
     let decrement = |x: i64| async move { x - 1 };
@@ -543,7 +544,7 @@ where
     C: FnOnce(i64) -&gt; F,
 {
     operation(value).await
-}</code></pre>
+}
         </CodeBlock>
 
         <TextBlock>

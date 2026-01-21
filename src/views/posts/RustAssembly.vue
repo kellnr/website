@@ -10,7 +10,7 @@ import CodeBlock from "../../components/elements/CodeBlock.vue";
         <TextBlock>
             This blog post is about the usage of Rust as a test runner for assembly code. You may ask, why would someone
             do that? Assembly is most likely one of the worst choices to write applications in. But sometimes, we do
-            stuff just because it’s fun, not because it’s smart.
+            stuff just because it's fun, not because it's smart.
             <br />
             <br />
             After teaching years of x86 assembly to students at the university, to learn how binaries can be
@@ -18,18 +18,17 @@ import CodeBlock from "../../components/elements/CodeBlock.vue";
             Arm64 CPU came out, but never came around to learn about the basics of programming assembly for it.
             <br />
             <br />
-            Eagerly, I wrote my first “Hello World”, added an “add” and “sub” function to get a grasp on the calling
+            Eagerly, I wrote my first "Hello World", added an "add" and "sub" function to get a grasp on the calling
             convention. But how do I test the functions? There is no testing framework for assembly. Fortunately, Rust
-            has a great testing framework built in. So, let’s see how we can combine both to test our assembly code with
+            has a great testing framework built in. So, let's see how we can combine both to test our assembly code with
             Rust.
         </TextBlock>
         <SubHeader title="writing-some-assembly">Writing some Assembly</SubHeader>
         <TextBlock>
-            First, let’s start with just assembly and keep Rust for later. As it is tradition, we start with a “Hello
-            World”.
+            First, let's start with just assembly and keep Rust for later. As it is tradition, we start with a "Hello
+            World".
         </TextBlock>
-        <CodeBlock>
-            <pre v-highlightjs><code class="asm">
+        <CodeBlock lang="x86asm">
 // Assembly example code for Apple Silicon
 // Shows how a dylib can be written in Assembly
 // and used by Rust
@@ -59,14 +58,12 @@ _main:
 
 // RO data section
 helloworld: .asciz "Hello World!\n"
-                </code></pre>
         </CodeBlock>
         <TextBlock>
             To compile the assembly code, we use the following Makefile. It compiles the assembly code to an object file
             and links it to an executable or a dynamic library.
         </TextBlock>
-        <CodeBlock>
-            <pre v-highlightjs><code class="make">
+        <CodeBlock lang="makefile">
 exe: Asm.o
     ld -o Asm Asm.o -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _main -arch arm64
 
@@ -78,36 +75,32 @@ Asm.o: Asm.s
 
 clean:
     rm -f Asm Asm.o libAsm.dylib
-                </code></pre>
         </CodeBlock>
         <TextBlock>
         Let's check if that works by executing the <i>make</i> file and checking the file type of the output.
         </TextBlock>
-        <CodeBlock>
-            <pre v-highlightjs><code class="bash">
+        <CodeBlock lang="bash">
 # Compile the assembly code to an executable
-> make
+&gt; make
 # Check the file type of the output
-> file ./Asm
+&gt; file ./Asm
 ./Asm: Mach-O 64-bit executable arm64
 
 # Run the executable
-> ./Asm
+&gt; ./Asm
 Hello World!
 
 # Compile the assembly code to a dynamic library
-> make dylib
+&gt; make dylib
 # Check the file type of the output
-> file ./libAsm.dylib
+&gt; file ./libAsm.dylib
 ./libAsm.dylib: Mach-O 64-bit dynamically linked shared library arm64
-                </code></pre>
         </CodeBlock>
         <TextBlock>
             A "Hello World" in assembly is not very exciting. Let's add a function that adds two numbers and returns the
             result. Additionally, we do the same for subtraction.
         </TextBlock>
-        <CodeBlock>
-            <pre v-highlightjs><code class="bash">
+        <CodeBlock lang="x86asm">
 // Assembly example code for Apple Silicon
 // Shows how a dylib can be written in Assembly
 // and used by Rust
@@ -131,7 +124,7 @@ _main:
     // Print the result with printf
     // printf takes variadic argumetns, which are pushed on the stack
     // in reverse order. The first argument is the format string.
-    str x0, [sp, #-16]! // = push x0 -> 16 byte alignment (result from add)
+    str x0, [sp, #-16]! // = push x0 -&gt; 16 byte alignment (result from add)
     adr x0, format // format string
     bl _printf
     ldr w0, [sp, #16] // = pop x0
@@ -174,7 +167,6 @@ _sub: sub sp, sp, #16
 
 // RO data section
 format: .asciz "Result: %ld\n"
-                </code></pre>
         </CodeBlock>
         <TextBlock>
             The assembly code now contains two functions, <i>_add</i> and <i>_sub</i>. Both functions take
@@ -205,8 +197,7 @@ format: .asciz "Result: %ld\n"
             To do so, we create a Rust library and add a <i>build.rs</i> file that builds the assembly code and links it
             to the Rust library.
         </TextBlock>
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">
+        <CodeBlock lang="rust">
 use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::{env, fs};
@@ -226,7 +217,7 @@ fn main() {
     let libdir_path = PathBuf::from("../libasm")
         .canonicalize()
         .expect("cannot canonicalize library path");
-    copy_dylib_to_target_dir(&libdir_path, "libAsm.dylib");
+    copy_dylib_to_target_dir(&amp;libdir_path, "libAsm.dylib");
 
     // Link the library to the rust executable
     println!("cargo:rustc-link-search={}", env::var("OUT_DIR").unwrap());
@@ -237,12 +228,11 @@ fn main() {
     println!("cargo:rustc-link-lib=Asm");
 }
 
-fn copy_dylib_to_target_dir(lib_dir: &Path, dylib: &str) {
+fn copy_dylib_to_target_dir(lib_dir: &amp;Path, dylib: &amp;str) {
     let out_dir = env::var("OUT_DIR").unwrap();
-    let dst = Path::new(&out_dir);
+    let dst = Path::new(&amp;out_dir);
     let _ = fs::copy(lib_dir.join(dylib), dst.join(dylib));
 }
-                </code></pre>
         </CodeBlock>
         <TextBlock>
             The <i>build.rs</i> file is a build script that is executed before the Rust code is compiled. It builds the
@@ -256,15 +246,14 @@ fn copy_dylib_to_target_dir(lib_dir: &Path, dylib: &str) {
             The Rust code that tests the assembly code is shown below. It contains the function definitions for the
             assembly functions, such that we can call them from Rust.
         </TextBlock>
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">
+        <CodeBlock lang="rust">
 #![allow(dead_code)]
 
 use std::ffi::c_char;
 
 extern "C" {
-    fn sub(a: u64, b: u64) -> u64;
-    fn add(a: u64, b: u64) -> u64;
+    fn sub(a: u64, b: u64) -&gt; u64;
+    fn add(a: u64, b: u64) -&gt; u64;
 }
 
 #[cfg(test)]
@@ -283,7 +272,6 @@ mod tests {
         assert_eq!(result, 8);
     }
 }
-                </code></pre>
         </CodeBlock>
         <TextBlock>
         That's it. Call <i>cargo test</i> and see the assembly code being tested by Rust. But that is still quite unspectacular. Let's add a more useful function in assembly that shows how a more complex use-case can be tested with Rust.
@@ -291,8 +279,7 @@ mod tests {
         <br />
         We are going to write a "to upper" function in assembly, that takes a C string and converts all characters to upper case. For that we use a sweet trick. To convert a character to upper case, we XOR 0x20 to the character. This works because the ASCII table has the lower case characters 0x61 to 0x7A and the upper case characters 0x41 to 0x5A. The difference between the lower and upper case characters is 0x20. The XOR operation toggles the 5th bit, which is the difference between lower and upper case characters.
         </TextBlock>
-        <CodeBlock>
-            <pre v-highlightjs><code class="asm">
+        <CodeBlock lang="x86asm">
 // Assembly example code for Apple Silicon
 // Shows how a dylib can be written in Assembly
 // and used by Rust
@@ -307,7 +294,7 @@ mod tests {
 
 .align 4	// Make sure everything is aligned properly
 
-_main: 
+_main:
 	// Print the "lower" string
 	mov	X0, #1		// 1 = StdOut
 	adrp	X1, lower@PAGE 	// string to print
@@ -339,7 +326,7 @@ _main:
 // x0 = address of string
 // returns nothing
 _upp:
-	sub	sp, sp, #16 
+	sub	sp, sp, #16
 	str	x0, [sp, #8]	// Address of string
 
 	mov	x1, x0		// x1 = address of string = pointer to character
@@ -358,7 +345,7 @@ loop:
 	strb	w4, [x3]	// store back to memory
 inc:
 	add	x2, x2, #1	// increment counter
-	b	loop		
+	b	loop
 end:
 	add	sp, sp, #16
 	ret
@@ -366,7 +353,6 @@ end:
 // RW data section
 .data
 lower:		.asciz "hello"
-        </code></pre>
         </CodeBlock>
         <TextBlock>
         The assembly code iterates over a C string and checks if the character is in the range of 'a' to 'z'. If it is, the character is converted to upper case by XORing it with 0x20. The result is stored back to memory. If we hit a '0' character, we know we've reached the end of the string, as C strings are zero terminated. Keep in mind: We change the string in place, we do not create a new string. In this economy, we have no memory to waste! That's why we need to have the string in writable memory.
@@ -374,8 +360,7 @@ lower:		.asciz "hello"
         <br />
         The Rust code that tests the assembly code is shown below. It contains the function definitions for the assembly functions, such that we can call them from Rust.
         </TextBlock>
-        <CodeBlock>
-            <pre v-highlightjs><code class="rust">
+        <CodeBlock lang="rust">
 #![allow(dead_code)]
 
 use std::ffi::c_char;
@@ -401,7 +386,6 @@ mod tests {
         assert_eq!(c_str.to_str().unwrap(), "HELLO WORLD 123!");
     }
 }
-            </code></pre>
         </CodeBlock>
         <TextBlock>
         The test function creates a C string, converts it to a raw pointer and calls the assembly function. After the function call, the raw pointer is converted back to a C string and checked if the conversion was successful. The test function is a good example of how to test assembly code with Rust. We can create complex test cases and check the results with Rust's testing framework.
@@ -429,4 +413,4 @@ mod tests {
         </ul>
         </TextBlock>
     </BlogPostTemplate>
-</template>>
+</template>

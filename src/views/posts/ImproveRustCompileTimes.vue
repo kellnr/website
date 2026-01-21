@@ -32,7 +32,7 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
         <TextBlock>
             What if we had a possibility to cache already build Crates over multiple runs and even across multiple
             servers? In that case, it does not matter that we start with a fresh Git clone or on which server the build
-            takes place. That is exactly what a “Shared Compilation Cache” (<a
+            takes place. That is exactly what a "Shared Compilation Cache" (<a
                 href="https://github.com/mozilla/sccache">sccache</a>) does. The sccache project by
             Mozilla is a distributed compiler cache that allows a compiler to store its build artifacts in a central
             place. All other compilers on different machines than check, if there is already a compiled version of the
@@ -80,8 +80,7 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
             central storage server.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="yaml"># Kubernetes manifest for a minio S3 compatible storage
+        <CodeBlock lang="yaml"># Kubernetes manifest for a minio S3 compatible storage
 ---
 # First we are creating a persistent volume of 100Gb
 # on our central storage server which is mounted on "/mnt/storageserver/minio"
@@ -183,8 +182,7 @@ spec:
       kind: Rule
       services:
         - name: minio
-          port: 9000</code></pre>
-        </CodeBlock>
+          port: 9000</CodeBlock>
 
         <TextBlock>
             Now that we have a central storage for our compiled crates, lets configure the clients (rustc) to use the
@@ -193,8 +191,7 @@ spec:
             cache.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="docker"># Excerpt from the Dockerfile of the build server
+        <CodeBlock lang="docker"># Excerpt from the Dockerfile of the build server
 FROM ubuntu:20.04
 # ...
 # Install rust
@@ -204,8 +201,7 @@ ENV PATH="$HOME/.cargo/bin:${PATH}"
 RUN $HOME/.cargo/bin/cargo install sccache
 # Add the configuration for sccache
 ADD ./config $HOME/.cargo/config
-# ...</code></pre>
-        </CodeBlock>
+# ...</CodeBlock>
 
         <TextBlock>
             The config file that is added to the Docker image contains the <i>rustc-wrapper</i> value with the path to
@@ -213,17 +209,14 @@ ADD ./config $HOME/.cargo/config
             sccache binary.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="toml">[build]
-rustc-wrapper = "/home/user/.cargo/bin/sccache"</code></pre>
-        </CodeBlock>
+        <CodeBlock lang="toml">[build]
+rustc-wrapper = "/home/user/.cargo/bin/sccache"</CodeBlock>
 
         <TextBlock>
             The configuration of sccache is done with environment variables.
         </TextBlock>
 
-        <CodeBlock>
-        <pre v-highlightjs><code class="yaml"># Kubernetes deployment for multiple build containers
+        <CodeBlock lang="yaml"># Kubernetes deployment for multiple build containers
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -259,8 +252,7 @@ spec:
               cpu: "3500m"
             requests:
               memory: "500Mi"
-              cpu: "500m"</code></pre>
-        </CodeBlock>
+              cpu: "500m"</CodeBlock>
 
         <TextBlock>
             That's it! If the builder container starts a build job, the rustc-wrapper will be called by cargo instead of

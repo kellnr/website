@@ -1,6 +1,23 @@
 <script setup lang="ts">
+import blogData from "../data/blog-posts.json";
 
-import HeroCard from "../components/blog/HeroCard.vue";
+interface BlogPost {
+  id: string;
+  title: string;
+  published: string;
+  summaryHtml: string;
+}
+
+const posts: BlogPost[] = blogData.posts;
+
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
 </script>
 
 <template>
@@ -10,7 +27,7 @@ import HeroCard from "../components/blog/HeroCard.vue";
         <div class="row justify-content-center">
           <div class="col-lg-12 text-center">
             <div class="page-next-level">
-              <h4 class="title"> Blog </h4>
+              <h4 class="title">Blog</h4>
               <div class="page-next">
                 <nav aria-label="breadcrumb" class="d-inline-block">
                   <ul class="breadcrumb bg-white rounded shadow mb-0">
@@ -39,61 +56,79 @@ import HeroCard from "../components/blog/HeroCard.vue";
 
     <section class="section">
       <div class="container">
-        <div class="row">
-
-          <HeroCard title="Kellnr 2025 - A Year in Review" date="20. January, 2026" link="review-2025"
-            img="images/kellnr/blog/kellnr-logo.png"></HeroCard>
-
-          <HeroCard title="Testing Assembly Code with Rust" date="08. Februar, 2025" link="rust-assembly"
-            img="images/kellnr/blog/ferris.png"></HeroCard>
-
-          <HeroCard title="Wrapping Cross-Platform Native Libraries in Rust" date="14. January, 2024"
-            link="cross-plat-native-lib" img="images/kellnr/blog/ferris.png"></HeroCard>
-
-          <HeroCard title="Kellnr 5.0.0 Release" date="28. November, 2023" link="release5"
-            img="images/kellnr/blog/kellnr-logo.png"></HeroCard>
-
-          <HeroCard title="Kellnr goes Open-Source" date="20. September, 2023" link="open-source"
-            img="images/kellnr/blog/kellnr-logo.png"></HeroCard>
-
-          <HeroCard title="Leveraging the Type System for Domain Modeling in Rust" date="15. June, 2023"
-            link="domain-modeling" img="images/kellnr/blog/ferris.png"></HeroCard>
-
-          <HeroCard title="Kellnr 3.0.0 Release" link="release3" img="images/kellnr/blog/kellnr-logo.png"
-            date="29. May, 2023"></HeroCard>
-
-          <HeroCard title="Rust Supply Chain Security" link="rust-supply-chain-security"
-            img="images/kellnr/blog/ferris.png" date="10. April, 2023"></HeroCard>
-
-          <HeroCard title="Asynchronous Closures in Rust - Box and Pin" date="24. July, 2022"
-            link="async-closures-in-rust" img="images/kellnr/blog/ferris.png"></HeroCard>
-
-          <HeroCard title="WebAssembly Compiler - Building a Runtime" date="24. June, 2021" part="4/4"
-            link="wasm-compiler4" img="images/kellnr/blog/WebAssembly_Logo.svg"></HeroCard>
-
-          <HeroCard title="WebAssembly Compiler - Building a Compiler" date="05. June, 2021" part="3/4"
-            link="wasm-compiler3" img="images/kellnr/blog/WebAssembly_Logo.svg"></HeroCard>
-
-          <HeroCard title="WebAssembly Compiler - Building a Parser" date="30. June, 2021" part="2/4"
-            link="wasm-compiler2" img="images/kellnr/blog/WebAssembly_Logo.svg"></HeroCard>
-
-          <HeroCard title="WebAssembly Compiler - Text format and AST" date="24. June, 2021" part="1/4"
-            link="wasm-compiler1" img="images/kellnr/blog/WebAssembly_Logo.svg"></HeroCard>
-
-          <HeroCard title="Improve Rust compile times with sccache" date="15. April, 2021" link="compile-times-sccache"
-            img="images/kellnr/blog/ferris.png"></HeroCard>
-
-
-          <div class="col-12">
-            <ul class="pagination justify-content-center mb-0">
-              <li class="page-item"><a class="page-link" href="javascript:void(0)" aria-label="Previous">Prev</a>
-              </li>
-              <li class="page-item active"><a class="page-link" href="javascript:void(0)">1</a></li>
-              <li class="page-item"><a class="page-link" href="javascript:void(0)" aria-label="Next">Next</a></li>
-            </ul>
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-md-10">
+            <div class="blog-list">
+              <router-link
+                v-for="post in posts"
+                :key="post.id"
+                :to="`/blog/${post.id}`"
+                class="blog-item"
+              >
+                <article>
+                  <h2 class="blog-title">{{ post.title }}</h2>
+                  <time class="blog-date">{{ formatDate(post.published) }}</time>
+                  <p class="blog-summary">{{ post.summaryHtml }}</p>
+                </article>
+              </router-link>
+            </div>
           </div>
         </div>
       </div>
     </section>
   </div>
 </template>
+
+<style scoped>
+.blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.blog-item {
+  display: block;
+  padding: 1.5rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.blog-item:hover {
+  border-color: #2f55d4;
+  box-shadow: 0 4px 12px rgba(47, 85, 212, 0.15);
+  transform: translateY(-2px);
+}
+
+.blog-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.4;
+}
+
+.blog-item:hover .blog-title {
+  color: #2f55d4;
+}
+
+.blog-date {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.blog-summary {
+  font-size: 1rem;
+  color: #475569;
+  margin: 0;
+  line-height: 1.6;
+}
+</style>
