@@ -5,6 +5,8 @@ import WarnBlock from "../components/elements/WarnBlock.vue";
 import TableBlock from "../components/elements/TableBlock.vue";
 import SubHeader from "../components/elements/SubHeader.vue";
 import MainHeader from "../components/elements/MainHeader.vue";
+import ConfigCard from "../components/elements/ConfigCard.vue";
+import ConfigGrid from "../components/elements/ConfigGrid.vue";
 </script>
 
 <template>
@@ -406,307 +408,356 @@ import MainHeader from "../components/elements/MainHeader.vue";
               overwritten after the first start of Kellnr, except through the UI of Kellnr.
             </TextBlock>
 
-            <TableBlock>
-              <thead>
-                <tr>
-                  <th scope="col">default.toml</th>
-                  <th scope="col">environment variable</th>
-                  <th scope="col">default value</th>
-                  <th scope="col">description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>[setup]<br />admin_pwd</td>
-                  <td>KELLNR_SETUP__ADMIN_PWD</td>
-                  <td>admin</td>
-                  <td>Password for the admin user. Used on first start only.</td>
-                </tr>
-                <tr>
-                  <td>[setup]<br />admin_token</td>
-                  <td>KELLNR_SETUP__ADMIN_TOKEN</td>
-                  <td>Zy9HhJ02RJmg0GCrgLfaCVfU6IwDfhXD</td>
-                  <td>Authentication token for the admin user. Used on first start only.</td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />data_dir</td>
-                  <td>KELLNR_REGISTRY__DATA_DIR</td>
-                  <td>/opt/kdata</td>
-                  <td>Directory where Kellnr stores all its data.</td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />session_age_seconds</td>
-                  <td>KELLNR_REGISTRY__SESSION_AGE_SECONDS</td>
-                  <td>28800</td>
-                  <td>Seconds until a user is logged out of his browser session.</td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />cache_size</td>
-                  <td>KELLNR_REGISTRY__CACHE_SIZE</td>
-                  <td>1000</td>
-                  <td>Number of crates cached in-memory to decrease disk I/O. If set to "0" the
-                    cache is disabled.
-                  </td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />max_crate_size</td>
-                  <td>KELLNR_REGISTRY__MAX_CRATE_SIZE</td>
-                  <td>10</td>
-                  <td>Max size of crates allowed to be uploaded in MB.</td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />max_db_connections</td>
-                  <td>KELLNR_REGISTRY__MAX_DB_CONNECTIONS</td>
-                  <td>0</td>
-                  <td>Max number of internal database connections. "0" disables the limit.</td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />cookie_signing_key</td>
-                  <td>KELLNR_REGISTRY__COOKIE_SIGNING_KEY</td>
-                  <td>None</td>
-                  <td>Signing key for UI auth. cookies. If not set, a random one is generated. 
-                    Needs to be set to an (at least 64 byte) long string, if you intend to run multiple instances
-                    of kellnr which share a login.</td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />auth_required</td>
-                  <td>KELLNR_REGISTRY__AUTH_REQUIRED</td>
-                  <td>false</td>
-                  <td>Enable/Disable authentication for crates pulls and disable anonymous users for the web UI.</td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />required_crate_fields </td>
-                  <td>KELLNR_REGISTRY__REQUIRED_CRATE_FIELDS</td>
-                  <td>[]</td>
-                  <td>Requires fields to be defined on upload crates. Leave empty to not add restrictions. If set to
-                    e.g. ["authors", "repository"], all uploaded crates have to have the authors and repository defined
-                    in their Cargo.toml's.
-                    If used from an environment variable, the value has to be a comma separated list without spaces, e.g.
-                    "authors,repository"
-                  </td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />new_crates_restricted</td>
-                  <td>KELLNR_REGISTRY__NEW_CRATES_RESTRICTED</td>
-                  <td>false</td>
-                  <td>If set to <i>true</i>, new crates can only be created by "crate users". This means an admin user
-                    has to push the first version of a crate
-                    and add crate users to the crate, before other users can push new versions of the crate. This
-                    restricts which user can push to which crate.
-                  </td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />allow_ownerless_crates</td>
-                  <td>KELLNR_REGISTRY__ALLOW_OWNERLESS_CRATES</td>
-                  <td>false</td>
-                  <td>If set to <i>true</i>, crates are allowed to have no owner. Else, at least one owner is required.
-                  </td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />token_cache_enabled</td>
-                  <td>KELLNR_REGISTRY__TOKEN_CACHE_ENABLED</td>
-                  <td>true</td>
-                  <td>If set to <i>true</i>, instead of validating the <i>Cargo</i> token each time against the DB, cache it.</td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />token_cache_ttl_seconds</td>
-                  <td>KELLNR_REGISTRY__TOKEN_CACHE_TTL_SECONDS</td>
-                  <td>1800</td>
-                  <td>Cache TTL (30 mins).</td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />token_cache_max_capacity</td>
-                  <td>KELLNR_REGISTRY__TOKEN_CACHE_MAX_CAPACITY</td>
-                  <td>10000</td>
-                  <td>Maximum cached tokens.</td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />token_db_retry_count</td>
-                  <td>KELLNR_REGISTRY__TOKEN_DB_RETRY_COUNT</td>
-                  <td>3</td>
-                  <td>Number of retries.</td>
-                </tr>
-                <tr>
-                  <td>[registry]<br />token_db_retry_delay_ms</td>
-                  <td>KELLNR_REGISTRY__TOKEN_DB_RETRY_DELAY_MS</td>
-                  <td>100</td>
-                  <td>Delay between retries in milliseconds</td>
-                </tr>
-                <tr>
-                  <td>[local]<br />ip</td>
-                  <td>KELLNR_LOCAL__IP</td>
-                  <td>0.0.0.0</td>
-                  <td>IP address where Kellnr listens. Usually this does not need to be changed.</td>
-                </tr>
-                <tr>
-                  <td>[local]<br />port</td>
-                  <td>KELLNR_LOCAL__PORT</td>
-                  <td>8000</td>
-                  <td>Port where Kellnr listens.</td>
-                </tr>
-                <tr>
-                  <td>[origin]<br />hostname</td>
-                  <td>KELLNR_ORIGIN__HOSTNAME</td>
-                  <td>127.0.0.1</td>
-                  <td>Hostname where Kellnr is reachable from, e.g. DNS name behind a reverse proxy.</td>
-                </tr>
-                <tr>
-                  <td>[origin]<br />port</td>
-                  <td>KELLNR_ORIGIN__PORT</td>
-                  <td>8000</td>
-                  <td>If a proxy is in front of Kellnr with a different port as Kellnr itself,
-                    the port from the proxy has to be set here. Else set to the same value as
-                    "local.port".
-                  </td>
-                </tr>
-                <tr>
-                  <td>[origin]<br />protocol</td>
-                  <td>KELLNR_ORIGIN__PROTOCOL</td>
-                  <td>http</td>
-                  <td>Either "http" or "https". This does not enable TLS on Kellnr, but needs to be set if
-                    a TLS proxy is used in front of Kellnr.
-                  </td>
-                </tr>
-                <tr>
-                  <td>[origin]<br />path</td>
-                  <td>KELLNR_ORIGIN__PATH</td>
-                  <td></td>
-                  <td>Run Kellnr on a sub path of a URL, e.g. "/kellnring/" for https://www.example.com/kellnring/</td>
-                </tr>
-                <tr>
-                  <td>[log]<br />level</td>
-                  <td>KELLNR_LOG__LEVEL</td>
-                  <td>info</td>
-                  <td>Log level for debugging. Either "trace", "debug", "info", "warn" or "error".</td>
-                </tr>
-                <tr>
-                  <td>[log]<br />level_web_server</td>
-                  <td>KELLNR_LOG__LEVEL_WEB_SERVER</td>
-                  <td>warn</td>
-                  <td>Log level for debugging. Either "trace", "debug", "info", "warn" or "error".</td>
-                </tr>
-                <tr>
-                  <td>[log]<br />format</td>
-                  <td>KELLNR_LOG__FORMAT</td>
-                  <td>compact</td>
-                  <td>Format of the log output. Either "compact", "pretty" or "json".</td>
-                </tr>
-                <tr>
-                  <td>[proxy]<br />enabled</td>
-                  <td>KELLNR_PROXY__ENABLED</td>
-                  <td>false</td>
-                  <td>Enable crates.io proxy to use Kellnr as a proxy-cache for crates.io.</td>
-                </tr>
-                <tr>
-                  <td>[proxy]<br />num_threads</td>
-                  <td>KELLNR_PROXY__NUM_THREADS</td>
-                  <td>10</td>
-                  <td>Number of threads used to keep crates.io cache up-to-date.</td>
-                </tr>
-                <tr>
-                  <td>[proxy]<br />download_on_update</td>
-                  <td>KELLNR_PROXY__DOWNLOAD_ON_UPDATE</td>
-                  <td>false</td>
-                  <td>Periodically pre-fetch crates from crates.io that had an update.</td>
-                </tr>
-                <tr>
-                  <td>[docs]<br />enabled</td>
-                  <td>KELLNR_DOCS__ENABLED</td>
-                  <td>false</td>
-                  <td>If "true", rustdocs are generated for each uploaded crate automatically.</td>
-                </tr>
-                <tr>
-                  <td>[docs]<br />max_size</td>
-                  <td>KELLNR_DOCS__MAX_SIZE</td>
-                  <td>100</td>
-                  <td>Max size of crate docs allowed to be uploaded in MB.</td>
-                </tr>
-                <tr>
-                  <td>[postgresql]<br />enabled</td>
-                  <td>KELLNR_POSTGRESQL__ENABLED</td>
-                  <td>false</td>
-                  <td>Enable PostgreSQL instead of Sqlite</td>
-                </tr>
-                <tr>
-                  <td>[postgresql]<br />address</td>
-                  <td>KELLNR_POSTGRESQL__ADDRESS</td>
-                  <td>localhost</td>
-                  <td>Address of the PostgreSQL server</td>
-                </tr>
-                <tr>
-                  <td>[postgresql]<br />port</td>
-                  <td>KELLNR_POSTGRESQL__PORT</td>
-                  <td>5432</td>
-                  <td>Port of the PostgreSQL server</td>
-                </tr>
-                <tr>
-                  <td>[postgresql]<br />db</td>
-                  <td>KELLNR_POSTGRESQL__DB</td>
-                  <td>kellnr</td>
-                  <td>Database name of the PostgreSQL server</td>
-                </tr>
-                <tr>
-                  <td>[postgresql]<br />user</td>
-                  <td>KELLNR_POSTGRESQL__USER</td>
-                  <td></td>
-                  <td>User name of the PostgreSQL database</td>
-                </tr>
-                <tr>
-                  <td>[postgresql]<br />pwd</td>
-                  <td>KELLNR_POSTGRESQL__PWD</td>
-                  <td></td>
-                  <td>Password of the PostgreSQL database</td>
-                </tr>
-                <tr>
-                  <td>[s3]<br />enabled</td>
-                  <td>KELLNR_S3__ENABLED</td>
-                  <td>false</td>
-                  <td>Enable S3 storage instead of local file system</td>
-                </tr>
-                <tr>
-                  <td>[s3]<br />access_key</td>
-                  <td>KELLNR_S3__ACCESS_KEY</td>
-                  <td>minioadmin</td>
-                  <td>Access key for the S3 storage</td>
-                </tr>
-                <tr>
-                  <td>[s3]<br />secret_key</td>
-                  <td>KELLNR_S3__SECRET_KEY</td>
-                  <td>minioadmin</td>
-                  <td>Secret key for the S3 storage</td>
-                </tr>
-                <tr>
-                  <td>[s3]<br />region</td>
-                  <td>KELLNR_S3__REGION</td>
-                  <td>us-east-1</td>
-                  <td>Region of the S3 storage</td>
-                </tr>
-                <tr>
-                  <td>[s3]<br />endpoint</td>
-                  <td>KELLNR_S3__ENDPOINT</td>
-                  <td>http://localhost:9000</td>
-                  <td>Endpoint of the S3 storage</td>
-                </tr>
-                <tr>
-                  <td>[s3]<br />allow_http</td>
-                  <td>KELLNR_S3__ALLOW_HTTP</td>
-                  <td>true</td>
-                  <td>Allow unsecure S3 connection with HTTP</td>
-                </tr>
-                <tr>
-                  <td>[s3]<br />crates_bucket</td>
-                  <td>KELLNR_S3__CRATES_BUCKET</td>
-                  <td>kellnr-crates</td>
-                  <td>Bucket where Kellnr stores uploaded crates</td>
-                </tr>
-                <tr>
-                  <td>[s3]<br />cratesio_bucket</td>
-                  <td>KELLNR_S3__CRATESIO_BUCKET</td>
-                  <td>kellnr-cratesio</td>
-                  <td>Bucket for crates.io crates if the proxy is enabled</td>
-                </tr>
-              </tbody>
-            </TableBlock>
+            <h5 class="mt-4 mb-3">Setup</h5>
+            <ConfigGrid>
+              <ConfigCard
+                title="Admin Password"
+                toml="[setup] admin_pwd"
+                env-var="KELLNR_SETUP__ADMIN_PWD"
+                default-value="admin"
+                description="Password for the admin user. Used on first start only."
+              />
+              <ConfigCard
+                title="Admin Token"
+                toml="[setup] admin_token"
+                env-var="KELLNR_SETUP__ADMIN_TOKEN"
+                default-value="Zy9HhJ02RJmg0GCrgLfaCVfU6IwDfhXD"
+                description="Authentication token for the admin user. Used on first start only."
+              />
+            </ConfigGrid>
+
+            <h5 class="mt-4 mb-3">Registry</h5>
+            <ConfigGrid>
+              <ConfigCard
+                title="Data Directory"
+                toml="[registry] data_dir"
+                env-var="KELLNR_REGISTRY__DATA_DIR"
+                default-value="/opt/kdata"
+                description="Directory where Kellnr stores all its data."
+              />
+              <ConfigCard
+                title="Session Age"
+                toml="[registry] session_age_seconds"
+                env-var="KELLNR_REGISTRY__SESSION_AGE_SECONDS"
+                default-value="28800"
+                description="Seconds until a user is logged out of his browser session."
+              />
+              <ConfigCard
+                title="Cache Size"
+                toml="[registry] cache_size"
+                env-var="KELLNR_REGISTRY__CACHE_SIZE"
+                default-value="1000"
+                description="Number of crates cached in-memory to decrease disk I/O. If set to '0' the cache is disabled."
+              />
+              <ConfigCard
+                title="Max Crate Size"
+                toml="[registry] max_crate_size"
+                env-var="KELLNR_REGISTRY__MAX_CRATE_SIZE"
+                default-value="10"
+                description="Max size of crates allowed to be uploaded in MB."
+              />
+              <ConfigCard
+                title="Max DB Connections"
+                toml="[registry] max_db_connections"
+                env-var="KELLNR_REGISTRY__MAX_DB_CONNECTIONS"
+                default-value="0"
+                description="Max number of internal database connections. '0' disables the limit."
+              />
+              <ConfigCard
+                title="Cookie Signing Key"
+                toml="[registry] cookie_signing_key"
+                env-var="KELLNR_REGISTRY__COOKIE_SIGNING_KEY"
+                default-value="None"
+                description="Signing key for UI auth cookies. If not set, a random one is generated. Needs to be set to an (at least 64 byte) long string if you intend to run multiple instances of kellnr which share a login."
+              />
+              <ConfigCard
+                title="Authentication Required"
+                toml="[registry] auth_required"
+                env-var="KELLNR_REGISTRY__AUTH_REQUIRED"
+                default-value="false"
+                description="Enable/Disable authentication for crates pulls and disable anonymous users for the web UI."
+              />
+              <ConfigCard
+                title="Required Crate Fields"
+                toml="[registry] required_crate_fields"
+                env-var="KELLNR_REGISTRY__REQUIRED_CRATE_FIELDS"
+                default-value="[]"
+                description="Requires fields to be defined on upload crates. Leave empty to not add restrictions. If set to e.g. ['authors', 'repository'], all uploaded crates have to have the authors and repository defined in their Cargo.toml's."
+              />
+              <ConfigCard
+                title="New Crates Restricted"
+                toml="[registry] new_crates_restricted"
+                env-var="KELLNR_REGISTRY__NEW_CRATES_RESTRICTED"
+                default-value="false"
+                description="If set to true, new crates can only be created by 'crate users'. This means an admin user has to push the first version of a crate and add crate users to the crate."
+              />
+              <ConfigCard
+                title="Allow Ownerless Crates"
+                toml="[registry] allow_ownerless_crates"
+                env-var="KELLNR_REGISTRY__ALLOW_OWNERLESS_CRATES"
+                default-value="false"
+                description="If set to true, crates are allowed to have no owner. Else, at least one owner is required."
+              />
+              <ConfigCard
+                title="Token Cache Enabled"
+                toml="[registry] token_cache_enabled"
+                env-var="KELLNR_REGISTRY__TOKEN_CACHE_ENABLED"
+                default-value="true"
+                description="If set to true, instead of validating the Cargo token each time against the DB, cache it."
+              />
+              <ConfigCard
+                title="Token Cache TTL"
+                toml="[registry] token_cache_ttl_seconds"
+                env-var="KELLNR_REGISTRY__TOKEN_CACHE_TTL_SECONDS"
+                default-value="1800"
+                description="Cache TTL in seconds (default: 30 mins)."
+              />
+              <ConfigCard
+                title="Token Cache Max Capacity"
+                toml="[registry] token_cache_max_capacity"
+                env-var="KELLNR_REGISTRY__TOKEN_CACHE_MAX_CAPACITY"
+                default-value="10000"
+                description="Maximum number of cached tokens."
+              />
+              <ConfigCard
+                title="Token DB Retry Count"
+                toml="[registry] token_db_retry_count"
+                env-var="KELLNR_REGISTRY__TOKEN_DB_RETRY_COUNT"
+                default-value="3"
+                description="Number of retries for token database operations."
+              />
+              <ConfigCard
+                title="Token DB Retry Delay"
+                toml="[registry] token_db_retry_delay_ms"
+                env-var="KELLNR_REGISTRY__TOKEN_DB_RETRY_DELAY_MS"
+                default-value="100"
+                description="Delay between retries in milliseconds."
+              />
+            </ConfigGrid>
+
+            <h5 class="mt-4 mb-3">Local Server</h5>
+            <ConfigGrid>
+              <ConfigCard
+                title="IP Address"
+                toml="[local] ip"
+                env-var="KELLNR_LOCAL__IP"
+                default-value="0.0.0.0"
+                description="IP address where Kellnr listens. Usually this does not need to be changed."
+              />
+              <ConfigCard
+                title="Port"
+                toml="[local] port"
+                env-var="KELLNR_LOCAL__PORT"
+                default-value="8000"
+                description="Port where Kellnr listens."
+              />
+            </ConfigGrid>
+
+            <h5 class="mt-4 mb-3">Origin (External Access)</h5>
+            <ConfigGrid>
+              <ConfigCard
+                title="Hostname"
+                toml="[origin] hostname"
+                env-var="KELLNR_ORIGIN__HOSTNAME"
+                default-value="127.0.0.1"
+                description="Hostname where Kellnr is reachable from, e.g. DNS name behind a reverse proxy."
+              />
+              <ConfigCard
+                title="Port"
+                toml="[origin] port"
+                env-var="KELLNR_ORIGIN__PORT"
+                default-value="8000"
+                description="If a proxy is in front of Kellnr with a different port as Kellnr itself, the port from the proxy has to be set here."
+              />
+              <ConfigCard
+                title="Protocol"
+                toml="[origin] protocol"
+                env-var="KELLNR_ORIGIN__PROTOCOL"
+                default-value="http"
+                description="Either 'http' or 'https'. This does not enable TLS on Kellnr, but needs to be set if a TLS proxy is used in front of Kellnr."
+              />
+              <ConfigCard
+                title="Path"
+                toml="[origin] path"
+                env-var="KELLNR_ORIGIN__PATH"
+                default-value=""
+                description="Run Kellnr on a sub path of a URL, e.g. '/kellnring/' for https://www.example.com/kellnring/"
+              />
+            </ConfigGrid>
+
+            <h5 class="mt-4 mb-3">Logging</h5>
+            <ConfigGrid>
+              <ConfigCard
+                title="Log Level"
+                toml="[log] level"
+                env-var="KELLNR_LOG__LEVEL"
+                default-value="info"
+                description="Log level for debugging. Either 'trace', 'debug', 'info', 'warn' or 'error'."
+              />
+              <ConfigCard
+                title="Web Server Log Level"
+                toml="[log] level_web_server"
+                env-var="KELLNR_LOG__LEVEL_WEB_SERVER"
+                default-value="warn"
+                description="Log level for the web server. Either 'trace', 'debug', 'info', 'warn' or 'error'."
+              />
+              <ConfigCard
+                title="Log Format"
+                toml="[log] format"
+                env-var="KELLNR_LOG__FORMAT"
+                default-value="compact"
+                description="Format of the log output. Either 'compact', 'pretty' or 'json'."
+              />
+            </ConfigGrid>
+
+            <h5 class="mt-4 mb-3">Crates.io Proxy</h5>
+            <ConfigGrid>
+              <ConfigCard
+                title="Proxy Enabled"
+                toml="[proxy] enabled"
+                env-var="KELLNR_PROXY__ENABLED"
+                default-value="false"
+                description="Enable crates.io proxy to use Kellnr as a proxy-cache for crates.io."
+              />
+              <ConfigCard
+                title="Number of Threads"
+                toml="[proxy] num_threads"
+                env-var="KELLNR_PROXY__NUM_THREADS"
+                default-value="10"
+                description="Number of threads used to keep crates.io cache up-to-date."
+              />
+              <ConfigCard
+                title="Download on Update"
+                toml="[proxy] download_on_update"
+                env-var="KELLNR_PROXY__DOWNLOAD_ON_UPDATE"
+                default-value="false"
+                description="Periodically pre-fetch crates from crates.io that had an update."
+              />
+            </ConfigGrid>
+
+            <h5 class="mt-4 mb-3">Documentation</h5>
+            <ConfigGrid>
+              <ConfigCard
+                title="Rustdoc Generation"
+                toml="[docs] enabled"
+                env-var="KELLNR_DOCS__ENABLED"
+                default-value="false"
+                description="If 'true', rustdocs are generated for each uploaded crate automatically."
+              />
+              <ConfigCard
+                title="Max Doc Size"
+                toml="[docs] max_size"
+                env-var="KELLNR_DOCS__MAX_SIZE"
+                default-value="100"
+                description="Max size of crate docs allowed to be uploaded in MB."
+              />
+            </ConfigGrid>
+
+            <h5 class="mt-4 mb-3">PostgreSQL</h5>
+            <ConfigGrid>
+              <ConfigCard
+                title="PostgreSQL Enabled"
+                toml="[postgresql] enabled"
+                env-var="KELLNR_POSTGRESQL__ENABLED"
+                default-value="false"
+                description="Enable PostgreSQL instead of Sqlite."
+              />
+              <ConfigCard
+                title="Server Address"
+                toml="[postgresql] address"
+                env-var="KELLNR_POSTGRESQL__ADDRESS"
+                default-value="localhost"
+                description="Address of the PostgreSQL server."
+              />
+              <ConfigCard
+                title="Server Port"
+                toml="[postgresql] port"
+                env-var="KELLNR_POSTGRESQL__PORT"
+                default-value="5432"
+                description="Port of the PostgreSQL server."
+              />
+              <ConfigCard
+                title="Database Name"
+                toml="[postgresql] db"
+                env-var="KELLNR_POSTGRESQL__DB"
+                default-value="kellnr"
+                description="Database name of the PostgreSQL server."
+              />
+              <ConfigCard
+                title="Username"
+                toml="[postgresql] user"
+                env-var="KELLNR_POSTGRESQL__USER"
+                default-value=""
+                description="User name of the PostgreSQL database."
+              />
+              <ConfigCard
+                title="Password"
+                toml="[postgresql] pwd"
+                env-var="KELLNR_POSTGRESQL__PWD"
+                default-value=""
+                description="Password of the PostgreSQL database."
+              />
+            </ConfigGrid>
+
+            <h5 class="mt-4 mb-3">S3 Storage</h5>
+            <ConfigGrid>
+              <ConfigCard
+                title="S3 Enabled"
+                toml="[s3] enabled"
+                env-var="KELLNR_S3__ENABLED"
+                default-value="false"
+                description="Enable S3 storage instead of local file system."
+              />
+              <ConfigCard
+                title="Access Key"
+                toml="[s3] access_key"
+                env-var="KELLNR_S3__ACCESS_KEY"
+                default-value="minioadmin"
+                description="Access key for the S3 storage."
+              />
+              <ConfigCard
+                title="Secret Key"
+                toml="[s3] secret_key"
+                env-var="KELLNR_S3__SECRET_KEY"
+                default-value="minioadmin"
+                description="Secret key for the S3 storage."
+              />
+              <ConfigCard
+                title="Region"
+                toml="[s3] region"
+                env-var="KELLNR_S3__REGION"
+                default-value="us-east-1"
+                description="Region of the S3 storage."
+              />
+              <ConfigCard
+                title="Endpoint"
+                toml="[s3] endpoint"
+                env-var="KELLNR_S3__ENDPOINT"
+                default-value="http://localhost:9000"
+                description="Endpoint of the S3 storage."
+              />
+              <ConfigCard
+                title="Allow HTTP"
+                toml="[s3] allow_http"
+                env-var="KELLNR_S3__ALLOW_HTTP"
+                default-value="true"
+                description="Allow unsecure S3 connection with HTTP."
+              />
+              <ConfigCard
+                title="Crates Bucket"
+                toml="[s3] crates_bucket"
+                env-var="KELLNR_S3__CRATES_BUCKET"
+                default-value="kellnr-crates"
+                description="Bucket where Kellnr stores uploaded crates."
+              />
+              <ConfigCard
+                title="Crates.io Bucket"
+                toml="[s3] cratesio_bucket"
+                env-var="KELLNR_S3__CRATESIO_BUCKET"
+                default-value="kellnr-cratesio"
+                description="Bucket for crates.io crates if the proxy is enabled."
+              />
+            </ConfigGrid>
 
             <SubHeader id="authentication">Authentication</SubHeader>
             <TextBlock>
