@@ -10,7 +10,8 @@ export default defineConfig({
       compilerOptions: {
         isCustomElement: (tag) => {
           return tag.startsWith('stripe-buy-button')
-        }
+        },
+        whitespace: 'preserve'
       }
     }
   })],
