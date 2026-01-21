@@ -153,14 +153,6 @@ import FeatureBox from "@/components/landing/FeatureBox.vue";
       </div>
     </section>
 
-    <!-- Footer Wave -->
-    <div class="position-relative">
-      <div class="shape overflow-hidden text-footer">
-        <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M720 125L2160 0H2880V250H0V125H720Z" fill="currentColor"></path>
-        </svg>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -375,7 +367,8 @@ import FeatureBox from "@/components/landing/FeatureBox.vue";
 /* CTA Section */
 .cta-section {
   padding: 5rem 0;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
 }
 
 .cta-content {
@@ -387,13 +380,13 @@ import FeatureBox from "@/components/landing/FeatureBox.vue";
 .cta-content h2 {
   font-size: 2rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #0f172a;
   margin: 0 0 1rem;
 }
 
 .cta-content p {
   font-size: 1.1rem;
-  color: #94a3b8;
+  color: #64748b;
   margin: 0 0 2rem;
 }
 
