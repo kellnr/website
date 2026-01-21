@@ -17,7 +17,7 @@ const props = defineProps({
     required: false,
   },
   orientation: {
-    type: String, // 'left' or 'right' for text
+    type: String,
     required: true,
   },
   image: {
@@ -28,89 +28,142 @@ const props = defineProps({
 </script>
 
 <template>
-  <div v-if="props.orientation === 'left'" class="container mt-100 mt-60">
-    <div class="row align-items-center">
-      <div class="col-lg-5 col-md-6">
-        <img
-            v-bind:src="image"
-            class="img-fluid shadow rounded"
-            alt=""
-        />
-      </div>
-      <!--end col-->
-
-      <div class="col-lg-6 col-md-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
-        <div class="section-title ml-lg-5">
-          <h4 class="title mb-4">
-            {{ props.title }}
-          </h4>
-          <p class="text-muted">
-            <slot></slot>
-          </p>
-          <ul class="list-unstyled text-muted">
-            <li class="mb-0">
-                  <span class="text-primary h5 mr-2"
-                  ><i class="uil uil-check-circle align-middle"></i></span
-                  >{{ props.checkbox1 }}
-            </li>
-            <li class="mb-0">
-                  <span class="text-primary h5 mr-2"
-                  ><i class="uil uil-check-circle align-middle"></i></span
-                  >{{ props.checkbox2 }}
-            </li>
-          </ul>
-          <RouterLink v-if="props.link" class="mt-3 h6 text-primary"
-                      v-bind:to="props.link">Find Out More <i class="mdi mdi-chevron-right"></i
-          ></RouterLink>
-        </div>
-      </div>
-      <!--end col-->
+  <div class="feature-box" :class="{ 'feature-box--reversed': orientation === 'right' }">
+    <div class="feature-box__image">
+      <img :src="image" :alt="title" />
     </div>
-    <!--end row-->
-  </div>
-
-  <div v-if="props.orientation === 'right'" class="container mt-100 mt-60">
-    <div class="row align-items-center">
-      <div
-          class="col-lg-7 col-md-6 order-2 order-md-1 mt-4 mt-sm-0 pt-2 pt-sm-0"
-      >
-        <div class="section-title mr-lg-5">
-          <h4 class="title mb-4">{{ props.title }}</h4>
-          <p class="text-muted">
-            <slot></slot>
-          </p>
-          <ul class="list-unstyled text-muted">
-            <li class="mb-0">
-                  <span class="text-primary h5 mr-2"
-                  ><i class="uil uil-check-circle align-middle"></i></span
-                  >{{ props.checkbox1 }}
-            </li>
-            <li class="mb-0">
-                  <span class="text-primary h5 mr-2"
-                  ><i class="uil uil-check-circle align-middle"></i></span
-                  >{{ props.checkbox2 }}
-            </li>
-          </ul>
-          <RouterLink v-if="props.link" v-bind:to="props.link" class="mt-3 h6 text-primary"
-          >Find Out More <i class="mdi mdi-chevron-right"></i
-          ></RouterLink>
-        </div>
-      </div>
-      <!--end col-->
-
-      <div class="col-lg-5 col-md-6 order-1 order-md-2">
-        <img
-            v-bind:src="props.image"
-            class="img-fluid shadow rounded"
-            alt=""
-        />
-      </div>
-      <!--end col-->
+    <div class="feature-box__content">
+      <h3 class="feature-box__title">{{ title }}</h3>
+      <p class="feature-box__description">
+        <slot></slot>
+      </p>
+      <ul class="feature-box__list">
+        <li>
+          <i class="mdi mdi-check-circle"></i>
+          {{ checkbox1 }}
+        </li>
+        <li>
+          <i class="mdi mdi-check-circle"></i>
+          {{ checkbox2 }}
+        </li>
+      </ul>
+      <RouterLink v-if="link" :to="link" class="feature-box__link">
+        Learn more
+        <i class="mdi mdi-arrow-right"></i>
+      </RouterLink>
     </div>
-    <!--end row-->
   </div>
 </template>
 
 <style scoped>
+.feature-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
 
+.feature-box--reversed {
+  direction: rtl;
+}
+
+.feature-box--reversed > * {
+  direction: ltr;
+}
+
+.feature-box__image {
+  position: relative;
+}
+
+.feature-box__image img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.feature-box__content {
+  padding: 1rem 0;
+}
+
+.feature-box__title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 1rem;
+  line-height: 1.3;
+}
+
+.feature-box__description {
+  font-size: 1.05rem;
+  color: #475569;
+  line-height: 1.7;
+  margin: 0 0 1.5rem;
+}
+
+.feature-box__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.feature-box__list li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  color: #334155;
+  margin-bottom: 0.75rem;
+}
+
+.feature-box__list li:last-child {
+  margin-bottom: 0;
+}
+
+.feature-box__list i {
+  color: #22c55e;
+  font-size: 1.25rem;
+}
+
+.feature-box__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2f55d4;
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+
+.feature-box__link:hover {
+  gap: 0.75rem;
+}
+
+.feature-box__link i {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .feature-box {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .feature-box--reversed {
+    direction: ltr;
+  }
+
+  .feature-box__title {
+    font-size: 1.5rem;
+  }
+
+  .feature-box__image {
+    order: -1;
+  }
+}
 </style>
