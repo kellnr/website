@@ -1247,7 +1247,7 @@
     <link href="https://kellnr.io/blog/compile-times-sccache" />
     <published>2021-04-21T12:00:00+00:00</published>
     <updated>2021-04-21T12:00:00+00:00</updated>
-    <content type="html"><![CDATA[Improve build times by utilizing sccache and S3 to cache compilation results over multiply builds in your Rust CI/CD pipeline.]]></content>
+    <content type="html"><![CDATA[Improve build times by utilizing sccache and S3 to cache compilation results over multiple builds in your Rust CI/CD pipeline.]]></content>
   </entry>
   <entry>
     <id>https://kellnr.io/changelog#1.0.0</id>
