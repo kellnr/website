@@ -56,107 +56,59 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
     <!-- Documentation Start -->
     <section class="section">
       <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <ul class="list-group">
-              <li class="list-group-item">
+        <div class="doc-layout">
+          <!-- Sticky Sidebar TOC -->
+          <aside class="toc-sidebar">
+            <h6 class="toc-title">On this page</h6>
+            <ul class="toc-list">
+              <li>
                 <router-link to="#installation">Installation</router-link>
-              </li>
-              <li class="list-group-item">
                 <ul>
-                  <li>
-                    <router-link to="#docker-container">Docker Container</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#package-managers">Package Managers</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#script">Script</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#cargo-install">Cargo Install</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#manual-installation">Manual Installation</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#helm-chart">Helm Chart</router-link>
-                  </li>
+                  <li><router-link to="#docker-container">Docker Container</router-link></li>
+                  <li><router-link to="#package-managers">Package Managers</router-link></li>
+                  <li><router-link to="#script">Script</router-link></li>
+                  <li><router-link to="#cargo-install">Cargo Install</router-link></li>
+                  <li><router-link to="#manual-installation">Manual Installation</router-link></li>
+                  <li><router-link to="#helm-chart">Helm Chart</router-link></li>
                 </ul>
               </li>
-              <li class="list-group-item">
-                <router-link to="#uninstall">Uninstall</router-link>
-              </li>
-              <li class="list-group-item">
+              <li><router-link to="#uninstall">Uninstall</router-link></li>
+              <li>
                 <router-link to="#configuration">Configuration</router-link>
-              </li>
-              <li class="list-group-item">
                 <ul>
-                  <li>
-                    <router-link to="#config-file">Config File</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#env-variables">Environment Variables</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#config-values">Config Values</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#authentication">Authentication</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#cratesio-proxy">Crates.io Proxy Cache</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#database">Database Backend</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#webhooks">Webhooks</router-link>
-                  </li>
+                  <li><router-link to="#config-file">Config File</router-link></li>
+                  <li><router-link to="#env-variables">Environment Variables</router-link></li>
+                  <li><router-link to="#config-values">Config Values</router-link></li>
+                  <li><router-link to="#authentication">Authentication</router-link></li>
+                  <li><router-link to="#cratesio-proxy">Crates.io Proxy Cache</router-link></li>
+                  <li><router-link to="#database">Database Backend</router-link></li>
+                  <li><router-link to="#webhooks">Webhooks</router-link></li>
                 </ul>
               </li>
-              <li class="list-group-item">
+              <li>
                 <router-link to="#configure-cargo">Configure Cargo</router-link>
-              </li>
-              <li class="list-group-item">
                 <ul>
-                  <li>
-                    <router-link to="#global-config">Global Configuration</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#per-proj-config">Per Project Configuration</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#pull-publish-to-kellnr">Pull & Push to Kellnr</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#cratesio-proxy-cache">Crates.io Proxy Cache</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#pull-specific-crates">Pull only specific Crates from Kellnr Proxy</router-link>
-                  </li>
-                  <li>
-                    <router-link to="#replace-cratesio">Replace Crates.io with kellnr Proxy Cache</router-link>
-                  </li>
+                  <li><router-link to="#global-config">Global Configuration</router-link></li>
+                  <li><router-link to="#per-proj-config">Per Project Configuration</router-link></li>
+                  <li><router-link to="#pull-publish-to-kellnr">Pull & Push to Kellnr</router-link></li>
+                  <li><router-link to="#cratesio-proxy-cache">Crates.io Proxy Cache</router-link></li>
+                  <li><router-link to="#pull-specific-crates">Pull specific Crates</router-link></li>
+                  <li><router-link to="#replace-cratesio">Replace Crates.io</router-link></li>
                 </ul>
               </li>
-              <li class="list-group-item">
+              <li>
                 <router-link to="#rustdoc">Rustdoc</router-link>
-              </li>
-              <li class="list-group-item">
                 <ul>
-                  <li>
-                    <router-link to="#manual-rustdoc">Rustdoc Manual Upload</router-link>
-                  </li>
+                  <li><router-link to="#manual-rustdoc">Manual Upload</router-link></li>
                 </ul>
               </li>
-              <li class="list-group-item">
-                <router-link to="#backup">Backup</router-link>
-              </li>
-
+              <li><router-link to="#backup">Backup</router-link></li>
             </ul>
+          </aside>
 
-            <MainHeader id="installation">Installation</MainHeader>
+          <!-- Main Content -->
+          <div class="doc-content">
+            <MainHeader id="installation" icon="download">Installation</MainHeader>
             <TextBlock>
               There are several methods to install Kellnr. Check all options and chose the right one
               for you.
@@ -353,7 +305,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 Helm Chart</a>
             </TextBlock>
 
-            <MainHeader id="uninstall">Uninstall</MainHeader>
+            <MainHeader id="uninstall" icon="delete">Uninstall</MainHeader>
             <TextBlock>
               To uninstall Kellnr and delete all data (crates, users, ...), if you installed it manully,
               execute the uninstall script besides the Kellnr installation directory.
@@ -377,7 +329,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               helm uninstall kellnr
             </CodeBlock>
 
-            <MainHeader id="configuration">Configuration</MainHeader>
+            <MainHeader id="configuration" icon="cog">Configuration</MainHeader>
             <TextBlock>
               Kellnr expects all configuration settings to be set on application startup. If you need to
               change the configuration, change the values in the config file or set the corresponding
@@ -908,7 +860,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                   -X GET -H "Authorization: Bearer ADMIN-TOKEN"
             </CodeBlock>
 
-            <MainHeader id="configure-cargo">Configure Cargo</MainHeader>
+            <MainHeader id="configure-cargo" icon="package-variant">Configure Cargo</MainHeader>
             <TextBlock>
               Cargo needs to know about your Kellnr instance to be able to pull and publish crates from
               it.
@@ -934,9 +886,8 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               credential-provider = ["cargo:token"]
               token = "yourauthtoken"
             </CodeBlock>
-          </div>
 
-          <SubHeader id="per-proj-config">Per Project Configuration</SubHeader>
+            <SubHeader id="per-proj-config">Per Project Configuration</SubHeader>
           <TextBlock>
             It is possible to configure Kellnr as an additional registry per Rust project. The advantage of
             this method is that the configuration can be checked into git besides the code. If the code is
@@ -1063,9 +1014,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
             git2 = "*" # Pulled from Kellnr proxy instead of crates.io
           </CodeBlock>
 
-          <MainHeader id="rustdoc">
-            Rustdoc
-          </MainHeader>
+          <MainHeader id="rustdoc" icon="book-open-variant">Rustdoc</MainHeader>
           <TextBlock>
             With <a href="https://doc.rust-lang.org/rustdoc/index.html">rustdoc</a>, the Rust ecosystem has
             a widely adapted solution to document crates. Kellnr is able to host the corresponding
@@ -1142,7 +1091,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
             for the crate.
           </TextBlock>
 
-          <MainHeader id="backup">Backup</MainHeader>
+          <MainHeader id="backup" icon="backup-restore">Backup</MainHeader>
           <TextBlock>
             Kellnr stores all data in one folder. The default folder is <i>/opt/kdata</i> if not changed by the
             <i>registry.data_dir</i>
@@ -1154,9 +1103,119 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
             the data folder regularly, as it contains all uploaded crates and the Sqlite database. If you use PostgreSql
             instead, do not forget to backed the database separately.
           </TextBlock>
+          </div>
         </div>
       </div>
     </section>
     <!-- Documentation End -->
   </div>
 </template>
+
+<style scoped>
+/* Simple two-column grid layout */
+.doc-layout {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Content column */
+.doc-content {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Hide TOC on mobile */
+@media (max-width: 991px) {
+  .doc-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .toc-sidebar {
+    display: none;
+  }
+}
+
+/* Sticky sidebar */
+.toc-sidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 100px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.toc-title {
+  font-weight: 600;
+  color: #2f55d4;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #2f55d4;
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-list li {
+  margin-bottom: 0.25rem;
+}
+
+.toc-list a {
+  color: #495057;
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: block;
+  padding: 0.25rem 0;
+  transition: color 0.2s ease;
+}
+
+.toc-list a:hover {
+  color: #2f55d4;
+}
+
+.toc-list ul {
+  list-style: none;
+  padding-left: 1rem;
+  margin: 0;
+}
+
+.toc-list ul a {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.toc-list ul a:hover {
+  color: #2f55d4;
+}
+
+/* Scrollbar styling for TOC */
+.toc-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.toc-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toc-sidebar::-webkit-scrollbar-thumb {
+  background: #dee2e6;
+  border-radius: 2px;
+}
+
+.toc-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #adb5bd;
+}
+</style>

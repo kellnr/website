@@ -10,6 +10,7 @@ const slots = useSlots();
 const codeContainer = ref<HTMLElement | null>(null);
 const processedCode = ref("");
 const isNewFormat = ref(false);
+const copied = ref(false);
 
 function stripIndent(text: string): string {
   const lines = text.split("\n");
@@ -39,6 +40,23 @@ function stripIndent(text: string): string {
   }
 
   return lines.join("\n");
+}
+
+async function copyCode() {
+  if (!codeContainer.value) return;
+
+  const codeEl = codeContainer.value.querySelector("code");
+  if (codeEl) {
+    try {
+      await navigator.clipboard.writeText(codeEl.textContent || "");
+      copied.value = true;
+      setTimeout(() => {
+        copied.value = false;
+      }, 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  }
 }
 
 onMounted(() => {
@@ -72,7 +90,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="codeContainer" class="mt-4 p-3 bg-light rounded shadow w-100">
+  <div ref="codeContainer" class="code-block mt-4 p-3 bg-light rounded shadow w-100">
+    <button class="copy-btn" @click="copyCode" :title="copied ? 'Copied!' : 'Copy to clipboard'">
+      <svg v-if="!copied" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+      <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </button>
     <!-- New format: lang prop provided -->
     <template v-if="lang">
       <pre class="raw-content" style="display: none;"><slot></slot></pre>
@@ -83,4 +110,34 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.code-block {
+  position: relative;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 0.35rem 0.5rem;
+  cursor: pointer;
+  color: #6c757d;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-btn:hover {
+  background: #fff;
+  color: #2f55d4;
+  border-color: #2f55d4;
+}
+
+.copy-btn svg {
+  display: block;
+}
+</style>
