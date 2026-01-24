@@ -1,6 +1,148 @@
 {
   "releases": [
     {
+      "version": "5.14.0",
+      "date": "24. January 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "promote user to admin ([#980]())",
+          "links": [
+            {
+              "label": "#980",
+              "url": "https://github.com/kellnr/kellnr/pull/980"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "redirect to auth tokens on /me ([#974]())",
+          "links": [
+            {
+              "label": "#974",
+              "url": "https://github.com/kellnr/kellnr/pull/974"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "add \"pubtime\" index field ([#970]())",
+          "links": [
+            {
+              "label": "#970",
+              "url": "https://github.com/kellnr/kellnr/pull/970"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "improve performance of UI tests ([#981]())",
+          "links": [
+            {
+              "label": "#981",
+              "url": "https://github.com/kellnr/kellnr/pull/981"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump object_store from 0.13.0 to 0.13.1 ([#978]())",
+          "links": [
+            {
+              "label": "#978",
+              "url": "https://github.com/kellnr/kellnr/pull/978"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump time from 0.3.45 to 0.3.46 ([#979]())",
+          "links": [
+            {
+              "label": "#979",
+              "url": "https://github.com/kellnr/kellnr/pull/979"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump object_store from 0.13.0 to 0.13.1",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump time from 0.3.45 to 0.3.46",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump quote from 1.0.43 to 1.0.44 ([#975]())",
+          "links": [
+            {
+              "label": "#975",
+              "url": "https://github.com/kellnr/kellnr/pull/975"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump thiserror from 2.0.17 to 2.0.18 ([#976]())",
+          "links": [
+            {
+              "label": "#976",
+              "url": "https://github.com/kellnr/kellnr/pull/976"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump thiserror from 2.0.17 to 2.0.18",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump quote from 1.0.43 to 1.0.44",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "enforce fmt and no clippy warnings ([#973]())",
+          "links": [
+            {
+              "label": "#973",
+              "url": "https://github.com/kellnr/kellnr/pull/973"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "remove cargo-deny ([#972]())",
+          "links": [
+            {
+              "label": "#972",
+              "url": "https://github.com/kellnr/kellnr/pull/972"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "make UI code more maintainable ([#968]())",
+          "links": [
+            {
+              "label": "#968",
+              "url": "https://github.com/kellnr/kellnr/pull/968"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "move crate.io publish further up the pipeline",
+          "links": []
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "5.13.0",
       "date": "20. January 2026",
       "entries": [
@@ -34,8 +176,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "5.12.0",
