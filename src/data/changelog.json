@@ -1,6 +1,33 @@
 {
   "releases": [
     {
+      "version": "5.14.1",
+      "date": "26. January 2026",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "web UI open documentation link ignores kellnr origin path ([#985]())",
+          "links": [
+            {
+              "label": "#985",
+              "url": "https://github.com/kellnr/kellnr/pull/985"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "reuse reqwest client ([#984]())",
+          "links": [
+            {
+              "label": "#984",
+              "url": "https://github.com/kellnr/kellnr/pull/984"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "5.14.0",
       "date": "24. January 2026",
       "entries": [
@@ -139,8 +166,7 @@
           "content": "move crate.io publish further up the pipeline",
           "links": []
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "5.13.0",
