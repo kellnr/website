@@ -80,6 +80,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                   <li><router-link to="#env-variables">Environment Variables</router-link></li>
                   <li><router-link to="#config-values">Config Values</router-link></li>
                   <li><router-link to="#authentication">Authentication</router-link></li>
+                  <li><router-link to="#oauth2">OAuth2/OIDC</router-link></li>
                   <li><router-link to="#cratesio-proxy">Crates.io Proxy Cache</router-link></li>
                   <li><router-link to="#database">Database Backend</router-link></li>
                   <li><router-link to="#webhooks">Webhooks</router-link></li>
@@ -711,6 +712,87 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               />
             </ConfigGrid>
 
+            <h5 class="mt-4 mb-3">OAuth2/OIDC</h5>
+            <ConfigGrid>
+              <ConfigCard
+                title="OAuth2 Enabled"
+                toml="[oauth2] enabled"
+                env-var="KELLNR_OAUTH2__ENABLED"
+                default-value="false"
+                description="Enable OAuth2/OpenID Connect authentication."
+              />
+              <ConfigCard
+                title="Issuer URL"
+                toml="[oauth2] issuer_url"
+                env-var="KELLNR_OAUTH2__ISSUER_URL"
+                default-value=""
+                description="OIDC issuer URL for discovery (e.g., https://authentik.example.com/application/o/kellnr/)."
+              />
+              <ConfigCard
+                title="Client ID"
+                toml="[oauth2] client_id"
+                env-var="KELLNR_OAUTH2__CLIENT_ID"
+                default-value=""
+                description="OAuth2 client ID from your identity provider."
+              />
+              <ConfigCard
+                title="Client Secret"
+                toml="[oauth2] client_secret"
+                env-var="KELLNR_OAUTH2__CLIENT_SECRET"
+                default-value=""
+                description="OAuth2 client secret. Recommended to set via environment variable."
+              />
+              <ConfigCard
+                title="Scopes"
+                toml="[oauth2] scopes"
+                env-var="KELLNR_OAUTH2__SCOPES"
+                default-value='["openid", "profile", "email"]'
+                description="OAuth2 scopes to request from the identity provider."
+              />
+              <ConfigCard
+                title="Auto Provision Users"
+                toml="[oauth2] auto_provision_users"
+                env-var="KELLNR_OAUTH2__AUTO_PROVISION_USERS"
+                default-value="true"
+                description="Automatically create local user accounts on first OAuth2 login."
+              />
+              <ConfigCard
+                title="Admin Group Claim"
+                toml="[oauth2] admin_group_claim"
+                env-var="KELLNR_OAUTH2__ADMIN_GROUP_CLAIM"
+                default-value=""
+                description="JWT claim name containing group memberships (e.g., 'groups')."
+              />
+              <ConfigCard
+                title="Admin Group Value"
+                toml="[oauth2] admin_group_value"
+                env-var="KELLNR_OAUTH2__ADMIN_GROUP_VALUE"
+                default-value=""
+                description="Group name that grants admin privileges (e.g., 'kellnr-admins')."
+              />
+              <ConfigCard
+                title="Read-Only Group Claim"
+                toml="[oauth2] read_only_group_claim"
+                env-var="KELLNR_OAUTH2__READ_ONLY_GROUP_CLAIM"
+                default-value=""
+                description="JWT claim name for read-only group memberships."
+              />
+              <ConfigCard
+                title="Read-Only Group Value"
+                toml="[oauth2] read_only_group_value"
+                env-var="KELLNR_OAUTH2__READ_ONLY_GROUP_VALUE"
+                default-value=""
+                description="Group name that grants read-only access (e.g., 'kellnr-readonly')."
+              />
+              <ConfigCard
+                title="Button Text"
+                toml="[oauth2] button_text"
+                env-var="KELLNR_OAUTH2__BUTTON_TEXT"
+                default-value="Login with SSO"
+                description="Text displayed on the OAuth2 login button in the web UI."
+              />
+            </ConfigGrid>
+
             <SubHeader id="authentication">Authentication</SubHeader>
             <TextBlock>
               Authentication is required by cargo and Kellnr to push crates. See
@@ -748,6 +830,86 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 Authentication</a>
             </TextBlock>
 
+            <SubHeader id="oauth2">OAuth2/OIDC</SubHeader>
+            <TextBlock>
+              Kellnr supports OAuth2/OpenID Connect (OIDC) authentication, allowing users to log in with their existing
+              identity provider credentials (e.g., Authentik, Keycloak, Okta, Azure AD). When enabled, an SSO login button
+              appears on the login page alongside the traditional username/password form.<br />
+              <br />
+              <b>Features</b>
+              <ul>
+                <li>PKCE (Proof Key for Code Exchange) for secure authorization code flow</li>
+                <li>Automatic user provisioning on first login</li>
+                <li>Group-based admin and read-only role assignment</li>
+                <li>Customizable login button text</li>
+              </ul>
+            </TextBlock>
+
+            <TextBlock>
+              <b>Configuration Example</b><br />
+              To enable OAuth2, configure the following settings in your <i>default.toml</i> or via environment variables:
+            </TextBlock>
+
+            <CodeBlock lang="toml">
+              [oauth2]
+              enabled = true
+              issuer_url = "https://authentik.example.com/application/o/kellnr/"
+              client_id = "your-client-id"
+              # client_secret should be set via KELLNR_OAUTH2__CLIENT_SECRET env var
+              scopes = ["openid", "profile", "email"]
+              auto_provision_users = true
+              admin_group_claim = "groups"
+              admin_group_value = "kellnr-admins"
+              button_text = "Login with SSO"
+            </CodeBlock>
+
+            <TextBlock>
+              <b>Identity Provider Setup</b><br />
+              When configuring your identity provider (e.g., Authentik), you need to:
+              <ol>
+                <li>Create a new OAuth2/OIDC application</li>
+                <li>Set the redirect URI to: <i>https://your-kellnr-host/api/v1/oauth2/callback</i></li>
+                <li>Enable the required scopes: <i>openid</i>, <i>profile</i>, <i>email</i></li>
+                <li>Note the client ID and client secret</li>
+                <li>Find the issuer URL (typically the provider's base URL + application path)</li>
+              </ol>
+            </TextBlock>
+
+            <TextBlock>
+              <b>User Provisioning</b><br />
+              When <i>auto_provision_users</i> is enabled (default), Kellnr automatically creates a local user account
+              when someone logs in via OAuth2 for the first time. The username is determined in the following order:
+              <ol>
+                <li><i>preferred_username</i> claim from the ID token</li>
+                <li>Local part of the <i>email</i> claim (before the @)</li>
+                <li>The <i>sub</i> (subject) claim as a last resort</li>
+              </ol>
+              If the username already exists, a numeric suffix is appended (e.g., <i>john_2</i>).<br />
+              <br />
+              OAuth2 users can generate Cargo API tokens just like regular users, allowing them to publish and pull crates.
+            </TextBlock>
+
+            <TextBlock>
+              <b>Group-Based Roles</b><br />
+              You can automatically assign admin or read-only roles based on group memberships from your identity provider.
+              Configure the claim name (e.g., <i>groups</i>) and the group value that should grant the role:
+            </TextBlock>
+
+            <CodeBlock lang="toml">
+              [oauth2]
+              # Users in "kellnr-admins" group become admins
+              admin_group_claim = "groups"
+              admin_group_value = "kellnr-admins"
+
+              # Users in "kellnr-readonly" group get read-only access
+              read_only_group_claim = "groups"
+              read_only_group_value = "kellnr-readonly"
+            </CodeBlock>
+
+            <WarnBlock>
+              The client secret should be kept confidential. It is recommended to set it via the
+              <i>KELLNR_OAUTH2__CLIENT_SECRET</i> environment variable rather than storing it in the config file.
+            </WarnBlock>
 
             <SubHeader id="cratesio-proxy">Crates.io Proxy Cache</SubHeader>
             <TextBlock>
