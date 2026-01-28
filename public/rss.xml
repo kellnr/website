@@ -3,11 +3,61 @@
   <id>kellnr.io/blog</id>
   <title>kellnr.io - The Rust Registry</title>
   <subtitle>Rust development related blog</subtitle>
-  <updated>2026-01-20T12:00:00.000Z</updated>
+  <updated>2026-01-26T12:00:00.000Z</updated>
   <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
   <link rel="alternate" href="https://kellnr.io/blog" type="text/html" />
   <icon>https://kellnr.io/favicon.ico</icon>
   <logo>https://kellnr.io/favicon.ico</logo>
+  <entry>
+    <id>https://kellnr.io/changelog#5.14.1</id>
+    <title>Kellnr 5.14.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2026-01-26T12:00:00.000Z</published>
+    <updated>2026-01-26T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.14.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>reuse reqwest client ([#984]()) <a href="https://github.com/kellnr/kellnr/pull/984" target="_blank" rel="noopener noreferrer">#984</a></li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>web UI open documentation link ignores kellnr origin path ([#985]()) <a href="https://github.com/kellnr/kellnr/pull/985" target="_blank" rel="noopener noreferrer">#985</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#5.14.0</id>
+    <title>Kellnr 5.14.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2026-01-24T12:00:00.000Z</published>
+    <updated>2026-01-24T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 5.14.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>promote user to admin ([#980]()) <a href="https://github.com/kellnr/kellnr/pull/980" target="_blank" rel="noopener noreferrer">#980</a></li>
+<li>redirect to auth tokens on /me ([#974]()) <a href="https://github.com/kellnr/kellnr/pull/974" target="_blank" rel="noopener noreferrer">#974</a></li>
+<li>add "pubtime" index field ([#970]()) <a href="https://github.com/kellnr/kellnr/pull/970" target="_blank" rel="noopener noreferrer">#970</a></li>
+</ul>
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>improve performance of UI tests ([#981]()) <a href="https://github.com/kellnr/kellnr/pull/981" target="_blank" rel="noopener noreferrer">#981</a></li>
+<li>*(deps)* bump object_store from 0.13.0 to 0.13.1 ([#978]()) <a href="https://github.com/kellnr/kellnr/pull/978" target="_blank" rel="noopener noreferrer">#978</a></li>
+<li>*(deps)* bump time from 0.3.45 to 0.3.46 ([#979]()) <a href="https://github.com/kellnr/kellnr/pull/979" target="_blank" rel="noopener noreferrer">#979</a></li>
+<li>*(deps)* bump object_store from 0.13.0 to 0.13.1</li>
+<li>*(deps)* bump time from 0.3.45 to 0.3.46</li>
+<li>*(deps)* bump quote from 1.0.43 to 1.0.44 ([#975]()) <a href="https://github.com/kellnr/kellnr/pull/975" target="_blank" rel="noopener noreferrer">#975</a></li>
+<li>*(deps)* bump thiserror from 2.0.17 to 2.0.18 ([#976]()) <a href="https://github.com/kellnr/kellnr/pull/976" target="_blank" rel="noopener noreferrer">#976</a></li>
+<li>*(deps)* bump thiserror from 2.0.17 to 2.0.18</li>
+<li>*(deps)* bump quote from 1.0.43 to 1.0.44</li>
+<li>enforce fmt and no clippy warnings ([#973]()) <a href="https://github.com/kellnr/kellnr/pull/973" target="_blank" rel="noopener noreferrer">#973</a></li>
+<li>remove cargo-deny ([#972]()) <a href="https://github.com/kellnr/kellnr/pull/972" target="_blank" rel="noopener noreferrer">#972</a></li>
+<li>make UI code more maintainable ([#968]()) <a href="https://github.com/kellnr/kellnr/pull/968" target="_blank" rel="noopener noreferrer">#968</a></li>
+<li>move crate.io publish further up the pipeline</li>
+</ul>]]></content>
+  </entry>
   <entry>
     <id>https://kellnr.io/changelog#5.13.0</id>
     <title>Kellnr 5.13.0 release</title>
