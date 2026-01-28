@@ -3,11 +3,19 @@
   <id>kellnr.io/blog</id>
   <title>kellnr.io - The Rust Registry</title>
   <subtitle>Rust development related blog</subtitle>
-  <updated>2026-01-26T12:00:00.000Z</updated>
+  <updated>2026-01-28T12:00:00+00:00</updated>
   <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
   <link rel="alternate" href="https://kellnr.io/blog" type="text/html" />
   <icon>https://kellnr.io/favicon.ico</icon>
   <logo>https://kellnr.io/favicon.ico</logo>
+  <entry>
+    <id>https://kellnr.io/blog/release6</id>
+    <title>Kellnr 6.0.0 Release</title>
+    <link href="https://kellnr.io/blog/release6" />
+    <published>2026-01-28T12:00:00+00:00</published>
+    <updated>2026-01-28T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[Kellnr 6.0.0 brings a new CLI interface, OAuth2/OIDC authentication, and important configuration changes. This guide covers breaking changes and how to upgrade safely.]]></content>
+  </entry>
   <entry>
     <id>https://kellnr.io/changelog#5.14.1</id>
     <title>Kellnr 5.14.1 release</title>
