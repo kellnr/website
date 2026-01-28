@@ -80,9 +80,18 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                   <li><router-link to="#env-variables">Environment Variables</router-link></li>
                   <li><router-link to="#config-values">Config Values</router-link></li>
                   <li><router-link to="#authentication">Authentication</router-link></li>
+                  <li><router-link to="#oauth2">OAuth2/OIDC</router-link></li>
                   <li><router-link to="#cratesio-proxy">Crates.io Proxy Cache</router-link></li>
                   <li><router-link to="#database">Database Backend</router-link></li>
                   <li><router-link to="#webhooks">Webhooks</router-link></li>
+                </ul>
+              </li>
+              <li>
+                <router-link to="#cli">Command Line Interface</router-link>
+                <ul>
+                  <li><router-link to="#cli-run">Run Command</router-link></li>
+                  <li><router-link to="#cli-config">Config Command</router-link></li>
+                  <li><router-link to="#cli-arguments">CLI Arguments</router-link></li>
                 </ul>
               </li>
               <li>
@@ -189,7 +198,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               # Check if the service runs
               sudo systemctl status kellnr
 
-              # Open the ports defined in the default.toml (default 8000)
+              # Open the configured port (default 8000)
             </CodeBlock>
 
             <TableBlock>
@@ -257,10 +266,8 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               cargo install kellnr
               # If you run into issues with OpenSSL, try the following command:
               cargo install kellnr --features vendored-openssl
-              # Set the data diretory where kellnr stores its data
-              export KELLNR_REGISTRY__DATA_DIR="/path/to/data/dir"
               # Run kellnr (if not in PATH, the binary is located in $HOME/.cargo/bin/)
-              kellnr
+              kellnr run -d /path/to/data/dir
             </CodeBlock>
 
             <SubHeader id="manual-installation">Manual Installation</SubHeader>
@@ -285,16 +292,19 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
 
               # Unzip
               unzip -o kellnr-latest.zip -d ./kellnr
+              cd ./kellnr
 
-              # Check the configuration file and edit if needed
-              # You may want to change the
-              # - admin_pwd
-              # - data_dir (Path where Kellnr stores its data. Different from installation directory. Must exists on disk)
+              # (Optional) Create a configuration file
+              ./kellnr config init -o kellnr.toml
+              # Edit kellnr.toml to set admin_pwd, origin hostname, etc.
 
-              # Open the ports defined in the default.toml (default 8000)
+              # Open the ports (default 8000)
 
-              # Start Kellnr
-              cd ./kellnr && ./kellnr
+              # Start Kellnr with the data directory
+              ./kellnr run -d /path/to/data/dir
+
+              # Or start with a configuration file
+              ./kellnr -c kellnr.toml run
             </CodeBlock>
 
             <SubHeader id="helm-chart">Helm Chart</SubHeader>
@@ -332,22 +342,31 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
             <MainHeader id="configuration" icon="cog">Configuration</MainHeader>
             <TextBlock>
               Kellnr expects all configuration settings to be set on application startup. If you need to
-              change the configuration, change the values in the config file or set the corresponding
-              environment variables and restart Kellnr. Environment variables take precedence over values
-              from the config file.
+              change the configuration, update the config file, set environment variables, or pass CLI
+              arguments, then restart Kellnr. Configuration sources are applied in the following priority
+              (highest to lowest):
+              <ol>
+                <li>CLI arguments (e.g., <code>--local-port 8080</code>)</li>
+                <li>Environment variables (e.g., <code>KELLNR_LOCAL__PORT=8080</code>)</li>
+                <li>Configuration file</li>
+                <li>Default values</li>
+              </ol>
+              For CLI argument details, see the <router-link to="#cli">Command Line Interface</router-link> section.
             </TextBlock>
 
             <SubHeader id="config-file">Config File</SubHeader>
             <TextBlock>
-              Kellnr has a config file called default.toml in the ./config directory in the installation
-              directory. The default installation directory is <i>/opt/kellnr</i>. Values from the
-              default.toml can be overwritten by environment variables. See below for possible values.
+              Kellnr can use a TOML configuration file. You can generate a default configuration file using
+              <code>kellnr config init</code> or specify a custom config file path with the <code>-c</code>
+              flag (e.g., <code>kellnr -c /etc/kellnr.toml run</code>). Values from the config file can be
+              overwritten by environment variables or CLI arguments. See below for possible values.
             </TextBlock>
 
             <SubHeader id="env-variables">Environment Variables</SubHeader>
             <TextBlock>
               All values from the config file can be overwritten by environment variables. This is the
-              recommended way for Kubernetes and Docker installations. See below for possible values.
+              recommended way for Kubernetes and Docker installations. Environment variables follow the
+              pattern <code>KELLNR_SECTION__KEY</code> (note the double underscore). See below for possible values.
             </TextBlock>
 
             <SubHeader id="config-values">Config Values</SubHeader>
@@ -711,18 +730,100 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               />
             </ConfigGrid>
 
+            <h5 class="mt-4 mb-3">OAuth2/OIDC</h5>
+            <ConfigGrid>
+              <ConfigCard
+                title="OAuth2 Enabled"
+                toml="[oauth2] enabled"
+                env-var="KELLNR_OAUTH2__ENABLED"
+                default-value="false"
+                description="Enable OAuth2/OpenID Connect authentication."
+              />
+              <ConfigCard
+                title="Issuer URL"
+                toml="[oauth2] issuer_url"
+                env-var="KELLNR_OAUTH2__ISSUER_URL"
+                default-value=""
+                description="OIDC issuer URL for discovery (e.g., https://authentik.example.com/application/o/kellnr/)."
+              />
+              <ConfigCard
+                title="Client ID"
+                toml="[oauth2] client_id"
+                env-var="KELLNR_OAUTH2__CLIENT_ID"
+                default-value=""
+                description="OAuth2 client ID from your identity provider."
+              />
+              <ConfigCard
+                title="Client Secret"
+                toml="[oauth2] client_secret"
+                env-var="KELLNR_OAUTH2__CLIENT_SECRET"
+                default-value=""
+                description="OAuth2 client secret. Recommended to set via environment variable."
+              />
+              <ConfigCard
+                title="Scopes"
+                toml="[oauth2] scopes"
+                env-var="KELLNR_OAUTH2__SCOPES"
+                default-value='["openid", "profile", "email"]'
+                description="OAuth2 scopes to request from the identity provider."
+              />
+              <ConfigCard
+                title="Auto Provision Users"
+                toml="[oauth2] auto_provision_users"
+                env-var="KELLNR_OAUTH2__AUTO_PROVISION_USERS"
+                default-value="true"
+                description="Automatically create local user accounts on first OAuth2 login."
+              />
+              <ConfigCard
+                title="Admin Group Claim"
+                toml="[oauth2] admin_group_claim"
+                env-var="KELLNR_OAUTH2__ADMIN_GROUP_CLAIM"
+                default-value=""
+                description="JWT claim name containing group memberships (e.g., 'groups')."
+              />
+              <ConfigCard
+                title="Admin Group Value"
+                toml="[oauth2] admin_group_value"
+                env-var="KELLNR_OAUTH2__ADMIN_GROUP_VALUE"
+                default-value=""
+                description="Group name that grants admin privileges (e.g., 'kellnr-admins')."
+              />
+              <ConfigCard
+                title="Read-Only Group Claim"
+                toml="[oauth2] read_only_group_claim"
+                env-var="KELLNR_OAUTH2__READ_ONLY_GROUP_CLAIM"
+                default-value=""
+                description="JWT claim name for read-only group memberships."
+              />
+              <ConfigCard
+                title="Read-Only Group Value"
+                toml="[oauth2] read_only_group_value"
+                env-var="KELLNR_OAUTH2__READ_ONLY_GROUP_VALUE"
+                default-value=""
+                description="Group name that grants read-only access (e.g., 'kellnr-readonly')."
+              />
+              <ConfigCard
+                title="Button Text"
+                toml="[oauth2] button_text"
+                env-var="KELLNR_OAUTH2__BUTTON_TEXT"
+                default-value="Login with SSO"
+                description="Text displayed on the OAuth2 login button in the web UI."
+              />
+            </ConfigGrid>
+
             <SubHeader id="authentication">Authentication</SubHeader>
             <TextBlock>
               Authentication is required by cargo and Kellnr to push crates. See
               <router-link to="#configure-cargo">Configure Cargo
               </router-link>
               for more information. Authentication on
-              pull can be enabled by setting the flag <i>auth_required</i> to <i>true</i> in the config. This will force
-              cargo to authenticate on pull as well and the flag forces users of the web UI to log in, to see any details
-              of crates.
+              pull can be enabled by setting <code>registry.auth_required = true</code> in the config file,
+              the environment variable <code>KELLNR_REGISTRY__AUTH_REQUIRED=true</code>, or the CLI flag
+              <code>--registry-auth-required</code>. This will force cargo to authenticate on pull as well
+              and forces users of the web UI to log in to see any details of crates.
               <br />
               <br />
-              If the <i>auth_required</i> flag is set to <i>true</i>, Kellnr needs to be able to authenticate against
+              If <code>auth_required</code> is set to <code>true</code>, Kellnr needs to be able to authenticate against
               itself. If the doc generation is enabled, the docs can only be build successfully, if Kellnr can pull the
               dependencies from itself.
               To allow that, you have to provide Kellnr with a valid registry authentication token for itself. See <a
@@ -748,15 +849,95 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 Authentication</a>
             </TextBlock>
 
+            <SubHeader id="oauth2">OAuth2/OIDC</SubHeader>
+            <TextBlock>
+              Kellnr supports OAuth2/OpenID Connect (OIDC) authentication, allowing users to log in with their existing
+              identity provider credentials (e.g., Authentik, Keycloak, Okta, Azure AD). When enabled, an SSO login button
+              appears on the login page alongside the traditional username/password form.<br />
+              <br />
+              <b>Features</b>
+              <ul>
+                <li>PKCE (Proof Key for Code Exchange) for secure authorization code flow</li>
+                <li>Automatic user provisioning on first login</li>
+                <li>Group-based admin and read-only role assignment</li>
+                <li>Customizable login button text</li>
+              </ul>
+            </TextBlock>
+
+            <TextBlock>
+              <b>Configuration Example</b><br />
+              To enable OAuth2, configure the following settings in your <i>default.toml</i> or via environment variables:
+            </TextBlock>
+
+            <CodeBlock lang="toml">
+              [oauth2]
+              enabled = true
+              issuer_url = "https://authentik.example.com/application/o/kellnr/"
+              client_id = "your-client-id"
+              # client_secret should be set via KELLNR_OAUTH2__CLIENT_SECRET env var
+              scopes = ["openid", "profile", "email"]
+              auto_provision_users = true
+              admin_group_claim = "groups"
+              admin_group_value = "kellnr-admins"
+              button_text = "Login with SSO"
+            </CodeBlock>
+
+            <TextBlock>
+              <b>Identity Provider Setup</b><br />
+              When configuring your identity provider (e.g., Authentik), you need to:
+              <ol>
+                <li>Create a new OAuth2/OIDC application</li>
+                <li>Set the redirect URI to: <i>https://your-kellnr-host/api/v1/oauth2/callback</i></li>
+                <li>Enable the required scopes: <i>openid</i>, <i>profile</i>, <i>email</i></li>
+                <li>Note the client ID and client secret</li>
+                <li>Find the issuer URL (typically the provider's base URL + application path)</li>
+              </ol>
+            </TextBlock>
+
+            <TextBlock>
+              <b>User Provisioning</b><br />
+              When <i>auto_provision_users</i> is enabled (default), Kellnr automatically creates a local user account
+              when someone logs in via OAuth2 for the first time. The username is determined in the following order:
+              <ol>
+                <li><i>preferred_username</i> claim from the ID token</li>
+                <li>Local part of the <i>email</i> claim (before the @)</li>
+                <li>The <i>sub</i> (subject) claim as a last resort</li>
+              </ol>
+              If the username already exists, a numeric suffix is appended (e.g., <i>john_2</i>).<br />
+              <br />
+              OAuth2 users can generate Cargo API tokens just like regular users, allowing them to publish and pull crates.
+            </TextBlock>
+
+            <TextBlock>
+              <b>Group-Based Roles</b><br />
+              You can automatically assign admin or read-only roles based on group memberships from your identity provider.
+              Configure the claim name (e.g., <i>groups</i>) and the group value that should grant the role:
+            </TextBlock>
+
+            <CodeBlock lang="toml">
+              [oauth2]
+              # Users in "kellnr-admins" group become admins
+              admin_group_claim = "groups"
+              admin_group_value = "kellnr-admins"
+
+              # Users in "kellnr-readonly" group get read-only access
+              read_only_group_claim = "groups"
+              read_only_group_value = "kellnr-readonly"
+            </CodeBlock>
+
+            <WarnBlock>
+              The client secret should be kept confidential. It is recommended to set it via the
+              <i>KELLNR_OAUTH2__CLIENT_SECRET</i> environment variable rather than storing it in the config file.
+            </WarnBlock>
 
             <SubHeader id="cratesio-proxy">Crates.io Proxy Cache</SubHeader>
             <TextBlock>
               Kellnr can be used as a proxy cache for <a href="https://crates.io/">crates.io</a>. If the
               proxy is enabled, Kellnr caches all crates requested from <a href="https://crates.io/">crates.io</a>
               after their first download. All subsequent request for that crate are then served by Kellnr
-              instead of <a href="https://crates.io/">crates.io</a>. To enable the proxy, set the <i>proxy.enabled</i>
-              value in the <i>default.toml</i>, or the environment variable <i>KELLNR_PROXY__ENABLED</i>
-              to <i>true</i>.<br />
+              instead of <a href="https://crates.io/">crates.io</a>. To enable the proxy, set
+              <code>proxy.enabled = true</code> in the config file, the environment variable
+              <code>KELLNR_PROXY__ENABLED=true</code>, or use the CLI flag <code>--proxy-enabled</code>.<br />
               <br />
               <b>Attention</b><br />
               If you enable the proxy, Kellnr caches every crate from crates.io that is requested through Kellnr. This
@@ -781,17 +962,18 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               Kellnr uses <a href="https://sqlite.org/index.html">Sqlite</a> as its default database
               backend. This is the default way to run Kellnr. If you want to use <a
                 href="https://www.postgresql.org/">PostgreSQL</a> instead,
-              you can enable it by setting the <i>postgresql.enabled</i> value in the <i>default.toml</i>,
-              or the environment variable <i>KELLNR_POSTGRESQL__ENABLED</i> to <i>true</i>.<br />
+              you can enable it by setting <code>postgresql.enabled = true</code> in the config file,
+              the environment variable <code>KELLNR_POSTGRESQL__ENABLED=true</code>, or the CLI flag
+              <code>--postgresql-enabled</code>.<br />
               <br />
-              If you enable PostgreSQL, you need to set the following values in the <i>default.toml</i>,
-              or the corresponding environment variables:
+              If you enable PostgreSQL, you need to set the following values in the config file,
+              environment variables, or CLI arguments:
               <ul>
-                <li><i>postgresql.address</i> or <i>KELLNR_POSTGRESQL__ADDRESS</i></li>
-                <li><i>postgresql.port</i> or <i>KELLNR_POSTGRESQL__PORT</i></li>
-                <li><i>postgresql.db</i> or <i>KELLNR_POSTGRESQL__DB</i></li>
-                <li><i>postgresql.user</i> or <i>KELLNR_POSTGRESQL__USER</i></li>
-                <li><i>postgresql.pwd</i> or <i>KELLNR_POSTGRESQL__PWD</i></li>
+                <li><code>postgresql.address</code> / <code>KELLNR_POSTGRESQL__ADDRESS</code> / <code>--postgresql-address</code></li>
+                <li><code>postgresql.port</code> / <code>KELLNR_POSTGRESQL__PORT</code> / <code>--postgresql-port</code></li>
+                <li><code>postgresql.db</code> / <code>KELLNR_POSTGRESQL__DB</code> / <code>--postgresql-db</code></li>
+                <li><code>postgresql.user</code> / <code>KELLNR_POSTGRESQL__USER</code> / <code>--postgresql-user</code></li>
+                <li><code>postgresql.pwd</code> / <code>KELLNR_POSTGRESQL__PWD</code> / <code>--postgresql-pwd</code></li>
               </ul>
               The PostgreSQL database needs to be created manually before starting Kellnr. Kellnr will
               create all tables and indexes automatically on first start.
@@ -859,6 +1041,199 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               curl kellnr_url/api/v1/webhook/f9e8a090-7144-48ff-89d6-fa774d24f59b/test \
                   -X GET -H "Authorization: Bearer ADMIN-TOKEN"
             </CodeBlock>
+
+            <MainHeader id="cli" icon="console">Command Line Interface</MainHeader>
+            <TextBlock>
+              Kellnr provides a command line interface (CLI) to run and configure the server. The CLI supports
+              multiple configuration sources with the following priority (highest to lowest):
+              <ol>
+                <li>CLI arguments</li>
+                <li>Environment variables</li>
+                <li>Configuration file</li>
+                <li>Default values</li>
+              </ol>
+            </TextBlock>
+
+            <CodeBlock lang="bash">
+              # Show help and available commands
+              kellnr --help
+
+              # Show version
+              kellnr --version
+            </CodeBlock>
+
+            <SubHeader id="cli-run">Run Command</SubHeader>
+            <TextBlock>
+              The <code>run</code> command starts the Kellnr server. The data directory is required and must be set
+              via CLI argument, environment variable, or configuration file.
+            </TextBlock>
+
+            <CodeBlock lang="bash">
+              # Start Kellnr with data directory
+              kellnr run -d /var/lib/kellnr
+
+              # Start with custom port
+              kellnr run -d /var/lib/kellnr -p 8080
+
+              # Start with debug logging
+              kellnr run -d /var/lib/kellnr -l debug
+
+              # Start with a configuration file
+              kellnr -c /etc/kellnr.toml run
+            </CodeBlock>
+
+            <SubHeader id="cli-config">Config Command</SubHeader>
+            <TextBlock>
+              The <code>config</code> command provides utilities for managing Kellnr configuration files.
+            </TextBlock>
+
+            <CodeBlock lang="bash">
+              # Show current configuration as TOML
+              kellnr config show
+
+              # Show configuration with a custom config file
+              kellnr -c /etc/kellnr.toml config show
+
+              # Create a default configuration file
+              kellnr config init
+
+              # Create configuration file at a specific path
+              kellnr config init -o /etc/kellnr.toml
+            </CodeBlock>
+
+            <SubHeader id="cli-arguments">CLI Arguments</SubHeader>
+            <TextBlock>
+              All configuration values can be set via CLI arguments when using the <code>run</code> command.
+              CLI arguments take precedence over environment variables and configuration file values.
+            </TextBlock>
+
+            <h5 class="mt-4 mb-3">Global Options</h5>
+            <TableBlock>
+              <thead>
+                <tr>
+                  <th scope="col">Argument</th>
+                  <th scope="col">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>-c, --config &lt;FILE&gt;</code></td>
+                  <td>Path to TOML configuration file</td>
+                </tr>
+                <tr>
+                  <td><code>--help</code></td>
+                  <td>Show help information</td>
+                </tr>
+                <tr>
+                  <td><code>--version</code></td>
+                  <td>Show version information</td>
+                </tr>
+              </tbody>
+            </TableBlock>
+
+            <h5 class="mt-4 mb-3">Server Options (run command)</h5>
+            <TableBlock>
+              <thead>
+                <tr>
+                  <th scope="col">Argument</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>-d, --registry-data-dir</code></td>
+                  <td>Directory where Kellnr stores all data (required)</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td><code>-p, --local-port</code></td>
+                  <td>Port where Kellnr listens</td>
+                  <td>8000</td>
+                </tr>
+                <tr>
+                  <td><code>--local-ip</code></td>
+                  <td>IP address where Kellnr listens</td>
+                  <td>0.0.0.0</td>
+                </tr>
+                <tr>
+                  <td><code>-l, --log-level</code></td>
+                  <td>Log level (trace, debug, info, warn, error)</td>
+                  <td>info</td>
+                </tr>
+                <tr>
+                  <td><code>--log-format</code></td>
+                  <td>Log format (compact, pretty, json)</td>
+                  <td>compact</td>
+                </tr>
+                <tr>
+                  <td><code>--origin-hostname</code></td>
+                  <td>External hostname where Kellnr is reachable</td>
+                  <td>127.0.0.1</td>
+                </tr>
+                <tr>
+                  <td><code>--origin-port</code></td>
+                  <td>External port (if behind a proxy)</td>
+                  <td>8000</td>
+                </tr>
+                <tr>
+                  <td><code>--origin-protocol</code></td>
+                  <td>Protocol (http or https)</td>
+                  <td>http</td>
+                </tr>
+              </tbody>
+            </TableBlock>
+
+            <h5 class="mt-4 mb-3">Feature Flags (run command)</h5>
+            <TableBlock>
+              <thead>
+                <tr>
+                  <th scope="col">Argument</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--docs-enabled</code></td>
+                  <td>Enable automatic rustdoc generation</td>
+                  <td>false</td>
+                </tr>
+                <tr>
+                  <td><code>--proxy-enabled</code></td>
+                  <td>Enable crates.io proxy cache</td>
+                  <td>false</td>
+                </tr>
+                <tr>
+                  <td><code>--registry-auth-required</code></td>
+                  <td>Require authentication for crate pulls</td>
+                  <td>false</td>
+                </tr>
+                <tr>
+                  <td><code>--postgresql-enabled</code></td>
+                  <td>Use PostgreSQL instead of SQLite</td>
+                  <td>false</td>
+                </tr>
+                <tr>
+                  <td><code>--s3-enabled</code></td>
+                  <td>Use S3 storage instead of local filesystem</td>
+                  <td>false</td>
+                </tr>
+                <tr>
+                  <td><code>--oauth2-enabled</code></td>
+                  <td>Enable OAuth2/OIDC authentication</td>
+                  <td>false</td>
+                </tr>
+              </tbody>
+            </TableBlock>
+
+            <TextBlock>
+              For a complete list of all CLI arguments, run <code>kellnr run --help</code>. All configuration
+              values documented in the <router-link to="#config-values">Config Values</router-link> section
+              have corresponding CLI arguments. The argument name follows the pattern
+              <code>--section-key</code> (e.g., <code>--postgresql-address</code> for
+              <code>[postgresql] address</code>).
+            </TextBlock>
 
             <MainHeader id="configure-cargo" icon="package-variant">Configure Cargo</MainHeader>
             <TextBlock>
@@ -1019,7 +1394,8 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
             With <a href="https://doc.rust-lang.org/rustdoc/index.html">rustdoc</a>, the Rust ecosystem has
             a widely adapted solution to document crates. Kellnr is able to host the corresponding
             documentation for a crate, such that no additional web server is needed. Enable automatic rustdoc generation
-            by setting the <i>docs.enabled</i> flag to <i>true</i>.<br />
+            by setting <code>docs.enabled = true</code> in the config file, the environment variable
+            <code>KELLNR_DOCS__ENABLED=true</code>, or the CLI flag <code>--docs-enabled</code>.<br />
             <br />
             <b>Attention</b><br />
             As crates on Kellnr can have dependencies to other crates on Kellnr, it is important that Kellnr
@@ -1093,15 +1469,12 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
 
           <MainHeader id="backup" icon="backup-restore">Backup</MainHeader>
           <TextBlock>
-            Kellnr stores all data in one folder. The default folder is <i>/opt/kdata</i> if not changed by the
-            <i>registry.data_dir</i>
-            variable in the <i>default.toml</i> or the <i>KELLNR_REGISTRY__DATA_DIR</i> environment variable. To backup
-            Kellnr,
-            simply
+            Kellnr stores all data in one folder. The data directory can be configured via the config file
+            (<code>registry.data_dir</code>), environment variable (<code>KELLNR_REGISTRY__DATA_DIR</code>),
+            or CLI argument (<code>-d</code> / <code>--registry-data-dir</code>). To backup Kellnr, simply
             backup the data folder. The data folder contains all data needed to restore Kellnr. It is recommended to
-            backup
-            the data folder regularly, as it contains all uploaded crates and the Sqlite database. If you use PostgreSql
-            instead, do not forget to backed the database separately.
+            backup the data folder regularly, as it contains all uploaded crates and the SQLite database. If you use
+            PostgreSQL instead, do not forget to backup the database separately.
           </TextBlock>
           </div>
         </div>

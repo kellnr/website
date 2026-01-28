@@ -18,6 +18,7 @@ import CrossPlatNativeLib from "../views/posts/CrossPlatNativeLib.vue";
 import Release5 from "../views/posts/Release5.vue";
 import RustAssembly from "../views/posts/RustAssembly.vue";
 import Review2025 from "../views/posts/Review2025.vue";
+import Release6 from "../views/posts/Release6.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -125,6 +126,11 @@ const router = createRouter({
             path: '/blog/review-2025',
             name: 'review-2025',
             component: Review2025
+        },
+        {
+            path: '/blog/release6',
+            name: 'release6',
+            component: Release6
         },
         // Default route to redirect all unknown paths to the landing page
         {
