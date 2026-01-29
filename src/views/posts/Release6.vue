@@ -28,7 +28,7 @@ import WarnBlock from "../../components/elements/WarnBlock.vue";
 
     <TextBlock>
       <b>Starting the Server</b><br />
-      The server is now started with the <code>run</code> command:
+      The server is now started with the <code>start</code> command:
     </TextBlock>
 
     <CodeBlock lang="bash">
@@ -36,13 +36,13 @@ import WarnBlock from "../../components/elements/WarnBlock.vue";
       ./kellnr
 
       # New way
-      kellnr run -d /var/lib/kellnr
+      kellnr start -d /var/lib/kellnr
 
       # With custom port
-      kellnr run -d /var/lib/kellnr -p 8080
+      kellnr start -d /var/lib/kellnr -p 8080
 
       # With configuration file
-      kellnr -c /etc/kellnr/kellnr.toml run
+      kellnr -c /etc/kellnr/kellnr.toml start
     </CodeBlock>
 
     <TextBlock>
@@ -85,14 +85,14 @@ import WarnBlock from "../../components/elements/WarnBlock.vue";
 
     <CodeBlock lang="bash">
       # Via CLI argument
-      kellnr run -d /var/lib/kellnr
+      kellnr start -d /var/lib/kellnr
 
       # Via environment variable
       export KELLNR_REGISTRY__DATA_DIR=/var/lib/kellnr
-      kellnr run
+      kellnr start
 
       # Via configuration file
-      kellnr -c kellnr.toml run
+      kellnr -c kellnr.toml start
     </CodeBlock>
 
     <SubHeader id="oauth2">OAuth2/OIDC Authentication</SubHeader>
@@ -261,7 +261,7 @@ import WarnBlock from "../../components/elements/WarnBlock.vue";
       # Example systemd service update
       # Old: ExecStart=/opt/kellnr/kellnr
       # New:
-      ExecStart=/opt/kellnr/kellnr run
+      ExecStart=/opt/kellnr/kellnr start
       Environment=KELLNR_CONFIG_FILE=/etc/kellnr/kellnr.toml
     </CodeBlock>
 
@@ -271,7 +271,7 @@ import WarnBlock from "../../components/elements/WarnBlock.vue";
     </TextBlock>
 
     <CodeBlock lang="bash">
-      kellnr -c /etc/kellnr/kellnr.toml run
+      kellnr -c /etc/kellnr/kellnr.toml start
     </CodeBlock>
 
     <SubHeader id="help">Your Help Is Required</SubHeader>

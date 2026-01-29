@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import LandingView from "../views/LandingView.vue";
 import ChangelogView from "../views/ChangelogView.vue";
-import DocumentationV5View from "../views/DocumentationV5View.vue";
+import DocumentationV6View from "../views/DocumentationV6View.vue";
 import BlogView from "../views/BlogView.vue";
 import AsyncClosuresInRust from "../views/posts/AsyncClosuresInRust.vue";
 import RustSupplyChainSecurity from "../views/posts/RustSupplyChainSecurity.vue";
@@ -42,14 +42,14 @@ const router = createRouter({
             component: ChangelogView
         },
         {
-            path: '/documentation/v5',
-            name: 'documentationV5',
-            component: DocumentationV5View
+            path: '/documentation/v6',
+            name: 'documentationV6',
+            component: DocumentationV6View
         },
         {
             path: '/documentation',
             name: 'documentation',
-            component: DocumentationV5View
+            component: DocumentationV6View
         },
         {
             path: '/contact',

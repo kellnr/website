@@ -18,7 +18,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
           <div class="col-lg-12 text-center">
             <div class="page-next-level">
               <h4 class="title"> Documentation </h4>
-              <h5 class="title">Kellnr v5</h5>
+              <h5 class="title">Kellnr v6</h5>
               <div class="page-next">
                 <nav aria-label="breadcrumb" class="d-inline-block">
                   <ul class="breadcrumb bg-white rounded shadow mb-0">
@@ -89,7 +89,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               <li>
                 <router-link to="#cli">Command Line Interface</router-link>
                 <ul>
-                  <li><router-link to="#cli-run">Run Command</router-link></li>
+                  <li><router-link to="#cli-start">Start Command</router-link></li>
                   <li><router-link to="#cli-config">Config Command</router-link></li>
                   <li><router-link to="#cli-arguments">CLI Arguments</router-link></li>
                 </ul>
@@ -137,13 +137,13 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               # All data (crates, users) will be deleted with the container when the container terminates
               docker run --rm -it \
               -p 8000:8000 \
-              -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" ghcr.io/kellnr/kellnr:5
+              -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" ghcr.io/kellnr/kellnr:6
 
               # To run the container with persistence for all data (crates, users) mount a volume into the container
               docker run --rm -it \
               -p 8000:8000 \
               -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" \
-              -v $(pwd):/opt/kdata ghcr.io/kellnr/kellnr:5
+              -v $(pwd):/opt/kdata ghcr.io/kellnr/kellnr:6
             </CodeBlock>
 
             <TextBlock>
@@ -266,8 +266,8 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               cargo install kellnr
               # If you run into issues with OpenSSL, try the following command:
               cargo install kellnr --features vendored-openssl
-              # Run kellnr (if not in PATH, the binary is located in $HOME/.cargo/bin/)
-              kellnr run -d /path/to/data/dir
+              # Start kellnr (if not in PATH, the binary is located in $HOME/.cargo/bin/)
+              kellnr start -d /path/to/data/dir
             </CodeBlock>
 
             <SubHeader id="manual-installation">Manual Installation</SubHeader>
@@ -301,10 +301,10 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               # Open the ports (default 8000)
 
               # Start Kellnr with the data directory
-              ./kellnr run -d /path/to/data/dir
+              ./kellnr start -d /path/to/data/dir
 
               # Or start with a configuration file
-              ./kellnr -c kellnr.toml run
+              ./kellnr -c kellnr.toml start
             </CodeBlock>
 
             <SubHeader id="helm-chart">Helm Chart</SubHeader>
@@ -841,7 +841,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               authentication token to <i>/usr/local/cargo/config.toml</i>.
               <br />
               <br />
-              E.g. <i>docker run -v /path/to/config.toml:/usr/local/cargo/config.toml:ro ghcr.io/kellnr/kellnr:5.2.4</i>
+              E.g. <i>docker run -v /path/to/config.toml:/usr/local/cargo/config.toml:ro ghcr.io/kellnr/kellnr:6</i>
               <br />
               <br />
               For more information about authentication and how to configure cargo to use it see: <a
@@ -1062,24 +1062,24 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               kellnr --version
             </CodeBlock>
 
-            <SubHeader id="cli-run">Run Command</SubHeader>
+            <SubHeader id="cli-start">Start Command</SubHeader>
             <TextBlock>
-              The <code>run</code> command starts the Kellnr server. The data directory is required and must be set
+              The <code>start</code> command starts the Kellnr server. The data directory is required and must be set
               via CLI argument, environment variable, or configuration file.
             </TextBlock>
 
             <CodeBlock lang="bash">
               # Start Kellnr with data directory
-              kellnr run -d /var/lib/kellnr
+              kellnr start -d /var/lib/kellnr
 
               # Start with custom port
-              kellnr run -d /var/lib/kellnr -p 8080
+              kellnr start -d /var/lib/kellnr -p 8080
 
               # Start with debug logging
-              kellnr run -d /var/lib/kellnr -l debug
+              kellnr start -d /var/lib/kellnr -l debug
 
               # Start with a configuration file
-              kellnr -c /etc/kellnr.toml run
+              kellnr -c /etc/kellnr.toml start
             </CodeBlock>
 
             <SubHeader id="cli-config">Config Command</SubHeader>
@@ -1131,7 +1131,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               </tbody>
             </TableBlock>
 
-            <h5 class="mt-4 mb-3">Server Options (run command)</h5>
+            <h5 class="mt-4 mb-3">Server Options (start command)</h5>
             <TableBlock>
               <thead>
                 <tr>
@@ -1184,7 +1184,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               </tbody>
             </TableBlock>
 
-            <h5 class="mt-4 mb-3">Feature Flags (run command)</h5>
+            <h5 class="mt-4 mb-3">Feature Flags (start command)</h5>
             <TableBlock>
               <thead>
                 <tr>
@@ -1228,7 +1228,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
             </TableBlock>
 
             <TextBlock>
-              For a complete list of all CLI arguments, run <code>kellnr run --help</code>. All configuration
+              For a complete list of all CLI arguments, run <code>kellnr start --help</code>. All configuration
               values documented in the <router-link to="#config-values">Config Values</router-link> section
               have corresponding CLI arguments. The argument name follows the pattern
               <code>--section-key</code> (e.g., <code>--postgresql-address</code> for
