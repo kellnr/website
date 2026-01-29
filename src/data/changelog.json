@@ -1,6 +1,83 @@
 {
   "releases": [
     {
+      "version": "6.0.0-rc.2",
+      "date": "29. January 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "feat: support to build kellnr on Windows by @secana",
+          "links": [
+            {
+              "label": "#969",
+              "url": "https://github.com/kellnr/kellnr/pull/969"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "feat: add openconnectid/oauth2 authentication by @secana",
+          "links": [
+            {
+              "label": "#999",
+              "url": "https://github.com/kellnr/kellnr/pull/999"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "feat: add SBOM for releases by @secana",
+          "links": [
+            {
+              "label": "#1001",
+              "url": "https://github.com/kellnr/kellnr/pull/1001"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "chore!: clean up old migrations by @secana",
+          "links": [
+            {
+              "label": "#989",
+              "url": "https://github.com/kellnr/kellnr/pull/989"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "feat!: use kellnr cli and remove default directories by @secana",
+          "links": [
+            {
+              "label": "#990",
+              "url": "https://github.com/kellnr/kellnr/pull/990"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "refactor: improve db layout by @secana",
+          "links": [
+            {
+              "label": "#1000",
+              "url": "https://github.com/kellnr/kellnr/pull/1000"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "ci: new build targets by @secana",
+          "links": [
+            {
+              "label": "#997",
+              "url": "https://github.com/kellnr/kellnr/pull/997"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "5.14.1",
       "date": "26. January 2026",
       "entries": [
@@ -24,8 +101,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "5.14.0",
