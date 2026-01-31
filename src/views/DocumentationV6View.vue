@@ -84,6 +84,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                   <li><router-link to="#cratesio-proxy">Crates.io Proxy Cache</router-link></li>
                   <li><router-link to="#database">Database Backend</router-link></li>
                   <li><router-link to="#webhooks">Webhooks</router-link></li>
+                  <li><router-link to="#toolchain">Toolchain Server</router-link></li>
                 </ul>
               </li>
               <li>
@@ -683,14 +684,14 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 title="Access Key"
                 toml="[s3] access_key"
                 env-var="KELLNR_S3__ACCESS_KEY"
-                default-value="minioadmin"
+                default-value="access-key"
                 description="Access key for the S3 storage."
               />
               <ConfigCard
                 title="Secret Key"
                 toml="[s3] secret_key"
                 env-var="KELLNR_S3__SECRET_KEY"
-                default-value="minioadmin"
+                default-value="secret-key"
                 description="Secret key for the S3 storage."
               />
               <ConfigCard
@@ -727,6 +728,13 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 env-var="KELLNR_S3__CRATESIO_BUCKET"
                 default-value="kellnr-cratesio"
                 description="Bucket for crates.io crates if the proxy is enabled."
+              />
+              <ConfigCard
+                title="Toolchain Bucket"
+                toml="[s3] toolchain_bucket"
+                env-var="KELLNR_S3__TOOLCHAIN_BUCKET"
+                default-value="kellnr-toolchains"
+                description="Bucket for toolchain archives if the toolchain server is enabled."
               />
             </ConfigGrid>
 
@@ -808,6 +816,24 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 env-var="KELLNR_OAUTH2__BUTTON_TEXT"
                 default-value="Login with SSO"
                 description="Text displayed on the OAuth2 login button in the web UI."
+              />
+            </ConfigGrid>
+
+            <h5 class="mt-4 mb-3">Toolchain Server</h5>
+            <ConfigGrid>
+              <ConfigCard
+                title="Toolchain Enabled"
+                toml="[toolchain] enabled"
+                env-var="KELLNR_TOOLCHAIN__ENABLED"
+                default-value="false"
+                description="Enable the toolchain distribution server for hosting private Rust toolchains."
+              />
+              <ConfigCard
+                title="Max Archive Size"
+                toml="[toolchain] max_size"
+                env-var="KELLNR_TOOLCHAIN__MAX_SIZE"
+                default-value="500"
+                description="Maximum toolchain archive size in MB."
               />
             </ConfigGrid>
 
@@ -1041,6 +1067,114 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               curl kellnr_url/api/v1/webhook/f9e8a090-7144-48ff-89d6-fa774d24f59b/test \
                   -X GET -H "Authorization: Bearer ADMIN-TOKEN"
             </CodeBlock>
+
+            <SubHeader id="toolchain">Toolchain Server</SubHeader>
+            <TextBlock>
+              Kellnr can act as a <b>rustup-compatible toolchain distribution server</b>, allowing organizations
+              to host private Rust toolchains internally. This enables teams to distribute custom Rust compilers,
+              patched toolchains, or approved stable releases through the same infrastructure that hosts their
+              private crates.<br />
+              <br />
+              <b>Features</b>
+              <ul>
+                <li>Rustup-compatible distribution server (works with <code>RUSTUP_DIST_SERVER</code>)</li>
+                <li>Channel management (stable, beta, nightly, or custom channels)</li>
+                <li>Multi-target support (x86_64-unknown-linux-gnu, aarch64-apple-darwin, etc.)</li>
+                <li>Web UI for toolchain and channel management (Settings → Toolchains)</li>
+                <li>Admin-only uploads with public downloads (respects <code>auth_required</code> setting)</li>
+              </ul>
+            </TextBlock>
+
+            <TextBlock>
+              <b>Configuration</b><br />
+              To enable the toolchain server, set <code>toolchain.enabled = true</code> in your configuration:
+            </TextBlock>
+
+            <CodeBlock lang="toml">
+              [toolchain]
+              enabled = true
+              max_size = 500  # Maximum archive size in MB (default: 500)
+            </CodeBlock>
+
+            <TextBlock>
+              Or via environment variables:
+            </TextBlock>
+
+            <CodeBlock lang="bash">
+              export KELLNR_TOOLCHAIN__ENABLED=true
+              export KELLNR_TOOLCHAIN__MAX_SIZE=500
+            </CodeBlock>
+
+            <TextBlock>
+              <b>Uploading Toolchains</b><br />
+              Toolchains can be uploaded through the Web UI (Settings → Toolchains) or via the API. Each
+              toolchain upload requires:
+              <ul>
+                <li><b>Name</b>: Component name (typically "rust")</li>
+                <li><b>Version</b>: Toolchain version (e.g., "1.75.0")</li>
+                <li><b>Date</b>: Release date in YYYY-MM-DD format</li>
+                <li><b>Target</b>: Target triple (e.g., "x86_64-unknown-linux-gnu")</li>
+                <li><b>Channel</b>: Optional channel assignment (e.g., "stable", "nightly")</li>
+                <li><b>File</b>: The toolchain archive as a <code>.tar.xz</code> file</li>
+              </ul>
+            </TextBlock>
+
+            <CodeBlock lang="bash">
+              # Upload a toolchain via API (admin authentication required)
+              curl -X PUT \
+                -F "name=rust" \
+                -F "version=1.75.0" \
+                -F "target=x86_64-unknown-linux-gnu" \
+                -F "date=2024-01-15" \
+                -F "channel=stable" \
+                -F "file=@rust-1.75.0-x86_64-unknown-linux-gnu.tar.xz" \
+                -H "Cookie: kellnr_session_id=YOUR_SESSION" \
+                https://kellnr.example.com/toolchain/api/v1/toolchains
+            </CodeBlock>
+
+            <TextBlock>
+              <b>Channel Management</b><br />
+              Channels map human-readable names (like "stable") to specific toolchain versions. When a user
+              runs <code>rustup install stable</code>, rustup requests the <code>channel-rust-stable.toml</code>
+              manifest, which Kellnr generates dynamically from the database.<br />
+              <br />
+              To set or update a channel, use the Web UI or API:
+            </TextBlock>
+
+            <CodeBlock lang="bash">
+              # Set the stable channel to point to version 1.75.0
+              curl -X PUT \
+                -H "Content-Type: application/json" \
+                -H "Cookie: kellnr_session_id=YOUR_SESSION" \
+                -d '{"version": "1.75.0"}' \
+                https://kellnr.example.com/toolchain/api/v1/channels/stable
+            </CodeBlock>
+
+            <TextBlock>
+              <b>Using with Rustup</b><br />
+              Once toolchains are uploaded and channels configured, users can install them via rustup by
+              setting the <code>RUSTUP_DIST_SERVER</code> environment variable:
+            </TextBlock>
+
+            <CodeBlock lang="bash">
+              # Point rustup at your Kellnr instance
+              export RUSTUP_DIST_SERVER=https://kellnr.example.com/toolchain
+
+              # Install a channel
+              rustup install stable
+
+              # Install a specific version (if uploaded)
+              rustup install 1.75.0
+
+              # Make it permanent in your shell config
+              echo 'export RUSTUP_DIST_SERVER=https://kellnr.example.com/toolchain' >> ~/.bashrc
+            </CodeBlock>
+
+            <WarnBlock>
+              The toolchain server is designed for organizations that need to distribute custom or approved
+              Rust toolchains. For most users, the official Rust toolchains from rustup.rs are recommended.
+              Only enable this feature if you have a specific need for private toolchain distribution.
+            </WarnBlock>
 
             <MainHeader id="cli" icon="console">Command Line Interface</MainHeader>
             <TextBlock>

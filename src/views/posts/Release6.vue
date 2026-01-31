@@ -130,6 +130,51 @@ import WarnBlock from "../../components/elements/WarnBlock.vue";
         documentation</router-link>.
     </TextBlock>
 
+    <SubHeader id="toolchain">Toolchain Distribution Server</SubHeader>
+    <TextBlock>
+      Kellnr v6.0.0 introduces an optional <b>toolchain distribution server</b>, allowing organizations to host
+      private Rust toolchains internally. This feature enables teams to distribute custom Rust compilers, patched
+      toolchains, or approved stable releases through the same infrastructure that hosts their private crates.
+    </TextBlock>
+
+    <TextBlock>
+      Key features include:
+      <ul>
+        <li>Rustup-compatible distribution server (<code>RUSTUP_DIST_SERVER</code> support)</li>
+        <li>Channel management (stable, beta, nightly, or custom channels)</li>
+        <li>Multi-target support (x86_64, aarch64, etc.)</li>
+        <li>Web UI for toolchain and channel management</li>
+        <li>Admin-only uploads with public downloads (respects <code>auth_required</code> setting)</li>
+      </ul>
+    </TextBlock>
+
+    <TextBlock>
+      To enable the toolchain server, set <code>toolchain.enabled = true</code> in your configuration:
+    </TextBlock>
+
+    <CodeBlock lang="toml">
+      [toolchain]
+      enabled = true
+      max_size = 500  # Max archive size in MB
+    </CodeBlock>
+
+    <TextBlock>
+      Once enabled, users can point <code>rustup</code> at Kellnr to install toolchains:
+    </TextBlock>
+
+    <CodeBlock lang="bash">
+      # Point rustup at your Kellnr instance
+      export RUSTUP_DIST_SERVER=https://kellnr.example.com/toolchain
+
+      # Install a channel
+      rustup install stable
+    </CodeBlock>
+
+    <TextBlock>
+      For detailed configuration and usage instructions, see the <router-link to="/documentation#toolchain">Toolchain
+        Server documentation</router-link>.
+    </TextBlock>
+
     <SubHeader id="sbom">Software Bill of Materials (SBOM)</SubHeader>
     <TextBlock>
       Starting with v6.0.0, every Kellnr release includes a Software Bill of Materials (SBOM) in
@@ -211,6 +256,30 @@ import WarnBlock from "../../components/elements/WarnBlock.vue";
         </tbody>
       </table>
     </TextBlock>
+
+    <SubHeader id="s3-changes">S3 Storage Changes</SubHeader>
+    <TextBlock>
+      The default values for S3 <code>access_key</code> and <code>secret_key</code> have changed from
+      <code>"minioadmin"</code> to <code>"access-key"</code> and <code>"secret-key"</code> respectively.
+      If you use S3 storage and previously relied on the default MinIO credentials, you must now
+      explicitly configure these values in your configuration file or via environment variables.
+    </TextBlock>
+
+    <CodeBlock lang="toml">
+      [s3]
+      enabled = true
+      access_key = "minioadmin"
+      secret_key = "minioadmin"
+    </CodeBlock>
+
+    <TextBlock>
+      Or via environment variables:
+    </TextBlock>
+
+    <CodeBlock lang="bash">
+      export KELLNR_S3__ACCESS_KEY=minioadmin
+      export KELLNR_S3__SECRET_KEY=minioadmin
+    </CodeBlock>
 
     <SubHeader id="upgrade">Upgrade Guide</SubHeader>
     <TextBlock>
