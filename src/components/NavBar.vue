@@ -31,6 +31,10 @@
                             <router-link to="/" class="side-nav-link-ref">Home</router-link>
                         </li>
 
+                        <li>
+                            <router-link to="/features" class="side-nav-link-ref">Features</router-link>
+                        </li>
+
                         <li class="has-submenu">
                             <a href="javascript:void(0)" @click="onMenuClick">Docs</a><span class="menu-arrow"></span>
                             <ul class="submenu">
