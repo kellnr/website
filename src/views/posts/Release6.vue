@@ -164,7 +164,7 @@ import WarnBlock from "../../components/elements/WarnBlock.vue";
 
     <CodeBlock lang="bash">
       # Point rustup at your Kellnr instance
-      export RUSTUP_DIST_SERVER=https://kellnr.example.com/toolchain
+      export RUSTUP_DIST_SERVER=https://kellnr.example.com/api/v1/toolchains
 
       # Install a channel
       rustup install stable
@@ -173,6 +173,31 @@ import WarnBlock from "../../components/elements/WarnBlock.vue";
     <TextBlock>
       For detailed configuration and usage instructions, see the <router-link to="/documentation#toolchain">Toolchain
         Server documentation</router-link>.
+    </TextBlock>
+
+    <SubHeader id="api-docs">API Documentation</SubHeader>
+    <TextBlock>
+      Kellnr v6.0.0 includes built-in interactive API documentation powered by <a href="https://swagger.io/tools/swagger-ui/">Swagger UI</a>.
+      All REST API endpoints are now documented with the <a href="https://www.openapis.org/">OpenAPI</a> specification,
+      making it easier to explore and integrate with Kellnr programmatically.
+    </TextBlock>
+
+    <TextBlock>
+      Key features include:
+      <ul>
+        <li>Interactive API explorer at <code>/api/docs</code></li>
+        <li>Complete endpoint documentation with request/response schemas</li>
+        <li>Try-it-out functionality to test API calls directly from the browser</li>
+        <li>OpenAPI specification available at <code>/api/openapi.json</code></li>
+        <li>Quick access via the "API Docs" link in the navigation bar</li>
+      </ul>
+    </TextBlock>
+
+    <TextBlock>
+      The API documentation covers all endpoints including authentication, user and group management,
+      crate operations, documentation hosting, webhooks, and the new toolchain distribution server.
+      This is particularly useful for teams building automation around Kellnr or integrating it into
+      CI/CD pipelines.
     </TextBlock>
 
     <SubHeader id="sbom">Software Bill of Materials (SBOM)</SubHeader>

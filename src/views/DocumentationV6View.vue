@@ -1013,7 +1013,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
             </TextBlock>
 
             <CodeBlock lang="bash">
-              curl kellnr_url/api/v1/webhook -X POST \
+              curl kellnr_url/api/v1/webhooks -X POST \
               -H "Authorization: Bearer ADMIN-TOKEN" \
               -H "Content-Type: application/json" \
               -d '{
@@ -1053,19 +1053,19 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
 
             <CodeBlock lang="bash">
               # View specific webhook
-              curl kellnr_url/api/v1/webhook/f9e8a090-7144-48ff-89d6-fa774d24f59b \
+              curl kellnr_url/api/v1/webhooks/f9e8a090-7144-48ff-89d6-fa774d24f59b \
                   -X GET -H "Authorization: Bearer ADMIN-TOKEN"
 
               # View all
-              curl kellnr_url/api/v1/webhook -X GET -H "Authorization: Bearer ADMIN-TOKEN"
+              curl kellnr_url/api/v1/webhooks -X GET -H "Authorization: Bearer ADMIN-TOKEN"
 
               # Unregister a given webhook
-              curl kellnr_url/api/v1/webhook/f9e8a090-7144-48ff-89d6-fa774d24f59b \
+              curl kellnr_url/api/v1/webhooks/f9e8a090-7144-48ff-89d6-fa774d24f59b \
                   -X DELETE -H "Authorization: Bearer ADMIN-TOKEN"
 
               # Test a webhook (sends a dummy payload to the callback_url)
-              curl kellnr_url/api/v1/webhook/f9e8a090-7144-48ff-89d6-fa774d24f59b/test \
-                  -X GET -H "Authorization: Bearer ADMIN-TOKEN"
+              curl kellnr_url/api/v1/webhooks/f9e8a090-7144-48ff-89d6-fa774d24f59b/test \
+                  -X POST -H "Authorization: Bearer ADMIN-TOKEN"
             </CodeBlock>
 
             <SubHeader id="toolchain">Toolchain Server</SubHeader>
@@ -1129,7 +1129,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 -F "channel=stable" \
                 -F "file=@rust-1.75.0-x86_64-unknown-linux-gnu.tar.xz" \
                 -H "Cookie: kellnr_session_id=YOUR_SESSION" \
-                https://kellnr.example.com/toolchain/api/v1/toolchains
+                https://kellnr.example.com/api/v1/toolchains
             </CodeBlock>
 
             <TextBlock>
@@ -1147,7 +1147,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 -H "Content-Type: application/json" \
                 -H "Cookie: kellnr_session_id=YOUR_SESSION" \
                 -d '{"version": "1.75.0"}' \
-                https://kellnr.example.com/toolchain/api/v1/channels/stable
+                https://kellnr.example.com/api/v1/toolchains/channels/stable
             </CodeBlock>
 
             <TextBlock>
@@ -1158,7 +1158,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
 
             <CodeBlock lang="bash">
               # Point rustup at your Kellnr instance
-              export RUSTUP_DIST_SERVER=https://kellnr.example.com/toolchain
+              export RUSTUP_DIST_SERVER=https://kellnr.example.com/api/v1/toolchains
 
               # Install a channel
               rustup install stable
@@ -1167,7 +1167,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               rustup install 1.75.0
 
               # Make it permanent in your shell config
-              echo 'export RUSTUP_DIST_SERVER=https://kellnr.example.com/toolchain' >> ~/.bashrc
+              echo 'export RUSTUP_DIST_SERVER=https://kellnr.example.com/api/v1/toolchains' >> ~/.bashrc
             </CodeBlock>
 
             <WarnBlock>
