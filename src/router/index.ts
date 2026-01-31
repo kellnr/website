@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import LandingView from "../views/LandingView.vue";
+import FeaturesView from "../views/FeaturesView.vue";
 import ChangelogView from "../views/ChangelogView.vue";
 import DocumentationV6View from "../views/DocumentationV6View.vue";
 import BlogView from "../views/BlogView.vue";
@@ -35,6 +36,11 @@ const router = createRouter({
             path: '/',
             name: 'landing',
             component: LandingView
+        },
+        {
+            path: '/features',
+            name: 'features',
+            component: FeaturesView
         },
         {
             path: '/changelog',
