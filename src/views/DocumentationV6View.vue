@@ -393,8 +393,8 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 title="Admin Token"
                 toml="[setup] admin_token"
                 env-var="KELLNR_SETUP__ADMIN_TOKEN"
-                default-value="Zy9HhJ02RJmg0GCrgLfaCVfU6IwDfhXD"
-                description="Authentication token for the admin user. Used on first start only."
+                default-value="None"
+                description="Authentication token for the admin user. Used on first start only. If not set, no token is created and the user must create one via the web UI."
               />
             </ConfigGrid>
 

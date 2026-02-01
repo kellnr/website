@@ -306,6 +306,37 @@ import WarnBlock from "../../components/elements/WarnBlock.vue";
       export KELLNR_S3__SECRET_KEY=minioadmin
     </CodeBlock>
 
+    <SubHeader id="admin-token">Admin Token Changes</SubHeader>
+    <TextBlock>
+      The default admin token has been removed. Previously, Kellnr created a hardcoded default token
+      (<code>Zy9HhJ02RJmg0GCrgLfaCVfU6IwDfhXD</code>) on first startup, which posed a security risk if
+      not changed. Starting with v6.0.0, no token is created by default.
+    </TextBlock>
+
+    <TextBlock>
+      <b>New Behavior:</b>
+      <ul>
+        <li>If you provide a token via configuration, it will be set on first startup (unchanged)</li>
+        <li>If no token is provided, no token is created - you must create one via the web UI</li>
+      </ul>
+    </TextBlock>
+
+    <TextBlock>
+      <b>For existing installations:</b> This change only affects first startup. If you already have
+      users and tokens in your database, they remain unchanged.
+    </TextBlock>
+
+    <TextBlock>
+      <b>For new installations:</b> After starting Kellnr, log in with the admin password (default: <code>admin</code>),
+      navigate to Settings → Tokens, and create a new token for cargo authentication.
+    </TextBlock>
+
+    <CodeBlock lang="bash">
+      # To set a token on first startup, use the environment variable:
+      export KELLNR_SETUP__ADMIN_TOKEN=your-secure-token-here
+      kellnr start
+    </CodeBlock>
+
     <SubHeader id="upgrade">Upgrade Guide</SubHeader>
     <TextBlock>
       Follow these steps to safely upgrade from v5.x to v6.0.0:
