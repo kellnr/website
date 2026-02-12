@@ -1,6 +1,13 @@
 {
   "posts": [
     {
+      "id": "release6",
+      "title": "Kellnr 6.0.0 Release",
+      "url": "https://kellnr.io/blog/release6",
+      "published": "2026-01-28T12:00:00+00:00",
+      "summaryHtml": "Kellnr 6.0.0 brings a new CLI interface, OAuth2/OIDC authentication, and important configuration changes. This guide covers breaking changes and how to upgrade safely."
+    },
+    {
       "id": "review-2025",
       "title": "Kellnr 2025 - A Year in Review",
       "url": "https://kellnr.io/blog/review-2025",

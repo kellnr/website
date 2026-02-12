@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import LandingView from "../views/LandingView.vue";
+import FeaturesView from "../views/FeaturesView.vue";
 import ChangelogView from "../views/ChangelogView.vue";
-import DocumentationV5View from "../views/DocumentationV5View.vue";
+import DocumentationV6View from "../views/DocumentationV6View.vue";
 import BlogView from "../views/BlogView.vue";
 import AsyncClosuresInRust from "../views/posts/AsyncClosuresInRust.vue";
 import RustSupplyChainSecurity from "../views/posts/RustSupplyChainSecurity.vue";
@@ -18,6 +19,7 @@ import CrossPlatNativeLib from "../views/posts/CrossPlatNativeLib.vue";
 import Release5 from "../views/posts/Release5.vue";
 import RustAssembly from "../views/posts/RustAssembly.vue";
 import Review2025 from "../views/posts/Review2025.vue";
+import Release6 from "../views/posts/Release6.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,19 +38,24 @@ const router = createRouter({
             component: LandingView
         },
         {
+            path: '/features',
+            name: 'features',
+            component: FeaturesView
+        },
+        {
             path: '/changelog',
             name: 'changelog',
             component: ChangelogView
         },
         {
-            path: '/documentation/v5',
-            name: 'documentationV5',
-            component: DocumentationV5View
+            path: '/documentation/v6',
+            name: 'documentationV6',
+            component: DocumentationV6View
         },
         {
             path: '/documentation',
             name: 'documentation',
-            component: DocumentationV5View
+            component: DocumentationV6View
         },
         {
             path: '/contact',
@@ -125,6 +132,11 @@ const router = createRouter({
             path: '/blog/review-2025',
             name: 'review-2025',
             component: Review2025
+        },
+        {
+            path: '/blog/release6',
+            name: 'release6',
+            component: Release6
         },
         // Default route to redirect all unknown paths to the landing page
         {
