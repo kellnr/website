@@ -4,6 +4,7 @@ import SubHeader from "../../components/elements/SubHeader.vue";
 import BlogPostTemplate from "../../components/blog/BlogPostTemplate.vue";
 import CodeBlock from "../../components/elements/CodeBlock.vue";
 import WarnBlock from "../../components/elements/WarnBlock.vue";
+import AttentionBlock from "../../components/elements/AttentionBlock.vue";
 </script>
 
 <template>
@@ -414,5 +415,14 @@ import WarnBlock from "../../components/elements/WarnBlock.vue";
         <li><a href="https://github.com/kellnr/helm">Helm Chart</a></li>
       </ul>
     </TextBlock>
+
+    <AttentionBlock>
+      Kellnr is a passion project, built and maintained by a single developer in my free time with no corporate
+      backing or sponsorship. While I do my best to thoroughly test every release, bugs are inevitable in a project
+      of this scope. If you run into any issues, I would greatly appreciate it if you
+      <a href="https://github.com/kellnr/kellnr/issues">report them on GitHub</a>. Your feedback helps make
+      Kellnr better for everyone. If you want to support the project and help it continue,
+      consider <a href="https://github.com/sponsors/secana">sponsoring on GitHub</a>.
+    </AttentionBlock>
   </BlogPostTemplate>
 </template>
