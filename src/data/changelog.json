@@ -1,6 +1,158 @@
 {
   "releases": [
     {
+      "version": "6.0.0",
+      "date": "12. February 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "add update-npm-hash command",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "add CLI for kellnr",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "add oauth2/openidconnect",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "don't show doc generation button in crate view if doc generation is disabled",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "add expand/collapse functionality in Startup Configuration ([#1019]())",
+          "links": [
+            {
+              "label": "#1019",
+              "url": "https://github.com/kellnr/kellnr/pull/1019"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "improve display of config values in UI",
+          "links": [
+            {
+              "label": "#1014",
+              "url": "https://github.com/kellnr/kellnr/issues/1014"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "add test coverage",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "print Kellnr URL on startup ([#1011]())",
+          "links": [
+            {
+              "label": "#1011",
+              "url": "https://github.com/kellnr/kellnr/pull/1011"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "add OpenAPI docs",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "add toolchain server ([#1009]())",
+          "links": [
+            {
+              "label": "#1009",
+              "url": "https://github.com/kellnr/kellnr/pull/1009"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "add Windows builds",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "docs build endpoint not available for non-admin users",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "web-ui routing paths when origin.path is used ([#1023]())",
+          "links": [
+            {
+              "label": "#1023",
+              "url": "https://github.com/kellnr/kellnr/pull/1023"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "make \"nix build\" more stable to package-lock.json changes",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "minor clippy issues ([#1027]())",
+          "links": [
+            {
+              "label": "#1027",
+              "url": "https://github.com/kellnr/kellnr/pull/1027"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "oauth2 implementation ([#1022]())",
+          "links": [
+            {
+              "label": "#1022",
+              "url": "https://github.com/kellnr/kellnr/pull/1022"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "remove default admin token",
+          "links": [
+            {
+              "label": "#1012",
+              "url": "https://github.com/kellnr/kellnr/issues/1012"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "admin user allowed to delete/lock himself",
+          "links": [
+            {
+              "label": "#1015",
+              "url": "https://github.com/kellnr/kellnr/issues/1015"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "don't show doc generation button in crate view if doc generation is disabled ([#1042]())",
+          "links": [
+            {
+              "label": "#1042",
+              "url": "https://github.com/kellnr/kellnr/pull/1042"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "5.14.1",
       "date": "26. January 2026",
       "entries": [
@@ -24,8 +176,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "5.14.0",
