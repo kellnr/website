@@ -6,16 +6,6 @@
       "entries": [
         {
           "type": "Fixed",
-          "content": "non-admin user not able to open settings when auth_required = true ([#1071]())",
-          "links": [
-            {
-              "label": "#1071",
-              "url": "https://github.com/kellnr/kellnr/pull/1071"
-            }
-          ]
-        },
-        {
-          "type": "Fixed",
           "content": "non-admin user not able to open settings when auth_required = true",
           "links": [
             {
