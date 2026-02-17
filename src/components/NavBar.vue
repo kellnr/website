@@ -137,17 +137,7 @@ function toggleMenu() {
  */
 function onMenuClick(event: any) {
     event.preventDefault();
-    const nextEl = event.target.nextSibling.nextSibling;
-
-    if (nextEl && !nextEl.classList.contains("open")) {
-        const parentEl = event.target.parentNode;
-        if (parentEl) {
-            parentEl.classList.remove("open");
-        }
-        nextEl.classList.add("open");
-    } else if (nextEl) {
-        nextEl.classList.remove("open");
-    }
-    return false;
+    const submenu = event.target.closest('.has-submenu')?.querySelector('.submenu');
+    submenu?.classList.toggle("open");
 }
 </script>

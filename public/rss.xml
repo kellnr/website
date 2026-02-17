@@ -3,11 +3,96 @@
   <id>kellnr.io/blog</id>
   <title>kellnr.io - The Rust Registry</title>
   <subtitle>Rust development related blog</subtitle>
-  <updated>2026-01-28T12:00:00+00:00</updated>
+  <updated>2026-02-16T12:00:00.000Z</updated>
   <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
   <link rel="alternate" href="https://kellnr.io/blog" type="text/html" />
   <icon>https://kellnr.io/favicon.ico</icon>
   <logo>https://kellnr.io/favicon.ico</logo>
+  <entry>
+    <id>https://kellnr.io/changelog#6.0.1</id>
+    <title>Kellnr 6.0.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2026-02-16T12:00:00.000Z</published>
+    <updated>2026-02-16T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 6.0.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Changed:</strong>
+<ul>
+<li>fix playwright version mismatch</li>
+<li>update NPM packages</li>
+<li>*(deps-dev)* bump eslint from 9.39.2 to 10.0.0 in /ui ([#1058]()) <a href="https://github.com/kellnr/kellnr/pull/1058" target="_blank" rel="noopener noreferrer">#1058</a></li>
+<li>*(deps-dev)* bump eslint-plugin-vue from 10.7.0 to 10.8.0 in /ui ([#1056]()) <a href="https://github.com/kellnr/kellnr/pull/1056" target="_blank" rel="noopener noreferrer">#1056</a></li>
+<li>*(deps-dev)* bump @eslint/js from 9.39.2 to 10.0.1 in /ui ([#1059]()) <a href="https://github.com/kellnr/kellnr/pull/1059" target="_blank" rel="noopener noreferrer">#1059</a></li>
+<li>*(deps)* bump marked from 17.0.1 to 17.0.2 in /ui ([#1061]()) <a href="https://github.com/kellnr/kellnr/pull/1061" target="_blank" rel="noopener noreferrer">#1061</a></li>
+<li>*(deps)* bump actions/checkout from 4 to 6 ([#1057]()) <a href="https://github.com/kellnr/kellnr/pull/1057" target="_blank" rel="noopener noreferrer">#1057</a></li>
+<li>*(deps)* bump actions/setup-node from 4 to 6 ([#1055]()) <a href="https://github.com/kellnr/kellnr/pull/1055" target="_blank" rel="noopener noreferrer">#1055</a></li>
+<li>*(deps)* bump vue from 3.5.27 to 3.5.28 in /ui ([#1060]()) <a href="https://github.com/kellnr/kellnr/pull/1060" target="_blank" rel="noopener noreferrer">#1060</a></li>
+<li>*(deps)* bump clap from 4.5.54 to 4.5.58 ([#1062]()) <a href="https://github.com/kellnr/kellnr/pull/1062" target="_blank" rel="noopener noreferrer">#1062</a></li>
+<li>*(deps)* bump syn from 2.0.114 to 2.0.115 ([#1063]()) <a href="https://github.com/kellnr/kellnr/pull/1063" target="_blank" rel="noopener noreferrer">#1063</a></li>
+<li>*(deps)* bump testcontainers from 0.26.3 to 0.27.0 ([#1065]()) <a href="https://github.com/kellnr/kellnr/pull/1065" target="_blank" rel="noopener noreferrer">#1065</a></li>
+<li>*(deps)* bump uuid from 1.19.0 to 1.21.0 ([#1066]()) <a href="https://github.com/kellnr/kellnr/pull/1066" target="_blank" rel="noopener noreferrer">#1066</a></li>
+<li>*(config)* dedup config management and envvar mapping ([#1067]()) <a href="https://github.com/kellnr/kellnr/pull/1067" target="_blank" rel="noopener noreferrer">#1067</a></li>
+<li>fix broken migration test</li>
+<li>*(config)* dedup config management and envvar mapping</li>
+<li>*(deps)* update npmDepsHash in flake.nix [dependabot skip]</li>
+<li>*(deps)* bump uuid from 1.19.0 to 1.21.0</li>
+<li>*(deps)* bump testcontainers from 0.26.3 to 0.27.0</li>
+<li>*(deps)* update npmDepsHash in flake.nix [dependabot skip]</li>
+<li>*(deps)* update npmDepsHash in flake.nix [dependabot skip]</li>
+<li>*(deps)* bump syn from 2.0.114 to 2.0.115</li>
+<li>*(deps)* update npmDepsHash in flake.nix [dependabot skip]</li>
+<li>*(deps)* bump clap from 4.5.54 to 4.5.58</li>
+<li>*(deps)* update npmDepsHash in flake.nix [dependabot skip]</li>
+<li>*(deps)* bump marked from 17.0.1 to 17.0.2 in /ui</li>
+<li>*(deps)* bump vue from 3.5.27 to 3.5.28 in /ui</li>
+<li>*(deps-dev)* bump @eslint/js from 9.39.2 to 10.0.1 in /ui</li>
+<li>*(deps)* bump actions/checkout from 4 to 6</li>
+<li>*(deps-dev)* bump eslint from 9.39.2 to 10.0.0 in /ui</li>
+<li>*(deps-dev)* bump eslint-plugin-vue from 10.7.0 to 10.8.0 in /ui</li>
+<li>*(deps)* bump actions/setup-node from 4 to 6</li>
+<li>Fix broken Windows build</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>non-admin user not able to open settings when auth_required = true <a href="https://github.com/kellnr/kellnr/issues/1070" target="_blank" rel="noopener noreferrer">#1070</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#6.0.0</id>
+    <title>Kellnr 6.0.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2026-02-12T12:00:00.000Z</published>
+    <updated>2026-02-12T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 6.0.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>add update-npm-hash command</li>
+<li>add CLI for kellnr</li>
+<li>add oauth2/openidconnect</li>
+<li>don't show doc generation button in crate view if doc generation is disabled</li>
+<li>add expand/collapse functionality in Startup Configuration ([#1019]()) <a href="https://github.com/kellnr/kellnr/pull/1019" target="_blank" rel="noopener noreferrer">#1019</a></li>
+<li>improve display of config values in UI <a href="https://github.com/kellnr/kellnr/issues/1014" target="_blank" rel="noopener noreferrer">#1014</a></li>
+<li>add test coverage</li>
+<li>print Kellnr URL on startup ([#1011]()) <a href="https://github.com/kellnr/kellnr/pull/1011" target="_blank" rel="noopener noreferrer">#1011</a></li>
+<li>add OpenAPI docs</li>
+<li>add toolchain server ([#1009]()) <a href="https://github.com/kellnr/kellnr/pull/1009" target="_blank" rel="noopener noreferrer">#1009</a></li>
+<li>add Windows builds</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>docs build endpoint not available for non-admin users</li>
+<li>web-ui routing paths when origin.path is used ([#1023]()) <a href="https://github.com/kellnr/kellnr/pull/1023" target="_blank" rel="noopener noreferrer">#1023</a></li>
+<li>make "nix build" more stable to package-lock.json changes</li>
+<li>minor clippy issues ([#1027]()) <a href="https://github.com/kellnr/kellnr/pull/1027" target="_blank" rel="noopener noreferrer">#1027</a></li>
+<li>oauth2 implementation ([#1022]()) <a href="https://github.com/kellnr/kellnr/pull/1022" target="_blank" rel="noopener noreferrer">#1022</a></li>
+<li>remove default admin token <a href="https://github.com/kellnr/kellnr/issues/1012" target="_blank" rel="noopener noreferrer">#1012</a></li>
+<li>admin user allowed to delete/lock himself <a href="https://github.com/kellnr/kellnr/issues/1015" target="_blank" rel="noopener noreferrer">#1015</a></li>
+<li>don't show doc generation button in crate view if doc generation is disabled ([#1042]()) <a href="https://github.com/kellnr/kellnr/pull/1042" target="_blank" rel="noopener noreferrer">#1042</a></li>
+</ul>]]></content>
+  </entry>
   <entry>
     <id>https://kellnr.io/blog/release6</id>
     <title>Kellnr 6.0.0 Release</title>
