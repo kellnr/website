@@ -1,6 +1,258 @@
 {
   "releases": [
     {
+      "version": "6.0.1",
+      "date": "16. February 2026",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "non-admin user not able to open settings when auth_required = true ([#1071]())",
+          "links": [
+            {
+              "label": "#1071",
+              "url": "https://github.com/kellnr/kellnr/pull/1071"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "non-admin user not able to open settings when auth_required = true",
+          "links": [
+            {
+              "label": "#1070",
+              "url": "https://github.com/kellnr/kellnr/issues/1070"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "fix playwright version mismatch",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "update NPM packages",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump eslint from 9.39.2 to 10.0.0 in /ui ([#1058]())",
+          "links": [
+            {
+              "label": "#1058",
+              "url": "https://github.com/kellnr/kellnr/pull/1058"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump eslint-plugin-vue from 10.7.0 to 10.8.0 in /ui ([#1056]())",
+          "links": [
+            {
+              "label": "#1056",
+              "url": "https://github.com/kellnr/kellnr/pull/1056"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump @eslint/js from 9.39.2 to 10.0.1 in /ui ([#1059]())",
+          "links": [
+            {
+              "label": "#1059",
+              "url": "https://github.com/kellnr/kellnr/pull/1059"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump marked from 17.0.1 to 17.0.2 in /ui ([#1061]())",
+          "links": [
+            {
+              "label": "#1061",
+              "url": "https://github.com/kellnr/kellnr/pull/1061"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump actions/checkout from 4 to 6 ([#1057]())",
+          "links": [
+            {
+              "label": "#1057",
+              "url": "https://github.com/kellnr/kellnr/pull/1057"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump actions/setup-node from 4 to 6 ([#1055]())",
+          "links": [
+            {
+              "label": "#1055",
+              "url": "https://github.com/kellnr/kellnr/pull/1055"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump vue from 3.5.27 to 3.5.28 in /ui ([#1060]())",
+          "links": [
+            {
+              "label": "#1060",
+              "url": "https://github.com/kellnr/kellnr/pull/1060"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump clap from 4.5.54 to 4.5.58 ([#1062]())",
+          "links": [
+            {
+              "label": "#1062",
+              "url": "https://github.com/kellnr/kellnr/pull/1062"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump syn from 2.0.114 to 2.0.115 ([#1063]())",
+          "links": [
+            {
+              "label": "#1063",
+              "url": "https://github.com/kellnr/kellnr/pull/1063"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump testcontainers from 0.26.3 to 0.27.0 ([#1065]())",
+          "links": [
+            {
+              "label": "#1065",
+              "url": "https://github.com/kellnr/kellnr/pull/1065"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid from 1.19.0 to 1.21.0 ([#1066]())",
+          "links": [
+            {
+              "label": "#1066",
+              "url": "https://github.com/kellnr/kellnr/pull/1066"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(config)* dedup config management and envvar mapping ([#1067]())",
+          "links": [
+            {
+              "label": "#1067",
+              "url": "https://github.com/kellnr/kellnr/pull/1067"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "fix broken migration test",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(config)* dedup config management and envvar mapping",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid from 1.19.0 to 1.21.0",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump testcontainers from 0.26.3 to 0.27.0",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump syn from 2.0.114 to 2.0.115",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump clap from 4.5.54 to 4.5.58",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump marked from 17.0.1 to 17.0.2 in /ui",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump vue from 3.5.27 to 3.5.28 in /ui",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump @eslint/js from 9.39.2 to 10.0.1 in /ui",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump actions/checkout from 4 to 6",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump eslint from 9.39.2 to 10.0.0 in /ui",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump eslint-plugin-vue from 10.7.0 to 10.8.0 in /ui",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump actions/setup-node from 4 to 6",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Fix broken Windows build",
+          "links": []
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.0.0",
       "date": "12. February 2026",
       "entries": [
@@ -149,8 +401,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "5.14.1",
