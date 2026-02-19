@@ -517,14 +517,14 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
             <ConfigGrid>
               <ConfigCard title="S3 Enabled" toml="[s3] enabled" env-var="KELLNR_S3__ENABLED" default-value="false"
                 description="Enable S3 storage instead of local file system." />
-              <ConfigCard title="Access Key" toml="[s3] access_key" env-var="KELLNR_S3__ACCESS_KEY"
-                default-value="access-key" description="Access key for the S3 storage." />
-              <ConfigCard title="Secret Key" toml="[s3] secret_key" env-var="KELLNR_S3__SECRET_KEY"
-                default-value="secret-key" description="Secret key for the S3 storage." />
-              <ConfigCard title="Region" toml="[s3] region" env-var="KELLNR_S3__REGION" default-value="us-east-1"
-                description="Region of the S3 storage." />
-              <ConfigCard title="Endpoint" toml="[s3] endpoint" env-var="KELLNR_S3__ENDPOINT"
-                default-value="http://localhost:9000" description="Endpoint of the S3 storage." />
+              <ConfigCard title="Access Key" toml="[s3] access_key" env-var="KELLNR_S3__ACCESS_KEY" default-value="None"
+                description="Access key for the S3 storage. When ommited, the credential chain is used (env vars, IAM roles, IRSA, etc.)." />
+              <ConfigCard title="Secret Key" toml="[s3] secret_key" env-var="KELLNR_S3__SECRET_KEY" default-value="None"
+                description="Secret key for the S3 storage. When omitted, the credential chain is used (env vars, IAM roles, IRSA, etc.)." />
+              <ConfigCard title="Region" toml="[s3] region" env-var="KELLNR_S3__REGION" default-value="None"
+                description="Region of the S3 storage. When omitted, the region is resolved from the environment." />
+              <ConfigCard title="Endpoint" toml="[s3] endpoint" env-var="KELLNR_S3__ENDPOINT" default-value="None"
+                description="Custom endpoint URL for S3-compatible storage (e.g., MinIO, RustFS). When omitted, the default AWS S3 endpoint is used." />
               <ConfigCard title="Allow HTTP" toml="[s3] allow_http" env-var="KELLNR_S3__ALLOW_HTTP" default-value="true"
                 description="Allow unsecure S3 connection with HTTP." />
               <ConfigCard title="Crates Bucket" toml="[s3] crates_bucket" env-var="KELLNR_S3__CRATES_BUCKET"
