@@ -1,6 +1,49 @@
 {
   "releases": [
     {
+      "version": "6.0.3",
+      "date": "21. February 2026",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "*(oauth2)* normalize origin.path to prevent double slash in callback URL [#1080]()",
+          "links": [
+            {
+              "label": "#1080",
+              "url": "https://github.com/kellnr/kellnr/pull/1080"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
+      "version": "6.0.2",
+      "date": "19. February 2026",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "broken S3 credential handling ([#1076]())",
+          "links": [
+            {
+              "label": "#1076",
+              "url": "https://github.com/kellnr/kellnr/pull/1076"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "cratesio cache not all versions available ([#1077]())",
+          "links": [
+            {
+              "label": "#1077",
+              "url": "https://github.com/kellnr/kellnr/pull/1077"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "version": "6.0.1",
       "date": "16. February 2026",
       "entries": [
@@ -239,8 +282,7 @@
           "content": "Fix broken Windows build",
           "links": []
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.0.0",
