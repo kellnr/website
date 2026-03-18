@@ -1,6 +1,73 @@
 {
   "releases": [
     {
+      "version": "6.1.0",
+      "date": "18. March 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "*(perf)* configurable timeouts and concurrency limits for downloads [#1100]()",
+          "links": [
+            {
+              "label": "#1100",
+              "url": "https://github.com/kellnr/kellnr/pull/1100"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "*(db)* in-memory download counter with periodic flush and atomic SQL [#1098]()",
+          "links": [
+            {
+              "label": "#1098",
+              "url": "https://github.com/kellnr/kellnr/pull/1098"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "*(storage)* cache request coalescing with `try_get_with` and `Bytes` type [#1097]()",
+          "links": [
+            {
+              "label": "#1097",
+              "url": "https://github.com/kellnr/kellnr/pull/1097"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "*(coalescing)* return Bytes directly instead of Vec<u8>, removing .to_vec() copies",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(s3)* build the ClientOptions first with all three settings (connect timeout, request timeout, and allow_http), then pass it to the AmazonS3Builder",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "breaking DB on migrate if not on version 5.14",
+          "links": [
+            {
+              "label": "#1095",
+              "url": "https://github.com/kellnr/kellnr/issues/1095"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "`max_crate_size` default value [#1094]()",
+          "links": [
+            {
+              "label": "#1094",
+              "url": "https://github.com/kellnr/kellnr/pull/1094"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.0.3",
       "date": "21. February 2026",
       "entries": [
@@ -14,8 +81,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.0.2",
