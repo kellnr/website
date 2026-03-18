@@ -441,6 +441,12 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               <ConfigCard title="Token DB Retry Delay" toml="[registry] token_db_retry_delay_ms"
                 env-var="KELLNR_REGISTRY__TOKEN_DB_RETRY_DELAY_MS" default-value="100"
                 description="Delay between retries in milliseconds." />
+              <ConfigCard title="Download Timeout" toml="[registry] download_timeout_seconds"
+                env-var="KELLNR_REGISTRY__DOWNLOAD_TIMEOUT_SECONDS" default-value="60"
+                description="Download request timeout in seconds. Set to 0 to disable." />
+              <ConfigCard title="Download Max Concurrent" toml="[registry] download_max_concurrent"
+                env-var="KELLNR_REGISTRY__DOWNLOAD_MAX_CONCURRENT" default-value="20"
+                description="Maximum number of concurrent download requests. Set to 0 for unlimited." />
             </ConfigGrid>
 
             <h5 class="mt-4 mb-3">Local Server</h5>
@@ -486,6 +492,12 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               <ConfigCard title="Download on Update" toml="[proxy] download_on_update"
                 env-var="KELLNR_PROXY__DOWNLOAD_ON_UPDATE" default-value="false"
                 description="Periodically pre-fetch crates from crates.io that had an update." />
+              <ConfigCard title="Connect Timeout" toml="[proxy] connect_timeout_seconds"
+                env-var="KELLNR_PROXY__CONNECT_TIMEOUT_SECONDS" default-value="5"
+                description="Connect timeout in seconds for upstream requests." />
+              <ConfigCard title="Request Timeout" toml="[proxy] request_timeout_seconds"
+                env-var="KELLNR_PROXY__REQUEST_TIMEOUT_SECONDS" default-value="30"
+                description="Request timeout in seconds for upstream downloads." />
             </ConfigGrid>
 
             <h5 class="mt-4 mb-3">Documentation</h5>
@@ -534,6 +546,12 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               <ConfigCard title="Toolchain Bucket" toml="[s3] toolchain_bucket" env-var="KELLNR_S3__TOOLCHAIN_BUCKET"
                 default-value="kellnr-toolchains"
                 description="Bucket for toolchain archives if the toolchain server is enabled." />
+              <ConfigCard title="Connect Timeout" toml="[s3] connect_timeout_seconds"
+                env-var="KELLNR_S3__CONNECT_TIMEOUT_SECONDS" default-value="5"
+                description="S3 connect timeout in seconds." />
+              <ConfigCard title="Request Timeout" toml="[s3] request_timeout_seconds"
+                env-var="KELLNR_S3__REQUEST_TIMEOUT_SECONDS" default-value="30"
+                description="S3 request timeout in seconds." />
             </ConfigGrid>
 
             <h5 class="mt-4 mb-3">OAuth2/OIDC</h5>
