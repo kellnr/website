@@ -1,6 +1,33 @@
 {
   "releases": [
     {
+      "version": "6.1.1",
+      "date": "01. April 2026",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "reset password UI validation issue [#1144]()",
+          "links": [
+            {
+              "label": "#1144",
+              "url": "https://github.com/kellnr/kellnr/issues/1144"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "fix oath autocreate username problem [#1135]()",
+          "links": [
+            {
+              "label": "#1135",
+              "url": "https://github.com/kellnr/kellnr/pull/1135"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.1.0",
       "date": "18. March 2026",
       "entries": [
@@ -64,8 +91,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.0.3",
