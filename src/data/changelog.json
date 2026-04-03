@@ -1,6 +1,23 @@
 {
   "releases": [
     {
+      "version": "6.1.2-rc1",
+      "date": "03. April 2026",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "fix: sha256 not returned by toolchain endpoint #1155 by @secana",
+          "links": [
+            {
+              "label": "#1156",
+              "url": "https://github.com/kellnr/kellnr/pull/1156"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.1.1",
       "date": "01. April 2026",
       "entries": [
@@ -24,8 +41,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.1.0",
