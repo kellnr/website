@@ -1,6 +1,33 @@
 {
   "releases": [
     {
+      "version": "6.1.2-rc2",
+      "date": "07. April 2026",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "fix: rustup toolchain handling #1155 by @secana",
+          "links": [
+            {
+              "label": "#1167",
+              "url": "https://github.com/kellnr/kellnr/pull/1167"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "ci: generate SBOM for npm deps additional to cargo deps by @secana",
+          "links": [
+            {
+              "label": "#1159",
+              "url": "https://github.com/kellnr/kellnr/pull/1159"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.1.1",
       "date": "01. April 2026",
       "entries": [
@@ -24,8 +51,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.1.0",
