@@ -1,6 +1,43 @@
 {
   "releases": [
     {
+      "version": "6.1.2-rc3",
+      "date": "08. April 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "feat: add UI and error codes to indicate status of toolchain uploads #1155 by @secana",
+          "links": [
+            {
+              "label": "#1170",
+              "url": "https://github.com/kellnr/kellnr/pull/1170"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "fix: apply backpressure to download semaphore by @cloudiful",
+          "links": [
+            {
+              "label": "#1168",
+              "url": "https://github.com/kellnr/kellnr/pull/1168"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "fix: tolerate crates.io cache write races by @cloudiful",
+          "links": [
+            {
+              "label": "#1169",
+              "url": "https://github.com/kellnr/kellnr/pull/1169"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.1.1",
       "date": "01. April 2026",
       "entries": [
@@ -24,8 +61,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.1.0",
