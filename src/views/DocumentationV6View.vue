@@ -70,6 +70,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                   <li><router-link to="#cargo-install">Cargo Install</router-link></li>
                   <li><router-link to="#manual-installation">Manual Installation</router-link></li>
                   <li><router-link to="#helm-chart">Helm Chart</router-link></li>
+                  <li><router-link to="#windows">Windows</router-link></li>
                 </ul>
               </li>
               <li><router-link to="#uninstall">Uninstall</router-link></li>
@@ -168,6 +169,38 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
             <CodeBlock lang="bash">
               # Install Kellnr with yay
               yay -S kellnr
+            </CodeBlock>
+
+            <TextBlock>
+              <b>Nix Flake</b><br />
+              Kellnr provides a Nix flake that can be used to run Kellnr directly or install it into your
+              system profile. The flake supports <code>x86_64-linux</code>, <code>aarch64-linux</code>,
+              <code>x86_64-darwin</code>, and <code>aarch64-darwin</code>.
+            </TextBlock>
+            <CodeBlock lang="bash">
+              # Run Kellnr directly without installing
+              nix run github:kellnr/kellnr -- start -d /path/to/data/dir
+
+              # Install Kellnr into your profile
+              nix profile install github:kellnr/kellnr
+
+              # Start Kellnr after installing
+              kellnr start -d /path/to/data/dir
+            </CodeBlock>
+            <TextBlock>
+              To use Kellnr as an input in your own flake (e.g. for a NixOS module or development shell):
+            </TextBlock>
+            <CodeBlock lang="nix">
+              {
+                inputs = {
+                  nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+                  kellnr.url = "github:kellnr/kellnr";
+                };
+
+                outputs = { nixpkgs, kellnr, ... }: {
+                  # Use kellnr.packages.${system}.default
+                };
+              }
             </CodeBlock>
 
             <SubHeader id="script">Script</SubHeader>
@@ -320,6 +353,34 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 href="https://github.com/kellnr/helm">Kellnr
                 Helm Chart</a>
             </TextBlock>
+
+            <SubHeader id="windows">Windows</SubHeader>
+            <TextBlock>
+              Pre-built Windows binaries are published as release assets on GitHub for every release.
+              Download the archive for your architecture, extract it, and run Kellnr directly.
+              <ul>
+                <li><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-x86_64-windows.zip">kellnr-x86_64-windows.zip</a> (x86_64)</li>
+                <li><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-aarch64-windows.zip">kellnr-aarch64-windows.zip</a> (ARM64)</li>
+              </ul>
+              You can find all releases on the <a href="https://github.com/kellnr/kellnr/releases">GitHub Releases</a> page.
+            </TextBlock>
+            <CodeBlock lang="powershell">
+              # Download and extract (PowerShell)
+              Invoke-WebRequest -Uri "https://github.com/kellnr/kellnr/releases/latest/download/kellnr-x86_64-windows.zip" -OutFile kellnr.zip
+              Expand-Archive kellnr.zip -DestinationPath kellnr
+              cd kellnr
+
+              # (Optional) Create a configuration file
+              .\kellnr.exe config init -o kellnr.toml
+
+              # Start Kellnr
+              .\kellnr.exe start -d C:\path\to\data\dir
+            </CodeBlock>
+
+            <WarnBlock>
+              The Windows binaries are not tested and are provided on a best-effort basis. If you encounter
+              any issues, please report them on <a href="https://github.com/kellnr/kellnr/issues">GitHub</a>.
+            </WarnBlock>
 
             <MainHeader id="uninstall" icon="delete">Uninstall</MainHeader>
             <TextBlock>
@@ -850,7 +911,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 <li>Channel management (stable, beta, nightly, or custom channels)</li>
                 <li>Multi-target support (x86_64-unknown-linux-gnu, aarch64-apple-darwin, etc.)</li>
                 <li>Web UI for toolchain and channel management (Settings → Toolchains)</li>
-                <li>Admin-only uploads with public downloads (respects <code>auth_required</code> setting)</li>
+                <li>Admin-only uploads with public downloads</li>
               </ul>
             </TextBlock>
 
@@ -938,6 +999,13 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               # Make it permanent in your shell config
               echo 'export RUSTUP_DIST_SERVER=https://kellnr.example.com/api/v1/toolchains' >> ~/.bashrc
             </CodeBlock>
+
+            <WarnBlock>
+              The toolchain distribution endpoints do not support authentication. Rustup does not support
+              sending authentication headers, cookies, or tokens when downloading from a custom
+              <code>RUSTUP_DIST_SERVER</code>. If you need to restrict access, use network-level controls
+              such as a reverse proxy, VPN, or IP allowlisting.
+            </WarnBlock>
 
             <WarnBlock>
               The toolchain server is designed for organizations that need to distribute custom or approved
