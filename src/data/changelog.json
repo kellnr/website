@@ -1,6 +1,12 @@
 {
   "releases": [
     {
+      "version": "6.1.2-rc4",
+      "date": "11. April 2026",
+      "entries": [],
+      "isLatest": true
+    },
+    {
       "version": "6.1.1",
       "date": "01. April 2026",
       "entries": [
@@ -24,8 +30,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.1.0",
