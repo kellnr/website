@@ -1,6 +1,33 @@
 {
   "releases": [
     {
+      "version": "6.2.0",
+      "date": "13. April 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "install toolchain by version additional to by channel",
+          "links": [
+            {
+              "label": "#1155",
+              "url": "https://github.com/kellnr/kellnr/issues/1155"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "remove authentication from toolchain API",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "toolchain API not working correctly",
+          "links": []
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.1.1",
       "date": "01. April 2026",
       "entries": [
@@ -24,8 +51,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.1.0",
