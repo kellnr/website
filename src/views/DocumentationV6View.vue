@@ -983,22 +983,30 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
             <TextBlock>
               <b>Using with Rustup</b><br />
               Once toolchains are uploaded and channels configured, users can install them via rustup by
-              setting the <code>RUSTUP_DIST_SERVER</code> environment variable:
+              setting the <code>RUSTUP_DIST_SERVER</code> environment variable. Toolchains can be installed
+              either by channel name or by version number:
             </TextBlock>
 
             <CodeBlock lang="bash">
               # Point rustup at your Kellnr instance
               export RUSTUP_DIST_SERVER=https://kellnr.example.com/api/v1/toolchains
 
-              # Install a channel
+              # Install by channel name
               rustup install stable
 
-              # Install a specific version (if uploaded)
+              # Install by version number (no channel assignment needed)
               rustup install 1.75.0
 
               # Make it permanent in your shell config
               echo 'export RUSTUP_DIST_SERVER=https://kellnr.example.com/api/v1/toolchains' >> ~/.bashrc
             </CodeBlock>
+
+            <TextBlock>
+              When installing by channel name (e.g. <code>stable</code>), rustup fetches the manifest
+              <code>channel-rust-stable.toml</code> and installs the version that the channel points to.
+              When installing by version number (e.g. <code>1.75.0</code>), Kellnr looks up the toolchain
+              directly by its version, so the toolchain does not need to be assigned to a channel.
+            </TextBlock>
 
             <WarnBlock>
               The toolchain distribution endpoints do not support authentication. Rustup does not support
