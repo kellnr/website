@@ -508,6 +508,9 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               <ConfigCard title="Download Max Concurrent" toml="[registry] download_max_concurrent"
                 env-var="KELLNR_REGISTRY__DOWNLOAD_MAX_CONCURRENT" default-value="20"
                 description="Maximum number of concurrent download requests. Set to 0 for unlimited." />
+              <ConfigCard title="Download Counter Flush Interval" toml="[registry] download_counter_flush_seconds"
+                env-var="KELLNR_REGISTRY__DOWNLOAD_COUNTER_FLUSH_SECONDS" default-value="30"
+                description="Interval in seconds between flushing download counts to the database. Set to 0 to flush on every download." />
             </ConfigGrid>
 
             <h5 class="mt-4 mb-3">Local Server</h5>
@@ -553,6 +556,15 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               <ConfigCard title="Download on Update" toml="[proxy] download_on_update"
                 env-var="KELLNR_PROXY__DOWNLOAD_ON_UPDATE" default-value="false"
                 description="Periodically pre-fetch crates from crates.io that had an update." />
+              <ConfigCard title="Download URL" toml="[proxy] url" env-var="KELLNR_PROXY__URL"
+                default-value="https://static.crates.io/crates/"
+                description="URL used to download crate files. Override this to use a crates.io mirror." />
+              <ConfigCard title="Index URL" toml="[proxy] index" env-var="KELLNR_PROXY__INDEX"
+                default-value="https://index.crates.io/"
+                description="Sparse index URL used to fetch crate metadata. Override this to use a crates.io mirror." />
+              <ConfigCard title="API URL" toml="[proxy] api" env-var="KELLNR_PROXY__API"
+                default-value="https://crates.io/api/v1/crates/"
+                description="REST API URL used for crate search and metadata lookups. Override this to use a crates.io mirror." />
               <ConfigCard title="Connect Timeout" toml="[proxy] connect_timeout_seconds"
                 env-var="KELLNR_PROXY__CONNECT_TIMEOUT_SECONDS" default-value="5"
                 description="Connect timeout in seconds for upstream requests." />
