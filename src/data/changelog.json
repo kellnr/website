@@ -1,6 +1,12 @@
 {
   "releases": [
     {
+      "version": "6.3.0",
+      "date": "18. April 2026",
+      "entries": [],
+      "isLatest": true
+    },
+    {
       "version": "6.2.0",
       "date": "13. April 2026",
       "entries": [
@@ -24,8 +30,7 @@
           "content": "toolchain API not working correctly",
           "links": []
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.1.1",
