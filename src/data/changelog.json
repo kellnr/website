@@ -3,7 +3,18 @@
     {
       "version": "6.3.0",
       "date": "18. April 2026",
-      "entries": [],
+      "entries": [
+        {
+          "type": "Added",
+          "content": "proxy.api settings to fetch metadata from another endpoint instead of crates.io",
+          "links": [
+            {
+              "label": "#1179",
+              "url": "https://github.com/kellnr/kellnr/issues/1179"
+            }
+          ]
+        }
+      ],
       "isLatest": true
     },
     {
