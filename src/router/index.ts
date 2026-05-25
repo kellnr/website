@@ -20,6 +20,7 @@ import Release5 from "../views/posts/Release5.vue";
 import RustAssembly from "../views/posts/RustAssembly.vue";
 import Review2025 from "../views/posts/Review2025.vue";
 import Release6 from "../views/posts/Release6.vue";
+import FromConfigToProvcfg from "../views/posts/FromConfigToProvcfg.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -137,6 +138,11 @@ const router = createRouter({
             path: '/blog/release6',
             name: 'release6',
             component: Release6
+        },
+        {
+            path: '/blog/from-config-to-provcfg',
+            name: 'from-config-to-provcfg',
+            component: FromConfigToProvcfg
         },
         // Default route to redirect all unknown paths to the landing page
         {

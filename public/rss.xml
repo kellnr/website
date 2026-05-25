@@ -3,11 +3,115 @@
   <id>kellnr.io/blog</id>
   <title>kellnr.io - The Rust Registry</title>
   <subtitle>Rust development related blog</subtitle>
-  <updated>2026-02-16T12:00:00.000Z</updated>
+  <updated>2026-05-25T12:00:00+00:00</updated>
   <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
   <link rel="alternate" href="https://kellnr.io/blog" type="text/html" />
   <icon>https://kellnr.io/favicon.ico</icon>
   <logo>https://kellnr.io/favicon.ico</logo>
+  <entry>
+    <id>https://kellnr.io/blog/from-config-to-provcfg</id>
+    <title>From config to provcfg: Tracking Where a Setting Came From</title>
+    <link href="https://kellnr.io/blog/from-config-to-provcfg" />
+    <published>2026-05-25T12:00:00+00:00</published>
+    <updated>2026-05-25T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[How Kellnr replaced the config crate and its surrounding glue with provcfg, a new library that treats configuration provenance as a first-class concept. The migration collapsed three parallel descriptions of every setting into one and turned the Startup Configuration UI into a dynamic view.]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#6.3.0</id>
+    <title>Kellnr 6.3.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2026-04-18T12:00:00.000Z</published>
+    <updated>2026-04-18T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 6.3.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>proxy.api settings to fetch metadata from another endpoint instead of crates.io <a href="https://github.com/kellnr/kellnr/issues/1179" target="_blank" rel="noopener noreferrer">#1179</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#6.2.0</id>
+    <title>Kellnr 6.2.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2026-04-13T12:00:00.000Z</published>
+    <updated>2026-04-13T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 6.2.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>install toolchain by version additional to by channel <a href="https://github.com/kellnr/kellnr/issues/1155" target="_blank" rel="noopener noreferrer">#1155</a></li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>remove authentication from toolchain API</li>
+<li>toolchain API not working correctly</li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#6.1.1</id>
+    <title>Kellnr 6.1.1 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2026-04-01T12:00:00.000Z</published>
+    <updated>2026-04-01T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 6.1.1 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>reset password UI validation issue [#1144]() <a href="https://github.com/kellnr/kellnr/issues/1144" target="_blank" rel="noopener noreferrer">#1144</a></li>
+<li>fix oath autocreate username problem [#1135]() <a href="https://github.com/kellnr/kellnr/pull/1135" target="_blank" rel="noopener noreferrer">#1135</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#6.1.0</id>
+    <title>Kellnr 6.1.0 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2026-03-18T12:00:00.000Z</published>
+    <updated>2026-03-18T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 6.1.0 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Added:</strong>
+<ul>
+<li>*(perf)* configurable timeouts and concurrency limits for downloads [#1100]() <a href="https://github.com/kellnr/kellnr/pull/1100" target="_blank" rel="noopener noreferrer">#1100</a></li>
+<li>*(db)* in-memory download counter with periodic flush and atomic SQL [#1098]() <a href="https://github.com/kellnr/kellnr/pull/1098" target="_blank" rel="noopener noreferrer">#1098</a></li>
+<li>*(storage)* cache request coalescing with `try_get_with` and `Bytes` type [#1097]() <a href="https://github.com/kellnr/kellnr/pull/1097" target="_blank" rel="noopener noreferrer">#1097</a></li>
+<li>*(coalescing)* return Bytes directly instead of Vec<u8>, removing .to_vec() copies</li>
+</ul>
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>*(s3)* build the ClientOptions first with all three settings (connect timeout, request timeout, and allow_http), then pass it to the AmazonS3Builder</li>
+<li>breaking DB on migrate if not on version 5.14 <a href="https://github.com/kellnr/kellnr/issues/1095" target="_blank" rel="noopener noreferrer">#1095</a></li>
+<li>`max_crate_size` default value [#1094]() <a href="https://github.com/kellnr/kellnr/pull/1094" target="_blank" rel="noopener noreferrer">#1094</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#6.0.3</id>
+    <title>Kellnr 6.0.3 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2026-02-21T12:00:00.000Z</published>
+    <updated>2026-02-21T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 6.0.3 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>*(oauth2)* normalize origin.path to prevent double slash in callback URL [#1080]() <a href="https://github.com/kellnr/kellnr/pull/1080" target="_blank" rel="noopener noreferrer">#1080</a></li>
+</ul>]]></content>
+  </entry>
+  <entry>
+    <id>https://kellnr.io/changelog#6.0.2</id>
+    <title>Kellnr 6.0.2 release</title>
+    <link href="https://kellnr.io/changelog" />
+    <published>2026-02-19T12:00:00.000Z</published>
+    <updated>2026-02-19T12:00:00.000Z</updated>
+    <content type="html"><![CDATA[Version 6.0.2 of Kellnr, the private Rust registry, is released.
+<br/>
+<strong>Fixed:</strong>
+<ul>
+<li>broken S3 credential handling ([#1076]()) <a href="https://github.com/kellnr/kellnr/pull/1076" target="_blank" rel="noopener noreferrer">#1076</a></li>
+<li>cratesio cache not all versions available ([#1077]()) <a href="https://github.com/kellnr/kellnr/pull/1077" target="_blank" rel="noopener noreferrer">#1077</a></li>
+</ul>]]></content>
+  </entry>
   <entry>
     <id>https://kellnr.io/changelog#6.0.1</id>
     <title>Kellnr 6.0.1 release</title>

@@ -1,6 +1,13 @@
 {
   "posts": [
     {
+      "id": "from-config-to-provcfg",
+      "title": "From config to provcfg: Tracking Where a Setting Came From",
+      "url": "https://kellnr.io/blog/from-config-to-provcfg",
+      "published": "2026-05-25T12:00:00+00:00",
+      "summaryHtml": "How Kellnr replaced the config crate and its surrounding glue with provcfg, a new library that treats configuration provenance as a first-class concept. The migration collapsed three parallel descriptions of every setting into one and turned the Startup Configuration UI into a dynamic view."
+    },
+    {
       "id": "release6",
       "title": "Kellnr 6.0.0 Release",
       "url": "https://kellnr.io/blog/release6",
