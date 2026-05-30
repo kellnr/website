@@ -1,0 +1,22 @@
+# Build output and dependencies
+dist
+node_modules
+
+# Lockfiles and generated data
+package-lock.json
+src/data
+
+# Vendored / minified assets
+src/assets/css
+public
+
+# Vue single-file components are excluded: the project compiles templates with
+# `whitespace: 'preserve'`, and many components embed whitespace-sensitive
+# preformatted code (e.g. blog posts using <CodeBlock>). Reformatting their
+# templates would alter rendered output. Format Vue files manually if needed.
+*.vue
+
+# Other non-source content
+*.md
+*.html
+*.css

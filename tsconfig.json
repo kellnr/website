@@ -1,11 +1,11 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.json",
-  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*", "playwright.config.*"],
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
-    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "types": ["node"]
   },
-  "files": [],
-  "references": [
-  ]
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "vite.config.*", "vitest.config.*"]
 }

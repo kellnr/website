@@ -28,18 +28,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const PROJECT_ROOT = path.resolve(__dirname, "..");
-const CHANGELOG_JSON_PATH = path.join(
-  PROJECT_ROOT,
-  "src",
-  "data",
-  "changelog.json"
-);
-const BLOG_POSTS_JSON_PATH = path.join(
-  PROJECT_ROOT,
-  "src",
-  "data",
-  "blog-posts.json"
-);
+const CHANGELOG_JSON_PATH = path.join(PROJECT_ROOT, "src", "data", "changelog.json");
+const BLOG_POSTS_JSON_PATH = path.join(PROJECT_ROOT, "src", "data", "blog-posts.json");
 const OUTPUT_RSS_PATH = path.join(PROJECT_ROOT, "public", "rss.xml");
 
 const SITE_URL = "https://kellnr.io";
@@ -95,33 +85,21 @@ function assert(condition, message) {
 }
 
 function assertString(value, path) {
-  assert(
-    typeof value === "string",
-    `Expected string at ${path}, got ${typeof value}`
-  );
+  assert(typeof value === "string", `Expected string at ${path}, got ${typeof value}`);
 }
 
 function assertOptionalArray(value, path) {
   if (value === undefined) return;
-  assert(
-    Array.isArray(value),
-    `Expected array at ${path}, got ${typeof value}`
-  );
+  assert(Array.isArray(value), `Expected array at ${path}, got ${typeof value}`);
 }
 
 function assertOptionalBoolean(value, path) {
   if (value === undefined) return;
-  assert(
-    typeof value === "boolean",
-    `Expected boolean at ${path}, got ${typeof value}`
-  );
+  assert(typeof value === "boolean", `Expected boolean at ${path}, got ${typeof value}`);
 }
 
 function validateChangelogDocument(doc, filePath) {
-  assert(
-    isPlainObject(doc),
-    `Invalid changelog JSON: expected object at ${filePath}`
-  );
+  assert(isPlainObject(doc), `Invalid changelog JSON: expected object at ${filePath}`);
   assert(
     Array.isArray(doc.releases),
     `Invalid changelog JSON: expected "releases" array at ${filePath}`
@@ -157,10 +135,7 @@ function validateChangelogDocument(doc, filePath) {
 }
 
 function validateBlogPostsDocument(doc, filePath) {
-  assert(
-    isPlainObject(doc),
-    `Invalid blog-posts JSON: expected object at ${filePath}`
-  );
+  assert(isPlainObject(doc), `Invalid blog-posts JSON: expected object at ${filePath}`);
   assert(
     Array.isArray(doc.posts),
     `Invalid blog-posts JSON: expected "posts" array at ${filePath}`
@@ -243,21 +218,12 @@ function buildReleaseEntryContentHtml(release) {
 
   const lines = [];
   lines.push(
-    `Version ${escapeXml(
-      release.version
-    )} of Kellnr, the private Rust registry, is released.`
+    `Version ${escapeXml(release.version)} of Kellnr, the private Rust registry, is released.`
   );
 
   if (Array.isArray(release.entries) && release.entries.length > 0) {
     // Group by type to produce a Keep-a-Changelog-ish summary.
-    const order = [
-      "Added",
-      "Changed",
-      "Deprecated",
-      "Fixed",
-      "Removed",
-      "Security",
-    ];
+    const order = ["Added", "Changed", "Deprecated", "Fixed", "Removed", "Security"];
     const byType = new Map();
     for (const e of release.entries) {
       const t = String(e.type || "Changed");
@@ -373,10 +339,7 @@ async function main() {
 
   const allEntries = [...releases, ...blogEntries].sort(compareEntriesDesc);
 
-  const updated =
-    allEntries.length > 0
-      ? allEntries[0].publishedRfc3339
-      : new Date().toISOString();
+  const updated = allEntries.length > 0 ? allEntries[0].publishedRfc3339 : new Date().toISOString();
 
   const entriesXml = allEntries.map(buildAtomEntryXml).join("\n");
 
@@ -387,12 +350,8 @@ async function main() {
     `  <title>${escapeXml(FEED_TITLE)}</title>`,
     `  <subtitle>${escapeXml(FEED_SUBTITLE)}</subtitle>`,
     `  <updated>${escapeXml(updated)}</updated>`,
-    `  <link rel="self" href="${escapeXml(
-      FEED_SELF
-    )}" type="application/atom+xml" />`,
-    `  <link rel="alternate" href="${escapeXml(
-      FEED_ALTERNATE
-    )}" type="text/html" />`,
+    `  <link rel="self" href="${escapeXml(FEED_SELF)}" type="application/atom+xml" />`,
+    `  <link rel="alternate" href="${escapeXml(FEED_ALTERNATE)}" type="text/html" />`,
     `  <icon>${escapeXml(FEED_ICON)}</icon>`,
     `  <logo>${escapeXml(FEED_LOGO)}</logo>`,
     entriesXml,
@@ -401,7 +360,6 @@ async function main() {
   ].join("\n");
 
   await fs.writeFile(OUTPUT_RSS_PATH, feedXml, "utf8");
-  // eslint-disable-next-line no-console
   console.log(
     `Generated ${path.relative(
       PROJECT_ROOT,
@@ -411,7 +369,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  // eslint-disable-next-line no-console
   console.error(err);
   process.exitCode = 1;
 });
