@@ -571,6 +571,9 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               <ConfigCard title="Request Timeout" toml="[proxy] request_timeout_seconds"
                 env-var="KELLNR_PROXY__REQUEST_TIMEOUT_SECONDS" default-value="30"
                 description="Request timeout in seconds for upstream downloads." />
+              <ConfigCard title="User Agent" toml="[proxy] user_agent" env-var="KELLNR_PROXY__USER_AGENT"
+                default-value="kellnr.io/kellnr"
+                description="User-agent sent with requests to crates.io. crates.io's data-access policy asks for a user-agent that identifies the application and a way to get in contact, e.g. 'kellnr.io/kellnr (contact@example.com)'." />
             </ConfigGrid>
 
             <h5 class="mt-4 mb-3">Documentation</h5>
