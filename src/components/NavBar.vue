@@ -82,7 +82,7 @@ import { onMounted, ref } from "vue";
 
 const isCondensed = ref<boolean>(false);
 
-const props = defineProps<{
+defineProps<{
     isWhiteNavbar: boolean
     navLight: boolean
     isIcons: boolean
@@ -98,23 +98,25 @@ onMounted(() => {
             document.body.scrollTop > 50 ||
             document.documentElement.scrollTop > 50
         ) {
-            document.getElementById("topnav").classList.add("nav-sticky");
+            document.getElementById("topnav")?.classList.add("nav-sticky");
         } else {
-            document.getElementById("topnav").classList.remove("nav-sticky");
+            document.getElementById("topnav")?.classList.remove("nav-sticky");
         }
 
         if (
             document.body.scrollTop > 100 ||
             document.documentElement.scrollTop > 100
         ) {
-            document.getElementById("back-to-top").style.display = "inline";
+            const backToTop = document.getElementById("back-to-top");
+            if (backToTop) backToTop.style.display = "inline";
         } else {
-            document.getElementById("back-to-top").style.display = "none";
+            const backToTop = document.getElementById("back-to-top");
+            if (backToTop) backToTop.style.display = "none";
         }
     }
 
-    var links = document.getElementsByClassName("side-nav-link-ref");
-    for (var i = 0; i < links.length; i++) {
+    const links = document.getElementsByClassName("side-nav-link-ref");
+    for (let i = 0; i < links.length; i++) {
         if (window.location.pathname === (links[i] as HTMLAnchorElement).pathname) {
             links[i].classList.add("active");
             break;
@@ -127,17 +129,19 @@ onMounted(() => {
  */
 function toggleMenu() {
     isCondensed.value = !isCondensed.value;
-    if (isCondensed.value) {
-        document.getElementById("navigation").style.display = "block";
-    } else document.getElementById("navigation").style.display = "none";
+    const navigation = document.getElementById("navigation");
+    if (navigation) {
+        navigation.style.display = isCondensed.value ? "block" : "none";
+    }
 }
 
 /**
  * Menu clicked show the submenu
  */
-function onMenuClick(event: any) {
+function onMenuClick(event: MouseEvent) {
     event.preventDefault();
-    const submenu = event.target.closest('.has-submenu')?.querySelector('.submenu');
+    const target = event.target as HTMLElement | null;
+    const submenu = target?.closest('.has-submenu')?.querySelector('.submenu');
     submenu?.classList.toggle("open");
 }
 </script>

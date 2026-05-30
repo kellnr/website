@@ -23,7 +23,7 @@ import CodeBlock from "../../components/elements/CodeBlock.vue";
             has a great testing framework built in. So, let's see how we can combine both to test our assembly code with
             Rust.
         </TextBlock>
-        <SubHeader title="writing-some-assembly">Writing some Assembly</SubHeader>
+        <SubHeader id="writing-some-assembly">Writing some Assembly</SubHeader>
         <TextBlock>
             First, let's start with just assembly and keep Rust for later. As it is tradition, we start with a "Hello
             World".
@@ -191,7 +191,7 @@ format: .asciz "Result: %ld\n"
             stores the return address in the link register and jumps to the target address. The <i>ret</i> instruction
             is used to return from a function and jumps to the address stored in the link register.
         </TextBlock>
-        <SubHeader title="testing-assembly-with-rust">Testing Assembly with Rust</SubHeader>
+        <SubHeader id="testing-assembly-with-rust">Testing Assembly with Rust</SubHeader>
         <TextBlock>
             As this is a blog post about Rust, let's see how we can test the assembly code with Rust.
             To do so, we create a Rust library and add a <i>build.rs</i> file that builds the assembly code and links it
@@ -390,14 +390,14 @@ mod tests {
         <TextBlock>
         The test function creates a C string, converts it to a raw pointer and calls the assembly function. After the function call, the raw pointer is converted back to a C string and checked if the conversion was successful. The test function is a good example of how to test assembly code with Rust. We can create complex test cases and check the results with Rust's testing framework.
         </TextBlock>
-        <SubHeader title="conclusion">Conclusion</SubHeader>
+        <SubHeader id="conclusion">Conclusion</SubHeader>
         <TextBlock>
         In this blog post, we have seen how to test assembly code with Rust. We have written a few assembly functions and tested them with Rust. The development cycle is sweet. We write assembly code, build it with a Makefile, and test it with Rust. We have seen how to write a "to upper" function in assembly and how to test it with Rust. The test function creates a C string, converts it to a raw pointer, calls the assembly function, and checks if the conversion was successful. The test function is a good example of how to test assembly code with Rust. We can create complex test cases and check the results with Rust's testing framework.
         <br />
         <br />
         You find the full code on <a href="https://github.com/kellnr/blog-rust-asm/tree/main">GitHub</a>.
         </TextBlock>
-        <SubHeader title="further-reading">Further Reading</SubHeader>
+        <SubHeader id="further-reading">Further Reading</SubHeader>
         <TextBlock>As usual, we stand on the shoulders of giants. Here are some resources that helped me to write this blog post:
         <br />
         <br />

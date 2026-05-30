@@ -238,7 +238,7 @@ where
 // defined by the Wasm specification. The identifier
 // has to start with a "$" sign and can be between whitespaces.
 pub fn id(input: &amp;str) -&gt; IResult&lt;&amp;str, &amp;str&gt; {
-    let additional_chars = "!#$%&amp;'*+-./:<>=?@\\^_`|~";
+    let additional_chars = "!#$%&amp;'*+-./:&lt;&gt;=?@\\^_`|~";
     let id_char = alt((alphanumeric1, is_a(additional_chars)));
     let id = recognize(pair(tag("$"), many1(id_char)));
     bws(id)(input)

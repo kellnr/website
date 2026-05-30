@@ -7,10 +7,10 @@ import router from "@/router";
 
 onMounted(() => {
     // From testing, without a brief timeout, it won't work.
-    setTimeout(() => scrollFix(router.hash), 1);
+    setTimeout(() => scrollFix(router.currentRoute.value.hash), 1);
 });
 
-function scrollFix(hashbang)
+function scrollFix(hashbang: string)
 {
     location.hash = hashbang;
 }

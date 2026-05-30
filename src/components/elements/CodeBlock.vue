@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted, useSlots } from "vue";
+import { ref, onMounted } from "vue";
 import hljs from "highlight.js";
 
 const props = defineProps<{
   lang?: string;
 }>();
 
-const slots = useSlots();
 const codeContainer = ref<HTMLElement | null>(null);
 const processedCode = ref("");
 const isNewFormat = ref(false);
