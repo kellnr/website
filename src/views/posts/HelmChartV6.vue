@@ -174,7 +174,7 @@ helm upgrade kellnr kellnr/kellnr
     </WarnBlock>
 
     <CodeBlock lang="yaml">
-# Before (chart < 6.0.0)
+# Before (chart &lt; 6.0.0)
 secret:
   enabled: true
   useExisting: true
