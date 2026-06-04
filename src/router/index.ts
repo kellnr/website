@@ -21,6 +21,7 @@ import RustAssembly from "../views/posts/RustAssembly.vue";
 import Review2025 from "../views/posts/Review2025.vue";
 import Release6 from "../views/posts/Release6.vue";
 import FromConfigToProvcfg from "../views/posts/FromConfigToProvcfg.vue";
+import HelmChartV6 from "../views/posts/HelmChartV6.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -148,6 +149,11 @@ const router = createRouter({
       path: "/blog/from-config-to-provcfg",
       name: "from-config-to-provcfg",
       component: FromConfigToProvcfg,
+    },
+    {
+      path: "/blog/helm-chart-v6",
+      name: "helm-chart-v6",
+      component: HelmChartV6,
     },
     // Default route to redirect all unknown paths to the landing page
     {
