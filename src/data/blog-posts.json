@@ -1,6 +1,13 @@
 {
   "posts": [
     {
+      "id": "helm-chart-v6",
+      "title": "A Safer Kellnr Helm Chart: Splitting Config and Secrets (Chart v6.0.0)",
+      "url": "https://kellnr.io/blog/helm-chart-v6",
+      "published": "2026-06-04T12:00:00+00:00",
+      "summaryHtml": "Chart version 6.0.0 reworks how the Kellnr Helm chart handles configuration. Sensitive values now live in a Secret rather than a plaintext ConfigMap, and the chart gains health probes, a values schema, a smoke test, and arbitrary env-var support. A breaking change with a short upgrade path."
+    },
+    {
       "id": "from-config-to-provcfg",
       "title": "From config to provcfg: Tracking Where a Setting Came From",
       "url": "https://kellnr.io/blog/from-config-to-provcfg",

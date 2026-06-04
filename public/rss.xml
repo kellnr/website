@@ -3,11 +3,19 @@
   <id>kellnr.io/blog</id>
   <title>kellnr.io - The Rust Registry</title>
   <subtitle>Rust development related blog</subtitle>
-  <updated>2026-05-25T12:00:00+00:00</updated>
+  <updated>2026-06-04T12:00:00+00:00</updated>
   <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
   <link rel="alternate" href="https://kellnr.io/blog" type="text/html" />
   <icon>https://kellnr.io/favicon.ico</icon>
   <logo>https://kellnr.io/favicon.ico</logo>
+  <entry>
+    <id>https://kellnr.io/blog/helm-chart-v6</id>
+    <title>A Safer Kellnr Helm Chart: Splitting Config and Secrets (Chart v6.0.0)</title>
+    <link href="https://kellnr.io/blog/helm-chart-v6" />
+    <published>2026-06-04T12:00:00+00:00</published>
+    <updated>2026-06-04T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[Chart version 6.0.0 reworks how the Kellnr Helm chart handles configuration. Sensitive values now live in a Secret rather than a plaintext ConfigMap, and the chart gains health probes, a values schema, a smoke test, and arbitrary env-var support. A breaking change with a short upgrade path.]]></content>
+  </entry>
   <entry>
     <id>https://kellnr.io/blog/from-config-to-provcfg</id>
     <title>From config to provcfg: Tracking Where a Setting Came From</title>
