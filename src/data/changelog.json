@@ -1,6 +1,768 @@
 {
   "releases": [
     {
+      "version": "6.4.0",
+      "date": "12. June 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "add setting to set user agent",
+          "links": [
+            {
+              "label": "#1223",
+              "url": "https://github.com/kellnr/kellnr/issues/1223"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "improve get_crate_data performance by grouping dep desc queries ([#1235]())",
+          "links": [
+            {
+              "label": "#1235",
+              "url": "https://github.com/kellnr/kellnr/pull/1235"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "use proxy correctly in cargo docs generation",
+          "links": [
+            {
+              "label": "#1185",
+              "url": "https://github.com/kellnr/kellnr/issues/1185"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "rust-toolchain.toml wrongly taken into account",
+          "links": [
+            {
+              "label": "#1176",
+              "url": "https://github.com/kellnr/kellnr/issues/1176"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "formatting",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "update sqlx and cargo crates ([#1236]())",
+          "links": [
+            {
+              "label": "#1236",
+              "url": "https://github.com/kellnr/kellnr/pull/1236"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 9 updates ([#1234]())",
+          "links": [
+            {
+              "label": "#1234",
+              "url": "https://github.com/kellnr/kellnr/pull/1234"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump chrono from 0.4.44 to 0.4.45 ([#1233]())",
+          "links": [
+            {
+              "label": "#1233",
+              "url": "https://github.com/kellnr/kellnr/pull/1233"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 9 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump chrono from 0.4.44 to 0.4.45",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 9 updates ([#1228]())",
+          "links": [
+            {
+              "label": "#1228",
+              "url": "https://github.com/kellnr/kellnr/pull/1228"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump hyper from 1.9.0 to 1.10.1 ([#1226]())",
+          "links": [
+            {
+              "label": "#1226",
+              "url": "https://github.com/kellnr/kellnr/pull/1226"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump reqwest from 0.13.3 to 0.13.4 ([#1229]())",
+          "links": [
+            {
+              "label": "#1229",
+              "url": "https://github.com/kellnr/kellnr/pull/1229"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid from 1.23.1 to 1.23.2 ([#1227]())",
+          "links": [
+            {
+              "label": "#1227",
+              "url": "https://github.com/kellnr/kellnr/pull/1227"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump reqwest from 0.13.3 to 0.13.4",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 9 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid from 1.23.1 to 1.23.2",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump hyper from 1.9.0 to 1.10.1",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump astral-tokio-tar from 0.6.1 to 0.6.2 ([#1225]())",
+          "links": [
+            {
+              "label": "#1225",
+              "url": "https://github.com/kellnr/kellnr/pull/1225"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump astral-tokio-tar from 0.6.1 to 0.6.2",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump tmp from 0.2.5 to 0.2.7 in /tests ([#1222]())",
+          "links": [
+            {
+              "label": "#1222",
+              "url": "https://github.com/kellnr/kellnr/pull/1222"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump tmp from 0.2.5 to 0.2.7 in /tests",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 6 updates ([#1215]())",
+          "links": [
+            {
+              "label": "#1215",
+              "url": "https://github.com/kellnr/kellnr/pull/1215"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump openssl from 0.10.79 to 0.10.80 ([#1214]())",
+          "links": [
+            {
+              "label": "#1214",
+              "url": "https://github.com/kellnr/kellnr/pull/1214"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid and testcontainers in /tests ([#1219]())",
+          "links": [
+            {
+              "label": "#1219",
+              "url": "https://github.com/kellnr/kellnr/pull/1219"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump tower-http from 0.6.10 to 0.6.11 ([#1217]())",
+          "links": [
+            {
+              "label": "#1217",
+              "url": "https://github.com/kellnr/kellnr/pull/1217"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump tar from 0.4.45 to 0.4.46 ([#1218]())",
+          "links": [
+            {
+              "label": "#1218",
+              "url": "https://github.com/kellnr/kellnr/pull/1218"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump openssl from 0.10.79 to 0.10.80 ([#1221]())",
+          "links": [
+            {
+              "label": "#1221",
+              "url": "https://github.com/kellnr/kellnr/pull/1221"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump serde_json from 1.0.149 to 1.0.150 ([#1216]())",
+          "links": [
+            {
+              "label": "#1216",
+              "url": "https://github.com/kellnr/kellnr/pull/1216"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "Merge branch 'main' into dependabot/cargo/main/openssl-0.10.80",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Merge branch 'main' into dependabot/npm_and_yarn/ui/main/npm-all-921112e3fd",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Merge branch 'main' into dependabot/cargo/main/tower-http-0.6.11",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Merge branch 'main' into dependabot/cargo/main/tar-0.4.46",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "Merge branch 'main' into dependabot/npm_and_yarn/tests/multi-00b3af1e76",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump serde_json from 1.0.149 to 1.0.150",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump openssl from 0.10.79 to 0.10.80",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "use \"provcfg\" instead of \"config\" crate ([#1220]())",
+          "links": [
+            {
+              "label": "#1220",
+              "url": "https://github.com/kellnr/kellnr/pull/1220"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid and testcontainers in /tests",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump tar from 0.4.45 to 0.4.46",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump tower-http from 0.6.10 to 0.6.11",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 6 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump openssl from 0.10.79 to 0.10.80",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "update sea-orm",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "update rnd crate",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "add check for playwright version mismatch",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 10 updates ([#1213]())",
+          "links": [
+            {
+              "label": "#1213",
+              "url": "https://github.com/kellnr/kellnr/pull/1213"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump config from 0.15.22 to 0.15.23 ([#1212]())",
+          "links": [
+            {
+              "label": "#1212",
+              "url": "https://github.com/kellnr/kellnr/pull/1212"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 10 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump config from 0.15.22 to 0.15.23",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump protobufjs from 7.5.5 to 7.5.8 in /tests ([#1209]())",
+          "links": [
+            {
+              "label": "#1209",
+              "url": "https://github.com/kellnr/kellnr/pull/1209"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump protobufjs from 7.5.5 to 7.5.8 in /tests",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump @protobufjs/utf8 from 1.1.0 to 1.1.1 in /tests ([#1208]())",
+          "links": [
+            {
+              "label": "#1208",
+              "url": "https://github.com/kellnr/kellnr/pull/1208"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump @protobufjs/utf8 from 1.1.0 to 1.1.1 in /tests",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 8 updates ([#1205]())",
+          "links": [
+            {
+              "label": "#1205",
+              "url": "https://github.com/kellnr/kellnr/pull/1205"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump tower-http from 0.6.8 to 0.6.10 ([#1207]())",
+          "links": [
+            {
+              "label": "#1207",
+              "url": "https://github.com/kellnr/kellnr/pull/1207"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump utoipa from 5.4.0 to 5.5.0 ([#1206]())",
+          "links": [
+            {
+              "label": "#1206",
+              "url": "https://github.com/kellnr/kellnr/pull/1206"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump tokio from 1.52.1 to 1.52.3 ([#1204]())",
+          "links": [
+            {
+              "label": "#1204",
+              "url": "https://github.com/kellnr/kellnr/pull/1204"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump tower-http from 0.6.8 to 0.6.10",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump utoipa from 5.4.0 to 5.5.0",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 8 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump tokio from 1.52.1 to 1.52.3",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump astral-tokio-tar from 0.6.0 to 0.6.1 ([#1203]())",
+          "links": [
+            {
+              "label": "#1203",
+              "url": "https://github.com/kellnr/kellnr/pull/1203"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump astral-tokio-tar from 0.6.0 to 0.6.1",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump openssl from 0.10.78 to 0.10.79 ([#1202]())",
+          "links": [
+            {
+              "label": "#1202",
+              "url": "https://github.com/kellnr/kellnr/pull/1202"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump openssl from 0.10.78 to 0.10.79",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 5 updates ([#1199]())",
+          "links": [
+            {
+              "label": "#1199",
+              "url": "https://github.com/kellnr/kellnr/pull/1199"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump reqwest from 0.13.2 to 0.13.3 ([#1200]())",
+          "links": [
+            {
+              "label": "#1200",
+              "url": "https://github.com/kellnr/kellnr/pull/1200"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump tokio from 1.51.1 to 1.52.1 ([#1201]())",
+          "links": [
+            {
+              "label": "#1201",
+              "url": "https://github.com/kellnr/kellnr/pull/1201"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump zip from 8.5.1 to 8.6.0 ([#1198]())",
+          "links": [
+            {
+              "label": "#1198",
+              "url": "https://github.com/kellnr/kellnr/pull/1198"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump tokio from 1.51.1 to 1.52.1",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump reqwest from 0.13.2 to 0.13.3",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 5 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump zip from 8.5.1 to 8.6.0",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump clap from 4.5.60 to 4.6.1 ([#1195]())",
+          "links": [
+            {
+              "label": "#1195",
+              "url": "https://github.com/kellnr/kellnr/pull/1195"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump axum-extra from 0.12.5 to 0.12.6 ([#1196]())",
+          "links": [
+            {
+              "label": "#1196",
+              "url": "https://github.com/kellnr/kellnr/pull/1196"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 10 updates ([#1194]())",
+          "links": [
+            {
+              "label": "#1194",
+              "url": "https://github.com/kellnr/kellnr/pull/1194"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump testcontainers from 0.27.2 to 0.27.3 ([#1197]())",
+          "links": [
+            {
+              "label": "#1197",
+              "url": "https://github.com/kellnr/kellnr/pull/1197"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump clap from 4.5.60 to 4.6.1",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump axum-extra from 0.12.5 to 0.12.6",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump axum from 0.8.8 to 0.8.9 ([#1192]())",
+          "links": [
+            {
+              "label": "#1192",
+              "url": "https://github.com/kellnr/kellnr/pull/1192"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid from 1.23.0 to 1.23.1 ([#1193]())",
+          "links": [
+            {
+              "label": "#1193",
+              "url": "https://github.com/kellnr/kellnr/pull/1193"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump dependabot/fetch-metadata from 3.0.0 to 3.1.0 ([#1191]())",
+          "links": [
+            {
+              "label": "#1191",
+              "url": "https://github.com/kellnr/kellnr/pull/1191"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump testcontainers from 0.27.2 to 0.27.3",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 10 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid from 1.23.0 to 1.23.1",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump axum from 0.8.8 to 0.8.9",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump dependabot/fetch-metadata from 3.0.0 to 3.1.0",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump postcss from 8.5.8 to 8.5.10 in /ui ([#1190]())",
+          "links": [
+            {
+              "label": "#1190",
+              "url": "https://github.com/kellnr/kellnr/pull/1190"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump postcss from 8.5.8 to 8.5.10 in /ui",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump rustls-webpki from 0.103.10 to 0.103.13 ([#1189]())",
+          "links": [
+            {
+              "label": "#1189",
+              "url": "https://github.com/kellnr/kellnr/pull/1189"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump rustls-webpki from 0.103.10 to 0.103.13",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump openssl from 0.10.75 to 0.10.78 ([#1188]())",
+          "links": [
+            {
+              "label": "#1188",
+              "url": "https://github.com/kellnr/kellnr/pull/1188"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump openssl from 0.10.75 to 0.10.78",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "update cargo dep to latest version",
+          "links": [
+            {
+              "label": "#1186",
+              "url": "https://github.com/kellnr/kellnr/issues/1186"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "Merge branch 'main' into chore/update-cargo-dep",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "update cargo dep to latest version",
+          "links": [
+            {
+              "label": "#1186",
+              "url": "https://github.com/kellnr/kellnr/issues/1186"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.3.0",
       "date": "18. April 2026",
       "entries": [
@@ -14,8 +776,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.2.0",
