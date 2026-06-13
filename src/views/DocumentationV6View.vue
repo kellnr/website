@@ -462,7 +462,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 description="Directory where Kellnr stores all its data." />
               <ConfigCard title="Session Age" toml="[registry] session_age_seconds"
                 env-var="KELLNR_REGISTRY__SESSION_AGE_SECONDS" default-value="28800"
-                description="Seconds until a user is logged out of his browser session." />
+                description="Seconds before a browser login session expires. Expired sessions are rejected and removed server-side. Set to 0 to keep sessions valid indefinitely." />
               <ConfigCard title="Cache Size" toml="[registry] cache_size" env-var="KELLNR_REGISTRY__CACHE_SIZE"
                 default-value="1000"
                 description="Number of crates cached in-memory to decrease disk I/O. If set to '0' the cache is disabled." />
