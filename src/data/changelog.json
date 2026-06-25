@@ -1,6 +1,293 @@
 {
   "releases": [
     {
+      "version": "6.5.0",
+      "date": "25. June 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "*(auth)* expire sessions server-side and clean up old rows ([#1245]())",
+          "links": [
+            {
+              "label": "#1245",
+              "url": "https://github.com/kellnr/kellnr/pull/1245"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "sparse index responses must end with a trailing newline ([#1247]())",
+          "links": [
+            {
+              "label": "#1247",
+              "url": "https://github.com/kellnr/kellnr/pull/1247"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "*(auth)* harden session expiry edge cases ([#1246]())",
+          "links": [
+            {
+              "label": "#1246",
+              "url": "https://github.com/kellnr/kellnr/pull/1246"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "*(oauth2)* re-sync admin/read-only state from IdP on each login ([#1244]())",
+          "links": [
+            {
+              "label": "#1244",
+              "url": "https://github.com/kellnr/kellnr/pull/1244"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "*(auth)* enforce read-only state for session-authenticated users ([#1243]())",
+          "links": [
+            {
+              "label": "#1243",
+              "url": "https://github.com/kellnr/kellnr/pull/1243"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump sea-orm from 2.0.0-rc.40 to 2.0.0-rc.41 ([#1252]())",
+          "links": [
+            {
+              "label": "#1252",
+              "url": "https://github.com/kellnr/kellnr/pull/1252"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump undici from 7.25.0 to 7.28.0 in /tests ([#1257]())",
+          "links": [
+            {
+              "label": "#1257",
+              "url": "https://github.com/kellnr/kellnr/pull/1257"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump undici from 7.25.0 to 7.28.0 in /tests",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump form-data from 4.0.5 to 4.0.6 in /ui ([#1255]())",
+          "links": [
+            {
+              "label": "#1255",
+              "url": "https://github.com/kellnr/kellnr/pull/1255"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump time from 0.3.47 to 0.3.49 ([#1254]())",
+          "links": [
+            {
+              "label": "#1254",
+              "url": "https://github.com/kellnr/kellnr/pull/1254"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump form-data from 4.0.5 to 4.0.6 in /ui",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump time from 0.3.47 to 0.3.49",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 5 updates ([#1250]())",
+          "links": [
+            {
+              "label": "#1250",
+              "url": "https://github.com/kellnr/kellnr/pull/1250"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump syn from 2.0.117 to 2.0.118 ([#1253]())",
+          "links": [
+            {
+              "label": "#1253",
+              "url": "https://github.com/kellnr/kellnr/pull/1253"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump bytes from 1.11.1 to 1.12.0 ([#1249]())",
+          "links": [
+            {
+              "label": "#1249",
+              "url": "https://github.com/kellnr/kellnr/pull/1249"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump tower-http from 0.6.11 to 0.7.0 ([#1251]())",
+          "links": [
+            {
+              "label": "#1251",
+              "url": "https://github.com/kellnr/kellnr/pull/1251"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump actions/checkout from 6 to 7 ([#1248]())",
+          "links": [
+            {
+              "label": "#1248",
+              "url": "https://github.com/kellnr/kellnr/pull/1248"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump syn from 2.0.117 to 2.0.118",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump sea-orm from 2.0.0-rc.40 to 2.0.0-rc.41",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump tower-http from 0.6.11 to 0.7.0",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 5 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump bytes from 1.11.1 to 1.12.0",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump actions/checkout from 6 to 7",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 7 updates ([#1240]())",
+          "links": [
+            {
+              "label": "#1240",
+              "url": "https://github.com/kellnr/kellnr/pull/1240"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump regex from 1.12.3 to 1.12.4 ([#1242]())",
+          "links": [
+            {
+              "label": "#1242",
+              "url": "https://github.com/kellnr/kellnr/pull/1242"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump openssl from 0.10.80 to 0.10.81 ([#1239]())",
+          "links": [
+            {
+              "label": "#1239",
+              "url": "https://github.com/kellnr/kellnr/pull/1239"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid from 1.23.2 to 1.23.3 ([#1241]())",
+          "links": [
+            {
+              "label": "#1241",
+              "url": "https://github.com/kellnr/kellnr/pull/1241"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump regex from 1.12.3 to 1.12.4",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid from 1.23.2 to 1.23.3",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 7 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump openssl from 0.10.80 to 0.10.81",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump esbuild from 0.28.0 to 0.28.1 in /ui ([#1238]())",
+          "links": [
+            {
+              "label": "#1238",
+              "url": "https://github.com/kellnr/kellnr/pull/1238"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump esbuild from 0.28.0 to 0.28.1 in /ui",
+          "links": []
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.4.0",
       "date": "12. June 2026",
       "entries": [
@@ -759,8 +1046,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.3.0",
