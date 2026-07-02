@@ -1,6 +1,108 @@
 {
   "releases": [
     {
+      "version": "6.5.1",
+      "date": "02. July 2026",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "*(auth)* refresh OIDC JWKS on signing-key rotation ([#1266]())",
+          "links": [
+            {
+              "label": "#1266",
+              "url": "https://github.com/kellnr/kellnr/pull/1266"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump sea-orm-migration from 2.0.0-rc.40 to 2.0.0-rc.41 ([#1264]())",
+          "links": [
+            {
+              "label": "#1264",
+              "url": "https://github.com/kellnr/kellnr/pull/1264"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump object_store from 0.13.2 to 0.14.0 ([#1262]())",
+          "links": [
+            {
+              "label": "#1262",
+              "url": "https://github.com/kellnr/kellnr/pull/1262"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump quote from 1.0.45 to 1.0.46 ([#1263]())",
+          "links": [
+            {
+              "label": "#1263",
+              "url": "https://github.com/kellnr/kellnr/pull/1263"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump time from 0.3.49 to 0.3.51 ([#1261]())",
+          "links": [
+            {
+              "label": "#1261",
+              "url": "https://github.com/kellnr/kellnr/pull/1261"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid from 1.23.3 to 1.23.4 ([#1260]())",
+          "links": [
+            {
+              "label": "#1260",
+              "url": "https://github.com/kellnr/kellnr/pull/1260"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump sea-orm-migration from 2.0.0-rc.40 to 2.0.0-rc.41",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump quote from 1.0.45 to 1.0.46",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump object_store from 0.13.2 to 0.14.0",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump time from 0.3.49 to 0.3.51",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid from 1.23.3 to 1.23.4",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "serialize_indices in a single pass ([#1258]())",
+          "links": [
+            {
+              "label": "#1258",
+              "url": "https://github.com/kellnr/kellnr/pull/1258"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.5.0",
       "date": "25. June 2026",
       "entries": [
@@ -284,8 +386,7 @@
           "content": "*(deps-dev)* bump esbuild from 0.28.0 to 0.28.1 in /ui",
           "links": []
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.4.0",
