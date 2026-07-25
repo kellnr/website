@@ -64,6 +64,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               <li>
                 <router-link to="#installation">Installation</router-link>
                 <ul>
+                  <li><router-link to="#binary-downloads">Binary Downloads</router-link></li>
                   <li><router-link to="#docker-container">Docker Container</router-link></li>
                   <li><router-link to="#package-managers">Package Managers</router-link></li>
                   <li><router-link to="#script">Script</router-link></li>
@@ -71,6 +72,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                   <li><router-link to="#manual-installation">Manual Installation</router-link></li>
                   <li><router-link to="#helm-chart">Helm Chart</router-link></li>
                   <li><router-link to="#windows">Windows</router-link></li>
+                  <li><router-link to="#macos">macOS</router-link></li>
                 </ul>
               </li>
               <li><router-link to="#uninstall">Uninstall</router-link></li>
@@ -124,6 +126,60 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               There are several methods to install Kellnr. Check all options and chose the right one
               for you.
             </TextBlock>
+
+            <SubHeader id="binary-downloads">Binary Downloads</SubHeader>
+            <TextBlock>
+              Pre-built binaries for Linux, Windows, and macOS are published as release assets on
+              GitHub. The links below always point to the latest release. Download the archive for
+              your platform, extract it, and run Kellnr directly. You can also browse all versions on
+              the <a href="https://github.com/kellnr/kellnr/releases">GitHub Releases</a> page.
+            </TextBlock>
+            <TableBlock>
+              <thead>
+                <tr>
+                  <th scope="col">Platform</th>
+                  <th scope="col">Architecture</th>
+                  <th scope="col">Download</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Linux (glibc)</td>
+                  <td>x86_64</td>
+                  <td><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-x86_64-unknown-linux-gnu.zip">kellnr-x86_64-unknown-linux-gnu.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux (glibc)</td>
+                  <td>ARM64</td>
+                  <td><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-aarch64-unknown-linux-gnu.zip">kellnr-aarch64-unknown-linux-gnu.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux (musl, static)</td>
+                  <td>x86_64</td>
+                  <td><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-x86_64-unknown-linux-musl.zip">kellnr-x86_64-unknown-linux-musl.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Linux (musl, static)</td>
+                  <td>ARM64</td>
+                  <td><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-aarch64-unknown-linux-musl.zip">kellnr-aarch64-unknown-linux-musl.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Windows</td>
+                  <td>x86_64</td>
+                  <td><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-x86_64-windows.zip">kellnr-x86_64-windows.zip</a></td>
+                </tr>
+                <tr>
+                  <td>Windows</td>
+                  <td>ARM64</td>
+                  <td><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-aarch64-windows.zip">kellnr-aarch64-windows.zip</a></td>
+                </tr>
+                <tr>
+                  <td>macOS (Apple Silicon)</td>
+                  <td>ARM64</td>
+                  <td><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-aarch64-apple-darwin.zip">kellnr-aarch64-apple-darwin.zip</a></td>
+                </tr>
+              </tbody>
+            </TableBlock>
 
             <SubHeader id="docker-container">Docker Container</SubHeader>
             <TextBlock>
@@ -381,6 +437,29 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               The Windows binaries are not tested and are provided on a best-effort basis. If you encounter
               any issues, please report them on <a href="https://github.com/kellnr/kellnr/issues">GitHub</a>.
             </WarnBlock>
+
+            <SubHeader id="macos">macOS</SubHeader>
+            <TextBlock>
+              Pre-built macOS binaries for Apple Silicon are published as release assets on GitHub. The
+              binary is signed with an Apple Developer ID and notarized by Apple, so it runs without any
+              Gatekeeper warnings after downloading.
+              <ul>
+                <li><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-aarch64-apple-darwin.zip">kellnr-aarch64-apple-darwin.zip</a> (Apple Silicon / ARM64)</li>
+              </ul>
+            </TextBlock>
+            <CodeBlock lang="bash">
+              # Download and extract
+              curl -L --output kellnr-latest.zip
+              "https://github.com/kellnr/kellnr/releases/latest/download/kellnr-aarch64-apple-darwin.zip"
+              unzip -o kellnr-latest.zip -d ./kellnr
+              cd ./kellnr
+
+              # (Optional) Create a configuration file
+              ./kellnr config init -o kellnr.toml
+
+              # Start Kellnr with the data directory
+              ./kellnr start -d /path/to/data/dir
+            </CodeBlock>
 
             <MainHeader id="uninstall" icon="delete">Uninstall</MainHeader>
             <TextBlock>
