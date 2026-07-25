@@ -508,7 +508,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               <tbody>
                 <tr>
                   <td><router-link to="#docker-container">Docker</router-link></td>
-                  <td>Stop and remove the container, then delete the mounted data directory.</td>
+                  <td><code>docker rm -f kellnr</code>, then delete the mounted data directory.</td>
                 </tr>
                 <tr>
                   <td><router-link to="#pre-built-binaries">Pre-built binary</router-link> (Linux/Windows/macOS)</td>
@@ -516,7 +516,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 </tr>
                 <tr>
                   <td><router-link to="#install-script">Install Script</router-link> (systemd)</td>
-                  <td>Run the uninstall script (see below).</td>
+                  <td>Run the uninstaller from besides the installation directory:<br /><code style="overflow-wrap: anywhere;">curl -s https://raw.githubusercontent.com/kellnr/installer/main/uninstall.sh | sudo bash</code></td>
                 </tr>
                 <tr>
                   <td><router-link to="#package-managers">Package Managers</router-link></td>
@@ -528,42 +528,10 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 </tr>
                 <tr>
                   <td><router-link to="#helm-chart">Kubernetes (Helm)</router-link></td>
-                  <td><code>helm uninstall kellnr</code> (see below).</td>
+                  <td><code>helm uninstall kellnr</code>. Deletes all data if the <i>PersistentVolume</i> was created by the chart.</td>
                 </tr>
               </tbody>
             </TableBlock>
-
-            <MinorHeader id="uninstall-docker" icon="docker">Docker</MinorHeader>
-            <CodeBlock lang="bash">
-              # Stop and remove the running container
-              docker rm -f kellnr
-
-              # If you ran Kellnr with a mounted directory for persistence
-              # (e.g. -v $(pwd):/var/lib/kellnr), delete that directory to remove all data
-              rm -rf /path/to/mounted/data/dir
-            </CodeBlock>
-
-            <MinorHeader id="uninstall-script" icon="console">Install Script (systemd)</MinorHeader>
-            <TextBlock>
-              If you installed Kellnr with the install script, run the uninstaller from besides the
-              Kellnr installation directory. It stops the service and removes Kellnr along with all its data.
-            </TextBlock>
-            <CodeBlock lang="bash">
-              # Change to the directory containing the Kellnr installation
-              cd ~
-              # Run the uninstaller
-              curl -s https://raw.githubusercontent.com/kellnr/installer/main/uninstall.sh | sudo bash
-            </CodeBlock>
-
-            <MinorHeader id="uninstall-helm" icon="kubernetes">Kubernetes (Helm)</MinorHeader>
-            <TextBlock>
-              Beware that all data (crates, users, ...) will be deleted if you created the
-              <i>PersistentVolume</i> with the Helm chart.
-            </TextBlock>
-            <CodeBlock lang="bash">
-              # Uninstall Kellnr Helm Chart
-              helm uninstall kellnr
-            </CodeBlock>
 
             <MainHeader id="configuration" icon="cog">Configuration</MainHeader>
             <TextBlock>
