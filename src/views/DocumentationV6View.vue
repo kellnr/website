@@ -552,7 +552,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
             <TextBlock>
               Kellnr can use a TOML configuration file. You can generate a default configuration file using
               <code>kellnr config init</code> or specify a custom config file path with the <code>-c</code>
-              flag (e.g., <code>kellnr -c /etc/kellnr.toml run</code>). Values from the config file can be
+              flag (e.g., <code>kellnr -c /etc/kellnr.toml start</code>). Values from the config file can be
               overwritten by environment variables or CLI arguments. See below for possible values.
             </TextBlock>
 
@@ -573,7 +573,22 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               overwritten after the first start of Kellnr, except through the UI of Kellnr.
             </TextBlock>
 
-            <h5 class="mt-4 mb-3">Setup</h5>
+            <nav class="config-jump" aria-label="Jump to configuration group">
+              <span class="config-jump-label">Jump to:</span>
+              <router-link to="#config-setup">Setup</router-link>
+              <router-link to="#config-registry">Registry</router-link>
+              <router-link to="#config-local-server">Local Server</router-link>
+              <router-link to="#config-origin">Origin</router-link>
+              <router-link to="#config-logging">Logging</router-link>
+              <router-link to="#config-proxy">Crates.io Proxy</router-link>
+              <router-link to="#config-documentation">Documentation</router-link>
+              <router-link to="#config-postgresql">PostgreSQL</router-link>
+              <router-link to="#config-s3">S3 Storage</router-link>
+              <router-link to="#config-oauth2-values">OAuth2/OIDC</router-link>
+              <router-link to="#config-toolchain-values">Toolchain Server</router-link>
+            </nav>
+
+            <MinorHeader id="config-setup">Setup</MinorHeader>
             <ConfigGrid>
               <ConfigCard title="Admin Password" toml="[setup] admin_pwd" env-var="KELLNR_SETUP__ADMIN_PWD"
                 default-value="admin" description="Password for the admin user. Used on first start only." />
@@ -582,7 +597,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 description="Authentication token for the admin user. Used on first start only. If not set, no token is created and the user must create one via the web UI." />
             </ConfigGrid>
 
-            <h5 class="mt-4 mb-3">Registry</h5>
+            <MinorHeader id="config-registry">Registry</MinorHeader>
             <ConfigGrid>
               <ConfigCard title="Data Directory" toml="[registry] data_dir" env-var="KELLNR_REGISTRY__DATA_DIR"
                 default-value="None (/var/lib/kellnr in Docker images)"
@@ -640,7 +655,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 description="Interval in seconds between flushing download counts to the database. Set to 0 to flush on every download." />
             </ConfigGrid>
 
-            <h5 class="mt-4 mb-3">Local Server</h5>
+            <MinorHeader id="config-local-server">Local Server</MinorHeader>
             <ConfigGrid>
               <ConfigCard title="IP Address" toml="[local] ip" env-var="KELLNR_LOCAL__IP" default-value="0.0.0.0"
                 description="IP address where Kellnr listens. Usually this does not need to be changed." />
@@ -648,7 +663,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 description="Port where Kellnr listens." />
             </ConfigGrid>
 
-            <h5 class="mt-4 mb-3">Origin (External Access)</h5>
+            <MinorHeader id="config-origin">Origin (External Access)</MinorHeader>
             <ConfigGrid>
               <ConfigCard title="Hostname" toml="[origin] hostname" env-var="KELLNR_ORIGIN__HOSTNAME"
                 default-value="127.0.0.1"
@@ -662,7 +677,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 description="Run Kellnr on a sub path of a URL, e.g. '/kellnring/' for https://www.example.com/kellnring/" />
             </ConfigGrid>
 
-            <h5 class="mt-4 mb-3">Logging</h5>
+            <MinorHeader id="config-logging">Logging</MinorHeader>
             <ConfigGrid>
               <ConfigCard title="Log Level" toml="[log] level" env-var="KELLNR_LOG__LEVEL" default-value="info"
                 description="Log level for debugging. Either 'trace', 'debug', 'info', 'warn' or 'error'." />
@@ -673,7 +688,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 description="Format of the log output. Either 'compact', 'pretty' or 'json'." />
             </ConfigGrid>
 
-            <h5 class="mt-4 mb-3">Crates.io Proxy</h5>
+            <MinorHeader id="config-proxy">Crates.io Proxy</MinorHeader>
             <ConfigGrid>
               <ConfigCard title="Proxy Enabled" toml="[proxy] enabled" env-var="KELLNR_PROXY__ENABLED"
                 default-value="false"
@@ -703,7 +718,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 description="User-agent sent with requests to crates.io. crates.io's data-access policy asks for a user-agent that identifies the application and a way to get in contact, e.g. 'kellnr.io/kellnr (contact@example.com)'." />
             </ConfigGrid>
 
-            <h5 class="mt-4 mb-3">Documentation</h5>
+            <MinorHeader id="config-documentation">Documentation</MinorHeader>
             <ConfigGrid>
               <ConfigCard title="Rustdoc Generation" toml="[docs] enabled" env-var="KELLNR_DOCS__ENABLED"
                 default-value="false"
@@ -712,7 +727,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 default-value="100" description="Max size of crate docs allowed to be uploaded in MB." />
             </ConfigGrid>
 
-            <h5 class="mt-4 mb-3">PostgreSQL</h5>
+            <MinorHeader id="config-postgresql">PostgreSQL</MinorHeader>
             <ConfigGrid>
               <ConfigCard title="PostgreSQL Enabled" toml="[postgresql] enabled" env-var="KELLNR_POSTGRESQL__ENABLED"
                 default-value="false" description="Enable PostgreSQL instead of Sqlite." />
@@ -728,7 +743,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 description="Password of the PostgreSQL database." />
             </ConfigGrid>
 
-            <h5 class="mt-4 mb-3">S3 Storage</h5>
+            <MinorHeader id="config-s3">S3 Storage</MinorHeader>
             <ConfigGrid>
               <ConfigCard title="S3 Enabled" toml="[s3] enabled" env-var="KELLNR_S3__ENABLED" default-value="false"
                 description="Enable S3 storage instead of local file system." />
@@ -757,7 +772,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 description="S3 request timeout in seconds." />
             </ConfigGrid>
 
-            <h5 class="mt-4 mb-3">OAuth2/OIDC</h5>
+            <MinorHeader id="config-oauth2-values">OAuth2/OIDC</MinorHeader>
             <ConfigGrid>
               <ConfigCard title="OAuth2 Enabled" toml="[oauth2] enabled" env-var="KELLNR_OAUTH2__ENABLED"
                 default-value="false" description="Enable OAuth2/OpenID Connect authentication." />
@@ -790,7 +805,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
                 default-value="Login with SSO" description="Text displayed on the OAuth2 login button in the web UI." />
             </ConfigGrid>
 
-            <h5 class="mt-4 mb-3">Toolchain Server</h5>
+            <MinorHeader id="config-toolchain-values">Toolchain Server</MinorHeader>
             <ConfigGrid>
               <ConfigCard title="Toolchain Enabled" toml="[toolchain] enabled" env-var="KELLNR_TOOLCHAIN__ENABLED"
                 default-value="false"
@@ -1224,11 +1239,11 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
 
             <SubHeader id="cli-arguments">CLI Arguments</SubHeader>
             <TextBlock>
-              All configuration values can be set via CLI arguments when using the <code>run</code> command.
+              All configuration values can be set via CLI arguments when using the <code>start</code> command.
               CLI arguments take precedence over environment variables and configuration file values.
             </TextBlock>
 
-            <h5 class="mt-4 mb-3">Global Options</h5>
+            <MinorHeader id="cli-global-options">Global Options</MinorHeader>
             <TableBlock>
               <thead>
                 <tr>
@@ -1252,7 +1267,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               </tbody>
             </TableBlock>
 
-            <h5 class="mt-4 mb-3">Server Options (start command)</h5>
+            <MinorHeader id="cli-server-options">Server Options (start command)</MinorHeader>
             <TableBlock>
               <thead>
                 <tr>
@@ -1305,7 +1320,7 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               </tbody>
             </TableBlock>
 
-            <h5 class="mt-4 mb-3">Feature Flags (start command)</h5>
+            <MinorHeader id="cli-feature-flags">Feature Flags (start command)</MinorHeader>
             <TableBlock>
               <thead>
                 <tr>
@@ -1394,15 +1409,15 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               <br />
 
               <ul>
-                <li><i>/.cargo/config</i></li>
-                <li><i>/projects/.cargo/config</i></li>
-                <li><i>/projects/proj1/.cargo/config</i></li>
-                <li><i>/projects/proj1/subproj/.cargo/config</i></li>
+                <li><i>/.cargo/config.toml</i></li>
+                <li><i>/projects/.cargo/config.toml</i></li>
+                <li><i>/projects/proj1/.cargo/config.toml</i></li>
+                <li><i>/projects/proj1/subproj/.cargo/config.toml</i></li>
               </ul>
 
               Cargo will use the configured registry for the corresponding project.<br />
               <br />
-              The config file is the same format at described in the Global Configuration above.
+              The config file is the same format as described in the Global Configuration above.
             </TextBlock>
 
             <SubHeader id="pull-publish-to-kellnr">Pull & Publish to Kellnr</SubHeader>
@@ -1414,8 +1429,8 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               # Example Cargo.toml which uses a dependency from Kellnr
               # The registry name has to be the one defined in .cargo/config.toml
               [package]
-              authors = ["myauthor "]
-              edition = "2018"
+              authors = ["myauthor"]
+              edition = "2021"
               name = "my_crate"
               version = "0.1.0"
 
@@ -1426,8 +1441,8 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               # Example Cargo.toml to publish to Kellnr
               # The publish name has to be the one defined in .cargo/config.toml
               [package]
-              authors = ["myauthor "]
-              edition = "2018"
+              authors = ["myauthor"]
+              edition = "2021"
               name = "my_crate"
               version = "0.1.0"
               publish = ["kellnr"]
@@ -1452,18 +1467,18 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               instead of <a href="https://crates.io/">crates.io</a> as the source for all crates. The official
               cargo documentation for source replacements can be found here: <a
                 href="https://doc.rust-lang.org/stable/cargo/reference/source-replacement.html">Source
-                Replacement in Cargo</a>. All configuration of the proxy takes place in the same <i>.cargo/config</i>
+                Replacement in Cargo</a>. All configuration of the proxy takes place in the same <i>.cargo/config.toml</i>
               file as described above.
             </TextBlock>
 
             <SubHeader id="pull-specific-crates">Pull only specific Crates from Kellnr Proxy</SubHeader>
             <TextBlock>
               If you want to pull only specific crates from the Kellnr proxy, you can do that by specifying
-              the Kellnr crates.io index either per project in the <i>.cargo/config</i> file or globally in
-              the <i>~./.cargo/config</i> file.
+              the Kellnr crates.io index either per project in the <i>.cargo/config.toml</i> file or globally in
+              the <i>~/.cargo/config.toml</i> file.
             </TextBlock>
             <CodeBlock lang="toml">
-              # .cargo/config
+              # .cargo/config.toml
               # Set the Kellnr crates.io proxy. Important is the path "/cratesio".
 
               [registries.kellnr-cratesio]
@@ -1486,11 +1501,11 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
             <SubHeader id="replace-cratesio">Replace Crates.io with Kellnr Proxy Cache</SubHeader>
             <TextBlock>
               Instead of specifying for each crate that Kellnr should be used as the source, cargo can replace
-              a source with another. To replace crates.io with the Kellnr proxy edit the <i>.cargo/config</i>
+              a source with another. To replace crates.io with the Kellnr proxy edit the <i>.cargo/config.toml</i>
               in your project or home folder.
             </TextBlock>
             <CodeBlock lang="toml">
-              # .cargo/config
+              # .cargo/config.toml
               [source.crates-io]
               replace-with = "kellnr-cratesio"
               [source.kellnr-cratesio]
@@ -1597,7 +1612,9 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               or CLI argument (<code>-d</code> / <code>--registry-data-dir</code>). To backup Kellnr, simply
               backup the data folder. The data folder contains all data needed to restore Kellnr. It is recommended to
               backup the data folder regularly, as it contains all uploaded crates and the SQLite database. If you use
-              PostgreSQL instead, do not forget to backup the database separately.
+              PostgreSQL instead, do not forget to backup the database separately. Likewise, if you enable
+              <router-link to="#config-s3">S3 storage</router-link>, your uploaded crates are stored in the configured
+              S3 buckets rather than the data folder — back those up separately as well.
             </TextBlock>
           </div>
         </div>
@@ -1608,6 +1625,45 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
 </template>
 
 <style scoped>
+/* Quick-jump navigation for the Config Values groups */
+.config-jump {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+  padding: 0.85rem 1rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.config-jump-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748b;
+  margin-right: 0.25rem;
+}
+
+.config-jump a {
+  font-size: 0.85rem;
+  color: #2f55d4;
+  text-decoration: none;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid #d5ddf3;
+  border-radius: 999px;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+
+.config-jump a:hover {
+  background: #2f55d4;
+  color: #fff;
+  border-color: #2f55d4;
+}
+
 /* Simple two-column grid layout */
 .doc-layout {
   display: grid;
