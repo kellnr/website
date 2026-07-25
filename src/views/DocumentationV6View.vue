@@ -4,7 +4,9 @@ import TextBlock from "../components/elements/TextBlock.vue";
 import WarnBlock from "../components/elements/WarnBlock.vue";
 import TableBlock from "../components/elements/TableBlock.vue";
 import SubHeader from "../components/elements/SubHeader.vue";
+import MinorHeader from "../components/elements/MinorHeader.vue";
 import MainHeader from "../components/elements/MainHeader.vue";
+import TipBlock from "../components/elements/TipBlock.vue";
 import ConfigCard from "../components/elements/ConfigCard.vue";
 import ConfigGrid from "../components/elements/ConfigGrid.vue";
 </script>
@@ -64,15 +66,13 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               <li>
                 <router-link to="#installation">Installation</router-link>
                 <ul>
-                  <li><router-link to="#binary-downloads">Binary Downloads</router-link></li>
-                  <li><router-link to="#docker-container">Docker Container</router-link></li>
+                  <li><router-link to="#choose-method">Which Method?</router-link></li>
+                  <li><router-link to="#docker-container">Docker</router-link></li>
+                  <li><router-link to="#helm-chart">Kubernetes (Helm)</router-link></li>
+                  <li><router-link to="#pre-built-binaries">Pre-built Binaries</router-link></li>
+                  <li><router-link to="#install-script">Install Script</router-link></li>
                   <li><router-link to="#package-managers">Package Managers</router-link></li>
-                  <li><router-link to="#script">Script</router-link></li>
-                  <li><router-link to="#cargo-install">Cargo Install</router-link></li>
-                  <li><router-link to="#manual-installation">Manual Installation</router-link></li>
-                  <li><router-link to="#helm-chart">Helm Chart</router-link></li>
-                  <li><router-link to="#windows">Windows</router-link></li>
-                  <li><router-link to="#macos">macOS</router-link></li>
+                  <li><router-link to="#build-from-source">Build from Source</router-link></li>
                 </ul>
               </li>
               <li><router-link to="#uninstall">Uninstall</router-link></li>
@@ -123,11 +123,94 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
           <div class="doc-content">
             <MainHeader id="installation" icon="download">Installation</MainHeader>
             <TextBlock>
-              There are several methods to install Kellnr. Check all options and chose the right one
-              for you.
+              Kellnr can be installed in several ways. Use the table below to jump to the method that
+              fits your use case, or read through the options one by one.
             </TextBlock>
 
-            <SubHeader id="binary-downloads">Binary Downloads</SubHeader>
+            <SubHeader id="choose-method">Which Method?</SubHeader>
+            <TextBlock>
+              Not sure where to start? Pick the row that matches what you want to do.
+            </TextBlock>
+            <TableBlock>
+              <thead>
+                <tr>
+                  <th scope="col">I want to…</th>
+                  <th scope="col">Recommended method</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Quickly try out Kellnr</td>
+                  <td><router-link to="#docker-container">Docker</router-link></td>
+                </tr>
+                <tr>
+                  <td>Run Kellnr on Kubernetes</td>
+                  <td><router-link to="#helm-chart">Kubernetes (Helm)</router-link></td>
+                </tr>
+                <tr>
+                  <td>Run a standalone binary on Linux, Windows, or macOS</td>
+                  <td><router-link to="#pre-built-binaries">Pre-built Binaries</router-link></td>
+                </tr>
+                <tr>
+                  <td>Install on a Linux server as a systemd service</td>
+                  <td><router-link to="#install-script">Install Script</router-link></td>
+                </tr>
+                <tr>
+                  <td>Install through my distribution (Arch, NixOS, …)</td>
+                  <td><router-link to="#package-managers">Package Managers</router-link></td>
+                </tr>
+                <tr>
+                  <td>Build Kellnr from source</td>
+                  <td><router-link to="#build-from-source">Build from Source</router-link></td>
+                </tr>
+              </tbody>
+            </TableBlock>
+
+            <SubHeader id="docker-container">Docker</SubHeader>
+            <TipBlock>
+              Running Kellnr as a Docker container is the easiest way to get started — no further
+              installation steps are required.
+            </TipBlock>
+            <TextBlock>
+              You can find the latest version tag on the <a
+                href="https://github.com/kellnr/kellnr/pkgs/container/kellnr">Kellnr
+                images</a> page. There is a minimal image, which does not support building <i>rustdocs</i> with
+              <i>kellnr</i>. However, uploading pre-built <i>rustdocs</i> is still possible. You find the minimal images
+              here: <a href="https://github.com/kellnr/kellnr/pkgs/container/kellnr-minimal">Kellnr minimal images</a>.
+            </TextBlock>
+
+            <CodeBlock lang="bash">
+              # Run Kellnr non-persistent for testing.
+              # All data (crates, users) will be deleted with the container when the container terminates
+              docker run --rm -it \
+              -p 8000:8000 \
+              -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" ghcr.io/kellnr/kellnr:6
+
+              # To run the container with persistence for all data (crates, users) mount a volume into the container
+              docker run --rm -it \
+              -p 8000:8000 \
+              -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" \
+              -v $(pwd):/var/lib/kellnr ghcr.io/kellnr/kellnr:6
+            </CodeBlock>
+
+            <TextBlock>
+              You may want to change the admin password used to log into
+              the web-ui and the admin token, used by Cargo to authenticate to Kellnr. The <b>hostname</b> is, where
+              Kellnr is reachable. If not set correctly, Cargo
+              will not be able to publish crates to Kellnr. Defaults to <i>localhost</i>.<br />
+              The values can be set with environment variables on the first start of Kellnr. If you ran
+              the container with a mounted volume for persistence, all variables are ignored.
+            </TextBlock>
+
+            <SubHeader id="helm-chart">Kubernetes (Helm)</SubHeader>
+            <TextBlock>
+              The recommended way to install Kellnr on Kubernetes is with a Helm Chart. You can find the
+              documentation for installing Kellnr with a Helm Chart here: <a
+                href="https://github.com/kellnr/helm">Kellnr
+                Helm Chart</a>
+            </TextBlock>
+
+            <SubHeader id="pre-built-binaries">Pre-built Binaries</SubHeader>
             <TextBlock>
               Pre-built binaries for Linux, Windows, and macOS are published as release assets on
               GitHub. The links below always point to the latest release. Download the archive for
@@ -181,90 +264,90 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               </tbody>
             </TableBlock>
 
-            <SubHeader id="docker-container">Docker Container</SubHeader>
+            <MinorHeader id="linux" icon="linux">Linux</MinorHeader>
             <TextBlock>
-              The easiest way to run Kellnr is a Docker container, as no further installation steps
-              are required.
-              You can find the latest version tag on the <a
-                href="https://github.com/kellnr/kellnr/pkgs/container/kellnr">Kellnr
-                images</a> page. There is a minimal image, which does not support building <i>rustdocs</i> with
-              <i>kellnr</i>. However, uploading pre-built <i>rustdocs</i> is still possible. You find the minimal images
-              here: <a href="https://github.com/kellnr/kellnr/pkgs/container/kellnr-minimal">Kellnr minimal images</a>.
-            </TextBlock>
-
-            <CodeBlock lang="bash">
-              # Run Kellnr non-persistent for testing.
-              # All data (crates, users) will be deleted with the container when the container terminates
-              docker run --rm -it \
-              -p 8000:8000 \
-              -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" ghcr.io/kellnr/kellnr:6
-
-              # To run the container with persistence for all data (crates, users) mount a volume into the container
-              docker run --rm -it \
-              -p 8000:8000 \
-              -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" \
-              -v $(pwd):/var/lib/kellnr ghcr.io/kellnr/kellnr:6
-            </CodeBlock>
-
-            <TextBlock>
-              You may want to change the admin password used to log into
-              the web-ui and the admin token, used by Cargo to authenticate to Kellnr. The <b>hostname</b> is, where
-              Kellnr is reachable. If not set correctly, Cargo
-              will not be able to publish crates to Kellnr. Defaults to <i>localhost</i>.<br />
-              The values can be set with environment variables on the first start of Kellnr. If you ran
-              the container with a mounted volume for persistence, all variables are ignored.
-            </TextBlock>
-
-            <SubHeader id="package-managers">Package Managers</SubHeader>
-            <TextBlock>
-              Kellnr can be found in the Arch User Repo (aur): <a
-                href="https://aur.archlinux.org/packages/kellnr">Kellnr - AUR</a>
-              If you use the <a href="https://github.com/Jguer/yay">yay</a> package manager you can install Kellnr with
-              the following command.
+              Required dependencies: <code>curl</code> and <code>unzip</code>. Set <code>$ARCH</code>
+              to the target that matches your system:
+              <ul>
+                <li><code>x86_64-unknown-linux-gnu</code> / <code>aarch64-unknown-linux-gnu</code> (glibc)</li>
+                <li><code>x86_64-unknown-linux-musl</code> / <code>aarch64-unknown-linux-musl</code> (static, distribution-independent)</li>
+              </ul>
             </TextBlock>
             <CodeBlock lang="bash">
-              # Install Kellnr with yay
-              yay -S kellnr
+              # Download the latest release (set $ARCH to your target, see above)
+              curl -L -o kellnr-latest.zip \
+                "https://github.com/kellnr/kellnr/releases/latest/download/kellnr-$ARCH.zip"
+
+              # Unzip
+              unzip -o kellnr-latest.zip -d ./kellnr
+              cd ./kellnr
+
+              # (Optional) Create a configuration file
+              ./kellnr config init -o kellnr.toml
+              # Edit kellnr.toml to set admin_pwd, origin hostname, etc.
+
+              # Open the configured port (default 8000), then start Kellnr
+              ./kellnr start -d /path/to/data/dir
+
+              # Or start with a configuration file
+              ./kellnr -c kellnr.toml start
             </CodeBlock>
 
+            <MinorHeader id="windows" icon="microsoft-windows">Windows</MinorHeader>
             <TextBlock>
-              <b>Nix Flake</b><br />
-              Kellnr provides a Nix flake that can be used to run Kellnr directly or install it into your
-              system profile. The flake supports <code>x86_64-linux</code>, <code>aarch64-linux</code>,
-              <code>x86_64-darwin</code>, and <code>aarch64-darwin</code>.
+              Download the archive for your architecture, extract it, and run Kellnr directly.
+              <ul>
+                <li><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-x86_64-windows.zip">kellnr-x86_64-windows.zip</a> (x86_64)</li>
+                <li><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-aarch64-windows.zip">kellnr-aarch64-windows.zip</a> (ARM64)</li>
+              </ul>
+            </TextBlock>
+            <CodeBlock lang="powershell">
+              # Download and extract (PowerShell)
+              Invoke-WebRequest -Uri "https://github.com/kellnr/kellnr/releases/latest/download/kellnr-x86_64-windows.zip" -OutFile kellnr.zip
+              Expand-Archive kellnr.zip -DestinationPath kellnr
+              cd kellnr
+
+              # (Optional) Create a configuration file
+              .\kellnr.exe config init -o kellnr.toml
+
+              # Start Kellnr
+              .\kellnr.exe start -d C:\path\to\data\dir
+            </CodeBlock>
+            <WarnBlock>
+              The Windows binaries are not tested and are provided on a best-effort basis. If you encounter
+              any issues, please report them on <a href="https://github.com/kellnr/kellnr/issues">GitHub</a>.
+            </WarnBlock>
+
+            <MinorHeader id="macos" icon="apple">macOS</MinorHeader>
+            <TextBlock>
+              Pre-built macOS binaries for Apple Silicon are published as release assets on GitHub. The
+              binary is signed with an Apple Developer ID and notarized by Apple, so it runs without any
+              Gatekeeper warnings after downloading.
+              <ul>
+                <li><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-aarch64-apple-darwin.zip">kellnr-aarch64-apple-darwin.zip</a> (Apple Silicon / ARM64)</li>
+              </ul>
             </TextBlock>
             <CodeBlock lang="bash">
-              # Run Kellnr directly without installing
-              nix run github:kellnr/kellnr -- start -d /path/to/data/dir
+              # Download and extract
+              curl -L -o kellnr-latest.zip \
+                "https://github.com/kellnr/kellnr/releases/latest/download/kellnr-aarch64-apple-darwin.zip"
+              unzip -o kellnr-latest.zip -d ./kellnr
+              cd ./kellnr
 
-              # Install Kellnr into your profile
-              nix profile install github:kellnr/kellnr
+              # (Optional) Create a configuration file
+              ./kellnr config init -o kellnr.toml
 
-              # Start Kellnr after installing
-              kellnr start -d /path/to/data/dir
-            </CodeBlock>
-            <TextBlock>
-              To use Kellnr as an input in your own flake (e.g. for a NixOS module or development shell):
-            </TextBlock>
-            <CodeBlock lang="nix">
-              {
-                inputs = {
-                  nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-                  kellnr.url = "github:kellnr/kellnr";
-                };
-
-                outputs = { nixpkgs, kellnr, ... }: {
-                  # Use kellnr.packages.${system}.default
-                };
-              }
+              # Start Kellnr with the data directory
+              ./kellnr start -d /path/to/data/dir
             </CodeBlock>
 
-            <SubHeader id="script">Script</SubHeader>
+            <SubHeader id="install-script">Install Script</SubHeader>
             <TextBlock>
               The installation script is tested on current Debian Server versions. Any other modern Linux
               distribution may work, but we cannot guarantee that. If the script does not work for your distribution,
               try the <i>-m</i> flag. This forces the installer script to use a static binary compiled with <i>musl</i>,
-              which works independent of any distribution. If that does not work, have a look at "Manual Installation".
+              which works independent of any distribution. If that does not work, have a look at the
+              <router-link to="#pre-built-binaries">Pre-built Binaries</router-link> section.
               The script will automatically install the right
               version for your architecture. Currently supported are x64 and aarch64 (arm64). <br />
               <br />
@@ -350,10 +433,54 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               </tbody>
             </TableBlock>
 
-            <SubHeader id="cargo-install">Cargo Install</SubHeader>
+            <SubHeader id="package-managers">Package Managers</SubHeader>
             <TextBlock>
-              If you have Rust and Cargo installed on your system, you can install Kellnr with Cargo as
-              well. This will build Kellnr from source on your system.
+              Kellnr can be found in the Arch User Repo (aur): <a
+                href="https://aur.archlinux.org/packages/kellnr">Kellnr - AUR</a>
+              If you use the <a href="https://github.com/Jguer/yay">yay</a> package manager you can install Kellnr with
+              the following command.
+            </TextBlock>
+            <CodeBlock lang="bash">
+              # Install Kellnr with yay
+              yay -S kellnr
+            </CodeBlock>
+
+            <TextBlock>
+              <b>Nix Flake</b><br />
+              Kellnr provides a Nix flake that can be used to run Kellnr directly or install it into your
+              system profile. The flake supports <code>x86_64-linux</code>, <code>aarch64-linux</code>,
+              <code>x86_64-darwin</code>, and <code>aarch64-darwin</code>.
+            </TextBlock>
+            <CodeBlock lang="bash">
+              # Run Kellnr directly without installing
+              nix run github:kellnr/kellnr -- start -d /path/to/data/dir
+
+              # Install Kellnr into your profile
+              nix profile install github:kellnr/kellnr
+
+              # Start Kellnr after installing
+              kellnr start -d /path/to/data/dir
+            </CodeBlock>
+            <TextBlock>
+              To use Kellnr as an input in your own flake (e.g. for a NixOS module or development shell):
+            </TextBlock>
+            <CodeBlock lang="nix">
+              {
+                inputs = {
+                  nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+                  kellnr.url = "github:kellnr/kellnr";
+                };
+
+                outputs = { nixpkgs, kellnr, ... }: {
+                  # Use kellnr.packages.${system}.default
+                };
+              }
+            </CodeBlock>
+
+            <SubHeader id="build-from-source">Build from Source</SubHeader>
+            <TextBlock>
+              If you have Rust and Cargo installed on your system, you can install Kellnr with Cargo.
+              This builds Kellnr from source on your machine.
             </TextBlock>
             <CodeBlock lang="bash">
               # Install Kellnr with Cargo
@@ -364,109 +491,63 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               kellnr start -d /path/to/data/dir
             </CodeBlock>
 
-            <SubHeader id="manual-installation">Manual Installation</SubHeader>
-            <TextBlock>
-              Manually installing Kellnr is possible as well. If the Docker or script approach does not
-              work for you, this is the best alternative.<br />
-              <br />
-              Required dependencies:
-              <ul>
-                <li>zip (unzip)</li>
-                <li>curl</li>
-              </ul>
-            </TextBlock>
-            <CodeBlock lang="bash">
-              # Download latest Kellnr version
-              # $ARCH can be:
-              # - x86_64-unknown-linux-gnu
-              # - aarch64-unknown-linux-gnu
-              # - x86_64-unknown-linux-musl
-              # - aarch64-unknown-linux-musl
-              curl --output kellnr-latest.zip
-              "https://github.com/kellnr/kellnr/releases/latest/download/kellnr-$ARCH.zip"
-
-              # Unzip
-              unzip -o kellnr-latest.zip -d ./kellnr
-              cd ./kellnr
-
-              # (Optional) Create a configuration file
-              ./kellnr config init -o kellnr.toml
-              # Edit kellnr.toml to set admin_pwd, origin hostname, etc.
-
-              # Open the ports (default 8000)
-
-              # Start Kellnr with the data directory
-              ./kellnr start -d /path/to/data/dir
-
-              # Or start with a configuration file
-              ./kellnr -c kellnr.toml start
-            </CodeBlock>
-
-            <SubHeader id="helm-chart">Helm Chart</SubHeader>
-            <TextBlock>
-              The recommended way to install Kellnr on Kubernetes is with a Helm Chart. You can find the
-              documentation for installing Kellnr with a Helm Chart here: <a
-                href="https://github.com/kellnr/helm">Kellnr
-                Helm Chart</a>
-            </TextBlock>
-
-            <SubHeader id="windows">Windows</SubHeader>
-            <TextBlock>
-              Pre-built Windows binaries are published as release assets on GitHub for every release.
-              Download the archive for your architecture, extract it, and run Kellnr directly.
-              <ul>
-                <li><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-x86_64-windows.zip">kellnr-x86_64-windows.zip</a> (x86_64)</li>
-                <li><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-aarch64-windows.zip">kellnr-aarch64-windows.zip</a> (ARM64)</li>
-              </ul>
-              You can find all releases on the <a href="https://github.com/kellnr/kellnr/releases">GitHub Releases</a> page.
-            </TextBlock>
-            <CodeBlock lang="powershell">
-              # Download and extract (PowerShell)
-              Invoke-WebRequest -Uri "https://github.com/kellnr/kellnr/releases/latest/download/kellnr-x86_64-windows.zip" -OutFile kellnr.zip
-              Expand-Archive kellnr.zip -DestinationPath kellnr
-              cd kellnr
-
-              # (Optional) Create a configuration file
-              .\kellnr.exe config init -o kellnr.toml
-
-              # Start Kellnr
-              .\kellnr.exe start -d C:\path\to\data\dir
-            </CodeBlock>
-
-            <WarnBlock>
-              The Windows binaries are not tested and are provided on a best-effort basis. If you encounter
-              any issues, please report them on <a href="https://github.com/kellnr/kellnr/issues">GitHub</a>.
-            </WarnBlock>
-
-            <SubHeader id="macos">macOS</SubHeader>
-            <TextBlock>
-              Pre-built macOS binaries for Apple Silicon are published as release assets on GitHub. The
-              binary is signed with an Apple Developer ID and notarized by Apple, so it runs without any
-              Gatekeeper warnings after downloading.
-              <ul>
-                <li><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-aarch64-apple-darwin.zip">kellnr-aarch64-apple-darwin.zip</a> (Apple Silicon / ARM64)</li>
-              </ul>
-            </TextBlock>
-            <CodeBlock lang="bash">
-              # Download and extract
-              curl -L --output kellnr-latest.zip
-              "https://github.com/kellnr/kellnr/releases/latest/download/kellnr-aarch64-apple-darwin.zip"
-              unzip -o kellnr-latest.zip -d ./kellnr
-              cd ./kellnr
-
-              # (Optional) Create a configuration file
-              ./kellnr config init -o kellnr.toml
-
-              # Start Kellnr with the data directory
-              ./kellnr start -d /path/to/data/dir
-            </CodeBlock>
-
             <MainHeader id="uninstall" icon="delete">Uninstall</MainHeader>
             <TextBlock>
-              To uninstall Kellnr and delete all data (crates, users, ...), if you installed it manully,
-              execute the uninstall script besides the Kellnr installation directory.
+              How you remove Kellnr depends on how you installed it. In every case, Kellnr keeps all its
+              data (crates, users, settings) in the data directory you passed with <code>-d</code> (or
+              the mounted Docker volume). Deleting that directory removes all data permanently, so back
+              it up first if you might need it again.
             </TextBlock>
+            <TableBlock>
+              <thead>
+                <tr>
+                  <th scope="col">Installed via</th>
+                  <th scope="col">How to remove</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><router-link to="#docker-container">Docker</router-link></td>
+                  <td>Stop and remove the container, then delete the mounted data directory.</td>
+                </tr>
+                <tr>
+                  <td><router-link to="#pre-built-binaries">Pre-built binary</router-link> (Linux/Windows/macOS)</td>
+                  <td>Delete the extracted Kellnr directory and the data directory.</td>
+                </tr>
+                <tr>
+                  <td><router-link to="#install-script">Install Script</router-link> (systemd)</td>
+                  <td>Run the uninstall script (see below).</td>
+                </tr>
+                <tr>
+                  <td><router-link to="#package-managers">Package Managers</router-link></td>
+                  <td><code>yay -Rns kellnr</code> (AUR) or <code>nix profile remove kellnr</code> (Nix).</td>
+                </tr>
+                <tr>
+                  <td><router-link to="#build-from-source">Cargo</router-link></td>
+                  <td><code>cargo uninstall kellnr</code>, then delete the data directory.</td>
+                </tr>
+                <tr>
+                  <td><router-link to="#helm-chart">Kubernetes (Helm)</router-link></td>
+                  <td><code>helm uninstall kellnr</code> (see below).</td>
+                </tr>
+              </tbody>
+            </TableBlock>
 
+            <MinorHeader id="uninstall-docker" icon="docker">Docker</MinorHeader>
+            <CodeBlock lang="bash">
+              # Stop and remove the running container
+              docker rm -f kellnr
+
+              # If you ran Kellnr with a mounted directory for persistence
+              # (e.g. -v $(pwd):/var/lib/kellnr), delete that directory to remove all data
+              rm -rf /path/to/mounted/data/dir
+            </CodeBlock>
+
+            <MinorHeader id="uninstall-script" icon="console">Install Script (systemd)</MinorHeader>
+            <TextBlock>
+              If you installed Kellnr with the install script, run the uninstaller from besides the
+              Kellnr installation directory. It stops the service and removes Kellnr along with all its data.
+            </TextBlock>
             <CodeBlock lang="bash">
               # Change to the directory containing the Kellnr installation
               cd ~
@@ -474,12 +555,11 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
               curl -s https://raw.githubusercontent.com/kellnr/installer/main/uninstall.sh | sudo bash
             </CodeBlock>
 
+            <MinorHeader id="uninstall-helm" icon="kubernetes">Kubernetes (Helm)</MinorHeader>
             <TextBlock>
-              If you installed Kellnr with the Helm Chart run the command below. Beware that all data
-              (crates, users, ...) will be deleted if you created the <i>PersistentVolume</i> with the
-              Helm chart.
+              Beware that all data (crates, users, ...) will be deleted if you created the
+              <i>PersistentVolume</i> with the Helm chart.
             </TextBlock>
-
             <CodeBlock lang="bash">
               # Uninstall Kellnr Helm Chart
               helm uninstall kellnr
