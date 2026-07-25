@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import CodeBlock from "../components/elements/CodeBlock.vue";
 import TextBlock from "../components/elements/TextBlock.vue";
 import WarnBlock from "../components/elements/WarnBlock.vue";
@@ -9,6 +10,75 @@ import MainHeader from "../components/elements/MainHeader.vue";
 import TipBlock from "../components/elements/TipBlock.vue";
 import ConfigCard from "../components/elements/ConfigCard.vue";
 import ConfigGrid from "../components/elements/ConfigGrid.vue";
+
+interface TocItem {
+  label: string;
+  hash: string;
+  children?: TocItem[];
+}
+
+// Single source of truth for the on-page table of contents, rendered in both
+// the desktop sidebar and the mobile collapsible navigation.
+const toc: TocItem[] = [
+  {
+    label: "Installation",
+    hash: "#installation",
+    children: [
+      { label: "Which Method?", hash: "#choose-method" },
+      { label: "Docker", hash: "#docker-container" },
+      { label: "Kubernetes (Helm)", hash: "#helm-chart" },
+      { label: "Pre-built Binaries", hash: "#pre-built-binaries" },
+      { label: "Install Script", hash: "#install-script" },
+      { label: "Package Managers", hash: "#package-managers" },
+      { label: "Build from Source", hash: "#build-from-source" },
+    ],
+  },
+  { label: "Uninstall", hash: "#uninstall" },
+  {
+    label: "Configuration",
+    hash: "#configuration",
+    children: [
+      { label: "Config File", hash: "#config-file" },
+      { label: "Environment Variables", hash: "#env-variables" },
+      { label: "Config Values", hash: "#config-values" },
+      { label: "Authentication", hash: "#authentication" },
+      { label: "OAuth2/OIDC", hash: "#oauth2" },
+      { label: "Crates.io Proxy Cache", hash: "#cratesio-proxy" },
+      { label: "Database Backend", hash: "#database" },
+      { label: "Webhooks", hash: "#webhooks" },
+      { label: "Toolchain Server", hash: "#toolchain" },
+    ],
+  },
+  {
+    label: "Command Line Interface",
+    hash: "#cli",
+    children: [
+      { label: "Start Command", hash: "#cli-start" },
+      { label: "Config Command", hash: "#cli-config" },
+      { label: "CLI Arguments", hash: "#cli-arguments" },
+    ],
+  },
+  {
+    label: "Configure Cargo",
+    hash: "#configure-cargo",
+    children: [
+      { label: "Global Configuration", hash: "#global-config" },
+      { label: "Per Project Configuration", hash: "#per-proj-config" },
+      { label: "Pull & Push to Kellnr", hash: "#pull-publish-to-kellnr" },
+      { label: "Crates.io Proxy Cache", hash: "#cratesio-proxy-cache" },
+      { label: "Pull specific Crates", hash: "#pull-specific-crates" },
+      { label: "Replace Crates.io", hash: "#replace-cratesio" },
+    ],
+  },
+  {
+    label: "Rustdoc",
+    hash: "#rustdoc",
+    children: [{ label: "Manual Upload", hash: "#manual-rustdoc" }],
+  },
+  { label: "Backup", hash: "#backup" },
+];
+
+const mobileNavOpen = ref(false);
 </script>
 
 <template>
@@ -58,64 +128,45 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
     <!-- Documentation Start -->
     <section class="section">
       <div class="container">
+        <!-- Mobile TOC (collapsible, shown < 992px) -->
+        <div class="toc-mobile">
+          <button
+            class="toc-mobile-toggle"
+            type="button"
+            :aria-expanded="mobileNavOpen"
+            aria-controls="toc-mobile-panel"
+            @click="mobileNavOpen = !mobileNavOpen"
+          >
+            <span><i class="mdi mdi-format-list-bulleted"></i> On this page</span>
+            <i class="mdi" :class="mobileNavOpen ? 'mdi-chevron-up' : 'mdi-chevron-down'"></i>
+          </button>
+          <nav v-show="mobileNavOpen" id="toc-mobile-panel" class="toc-mobile-panel">
+            <ul class="toc-list">
+              <li v-for="item in toc" :key="item.hash">
+                <router-link :to="item.hash" @click="mobileNavOpen = false">{{ item.label }}</router-link>
+                <ul v-if="item.children">
+                  <li v-for="child in item.children" :key="child.hash">
+                    <router-link :to="child.hash" @click="mobileNavOpen = false">{{ child.label }}</router-link>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
         <div class="doc-layout">
           <!-- Sticky Sidebar TOC -->
           <aside class="toc-sidebar">
             <h6 class="toc-title">On this page</h6>
             <ul class="toc-list">
-              <li>
-                <router-link to="#installation">Installation</router-link>
-                <ul>
-                  <li><router-link to="#choose-method">Which Method?</router-link></li>
-                  <li><router-link to="#docker-container">Docker</router-link></li>
-                  <li><router-link to="#helm-chart">Kubernetes (Helm)</router-link></li>
-                  <li><router-link to="#pre-built-binaries">Pre-built Binaries</router-link></li>
-                  <li><router-link to="#install-script">Install Script</router-link></li>
-                  <li><router-link to="#package-managers">Package Managers</router-link></li>
-                  <li><router-link to="#build-from-source">Build from Source</router-link></li>
+              <li v-for="item in toc" :key="item.hash">
+                <router-link :to="item.hash">{{ item.label }}</router-link>
+                <ul v-if="item.children">
+                  <li v-for="child in item.children" :key="child.hash">
+                    <router-link :to="child.hash">{{ child.label }}</router-link>
+                  </li>
                 </ul>
               </li>
-              <li><router-link to="#uninstall">Uninstall</router-link></li>
-              <li>
-                <router-link to="#configuration">Configuration</router-link>
-                <ul>
-                  <li><router-link to="#config-file">Config File</router-link></li>
-                  <li><router-link to="#env-variables">Environment Variables</router-link></li>
-                  <li><router-link to="#config-values">Config Values</router-link></li>
-                  <li><router-link to="#authentication">Authentication</router-link></li>
-                  <li><router-link to="#oauth2">OAuth2/OIDC</router-link></li>
-                  <li><router-link to="#cratesio-proxy">Crates.io Proxy Cache</router-link></li>
-                  <li><router-link to="#database">Database Backend</router-link></li>
-                  <li><router-link to="#webhooks">Webhooks</router-link></li>
-                  <li><router-link to="#toolchain">Toolchain Server</router-link></li>
-                </ul>
-              </li>
-              <li>
-                <router-link to="#cli">Command Line Interface</router-link>
-                <ul>
-                  <li><router-link to="#cli-start">Start Command</router-link></li>
-                  <li><router-link to="#cli-config">Config Command</router-link></li>
-                  <li><router-link to="#cli-arguments">CLI Arguments</router-link></li>
-                </ul>
-              </li>
-              <li>
-                <router-link to="#configure-cargo">Configure Cargo</router-link>
-                <ul>
-                  <li><router-link to="#global-config">Global Configuration</router-link></li>
-                  <li><router-link to="#per-proj-config">Per Project Configuration</router-link></li>
-                  <li><router-link to="#pull-publish-to-kellnr">Pull & Push to Kellnr</router-link></li>
-                  <li><router-link to="#cratesio-proxy-cache">Crates.io Proxy Cache</router-link></li>
-                  <li><router-link to="#pull-specific-crates">Pull specific Crates</router-link></li>
-                  <li><router-link to="#replace-cratesio">Replace Crates.io</router-link></li>
-                </ul>
-              </li>
-              <li>
-                <router-link to="#rustdoc">Rustdoc</router-link>
-                <ul>
-                  <li><router-link to="#manual-rustdoc">Manual Upload</router-link></li>
-                </ul>
-              </li>
-              <li><router-link to="#backup">Backup</router-link></li>
             </ul>
           </aside>
 
@@ -1681,7 +1732,52 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
   max-width: 100%;
 }
 
-/* Hide TOC on mobile */
+/* Offset anchor jumps so headings aren't hidden behind the fixed navbar
+   (and, on mobile, the sticky "On this page" bar). */
+.doc-content :deep([id]) {
+  scroll-margin-top: 110px;
+}
+
+/* Mobile TOC (collapsible) — hidden on desktop, shown < 992px */
+.toc-mobile {
+  display: none;
+}
+
+.toc-mobile-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2f55d4;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.toc-mobile-toggle .mdi {
+  font-size: 1.15rem;
+}
+
+.toc-mobile-panel {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+/* Hide desktop TOC on mobile, show the collapsible one instead */
 @media (max-width: 991px) {
   .doc-layout {
     grid-template-columns: 1fr;
@@ -1689,6 +1785,19 @@ import ConfigGrid from "../components/elements/ConfigGrid.vue";
 
   .toc-sidebar {
     display: none;
+  }
+
+  .toc-mobile {
+    display: block;
+    position: sticky;
+    top: 70px;
+    z-index: 30;
+    margin: 0 1.5rem 1.25rem;
+  }
+
+  /* Extra offset for the sticky mobile nav bar on top of the navbar */
+  .doc-content :deep([id]) {
+    scroll-margin-top: 135px;
   }
 }
 
