@@ -1,6 +1,23 @@
 {
   "releases": [
     {
+      "version": "6.5.3",
+      "date": "28. July 2026",
+      "entries": [
+        {
+          "type": "Fixed",
+          "content": "macos build expecting xz installed via Homebrew ([#1311]())",
+          "links": [
+            {
+              "label": "#1311",
+              "url": "https://github.com/kellnr/kellnr/pull/1311"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.5.2",
       "date": "25. July 2026",
       "entries": [
@@ -514,8 +531,7 @@
           "content": "*(deps)* bump time from 0.3.51 to 0.3.53",
           "links": []
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.5.1",
