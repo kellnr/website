@@ -1,6 +1,438 @@
 {
   "releases": [
     {
+      "version": "6.6.0",
+      "date": "17. August 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "*(kellnr)* add baseline security headers to all responses",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* bundle highlight.js theme CSS instead of loading from CDN",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(web-ui)* widen session token to 32 chars",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(db)* escape LIKE wildcards in crate search",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(webhooks)* add connect/request timeouts to webhook HTTP clients",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(web-ui)* return the reset user's name from reset_pwd",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(kellnr)* apply restrictive CSP to user-uploaded docs",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(common)* validate OriginalName on deserialize",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(registry)* bounds-check publish payload parser",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(web-ui)* set HttpOnly and Secure flags on session cookie",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(ui)* remove dead highlight.js theme-link toggling",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(ui)* drop redundant highlight.js theme CSS import",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(db)* backtick DoS in escape_like_pattern doc comment",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "update flake.nix",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump hyper from 1.10.1 to 1.11.0 ([#1337]())",
+          "links": [
+            {
+              "label": "#1337",
+              "url": "https://github.com/kellnr/kellnr/pull/1337"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 7 updates ([#1335]())",
+          "links": [
+            {
+              "label": "#1335",
+              "url": "https://github.com/kellnr/kellnr/pull/1335"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump hyper from 1.10.1 to 1.11.0",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump sea-orm-migration from 2.0.0 to 2.0.1 ([#1336]())",
+          "links": [
+            {
+              "label": "#1336",
+              "url": "https://github.com/kellnr/kellnr/pull/1336"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump moka from 0.12.15 to 0.12.16 ([#1334]())",
+          "links": [
+            {
+              "label": "#1334",
+              "url": "https://github.com/kellnr/kellnr/pull/1334"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump async-trait from 0.1.91 to 0.1.92 ([#1333]())",
+          "links": [
+            {
+              "label": "#1333",
+              "url": "https://github.com/kellnr/kellnr/pull/1333"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump thiserror from 2.0.19 to 2.0.20 ([#1332]())",
+          "links": [
+            {
+              "label": "#1332",
+              "url": "https://github.com/kellnr/kellnr/pull/1332"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump taiki-e/install-action from 2.85.8 to 2.85.12 ([#1331]())",
+          "links": [
+            {
+              "label": "#1331",
+              "url": "https://github.com/kellnr/kellnr/pull/1331"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump sea-orm-migration from 2.0.0 to 2.0.1",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 7 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump moka from 0.12.15 to 0.12.16",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump async-trait from 0.1.91 to 0.1.92",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump thiserror from 2.0.19 to 2.0.20",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump taiki-e/install-action from 2.85.8 to 2.85.12",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "update syn dependency",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump sea-orm from 2.0.0 to 2.0.1 ([#1329]())",
+          "links": [
+            {
+              "label": "#1329",
+              "url": "https://github.com/kellnr/kellnr/pull/1329"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump base64 from 0.23.0 to 0.23.1 ([#1328]())",
+          "links": [
+            {
+              "label": "#1328",
+              "url": "https://github.com/kellnr/kellnr/pull/1328"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 10 updates ([#1325]())",
+          "links": [
+            {
+              "label": "#1325",
+              "url": "https://github.com/kellnr/kellnr/pull/1325"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump sea-orm from 2.0.0 to 2.0.1",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump time from 0.3.54 to 0.3.55 ([#1326]())",
+          "links": [
+            {
+              "label": "#1326",
+              "url": "https://github.com/kellnr/kellnr/pull/1326"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump tokio from 1.53.0 to 1.53.1 ([#1324]())",
+          "links": [
+            {
+              "label": "#1324",
+              "url": "https://github.com/kellnr/kellnr/pull/1324"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump taiki-e/install-action from 2.85.4 to 2.85.8 ([#1323]())",
+          "links": [
+            {
+              "label": "#1323",
+              "url": "https://github.com/kellnr/kellnr/pull/1323"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump base64 from 0.23.0 to 0.23.1",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump time from 0.3.54 to 0.3.55",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 10 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump tokio from 1.53.0 to 1.53.1",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump taiki-e/install-action from 2.85.4 to 2.85.8",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump postcss from 8.5.19 to 8.5.25 in /ui ([#1322]())",
+          "links": [
+            {
+              "label": "#1322",
+              "url": "https://github.com/kellnr/kellnr/pull/1322"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump postcss from 8.5.19 to 8.5.25 in /ui",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump undici from 8.7.0 to 8.10.0 in /tests ([#1321]())",
+          "links": [
+            {
+              "label": "#1321",
+              "url": "https://github.com/kellnr/kellnr/pull/1321"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump undici from 8.7.0 to 8.10.0 in /tests",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump base64 from 0.22.1 to 0.23.0 ([#1315]())",
+          "links": [
+            {
+              "label": "#1315",
+              "url": "https://github.com/kellnr/kellnr/pull/1315"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump base64 from 0.22.1 to 0.23.0",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump quote from 1.0.46 to 1.0.47 ([#1318]())",
+          "links": [
+            {
+              "label": "#1318",
+              "url": "https://github.com/kellnr/kellnr/pull/1318"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump sea-orm-migration from 2.0.0-rc.43 to 2.0.0 ([#1317]())",
+          "links": [
+            {
+              "label": "#1317",
+              "url": "https://github.com/kellnr/kellnr/pull/1317"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump serde_json from 1.0.150 to 1.0.151 ([#1319]())",
+          "links": [
+            {
+              "label": "#1319",
+              "url": "https://github.com/kellnr/kellnr/pull/1319"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump the npm-all group in /ui with 2 updates ([#1314]())",
+          "links": [
+            {
+              "label": "#1314",
+              "url": "https://github.com/kellnr/kellnr/pull/1314"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump sea-orm-migration from 2.0.0-rc.43 to 2.0.0",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump quote from 1.0.46 to 1.0.47",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump clap from 4.6.1 to 4.6.4 ([#1316]())",
+          "links": [
+            {
+              "label": "#1316",
+              "url": "https://github.com/kellnr/kellnr/pull/1316"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump taiki-e/install-action from 2 to 2.85.4 ([#1313]())",
+          "links": [
+            {
+              "label": "#1313",
+              "url": "https://github.com/kellnr/kellnr/pull/1313"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump serde_json from 1.0.150 to 1.0.151",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump clap from 4.6.1 to 4.6.4",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps-dev)* bump the npm-all group in /ui with 2 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump taiki-e/install-action from 2 to 2.85.4",
+          "links": []
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.5.3",
       "date": "28. July 2026",
       "entries": [
@@ -14,8 +446,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.5.2",
