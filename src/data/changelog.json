@@ -1,6 +1,228 @@
 {
   "releases": [
     {
+      "version": "6.8.0",
+      "date": "29. August 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "*(storage)* add Google Cloud Storage backend support ([#1349]())",
+          "links": [
+            {
+              "label": "#1349",
+              "url": "https://github.com/kellnr/kellnr/pull/1349"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump syn from 3.0.3 to 3.0.4 ([#1354]())",
+          "links": [
+            {
+              "label": "#1354",
+              "url": "https://github.com/kellnr/kellnr/pull/1354"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 8 updates ([#1355]())",
+          "links": [
+            {
+              "label": "#1355",
+              "url": "https://github.com/kellnr/kellnr/pull/1355"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump syn from 3.0.3 to 3.0.4",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump sea-orm from 2.0.1 to 2.0.2 ([#1353]())",
+          "links": [
+            {
+              "label": "#1353",
+              "url": "https://github.com/kellnr/kellnr/pull/1353"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump sea-query from 1.0.1 to 1.0.2 ([#1352]())",
+          "links": [
+            {
+              "label": "#1352",
+              "url": "https://github.com/kellnr/kellnr/pull/1352"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid from 1.24.1 to 1.25.0 ([#1351]())",
+          "links": [
+            {
+              "label": "#1351",
+              "url": "https://github.com/kellnr/kellnr/pull/1351"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump taiki-e/install-action from 2.86.3 to 2.86.8 ([#1350]())",
+          "links": [
+            {
+              "label": "#1350",
+              "url": "https://github.com/kellnr/kellnr/pull/1350"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 8 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump sea-orm from 2.0.1 to 2.0.2",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump sea-query from 1.0.1 to 1.0.2",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid from 1.24.1 to 1.25.0",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump taiki-e/install-action from 2.86.3 to 2.86.8",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump testcontainers from 0.27.3 to 0.28.0 ([#1345]())",
+          "links": [
+            {
+              "label": "#1345",
+              "url": "https://github.com/kellnr/kellnr/pull/1345"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 6 updates ([#1344]())",
+          "links": [
+            {
+              "label": "#1344",
+              "url": "https://github.com/kellnr/kellnr/pull/1344"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump cookie from 0.18.1 to 0.18.2 ([#1346]())",
+          "links": [
+            {
+              "label": "#1346",
+              "url": "https://github.com/kellnr/kellnr/pull/1346"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump testcontainers from 0.27.3 to 0.28.0",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump http-body-util from 0.1.4 to 0.1.5 ([#1343]())",
+          "links": [
+            {
+              "label": "#1343",
+              "url": "https://github.com/kellnr/kellnr/pull/1343"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid from 1.24.0 to 1.24.1 ([#1341]())",
+          "links": [
+            {
+              "label": "#1341",
+              "url": "https://github.com/kellnr/kellnr/pull/1341"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump taiki-e/install-action from 2.85.12 to 2.86.3 ([#1340]())",
+          "links": [
+            {
+              "label": "#1340",
+              "url": "https://github.com/kellnr/kellnr/pull/1340"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump clap from 4.6.5 to 4.6.6 ([#1342]())",
+          "links": [
+            {
+              "label": "#1342",
+              "url": "https://github.com/kellnr/kellnr/pull/1342"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update npmDepsHash in flake.nix [dependabot skip]",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump cookie from 0.18.1 to 0.18.2",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the npm-all group in /ui with 6 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump http-body-util from 0.1.4 to 0.1.5",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump clap from 4.6.5 to 4.6.6",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump uuid from 1.24.0 to 1.24.1",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump taiki-e/install-action from 2.85.12 to 2.86.3",
+          "links": []
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.6.0",
       "date": "17. August 2026",
       "entries": [
@@ -429,8 +651,7 @@
           "content": "*(deps)* bump taiki-e/install-action from 2 to 2.85.4",
           "links": []
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.5.3",
