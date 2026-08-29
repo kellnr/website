@@ -379,6 +379,7 @@
             <ul class="deployment-list">
               <li><i class="mdi mdi-folder"></i> Local filesystem (default)</li>
               <li><i class="mdi mdi-aws"></i> AWS S3</li>
+              <li><i class="mdi mdi-google-cloud"></i> Google Cloud Storage</li>
               <li><i class="mdi mdi-database"></i> MinIO</li>
               <li><i class="mdi mdi-cloud"></i> S3-compatible services</li>
             </ul>
