@@ -635,6 +635,7 @@ const mobileNavOpen = ref(false);
               <router-link to="#config-documentation">Documentation</router-link>
               <router-link to="#config-postgresql">PostgreSQL</router-link>
               <router-link to="#config-s3">S3 Storage</router-link>
+              <router-link to="#config-gcs">GCS Storage</router-link>
               <router-link to="#config-oauth2-values">OAuth2/OIDC</router-link>
               <router-link to="#config-toolchain-values">Toolchain Server</router-link>
             </nav>
@@ -821,6 +822,40 @@ const mobileNavOpen = ref(false);
               <ConfigCard title="Request Timeout" toml="[s3] request_timeout_seconds"
                 env-var="KELLNR_S3__REQUEST_TIMEOUT_SECONDS" default-value="30"
                 description="S3 request timeout in seconds." />
+            </ConfigGrid>
+
+            <MinorHeader id="config-gcs">GCS Storage</MinorHeader>
+            <TextBlock>
+              Google Cloud Storage is an alternative to <router-link to="#config-s3">S3</router-link>. Only one
+              remote storage backend can be enabled at a time; Kellnr exits on startup if both
+              <code>s3.enabled</code> and <code>gcs.enabled</code> are set. Credentials are taken from
+              Application Default Credentials, so Kellnr picks up
+              <code>GOOGLE_APPLICATION_CREDENTIALS</code>, the <code>gcloud</code> ADC file, workload identity,
+              or the metadata server without any credential settings of its own.
+            </TextBlock>
+            <ConfigGrid>
+              <ConfigCard title="GCS Enabled" toml="[gcs] enabled" env-var="KELLNR_GCS__ENABLED" default-value="false"
+                description="Enable Google Cloud Storage instead of local file system. Cannot be combined with S3." />
+              <ConfigCard title="Endpoint" toml="[gcs] endpoint" env-var="KELLNR_GCS__ENDPOINT" default-value="None"
+                description="Custom base URL for a self-hosted or emulator endpoint. When omitted, the public Google Cloud Storage API is used." />
+              <ConfigCard title="Allow HTTP" toml="[gcs] allow_http" env-var="KELLNR_GCS__ALLOW_HTTP"
+                default-value="true" description="Allow unsecure GCS connection with HTTP. Needed when the endpoint uses HTTP." />
+              <ConfigCard title="Skip Signature" toml="[gcs] skip_signature" env-var="KELLNR_GCS__SKIP_SIGNATURE"
+                default-value="false"
+                description="Skip credential lookup and request signing. Only for unauthenticated endpoints such as emulators." />
+              <ConfigCard title="Crates Bucket" toml="[gcs] crates_bucket" env-var="KELLNR_GCS__CRATES_BUCKET"
+                default-value="kellnr-crates" description="Bucket where Kellnr stores uploaded crates." />
+              <ConfigCard title="Crates.io Bucket" toml="[gcs] cratesio_bucket" env-var="KELLNR_GCS__CRATESIO_BUCKET"
+                default-value="kellnr-cratesio" description="Bucket for crates.io crates if the proxy is enabled." />
+              <ConfigCard title="Toolchain Bucket" toml="[gcs] toolchain_bucket" env-var="KELLNR_GCS__TOOLCHAIN_BUCKET"
+                default-value="kellnr-toolchains"
+                description="Bucket for toolchain archives if the toolchain server is enabled." />
+              <ConfigCard title="Connect Timeout" toml="[gcs] connect_timeout_seconds"
+                env-var="KELLNR_GCS__CONNECT_TIMEOUT_SECONDS" default-value="5"
+                description="GCS connect timeout in seconds." />
+              <ConfigCard title="Request Timeout" toml="[gcs] request_timeout_seconds"
+                env-var="KELLNR_GCS__REQUEST_TIMEOUT_SECONDS" default-value="30"
+                description="GCS request timeout in seconds." />
             </ConfigGrid>
 
             <MinorHeader id="config-oauth2-values">OAuth2/OIDC</MinorHeader>
@@ -1407,6 +1442,11 @@ const mobileNavOpen = ref(false);
                   <td>false</td>
                 </tr>
                 <tr>
+                  <td><code>--gcs-enabled</code></td>
+                  <td>Use Google Cloud Storage instead of local filesystem</td>
+                  <td>false</td>
+                </tr>
+                <tr>
                   <td><code>--oauth2-enabled</code></td>
                   <td>Enable OAuth2/OIDC authentication</td>
                   <td>false</td>
@@ -1664,8 +1704,9 @@ const mobileNavOpen = ref(false);
               backup the data folder. The data folder contains all data needed to restore Kellnr. It is recommended to
               backup the data folder regularly, as it contains all uploaded crates and the SQLite database. If you use
               PostgreSQL instead, do not forget to backup the database separately. Likewise, if you enable
-              <router-link to="#config-s3">S3 storage</router-link>, your uploaded crates are stored in the configured
-              S3 buckets rather than the data folder — back those up separately as well.
+              <router-link to="#config-s3">S3</router-link> or
+              <router-link to="#config-gcs">GCS storage</router-link>, your uploaded crates are stored in the
+              configured buckets rather than the data folder — back those up separately as well.
             </TextBlock>
           </div>
         </div>
