@@ -1,6 +1,12 @@
 {
   "releases": [
     {
+      "version": "6.7.0",
+      "date": "29. August 2026",
+      "entries": [],
+      "isLatest": true
+    },
+    {
       "version": "6.6.0",
       "date": "17. August 2026",
       "entries": [
@@ -429,8 +435,7 @@
           "content": "*(deps)* bump taiki-e/install-action from 2 to 2.85.4",
           "links": []
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.5.3",
