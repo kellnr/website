@@ -869,6 +869,9 @@ const mobileNavOpen = ref(false);
                 default-value="" description="OAuth2 client ID from your identity provider." />
               <ConfigCard title="Client Secret" toml="[oauth2] client_secret" env-var="KELLNR_OAUTH2__CLIENT_SECRET"
                 default-value="" description="OAuth2 client secret. Recommended to set via environment variable." />
+              <ConfigCard title="Additional Audiences" toml="[oauth2] additional_audiences"
+                env-var="KELLNR_OAUTH2__ADDITIONAL_AUDIENCES" default-value="[]"
+                description="Audiences accepted in the ID token besides the client ID, which stays required." />
               <ConfigCard title="Scopes" toml="[oauth2] scopes" env-var="KELLNR_OAUTH2__SCOPES"
                 default-value='["openid", "profile", "email"]'
                 description="OAuth2 scopes to request from the identity provider." />
@@ -983,6 +986,26 @@ const mobileNavOpen = ref(false);
                 <li>Note the client ID and client secret</li>
                 <li>Find the issuer URL (typically the provider's base URL + application path)</li>
               </ol>
+            </TextBlock>
+
+            <TextBlock>
+              <b>Multiple Audiences</b><br />
+              Some identity providers, Zitadel among them, issue ID tokens whose <i>aud</i> claim lists several
+              audiences instead of the client ID alone. Kellnr rejects an audience it does not know, because every
+              audience named in a token is able to present that token to Kellnr. If your provider adds further
+              audiences, list the ones you trust:
+            </TextBlock>
+
+            <CodeBlock lang="toml">
+              [oauth2]
+              additional_audiences = ["other-client-id", "project-id"]
+            </CodeBlock>
+
+            <TextBlock>
+              The configured <i>client_id</i> still has to appear in the <i>aud</i> claim. The allowlist covers only
+              the additional entries, and leaving it empty, the default, keeps every additional audience rejected.
+              As an environment variable the list is comma-separated:
+              <i>KELLNR_OAUTH2__ADDITIONAL_AUDIENCES=other-client-id,project-id</i>.
             </TextBlock>
 
             <TextBlock>
