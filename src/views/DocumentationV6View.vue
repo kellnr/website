@@ -892,6 +892,12 @@ const mobileNavOpen = ref(false);
                 description="Group name that grants read-only access (e.g., 'kellnr-readonly')." />
               <ConfigCard title="Button Text" toml="[oauth2] button_text" env-var="KELLNR_OAUTH2__BUTTON_TEXT"
                 default-value="Login with SSO" description="Text displayed on the OAuth2 login button in the web UI." />
+              <ConfigCard title="Enforced" toml="[oauth2] enforced" env-var="KELLNR_OAUTH2__ENFORCED"
+                default-value="false"
+                description="Make SSO the only way to log in. Disables password login, password changes and resets, and local user creation. Requires enabled." />
+              <ConfigCard title="Auto Redirect" toml="[oauth2] auto_redirect"
+                env-var="KELLNR_OAUTH2__AUTO_REDIRECT" default-value="false"
+                description="Skip the login page and send users straight to the identity provider. Requires enforced." />
             </ConfigGrid>
 
             <MinorHeader id="config-toolchain-values">Toolchain Server</MinorHeader>
@@ -954,6 +960,8 @@ const mobileNavOpen = ref(false);
                 <li>Automatic user provisioning on first login</li>
                 <li>Group-based admin and read-only role assignment</li>
                 <li>Customizable login button text</li>
+                <li>Optional SSO-only mode that disables password login entirely</li>
+                <li>RP-initiated logout, ending the session at the identity provider as well</li>
               </ul>
             </TextBlock>
 
@@ -1040,6 +1048,79 @@ const mobileNavOpen = ref(false);
               read_only_group_claim = "groups"
               read_only_group_value = "kellnr-readonly"
             </CodeBlock>
+
+            <TextBlock>
+              <b>SSO-Only Login</b><br />
+              By default, the SSO button sits next to the username and password form, so both login methods stay
+              available. Set <i>enforced</i> to make SSO the only way in:
+            </TextBlock>
+
+            <CodeBlock lang="toml">
+              [oauth2]
+              enabled = true
+              enforced = true
+            </CodeBlock>
+
+            <TextBlock>
+              With enforcement on, Kellnr rejects every path that relies on a local password:
+              <ul>
+                <li>The login endpoint refuses username and password credentials</li>
+                <li>Changing your own password and resetting another user's password are refused</li>
+                <li>Creating a local user is refused, since users come from the identity provider</li>
+                <li>HTTP Basic authentication against the registry API is refused</li>
+              </ul>
+              The web UI hides the matching forms and buttons, so the password form, the Change Password tab, the
+              Add User form and the password reset action disappear.<br />
+              <br />
+              Cargo API tokens are unaffected. They are independent of how a user logs in, so
+              <code>cargo publish</code> and <code>cargo add</code> keep working exactly as before.
+            </TextBlock>
+
+            <WarnBlock>
+              Configure <i>admin_group_claim</i> and <i>admin_group_value</i> before enabling <i>enforced</i> on a
+              fresh instance. The local admin account can no longer log in, and without a group mapping no user
+              provisioned through SSO is ever promoted, which leaves the instance without an administrator. Kellnr
+              logs a warning at startup when it detects this combination.
+            </WarnBlock>
+
+            <TextBlock>
+              Kellnr also refuses to start when <i>enforced</i> is set but the OIDC handler cannot be initialized,
+              for example because the provider is unreachable or the issuer URL is malformed. Starting anyway would
+              serve a registry that nobody can log into, so the process exits with status code 1 and logs the reason
+              instead.
+            </TextBlock>
+
+            <TextBlock>
+              <b>Skipping the Login Page</b><br />
+              Once SSO is the only login method, the login page holds a single button. Set <i>auto_redirect</i> to
+              send users straight to the identity provider instead:
+            </TextBlock>
+
+            <CodeBlock lang="toml">
+              [oauth2]
+              enabled = true
+              enforced = true
+              auto_redirect = true
+            </CodeBlock>
+
+            <TextBlock>
+              <i>auto_redirect</i> requires <i>enforced</i>, and <i>enforced</i> requires <i>enabled</i>. Kellnr
+              rejects a configuration that sets one without the other, rather than silently disabling all login.
+            </TextBlock>
+
+            <TextBlock>
+              <b>Logout</b><br />
+              When your provider advertises an <i>end_session_endpoint</i> in its discovery document (RP-Initiated
+              Logout 1.0), logging out of Kellnr also ends the session at the provider. Kellnr redirects the browser
+              to that endpoint with the ID token as <i>id_token_hint</i>, and the provider redirects back to Kellnr
+              afterwards. Add your Kellnr URL to the provider's list of allowed post-logout redirect URIs, otherwise
+              the provider refuses the redirect:
+              <ul>
+                <li><i>https://your-kellnr-host/</i></li>
+              </ul>
+              Providers without an <i>end_session_endpoint</i> only have the local Kellnr session cleared, so the
+              provider may sign the user straight back in on the next login attempt.
+            </TextBlock>
 
             <WarnBlock>
               The client secret should be kept confidential. It is recommended to set it via the
@@ -1472,6 +1553,16 @@ const mobileNavOpen = ref(false);
                 <tr>
                   <td><code>--oauth2-enabled</code></td>
                   <td>Enable OAuth2/OIDC authentication</td>
+                  <td>false</td>
+                </tr>
+                <tr>
+                  <td><code>--oauth2-enforced</code></td>
+                  <td>Make SSO the only way to log in</td>
+                  <td>false</td>
+                </tr>
+                <tr>
+                  <td><code>--oauth2-auto-redirect</code></td>
+                  <td>Skip the login page and redirect to the identity provider</td>
                   <td>false</td>
                 </tr>
               </tbody>
