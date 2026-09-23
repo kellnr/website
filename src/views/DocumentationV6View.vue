@@ -1117,9 +1117,18 @@ const mobileNavOpen = ref(false);
               the provider refuses the redirect:
               <ul>
                 <li><i>https://your-kellnr-host/</i></li>
+                <li><i>https://your-kellnr-host/your-prefix/</i> when <i>origin.path</i> is set</li>
               </ul>
               Providers without an <i>end_session_endpoint</i> only have the local Kellnr session cleared, so the
               provider may sign the user straight back in on the next login attempt.
+            </TextBlock>
+
+            <TextBlock>
+              Kellnr keeps the ID token in a cookie to pass it back as <i>id_token_hint</i>. Browsers cap a single
+              cookie at roughly 4 KB, so a very large ID token, typically one carrying many group memberships, is
+              dropped and the provider session is no longer ended on logout. The local Kellnr session is still
+              cleared, so the only visible symptom is that the provider signs the user straight back in. If you hit
+              this, trim the claims your provider puts in the ID token.
             </TextBlock>
 
             <WarnBlock>
