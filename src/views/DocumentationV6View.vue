@@ -73,7 +73,10 @@ const toc: TocItem[] = [
   {
     label: "Rustdoc",
     hash: "#rustdoc",
-    children: [{ label: "Manual Upload", hash: "#manual-rustdoc" }],
+    children: [
+      { label: "Crate Features", hash: "#rustdoc-features" },
+      { label: "Manual Upload", hash: "#manual-rustdoc" },
+    ],
   },
   { label: "Backup", hash: "#backup" },
 ];
@@ -1795,6 +1798,31 @@ const mobileNavOpen = ref(false);
               malicious code, included in a dependency, can be executed. Make sure you trust the code you build the docs
               for!
             </WarnBlock>
+
+            <SubHeader id="rustdoc-features">Crate Features</SubHeader>
+            <TextBlock>
+              By default, Kellnr generates the rustdocs with all features of the crate enabled. If some features
+              of your crate are mutually exclusive, the build fails and no documentation is generated. In this
+              case, configure the features in the <code>[package.metadata.docs.rs]</code> table of your
+              <code>Cargo.toml</code>, the same table <a href="https://docs.rs/about/metadata">docs.rs</a> uses.
+              Kellnr supports the following keys:
+              <ul>
+                <li><code>all-features</code>: Enable all features. Defaults to <code>true</code>.</li>
+                <li><code>features</code>: List of features to enable.</li>
+                <li><code>no-default-features</code>: Disable the default features. Defaults to
+                  <code>false</code>.</li>
+              </ul>
+              <b>Attention</b><br />
+              Unlike docs.rs, where <code>all-features</code> defaults to <code>false</code>, Kellnr enables all
+              features unless you set <code>all-features = false</code> explicitly. Other docs.rs keys like
+              <code>rustdoc-args</code> or <code>targets</code> are ignored.
+            </TextBlock>
+            <CodeBlock lang="toml">
+              [package.metadata.docs.rs]
+              # Build the docs only with the default features and "tls-rustls"
+              all-features = false
+              features = ["tls-rustls"]
+            </CodeBlock>
 
             <SubHeader id="manual-rustdoc">Manual Rustdoc Upload</SubHeader>
             <TextBlock>
