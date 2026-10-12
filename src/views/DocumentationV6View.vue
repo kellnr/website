@@ -793,6 +793,9 @@ const mobileNavOpen = ref(false);
                 description="User name of the PostgreSQL database." />
               <ConfigCard title="Password" toml="[postgresql] pwd" env-var="KELLNR_POSTGRESQL__PWD" default-value=""
                 description="Password of the PostgreSQL database." />
+              <ConfigCard title="Connection String" toml="[postgresql] connection_string"
+                env-var="KELLNR_POSTGRESQL__CONNECTION_STRING" default-value="None"
+                description="Raw PostgreSQL connection string (postgres://...) passed directly to the database driver. If set, address, port, db, user and pwd are ignored." />
             </ConfigGrid>
 
             <MinorHeader id="config-s3">S3 Storage</MinorHeader>
@@ -1186,6 +1189,14 @@ const mobileNavOpen = ref(false);
                 <li><code>postgresql.pwd</code> / <code>KELLNR_POSTGRESQL__PWD</code> / <code>--postgresql-pwd</code>
                 </li>
               </ul>
+              Alternatively, you can provide a raw connection string with
+              <code>postgresql.connection_string</code> / <code>KELLNR_POSTGRESQL__CONNECTION_STRING</code> /
+              <code>--postgresql-connection-string</code>. The string is passed directly to the database
+              driver, which allows advanced connection parameters like TLS settings, e.g.
+              <code>postgres://user:password@db.example.com:5432/kellnr?sslmode=verify-full</code>.
+              If set, the individual values above are ignored. Special characters in the user name or
+              password must be percent-encoded.<br />
+              <br />
               The PostgreSQL database needs to be created manually before starting Kellnr. Kellnr will
               create all tables and indexes automatically on first start.
             </TextBlock>
