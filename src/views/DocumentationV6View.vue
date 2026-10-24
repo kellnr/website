@@ -2097,7 +2097,7 @@ const mobileNavOpen = ref(false);
             </TextBlock>
 
             <MainHeader id="upgrade-notes" icon="update">Upgrade Notes</MainHeader>
-            <SubHeader id="upgrade-security-hardening">Security Hardening (after 6.10)</SubHeader>
+            <SubHeader id="upgrade-security-hardening">Security Hardening (6.11.0)</SubHeader>
             <TextBlock>
               The first release after Kellnr 6.10 contains a set of security fixes. Most of them need no action, but
               some change behavior you may notice after the upgrade:

@@ -8,9 +8,9 @@ import WarnBlock from "@/components/elements/WarnBlock.vue";
 </script>
 
 <template>
-  <BlogPostTemplate title="Security Hardening: New Settings and What to Check Before Upgrading" date="24. October, 2026">
+  <BlogPostTemplate title="Kellnr 6.11.0: Security Hardening, New Settings and What to Check Before Upgrading" date="24. October, 2026">
     <TextBlock>
-      The next Kellnr release after 6.10 is a security release. It closes several vulnerabilities found in a review of
+      Kellnr 6.11.0 is a security release. It closes several vulnerabilities found in a review of
       the whole code base and hardens Kellnr in many smaller places. Please upgrade soon. Most of the changes need no
       action from you, but a few change behaviour you might rely on. This post lists the new settings and the things to
       check before upgrading. The full list is in the
