@@ -1,6 +1,268 @@
 {
   "releases": [
     {
+      "version": "6.11.0",
+      "date": "24. October 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "*(webhooks)* sign deliveries with an optional per-webhook secret",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(docker)* keep containers running without capabilities",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(docs)* pass cargo configuration variables to docs builds",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* only persist user preferences in local storage",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(auth)* remove session cookie on logout and warn about weak signing keys",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(auth)* allow forcing the Secure flag on cookies",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(auth)* derive OAuth2 privileges only from the configured claims",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(auth)* bind OAuth2 login flow to the initiating browser",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(auth)* expire and atomically consume OAuth2 states",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(auth)* end sessions on password change and reset",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(auth)* store session tokens hashed",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(auth)* throttle password attempts per username",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(auth)* hash passwords with argon2id",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(auth)* do not cache token lookups that raced with an invalidation",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(docker)* run kellnr as an unprivileged user",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(security)* add CSP, COOP and HSTS headers to UI and API responses",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(docs)* block popups, frames and workers from hosted rustdoc",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(docs)* bound archive extraction and docs build duration",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(docs)* build rustdoc in a child process without kellnr secrets",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(docs)* never follow symlinks from crate or docs archives",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(docs)* hide download-restricted crates in the docs build queue",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(docs)* reject docs uploads from read-only users",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(registry)* verify proxied crates against the crates.io checksum",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(index)* never forward client conditional headers to crates.io",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(registry)* bound the download counter to existing crates",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(registry)* reject versions that only differ in build metadata",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(db)* reject new crates whose name only differs in dash or underscore",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(db)* look up crate by normalized name inside publish transaction",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(error)* hide internal error details from API clients",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(registry)* reject non-http URLs in publish metadata",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(registry)* harden publish body parsing and prefetch update loop",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* forbid style and form elements in rendered READMEs",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* only link to http(s) and relative URLs from crate metadata",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(web-ui)* align crate ACL endpoints with the crate API policy",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(web-ui)* reject docs build requests from read-only owners",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "hide download-restricted crates from callers without access",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(web-ui)* hide crate data of download-restricted crates",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(web-ui)* redact secret values in settings API response",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(webhooks)* do not expose callback responses to API callers",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(webhooks)* block link-local and cloud metadata delivery targets",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(webhooks)* do not follow redirects on webhook delivery",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(webhooks)* validate callback_url on registration",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(storage)* do not require the GCS test helper on crates.io ([#1446]())",
+          "links": [
+            {
+              "label": "#1446",
+              "url": "https://github.com/kellnr/kellnr/pull/1446"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(settings)* warn that docs builds run publisher code",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* document accepted RustSec advisories without a fix",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update crates with RustSec advisories",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(docs)* reuse can_read_crate for docs access checks",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "apply rustfmt to security fixes",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(webhooks)* apply rustfmt",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(webhooks)* deliver queued webhooks concurrently",
+          "links": []
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.10.1",
       "date": "24. October 2026",
       "entries": [
@@ -209,8 +471,7 @@
           "content": "*(deps)* bump taiki-e/install-action from 2.87.26 to 2.87.28",
           "links": []
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.10.0",
