@@ -79,6 +79,7 @@ const toc: TocItem[] = [
     ],
   },
   { label: "Backup", hash: "#backup" },
+  { label: "Upgrade Notes", hash: "#upgrade-notes" },
 ];
 
 const mobileNavOpen = ref(false);
@@ -255,6 +256,43 @@ const mobileNavOpen = ref(false);
               The values can be set with environment variables on the first start of Kellnr. If you ran
               the container with a mounted volume for persistence, all variables are ignored.
             </TextBlock>
+
+            <TextBlock>
+              <b>Container User</b><br />
+              Both images run Kellnr as the unprivileged user <i>kellnr</i> (uid and gid <i>1000</i>). The
+              entrypoint starts as root, installs custom CA certificates mounted to
+              <i>/usr/local/share/ca-certificates</i> with <i>update-ca-certificates</i>, hands the data directory over
+              to the <i>kellnr</i> user if any file in it is still owned by someone else (e.g. root-owned volumes
+              of older images), and then drops its privileges. Existing volumes keep working without manual steps.
+              <ul>
+                <li>
+                  To start the container directly as non-root, e.g. with <code>--user 1000:1000</code> or the
+                  Kubernetes <i>runAsUser</i> setting, make sure the data directory is writable for that user. Custom
+                  CAs mounted to <i>/usr/local/share/ca-certificates</i> are still trusted: the entrypoint builds a
+                  combined CA bundle in a writable temporary location and points <code>SSL_CERT_FILE</code> and
+                  <code>CARGO_HTTP_CAINFO</code> at it.
+                </li>
+                <li>
+                  If the container starts as root but lacks the <i>CHOWN</i>, <i>SETUID</i> or <i>SETGID</i>
+                  capabilities (e.g. because all capabilities are dropped), the entrypoint logs a warning and keeps
+                  running as root instead of failing. Add these capabilities or run the container as non-root to get
+                  rid of the warning.
+                </li>
+                <li>
+                  In the full image, cargo uses <i>/home/kellnr/.cargo</i> as <code>CARGO_HOME</code>. The Rust
+                  toolchain itself is read-only for the <i>kellnr</i> user.
+                </li>
+              </ul>
+            </TextBlock>
+
+            <CodeBlock lang="bash">
+              # Run the container as non-root from the start
+              docker run --rm -it \
+              -p 8000:8000 \
+              --user 1000:1000 \
+              -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" \
+              -v $(pwd):/var/lib/kellnr ghcr.io/kellnr/kellnr:6
+            </CodeBlock>
 
             <SubHeader id="helm-chart">Kubernetes (Helm)</SubHeader>
             <TextBlock>
@@ -640,6 +678,7 @@ const mobileNavOpen = ref(false);
               <router-link to="#config-s3">S3 Storage</router-link>
               <router-link to="#config-gcs">GCS Storage</router-link>
               <router-link to="#config-oauth2-values">OAuth2/OIDC</router-link>
+              <router-link to="#config-webhooks-values">Webhooks</router-link>
               <router-link to="#config-toolchain-values">Toolchain Server</router-link>
             </nav>
 
@@ -671,7 +710,7 @@ const mobileNavOpen = ref(false);
                 description="Max number of internal database connections. '0' disables the limit." />
               <ConfigCard title="Cookie Signing Key" toml="[registry] cookie_signing_key"
                 env-var="KELLNR_REGISTRY__COOKIE_SIGNING_KEY" default-value="None"
-                description="Signing key for UI auth cookies. If not set, a random one is generated. Needs to be set to an (at least 64 byte) long string if you intend to run multiple instances of kellnr which share a login." />
+                description="Signing key for UI auth cookies. If not set, a random one is generated. Needs to be set to an (at least 64 byte) long random string if you intend to run multiple instances of kellnr which share a login. Generate it with 'openssl rand -hex 64'. Kellnr logs a warning at startup if the key looks weak." />
               <ConfigCard title="Authentication Required" toml="[registry] auth_required"
                 env-var="KELLNR_REGISTRY__AUTH_REQUIRED" default-value="false"
                 description="Enable/Disable authentication for crates pulls and disable anonymous users for the web UI." />
@@ -708,6 +747,12 @@ const mobileNavOpen = ref(false);
               <ConfigCard title="Download Counter Flush Interval" toml="[registry] download_counter_flush_seconds"
                 env-var="KELLNR_REGISTRY__DOWNLOAD_COUNTER_FLUSH_SECONDS" default-value="30"
                 description="Interval in seconds between flushing download counts to the database. Set to 0 to flush on every download." />
+              <ConfigCard title="Max Failed Login Attempts" toml="[registry] auth_max_failed_attempts"
+                env-var="KELLNR_REGISTRY__AUTH_MAX_FAILED_ATTEMPTS" default-value="10"
+                description="Password attempts allowed per username within the window before further attempts are rejected with HTTP 429. Applies to web UI login and cargo basic auth. A successful login resets the count. Set to 0 to disable." />
+              <ConfigCard title="Failed Login Attempts Window" toml="[registry] auth_failed_attempts_window_seconds"
+                env-var="KELLNR_REGISTRY__AUTH_FAILED_ATTEMPTS_WINDOW_SECONDS" default-value="300"
+                description="Window in seconds for counting password attempts per username." />
             </ConfigGrid>
 
             <MinorHeader id="config-local-server">Local Server</MinorHeader>
@@ -730,6 +775,9 @@ const mobileNavOpen = ref(false);
                 description="Either 'http' or 'https'. This does not enable TLS on Kellnr, but needs to be set if a TLS proxy is used in front of Kellnr." />
               <ConfigCard title="Path" toml="[origin] path" env-var="KELLNR_ORIGIN__PATH" default-value=""
                 description="Run Kellnr on a sub path of a URL, e.g. '/kellnring/' for https://www.example.com/kellnring/" />
+              <ConfigCard title="Cookie Secure" toml="[origin] cookie_secure" env-var="KELLNR_ORIGIN__COOKIE_SECURE"
+                default-value="None"
+                description="Force the Secure flag on cookies (true) or never set it (false). If not set, cookies are secure only when the protocol is 'https'. Set it to true when Kellnr is reached over https through a TLS-terminating proxy but the protocol is 'http'." />
             </ConfigGrid>
 
             <MinorHeader id="config-logging">Logging</MinorHeader>
@@ -777,9 +825,16 @@ const mobileNavOpen = ref(false);
             <ConfigGrid>
               <ConfigCard title="Rustdoc Generation" toml="[docs] enabled" env-var="KELLNR_DOCS__ENABLED"
                 default-value="false"
-                description="If 'true', rustdocs are generated for each uploaded crate automatically." />
+                description="If 'true', rustdocs are generated for each uploaded crate automatically. Building docs runs the build scripts and proc macros of every published crate on the Kellnr host, see Rustdoc." />
               <ConfigCard title="Max Doc Size" toml="[docs] max_size" env-var="KELLNR_DOCS__MAX_SIZE"
-                default-value="100" description="Max size of crate docs allowed to be uploaded in MB." />
+                default-value="100"
+                description="Max size of crate docs allowed to be uploaded in MB. Unpacked archives may be at most 20 times as large and contain at most 1000 files per MB." />
+              <ConfigCard title="Build Timeout" toml="[docs] build_timeout_seconds"
+                env-var="KELLNR_DOCS__BUILD_TIMEOUT_SECONDS" default-value="1800"
+                description="Max duration of a single rustdoc build in seconds. Builds that take longer are killed and the crate is skipped. Set to 0 for no limit." />
+              <ConfigCard title="Build Wrapper" toml="[docs] build_wrapper" env-var="KELLNR_DOCS__BUILD_WRAPPER"
+                default-value="[]"
+                description="Command prefix for the rustdoc build process, e.g. to confine the build with bubblewrap. As environment variable, separate the entries with commas. See Rustdoc for an example." />
             </ConfigGrid>
 
             <MinorHeader id="config-postgresql">PostgreSQL</MinorHeader>
@@ -906,6 +961,13 @@ const mobileNavOpen = ref(false);
                 description="Skip the login page and send users straight to the identity provider. Requires enforced." />
             </ConfigGrid>
 
+            <MinorHeader id="config-webhooks-values">Webhooks</MinorHeader>
+            <ConfigGrid>
+              <ConfigCard title="Block Private Targets" toml="[webhooks] block_private_targets"
+                env-var="KELLNR_WEBHOOKS__BLOCK_PRIVATE_TARGETS" default-value="false"
+                description="Refuse webhook deliveries to loopback, private and other non-public addresses. Link-local and cloud metadata addresses are always refused." />
+            </ConfigGrid>
+
             <MinorHeader id="config-toolchain-values">Toolchain Server</MinorHeader>
             <ConfigGrid>
               <ConfigCard title="Toolchain Enabled" toml="[toolchain] enabled" env-var="KELLNR_TOOLCHAIN__ENABLED"
@@ -936,24 +998,60 @@ const mobileNavOpen = ref(false);
               <br />
               <br />
               It is also possible to restrict crate pulls on a per-crate basis using crate access restriction (available
-              in the web UI for administrator users in the settings tab). A restricted crate can only be downloaded by
-              administrators, crate owners, crate users and members of crate groups. The same applies to the hosted
-              <router-link to="#rustdoc">rustdocs</router-link> of the crate, as they contain its source code. Metadata
-              like the crate name, versions, dependencies and readme stays visible to all users of Kellnr. When only
-              specific crate users are allowed to download crates, cargo shall be authenticated on pull using the
-              credentials of a user added to the crate users list.
+              in the web UI in the settings tab of a crate). A restricted crate can only be downloaded by
+              administrators, crate owners, crate users and members of crate groups. Only administrators can turn the
+              restriction on or off. Administrators and crate owners can manage the crate users and crate groups,
+              both in the web UI and through the cargo API. Read-only owners can only list them.
+              <br />
+              <br />
+              For everyone else a restricted crate does not exist: it is left out of crate lists, search and
+              statistics, and its crate page, readme, versions, owners, sparse index entry and hosted
+              <router-link to="#rustdoc">rustdocs</router-link> answer with "not found". As cargo only sends
+              credentials on index requests when <code>auth_required</code> is enabled, restricted crates need
+              <code>auth_required = true</code> to be usable with cargo. When only specific crate users are allowed to
+              download crates, cargo shall be authenticated on pull using the credentials of a user added to the crate
+              users list.
               <br />
               <br />
               In the case of the Kellnr Docker image, you can mount a volume that contains the config file with the
-              authentication token to <i>/usr/local/cargo/config.toml</i>.
+              authentication token to <i>/home/kellnr/.cargo/config.toml</i> (the <code>CARGO_HOME</code> of the
+              <i>kellnr</i> user).
               <br />
               <br />
-              E.g. <i>docker run -v /path/to/config.toml:/usr/local/cargo/config.toml:ro ghcr.io/kellnr/kellnr:6</i>
+              E.g. <i>docker run -v /path/to/config.toml:/home/kellnr/.cargo/config.toml:ro ghcr.io/kellnr/kellnr:6</i>
               <br />
               <br />
               For more information about authentication and how to configure cargo to use it see: <a
                 href="https://doc.rust-lang.org/nightly/cargo/reference/registry-authentication.html">Registry
                 Authentication</a>
+            </TextBlock>
+
+            <TextBlock>
+              <b>Passwords and Sessions</b>
+              <ul>
+                <li>
+                  Passwords are hashed with argon2id. Passwords stored by older Kellnr versions are upgraded
+                  automatically on the next successful login.
+                </li>
+                <li>
+                  Repeated wrong passwords for the same username are throttled: after
+                  <code>registry.auth_max_failed_attempts</code> attempts within
+                  <code>registry.auth_failed_attempts_window_seconds</code>, further attempts for that username are
+                  rejected with HTTP 429 until the window has passed. This applies to the web UI login and to cargo
+                  basic auth. Cargo tokens are not affected. Set <code>registry.auth_max_failed_attempts = 0</code> to
+                  turn it off.
+                </li>
+                <li>
+                  Changing your password signs out all your other sessions. When an administrator resets a
+                  user's password, all sessions of that user are ended. Cargo tokens stay valid in both cases, so
+                  delete them separately if they may be compromised.
+                </li>
+                <li>
+                  Session cookies get the <i>Secure</i> flag when <code>origin.protocol</code> is <i>https</i>. If a
+                  TLS-terminating proxy is in front of Kellnr and <code>origin.protocol</code> is <i>http</i>, set
+                  <code>origin.cookie_secure = true</code>.
+                </li>
+              </ul>
             </TextBlock>
 
             <SubHeader id="oauth2">OAuth2/OIDC</SubHeader>
@@ -966,6 +1064,7 @@ const mobileNavOpen = ref(false);
               <b>Features</b>
               <ul>
                 <li>PKCE (Proof Key for Code Exchange) for secure authorization code flow</li>
+                <li>Login state bound to the browser that started the login, to prevent login CSRF</li>
                 <li>Automatic user provisioning on first login</li>
                 <li>Group-based admin and read-only role assignment</li>
                 <li>Customizable login button text</li>
@@ -1057,6 +1156,13 @@ const mobileNavOpen = ref(false);
               read_only_group_claim = "groups"
               read_only_group_value = "kellnr-readonly"
             </CodeBlock>
+
+            <TextBlock>
+              A role is only granted if the configured claim itself contains the configured value. The claim can be
+              a string, a list of strings or a boolean (granted for the value <i>true</i>). Kellnr does not fall back
+              to other claims like <i>groups</i>, <i>roles</i> or <i>group</i>, so the claim name has to match the
+              claim your identity provider actually sends, e.g. <i>cognito:groups</i> for AWS Cognito.
+            </TextBlock>
 
             <TextBlock>
               <b>SSO-Only Login</b><br />
@@ -1221,7 +1327,8 @@ const mobileNavOpen = ref(false);
               -d '{
               "type": "crate_yank",
               "callback_url": "http://my-other-service:8000/crate-yank",
-              "name": "My yank webhook"
+              "name": "My yank webhook",
+              "secret": "whsec_YOUR-BASE64-SECRET"
               }'
 
               # Successful response will contain registered webhook's id:
@@ -1249,8 +1356,58 @@ const mobileNavOpen = ref(false);
                 href="https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md#deliverability-and-reliability">
                 https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md#deliverability-and-reliability
               </a>
-
               <br /><br />
+              <b>Callback URLs</b>
+              <ul>
+                <li>The <i>callback_url</i> has to be an absolute <i>http</i> or <i>https</i> URL.</li>
+                <li>Redirects are not followed. Register the final URL, e.g. the <i>https</i> URL directly instead
+                  of an <i>http</i> URL that redirects to it.</li>
+                <li>Deliveries to link-local and cloud metadata addresses (169.254.0.0/16, fe80::/10,
+                  fd00:ec2::254) are always refused. Internal hosts and private networks are allowed by default, as
+                  they are common targets for a self-hosted registry. Set
+                  <code>webhooks.block_private_targets = true</code> to refuse loopback, private and other
+                  non-public addresses as well. The check runs on the resolved IP address of every delivery.</li>
+                <li>Webhook payloads contain the names and versions of all crates, including crates with
+                  restricted downloads.</li>
+              </ul>
+              <b>Signed Deliveries</b><br />
+              The optional <i>secret</i> enables signatures following the
+              <a href="https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md">
+                Standard Webhooks</a> specification. It has to be base64 encoded with an optional <i>whsec_</i>
+              prefix and decode to at least 24 bytes, e.g. <code>echo "whsec_$(openssl rand -base64 32)"</code>.
+              The secret is never returned by the API, the webhook details only show <i>has_secret</i>.
+              Every delivery carries these headers:
+              <ul>
+                <li><i>webhook-id</i>: Unique id of the delivery. It stays the same across retries, so receivers can
+                  use it to drop duplicates.</li>
+                <li><i>webhook-timestamp</i>: Unix timestamp of the delivery attempt in seconds.</li>
+                <li><i>webhook-signature</i>: Only if a secret is set. <i>v1,</i> followed by the base64 encoded
+                  HMAC-SHA256 of <i>{webhook-id}.{webhook-timestamp}.{body}</i>, using the decoded secret as key.</li>
+              </ul>
+              Webhooks without a secret are delivered unsigned. Any Standard Webhooks library can verify the
+              signature. Without a library, the check looks like this:
+            </TextBlock>
+
+            <CodeBlock lang="python">
+              import base64, hashlib, hmac, time
+
+              def verify(secret: str, headers: dict, body: bytes) -> bool:
+                  key = base64.b64decode(secret.removeprefix("whsec_"))
+                  msg_id = headers["webhook-id"]
+                  timestamp = headers["webhook-timestamp"]
+                  # Reject old deliveries to prevent replay attacks
+                  if abs(time.time() - int(timestamp)) > 300:
+                      return False
+                  signed = f"{msg_id}.{timestamp}.".encode() + body
+                  expected = base64.b64encode(hmac.new(key, signed, hashlib.sha256).digest()).decode()
+                  # The header may contain several space separated signatures
+                  return any(
+                      hmac.compare_digest(sig.removeprefix("v1,"), expected)
+                      for sig in headers["webhook-signature"].split(" ")
+                  )
+            </CodeBlock>
+
+            <TextBlock>
               Other administration tasks are also performed via API calls:
             </TextBlock>
 
@@ -1267,6 +1424,7 @@ const mobileNavOpen = ref(false);
               -X DELETE -H "Authorization: Bearer ADMIN-TOKEN"
 
               # Test a webhook (sends a dummy payload to the callback_url)
+              # Only the status code of the callback is returned, never its response body
               curl kellnr_url/api/v1/webhooks/f9e8a090-7144-48ff-89d6-fa774d24f59b/test \
               -X POST -H "Authorization: Bearer ADMIN-TOKEN"
             </CodeBlock>
@@ -1689,6 +1847,18 @@ const mobileNavOpen = ref(false);
               # The registry name has to be the one defined in .cargo/config.toml
               cargo publish --registry kellnr
             </CodeBlock>
+            <TextBlock>
+              Like crates.io, Kellnr rejects a publish if
+              <ul>
+                <li>the <i>documentation</i>, <i>homepage</i> or <i>repository</i> field is set, but is not an
+                  <i>http://</i> or <i>https://</i> URL,</li>
+                <li>a new crate name only differs from an existing crate in <i>-</i> and <i>_</i>, e.g.
+                  <i>foo_bar</i> if <i>foo-bar</i> exists,</li>
+                <li>the version only differs from an existing version of the crate in its build metadata, e.g.
+                  <i>1.0.0+b</i> if <i>1.0.0+a</i> exists.</li>
+              </ul>
+              Crates and versions that already exist are not affected by these rules.
+            </TextBlock>
 
             <SubHeader id="cratesio-proxy-cache">Crates.io Proxy Cache</SubHeader>
             <TextBlock>
@@ -1783,7 +1953,7 @@ const mobileNavOpen = ref(false);
               # If you need to inject the local registry authentication to the container (auth_required=true):
               docker run --rm -it \
               ... \
-              -v your-cargo-config.toml:/root/.cargo/config.toml:ro
+              -v your-cargo-config.toml:/home/kellnr/.cargo/config.toml:ro
             </CodeBlock>
 
             <CodeBlock lang="toml">
@@ -1801,6 +1971,51 @@ const mobileNavOpen = ref(false);
               malicious code, included in a dependency, can be executed. Make sure you trust the code you build the docs
               for!
             </WarnBlock>
+
+            <TextBlock>
+              <b>Build Isolation</b><br />
+              Kellnr builds the docs of every crate in a separate child process with a cleared environment:
+              <ul>
+                <li>No <code>KELLNR_*</code> settings or secrets (database password, S3 keys, OAuth2 client secret,
+                  admin token) are passed to the build.</li>
+                <li>Only the variables cargo and rustup need are kept, e.g. <code>PATH</code>, <code>HOME</code>,
+                  <code>RUSTUP_TOOLCHAIN</code>, proxy and certificate variables and cargo's own <code>CARGO_*</code>
+                  variables. A registry token passed as <code>CARGO_REGISTRIES_&lt;NAME&gt;_TOKEN</code> to let
+                  Kellnr authenticate against its own index is therefore visible to build scripts. Use a token of a
+                  dedicated read-only user for it.</li>
+                <li>Builds that run longer than <code>docs.build_timeout_seconds</code> (default 30 minutes) are
+                  killed together with all processes they started.</li>
+              </ul>
+              The build still runs as the Kellnr user. It can read every file Kellnr can read, for example the
+              config file or the SQLite database (e.g. with <code>include_str!</code>), and it has network access.
+              To confine it, set <code>docs.build_wrapper</code> to a command that wraps the build, e.g.
+              <a href="https://github.com/containers/bubblewrap">bubblewrap</a>. The wrapper is followed by the
+              Kellnr binary and its arguments. Replace <i>&lt;data_dir&gt;</i> and <i>&lt;cargo_home&gt;</i> with
+              your paths:
+            </TextBlock>
+
+            <CodeBlock lang="toml">
+              [docs]
+              build_wrapper = [
+                  "bwrap", "--ro-bind", "/", "/", "--tmpfs", "&lt;data_dir&gt;",
+                  "--bind", "&lt;data_dir&gt;/doc_queue", "&lt;data_dir&gt;/doc_queue",
+                  "--bind", "&lt;cargo_home&gt;", "&lt;cargo_home&gt;", "--tmpfs", "/etc/kellnr",
+                  "--dev", "/dev", "--proc", "/proc", "--tmpfs", "/tmp",
+                  "--unshare-pid", "--die-with-parent", "--"
+              ]
+            </CodeBlock>
+
+            <TextBlock>
+              Bubblewrap needs unprivileged user namespaces, which Docker's default seccomp profile blocks. Inside
+              a container, use a sandbox your container runtime allows or build the docs outside of Kellnr and use
+              the <router-link to="#manual-rustdoc">manual upload</router-link>.<br />
+              <br />
+              <b>Hosted Docs</b><br />
+              Docs are served from the same origin as the web UI with a restrictive Content Security Policy and in
+              a sandbox: scripts in docs pages cannot call the Kellnr API, open popups or frames, or submit forms.
+              Links that open a new window, like the "Run" button of rustdoc's playground integration, do not work in
+              hosted docs.
+            </TextBlock>
 
             <SubHeader id="rustdoc-features">Crate Features</SubHeader>
             <TextBlock>
@@ -1861,7 +2076,11 @@ const mobileNavOpen = ref(false);
               for the crate.<br />
               <br />
               The rustdocs of a crate with restricted downloads are only served to users who are allowed to download
-              the crate, see <router-link to="#authentication">Authentication</router-link>.
+              the crate, see <router-link to="#authentication">Authentication</router-link>.<br />
+              <br />
+              Read-only users cannot upload docs. Unpacked, a docs archive may be at most 20 times as large as
+              <code>docs.max_size</code> and contain at most 1000 files per MB of <code>docs.max_size</code>. Larger
+              archives are rejected. Symbolic links in the archive are skipped.
             </TextBlock>
 
             <MainHeader id="backup" icon="backup-restore">Backup</MainHeader>
@@ -1875,6 +2094,50 @@ const mobileNavOpen = ref(false);
               <router-link to="#config-s3">S3</router-link> or
               <router-link to="#config-gcs">GCS storage</router-link>, your uploaded crates are stored in the
               configured buckets rather than the data folder — back those up separately as well.
+            </TextBlock>
+
+            <MainHeader id="upgrade-notes" icon="update">Upgrade Notes</MainHeader>
+            <SubHeader id="upgrade-security-hardening">Security Hardening (after 6.10)</SubHeader>
+            <TextBlock>
+              The first release after Kellnr 6.10 contains a set of security fixes. Most of them need no action, but
+              some change behavior you may notice after the upgrade:
+              <ul>
+                <li><b>One-time logout:</b> Session tokens are now stored hashed. All existing sessions are removed
+                  during the upgrade, so every user has to log in again once. Cargo tokens keep working.</li>
+                <li><b>Password hashes:</b> Passwords are upgraded to argon2id on the next successful login. Older
+                  Kellnr versions cannot verify these hashes, so a downgrade after the upgrade breaks password login
+                  for every user who logged in in between. Back up the database before upgrading if you might need to
+                  roll back.</li>
+                <li><b>Login throttling:</b> After 10 wrong passwords for a username within 5 minutes, further
+                  attempts are rejected with HTTP 429, see <router-link to="#authentication">Authentication</router-link>.
+                </li>
+                <li><b>OAuth2 roles:</b> Admin and read-only roles are only granted from the configured
+                  <i>admin_group_claim</i> and <i>read_only_group_claim</i>. The fallback to the <i>groups</i>,
+                  <i>roles</i> and <i>group</i> claims was removed. If you relied on it, set the claim name to the claim
+                  your identity provider sends, see <router-link to="#oauth2">OAuth2/OIDC</router-link>.</li>
+                <li><b>Publish validation:</b> Non-http(s) URLs in crate metadata, new crate names that only differ in
+                  <i>-</i> and <i>_</i>, and versions that only differ in build metadata are rejected, see
+                  <router-link to="#pull-publish-to-kellnr">Pull &amp; Publish to Kellnr</router-link>.</li>
+                <li><b>Restricted crates:</b> Crates with restricted downloads are hidden from users without access,
+                  including crate lists, search, the crate page and the sparse index.</li>
+                <li><b>Crate users and groups:</b> Crate owners can now manage the crate users and crate groups of their
+                  crates in the web UI, as they already could through the cargo API. Changing the download restriction
+                  stays admin-only.</li>
+                <li><b>Docs:</b> Unpacked docs archives are limited to 20 times <code>docs.max_size</code>, doc
+                  builds time out after <code>docs.build_timeout_seconds</code>, and hosted docs cannot open popups
+                  anymore, see <router-link to="#rustdoc">Rustdoc</router-link>.</li>
+                <li><b>Settings page:</b> Secret settings (passwords, keys, tokens, client secrets) are no longer sent
+                  to the browser. The settings page only shows whether they are set.</li>
+                <li><b>Webhooks:</b> Redirects are no longer followed, link-local and cloud metadata addresses are
+                  refused, and the test endpoint only returns the status code of the callback, see
+                  <router-link to="#webhooks">Webhooks</router-link>.</li>
+                <li><b>Error messages:</b> Internal database and storage errors are returned as a generic
+                  "Internal server error". The details are logged by Kellnr.</li>
+                <li><b>Docker:</b> The images run Kellnr as the non-root user <i>kellnr</i> (uid 1000). Root-owned
+                  data volumes are taken over automatically. A cargo config for the doc builder now belongs in
+                  <i>/home/kellnr/.cargo/config.toml</i> instead of <i>/usr/local/cargo/config.toml</i> or
+                  <i>/root/.cargo/config.toml</i>, see <router-link to="#docker-container">Docker</router-link>.</li>
+              </ul>
             </TextBlock>
           </div>
         </div>
