@@ -936,9 +936,12 @@ const mobileNavOpen = ref(false);
               <br />
               <br />
               It is also possible to restrict crate pulls on a per-crate basis using crate access restriction (available
-              in the web UI for administrator users in the settings tab). When only specific crate users are allowed to
-              download crates, cargo shall be authenticated on pull using the credentials of a user added to the crate
-              users list.
+              in the web UI for administrator users in the settings tab). A restricted crate can only be downloaded by
+              administrators, crate owners, crate users and members of crate groups. The same applies to the hosted
+              <router-link to="#rustdoc">rustdocs</router-link> of the crate, as they contain its source code. Metadata
+              like the crate name, versions, dependencies and readme stays visible to all users of Kellnr. When only
+              specific crate users are allowed to download crates, cargo shall be authenticated on pull using the
+              credentials of a user added to the crate users list.
               <br />
               <br />
               In the case of the Kellnr Docker image, you can mount a volume that contains the config file with the
@@ -1855,7 +1858,10 @@ const mobileNavOpen = ref(false);
               an owner of the package or with an admin user to be able to upload the documentation.<br />
               <br />
               If a rustdocs for the corresponding version of a crate are found, Kellnr adds a link to the UI
-              for the crate.
+              for the crate.<br />
+              <br />
+              The rustdocs of a crate with restricted downloads are only served to users who are allowed to download
+              the crate, see <router-link to="#authentication">Authentication</router-link>.
             </TextBlock>
 
             <MainHeader id="backup" icon="backup-restore">Backup</MainHeader>
