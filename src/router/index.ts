@@ -22,6 +22,7 @@ import Review2025 from "../views/posts/Review2025.vue";
 import Release6 from "../views/posts/Release6.vue";
 import FromConfigToProvcfg from "../views/posts/FromConfigToProvcfg.vue";
 import HelmChartV6 from "../views/posts/HelmChartV6.vue";
+import SecurityHardening from "../views/posts/SecurityHardening.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -154,6 +155,11 @@ const router = createRouter({
       path: "/blog/helm-chart-v6",
       name: "helm-chart-v6",
       component: HelmChartV6,
+    },
+    {
+      path: "/blog/security-hardening",
+      name: "security-hardening",
+      component: SecurityHardening,
     },
     // Default route to redirect all unknown paths to the landing page
     {

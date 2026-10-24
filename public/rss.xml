@@ -3,11 +3,19 @@
   <id>kellnr.io/blog</id>
   <title>kellnr.io - The Rust Registry</title>
   <subtitle>Rust development related blog</subtitle>
-  <updated>2026-06-04T12:00:00+00:00</updated>
+  <updated>2026-10-24T12:00:00+00:00</updated>
   <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
   <link rel="alternate" href="https://kellnr.io/blog" type="text/html" />
   <icon>https://kellnr.io/favicon.ico</icon>
   <logo>https://kellnr.io/favicon.ico</logo>
+  <entry>
+    <id>https://kellnr.io/blog/security-hardening</id>
+    <title>Security Hardening: New Settings and What to Check Before Upgrading</title>
+    <link href="https://kellnr.io/blog/security-hardening" />
+    <published>2026-10-24T12:00:00+00:00</published>
+    <updated>2026-10-24T12:00:00+00:00</updated>
+    <content type="html"><![CDATA[The next Kellnr release after 6.10 is a security release. This post summarizes the new settings for login throttling, docs builds, secure cookies and webhooks, and lists what to check before upgrading, including the one-time logout, the argon2id password migration and the non-root Docker images.]]></content>
+  </entry>
   <entry>
     <id>https://kellnr.io/blog/helm-chart-v6</id>
     <title>A Safer Kellnr Helm Chart: Splitting Config and Secrets (Chart v6.0.0)</title>
