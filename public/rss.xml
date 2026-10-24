@@ -10,11 +10,11 @@
   <logo>https://kellnr.io/favicon.ico</logo>
   <entry>
     <id>https://kellnr.io/blog/security-hardening</id>
-    <title>Security Hardening: New Settings and What to Check Before Upgrading</title>
+    <title>Kellnr 6.11.0: Security Hardening, New Settings and What to Check Before Upgrading</title>
     <link href="https://kellnr.io/blog/security-hardening" />
     <published>2026-10-24T12:00:00+00:00</published>
     <updated>2026-10-24T12:00:00+00:00</updated>
-    <content type="html"><![CDATA[The next Kellnr release after 6.10 is a security release. This post summarizes the new settings for login throttling, docs builds, secure cookies and webhooks, and lists what to check before upgrading, including the one-time logout, the argon2id password migration and the non-root Docker images.]]></content>
+    <content type="html"><![CDATA[Kellnr 6.11.0 is a security release. This post summarizes the new settings for login throttling, docs builds, secure cookies and webhooks, and lists what to check before upgrading, including the one-time logout, the argon2id password migration and the non-root Docker images.]]></content>
   </entry>
   <entry>
     <id>https://kellnr.io/blog/helm-chart-v6</id>
