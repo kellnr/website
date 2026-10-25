@@ -1,6 +1,423 @@
 {
   "releases": [
     {
+      "version": "6.12.0",
+      "date": "25. October 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "mark outdated dependencies on the Dependencies tab ([#1475]())",
+          "links": [
+            {
+              "label": "#1475",
+              "url": "https://github.com/kellnr/kellnr/pull/1475"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "record who published each crate version ([#1473]())",
+          "links": [
+            {
+              "label": "#1473",
+              "url": "https://github.com/kellnr/kellnr/pull/1473"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* show who can access a restricted crate on its crate page ([#1471]())",
+          "links": [
+            {
+              "label": "#1471",
+              "url": "https://github.com/kellnr/kellnr/pull/1471"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "crates.io parity for versions, keywords, search links and shortcuts ([#1469]())",
+          "links": [
+            {
+              "label": "#1469",
+              "url": "https://github.com/kellnr/kellnr/pull/1469"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* crates.io parity for versions, keywords, search links and shortcuts",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "record the crate size and filter crates by keyword and category",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* visual polish, softer light theme and dark mode by default ([#1468]())",
+          "links": [
+            {
+              "label": "#1468",
+              "url": "https://github.com/kellnr/kellnr/pull/1468"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* dark theme by default",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* softer light theme",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* sentence case for the remaining labels",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* hide actions admins cannot use on their own account",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* crate list toolbar in one row and even crate cards",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* crate header without cards and calmer section headers",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* bundled fonts, two corner radii and a flat background",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* second round of UI review improvements ([#1461]())",
+          "links": [
+            {
+              "label": "#1461",
+              "url": "https://github.com/kellnr/kellnr/pull/1461"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "show when auth tokens were created and last used",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* landing page with recently updated and most downloaded crates",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* settings sections in the URL and a startup config search",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* install snippets for the Kellnr registry and crate tabs in the URL",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* sortable crate list with result count",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* keep relative times current",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(api)* sort order and total count for the crate list",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* new browser tab icon and kellnr crate icon ([#1460]())",
+          "links": [
+            {
+              "label": "#1460",
+              "url": "https://github.com/kellnr/kellnr/pull/1460"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* new browser tab icon and kellnr crate icon",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* usability improvements from the UI review ([#1458]())",
+          "links": [
+            {
+              "label": "#1458",
+              "url": "https://github.com/kellnr/kellnr/pull/1458"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* link back from the API docs to the web UI",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(ui)* support password managers on login and password fields",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "*(db)* rank exact crate name matches first in search",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(web-ui)* hide the description of restricted dependencies ([#1474]())",
+          "links": [
+            {
+              "label": "#1474",
+              "url": "https://github.com/kellnr/kellnr/pull/1474"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "answer the same for restricted and missing crates ([#1472]())",
+          "links": [
+            {
+              "label": "#1472",
+              "url": "https://github.com/kellnr/kellnr/pull/1472"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* header login button no longer flashes disabled on load",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* header, login and accessibility polish",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* keep the layout steady and end pages with the footer",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* fit the crate header to its content",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* make wording and styling consistent across pages ([#1457]())",
+          "links": [
+            {
+              "label": "#1457",
+              "url": "https://github.com/kellnr/kellnr/pull/1457"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* small copy fixes in settings and crate admin",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* give the Publish docs page the common card layout",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* use the section header for dependency lists",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* give all crate page cards the same corners",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* show section counts also when they are 0",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* use the same add and remove buttons in all settings lists",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* say \"Log in\" everywhere",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* use the same names for settings sections everywhere",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* use the same card component for both landing page rows",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* format all counts with the browser locale",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* fix bugs found in the UI review ([#1456]())",
+          "links": [
+            {
+              "label": "#1456",
+              "url": "https://github.com/kellnr/kellnr/pull/1456"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* cache crates.io dependency descriptions ([#1455]())",
+          "links": [
+            {
+              "label": "#1455",
+              "url": "https://github.com/kellnr/kellnr/pull/1455"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "*(ui)* align crate sidebar install, downloads and docs sections ([#1454]())",
+          "links": [
+            {
+              "label": "#1454",
+              "url": "https://github.com/kellnr/kellnr/pull/1454"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* update sea-bae to 0.2.2 ([#1470]())",
+          "links": [
+            {
+              "label": "#1470",
+              "url": "https://github.com/kellnr/kellnr/pull/1470"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(ui)* cover the version details, tag filters, repository link and search shortcut",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(ui)* make the SSO enforcement user an admin",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "allow the new clippy::assert_is_empty lint",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(ui)* add tests for the browsing improvements",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(tests)* bump @playwright/test to 1.64.1",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "update flake.nix",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(ui)* add tests for the UI review improvements",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(ui)* add consistency tests for the UI review fixes",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump argon2 to 0.6 ([#1453]())",
+          "links": [
+            {
+              "label": "#1453",
+              "url": "https://github.com/kellnr/kellnr/pull/1453"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the cargo-minor-patch group with 2 updates ([#1450]())",
+          "links": [
+            {
+              "label": "#1450",
+              "url": "https://github.com/kellnr/kellnr/pull/1450"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump dorny/paths-filter from 3 to 4 in the github-actions group ([#1449]())",
+          "links": [
+            {
+              "label": "#1449",
+              "url": "https://github.com/kellnr/kellnr/pull/1449"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump the cargo-minor-patch group with 2 updates",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "*(deps)* bump dorny/paths-filter",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "run pipelines less often and make them faster ([#1448]())",
+          "links": [
+            {
+              "label": "#1448",
+              "url": "https://github.com/kellnr/kellnr/pull/1448"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.11.0",
       "date": "24. October 2026",
       "entries": [
@@ -259,8 +676,7 @@
           "content": "*(webhooks)* deliver queued webhooks concurrently",
           "links": []
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.10.1",
