@@ -1,4 +1,9 @@
-import { createRouter, createWebHistory, type RouteComponent, type RouteRecordRaw } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  type RouteComponent,
+  type RouteRecordRaw,
+} from "vue-router";
 import LandingView from "../views/LandingView.vue";
 import FeaturesView from "../views/FeaturesView.vue";
 import ChangelogView from "../views/ChangelogView.vue";
@@ -8,13 +13,17 @@ import BlogView from "../views/BlogView.vue";
 import blogData from "../data/blog-posts.json";
 import type { BlogPostsDocument } from "../types/blog-posts";
 
-const postComponents = import.meta.glob<RouteComponent>("../views/posts/*.vue", { import: "default" });
+const postComponents = import.meta.glob<RouteComponent>("../views/posts/*.vue", {
+  import: "default",
+});
 
 function blogPostRoutes(): RouteRecordRaw[] {
   return (blogData as BlogPostsDocument).posts.map((post) => {
     const component = postComponents[`../views/posts/${post.component}.vue`];
     if (!component) {
-      throw new Error(`Blog post "${post.id}" references missing component "${post.component}.vue"`);
+      throw new Error(
+        `Blog post "${post.id}" references missing component "${post.component}.vue"`
+      );
     }
     return {
       path: new URL(post.url).pathname,
