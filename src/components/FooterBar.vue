@@ -10,6 +10,9 @@
       </div>
 
       <div class="footer-social">
+        <router-link to="/sponsor" class="footer-sponsor" title="Sponsor Kellnr">
+          <i class="mdi mdi-heart"></i>
+        </router-link>
         <a href="https://github.com/kellnr/kellnr" target="_blank" rel="noopener" title="GitHub">
           <i class="mdi mdi-github"></i>
         </a>
@@ -79,6 +82,11 @@
 .footer-social a:hover {
   color: #2f55d4;
   border-color: #2f55d4;
+}
+
+.footer-social .footer-sponsor:hover {
+  color: #db2777;
+  border-color: #db2777;
 }
 
 .footer-social i {
