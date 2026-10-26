@@ -1,4 +1,18 @@
 <script setup lang="ts">
+// Sections of the page, in order, for the sticky section navigation.
+const sections = [
+  { id: "registry", label: "Registry" },
+  { id: "access", label: "Access Control" },
+  { id: "sso", label: "SSO" },
+  { id: "rustdoc", label: "Rustdoc" },
+  { id: "proxy", label: "Crates.io Proxy" },
+  { id: "toolchain", label: "Toolchains" },
+  { id: "api", label: "API" },
+  { id: "deployment", label: "Deployment" },
+  { id: "web-ui", label: "Web UI" },
+  { id: "security", label: "Supply Chain" },
+  { id: "cli", label: "CLI" },
+];
 </script>
 
 <template>
@@ -16,20 +30,25 @@
       </div>
     </section>
 
-    <!-- Shape Divider -->
-    <div class="shape-divider">
-      <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
-      </svg>
-    </div>
+    <nav class="section-nav" aria-label="Feature sections">
+      <div class="container">
+        <ul>
+          <li v-for="section in sections" :key="section.id">
+            <router-link :to="{ hash: `#${section.id}` }">{{ section.label }}</router-link>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
     <!-- Core Registry Features -->
-    <section class="section">
+    <section id="registry" class="section">
       <div class="container">
         <div class="section-header">
           <h2>Private Crate Registry</h2>
           <p>The essential features you expect from a Rust crate registry.</p>
         </div>
+
+        <img class="section-shot" width="3534" height="2314" loading="lazy" src="/images/kellnr/search-light.png" alt="Searching crates in the Kellnr web UI" />
 
         <div class="features-grid">
           <div class="feature-card">
@@ -84,12 +103,14 @@
     </section>
 
     <!-- Authentication & Access -->
-    <section class="section section-alt">
+    <section id="access" class="section section-alt">
       <div class="container">
         <div class="section-header">
           <h2>Authentication &amp; Access Control</h2>
           <p>Fine-grained control over who can access and publish crates.</p>
         </div>
+
+        <img class="section-shot" width="3534" height="2314" loading="lazy" src="/images/kellnr/users-light.png" alt="User management in Kellnr" />
 
         <div class="features-grid">
           <div class="feature-card">
@@ -144,7 +165,7 @@
     </section>
 
     <!-- OAuth2/OIDC -->
-    <section class="section">
+    <section id="sso" class="section">
       <div class="container">
         <div class="feature-showcase">
           <div class="showcase-content">
@@ -187,12 +208,14 @@
     </section>
 
     <!-- Documentation -->
-    <section class="section section-alt">
+    <section id="rustdoc" class="section section-alt">
       <div class="container">
         <div class="section-header">
           <h2>Rustdoc Hosting</h2>
           <p>Automatically generate and serve documentation for your crates.</p>
         </div>
+
+        <img class="section-shot" width="3534" height="2314" loading="lazy" src="/images/kellnr/rustdoc-light.png" alt="Rustdocs served by Kellnr" />
 
         <div class="features-grid features-grid-3">
           <div class="feature-card">
@@ -223,7 +246,7 @@
     </section>
 
     <!-- Crates.io Proxy -->
-    <section class="section">
+    <section id="proxy" class="section">
       <div class="container">
         <div class="feature-showcase feature-showcase-reversed">
           <div class="showcase-content">
@@ -256,17 +279,14 @@
             </router-link>
           </div>
           <div class="showcase-visual">
-            <div class="visual-card">
-              <i class="mdi mdi-server-network"></i>
-              <span>Proxy and Cache</span>
-            </div>
+            <img class="showcase-shot" width="3534" height="2314" loading="lazy" src="/images/kellnr/cratesio-proxy-light.png" alt="Cached crates.io crates in Kellnr" />
           </div>
         </div>
       </div>
     </section>
 
     <!-- Toolchain Distribution -->
-    <section class="section section-alt">
+    <section id="toolchain" class="section section-alt">
       <div class="container">
         <div class="feature-showcase">
           <div class="showcase-content">
@@ -309,7 +329,7 @@
     </section>
 
     <!-- API & Integration -->
-    <section class="section">
+    <section id="api" class="section">
       <div class="container">
         <div class="section-header">
           <h2>API &amp; Automation</h2>
@@ -345,7 +365,7 @@
     </section>
 
     <!-- Deployment & Storage -->
-    <section class="section section-alt">
+    <section id="deployment" class="section section-alt">
       <div class="container">
         <div class="section-header">
           <h2>Deployment &amp; Storage</h2>
@@ -399,12 +419,14 @@
     </section>
 
     <!-- Web UI -->
-    <section class="section">
+    <section id="web-ui" class="section">
       <div class="container">
         <div class="section-header">
           <h2>Modern Web Interface</h2>
           <p>A clean, responsive web UI for managing your registry.</p>
         </div>
+
+        <img class="section-shot" width="3534" height="2314" loading="lazy" src="/images/kellnr/dependencies-dark.png" alt="Crate dependencies in the Kellnr web UI in dark mode" />
 
         <div class="features-grid features-grid-3">
           <div class="feature-card">
@@ -435,7 +457,7 @@
     </section>
 
     <!-- Supply Chain Security -->
-    <section class="section section-alt">
+    <section id="security" class="section section-alt">
       <div class="container">
         <div class="feature-showcase feature-showcase-reversed">
           <div class="showcase-content">
@@ -478,7 +500,7 @@
     </section>
 
     <!-- CLI -->
-    <section class="section">
+    <section id="cli" class="section">
       <div class="container">
         <div class="section-header">
           <h2>Redesigned CLI</h2>
@@ -537,12 +559,13 @@
 
 <style scoped>
 .features-page {
-  overflow-x: hidden;
+  /* clip instead of hidden, which would break the sticky section navigation */
+  overflow-x: clip;
 }
 
 /* Hero Section */
 .hero-section {
-  padding: 6rem 0 4rem;
+  padding: 3rem 0 2.5rem;
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
@@ -567,21 +590,47 @@
   line-height: 1.7;
 }
 
-/* Shape Divider */
-.shape-divider {
-  position: relative;
-  color: #ffffff;
+
+/* Section navigation */
+.section-nav {
+  position: sticky;
+  top: 64px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #e2e8f0;
 }
 
-.shape-divider svg {
+.section-nav ul {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0.625rem 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.section-nav a {
   display: block;
-  width: 100%;
-  height: 48px;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #475569;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.section-nav a:hover {
+  color: #2f55d4;
+  background: #eff6ff;
 }
 
 /* Sections */
 .section {
-  padding: 5rem 0;
+  scroll-margin-top: 120px;
+  padding: 4rem 0;
   background: #ffffff;
 }
 
@@ -607,6 +656,25 @@
   color: #64748b;
   margin: 0;
   line-height: 1.6;
+}
+
+.section-shot {
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  margin: 0 auto 3rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.showcase-shot {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 /* Features Grid */

@@ -28,6 +28,9 @@ What it does:
     { "type": "Added|Changed|Deprecated|Removed|Fixed|Security", "content": "...", "links": [...] }
 - Heuristically turns trailing "#123" (or "(#123)") into a GitHub link to the source repo and
   removes the trailing reference from content to avoid duplication.
+- Moves a leading git-cliff scope like "*(ui)*" into the entry's `scope` field.
+- Converts the remaining Markdown into the HTML that `content` holds: escapes `<`, `>` and `&`
+  and turns `code` spans into <code> elements.
 - Inserts a new release at the top if it doesn't exist; otherwise updates the existing release.
 - Maintains `isLatest`:
   - If inserting a new release: sets `isLatest=true` on it and removes `isLatest` from others.
@@ -49,6 +52,7 @@ In GitHub Actions you can pass the dispatch payload via stdin:
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import re
 import sys
@@ -88,6 +92,14 @@ _GH_URL_RE = re.compile(
 
 # Common GitHub release-note phrasing: "... in <url>" at the end.
 _TRAILING_IN_URL_RE = re.compile(r"\s+in\s+https?://github\.com/[^\s]+\s*$")
+
+# Markdown reference like "([#123]())" or "[#123]()" that is left over once its URL was extracted.
+_EMPTY_MD_REF_RE = re.compile(r"\s*\(?\[#\d+\]\(\s*\)\)?")
+
+# git-cliff scope prefix, e.g. "*(ui)* show crate size".
+_SCOPE_RE = re.compile(r"^\*\((?P<scope>[^)]+)\)\*\s*")
+
+_CODE_SPAN_RE = re.compile(r"`([^`]+)`")
 
 
 
@@ -172,10 +184,26 @@ def validate_payload(payload: Dict[str, Any]) -> None:
     # no return
 
 
+def split_scope(text: str) -> Tuple[Optional[str], str]:
+    """Split a leading git-cliff scope like "*(ui)*" from the text."""
+    m = _SCOPE_RE.match(text)
+    if not m:
+        return None, text
+    return m.group("scope"), text[m.end():]
+
+
+def markdown_to_html(text: str) -> str:
+    """Escape HTML special characters and turn `code` spans into <code> elements."""
+    s = _EMPTY_MD_REF_RE.sub("", text).strip()
+    s = html.escape(s, quote=False)
+    return _CODE_SPAN_RE.sub(r"<code>\1</code>", s)
+
+
 def _entry_item_from_text(text: str, source_repo: str) -> Dict[str, Any]:
     """
     Convert a single bullet line into:
-      { "content": "...", "links": [ {label, url}, ... ] }
+      { "content": "...", "links": [ {label, url}, ... ], "scope": "..." }
+    `scope` is only present if the line starts with a git-cliff scope like "*(ui)*".
 
     Supported patterns:
     - GitHub URLs embedded in the text (preferred):
@@ -232,7 +260,11 @@ def _entry_item_from_text(text: str, source_repo: str) -> Dict[str, Any]:
             )
             s = _TRAILING_GH_REF_RE.sub("", s).rstrip()
 
-    return {"content": s, "links": links}
+    scope, s = split_scope(s)
+    item: Dict[str, Any] = {"content": markdown_to_html(s), "links": links}
+    if scope:
+        item["scope"] = scope
+    return item
 
 
 

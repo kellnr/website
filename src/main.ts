@@ -6,9 +6,8 @@ import router from "./router";
 import VueFeather from "vue-feather";
 
 import "./assets/css/materialdesignicons.min.css";
-import "./assets/css/style.css";
-import "./assets/css/colors/default.css";
 import "./assets/css/bootstrap.min.css";
+import "./assets/css/base.css";
 
 // @ts-expect-error - vue3-highlightjs ships no type declarations
 import VueHighlightJS from "vue3-highlightjs";

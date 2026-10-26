@@ -13,8 +13,7 @@ import WarnBlock from "@/components/elements/WarnBlock.vue";
       Kellnr 6.11.0 is a security release. It closes several vulnerabilities found in a review of
       the whole code base and hardens Kellnr in many smaller places. Please upgrade soon. Most of the changes need no
       action from you, but a few change behaviour you might rely on. This post lists the new settings and the things to
-      check before upgrading. The full list is in the
-      <router-link to="/documentation#upgrade-notes">upgrade notes</router-link> of the documentation.
+      check before upgrading.
     </TextBlock>
 
     <SubHeader id="new-settings">New Settings</SubHeader>

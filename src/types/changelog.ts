@@ -13,6 +13,9 @@ export type ChangeLogEntryType =
 
 export type ChangeLogEntry = {
   type: ChangeLogEntryType;
+  // Area of the code base, e.g. "ui" or "deps"
+  scope?: string;
+  // HTML
   content: string;
   links?: ChangeLogLink[];
 };

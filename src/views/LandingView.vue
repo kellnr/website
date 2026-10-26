@@ -1,5 +1,45 @@
 <script setup lang="ts">
-import FeatureBox from "@/components/landing/FeatureBox.vue";
+import CodeBlock from "@/components/elements/CodeBlock.vue";
+
+// Each highlight links to its section on the features page.
+const highlights = [
+  {
+    anchor: "registry",
+    icon: "mdi-package-variant-closed",
+    title: "Private Registry",
+    text: "Publish and pull crates with plain Cargo. Your code stays on your infrastructure.",
+  },
+  {
+    anchor: "rustdoc",
+    icon: "mdi-file-document",
+    title: "Rustdocs Built In",
+    text: "Docs are generated for every crate you publish and served right next to it.",
+  },
+  {
+    anchor: "proxy",
+    icon: "mdi-cached",
+    title: "Crates.io Proxy",
+    text: "Cache crates.io for faster builds that keep working when the internet does not.",
+  },
+  {
+    anchor: "sso",
+    icon: "mdi-shield-key",
+    title: "Single Sign-On",
+    text: "Log in with Keycloak, Okta, Azure AD or any other OpenID Connect provider.",
+  },
+  {
+    anchor: "toolchain",
+    icon: "mdi-tools",
+    title: "Toolchain Server",
+    text: "Distribute custom or pinned Rust toolchains to your team through rustup.",
+  },
+  {
+    anchor: "deployment",
+    icon: "mdi-database",
+    title: "Your Storage, Your Database",
+    text: "Store crates locally, on S3, GCS or MinIO, with SQLite or PostgreSQL.",
+  },
+];
 </script>
 
 <template>
@@ -24,7 +64,7 @@ import FeatureBox from "@/components/landing/FeatureBox.vue";
             </a>
           </div>
           <div class="hero-image">
-            <img src="/images/kellnr/landing.png" alt="Kellnr Dashboard" />
+            <img src="/images/kellnr/landing.png" width="3534" height="2314" alt="A crate page in the Kellnr web UI" />
           </div>
         </div>
       </div>
@@ -46,11 +86,15 @@ import FeatureBox from "@/components/landing/FeatureBox.vue";
             <i class="mdi mdi-chip"></i>
             <span>AMD64 + ARM64</span>
           </div>
+          <div class="badge-item">
+            <i class="mdi mdi-open-source-initiative"></i>
+            <span>Open Source</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Features Grid -->
+    <!-- Highlights -->
     <section class="features-section">
       <div class="container">
         <div class="section-header">
@@ -58,85 +102,67 @@ import FeatureBox from "@/components/landing/FeatureBox.vue";
           <p>Kellnr provides a complete solution for managing your organization's Rust dependencies.</p>
         </div>
         <div class="features-grid">
-          <div class="feature-card">
+          <router-link
+            v-for="highlight in highlights"
+            :key="highlight.anchor"
+            :to="`/features#${highlight.anchor}`"
+            class="feature-card"
+          >
             <div class="feature-icon">
-              <i class="mdi mdi-package-variant-closed"></i>
+              <i class="mdi" :class="highlight.icon"></i>
             </div>
-            <h3>Private Registry</h3>
-            <p>Host your proprietary crates securely. Keep your code private and under your control.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-file-document"></i>
-            </div>
-            <h3>Auto-Generated Docs</h3>
-            <p>Automatically generate and serve rustdocs for every crate you publish.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-cached"></i>
-            </div>
-            <h3>Crates.io Proxy</h3>
-            <p>Cache and proxy crates.io for faster builds and offline availability.</p>
-          </div>
+            <h3>{{ highlight.title }}</h3>
+            <p>{{ highlight.text }}</p>
+          </router-link>
+        </div>
+        <div class="features-more">
+          <router-link to="/features" class="link-arrow">
+            See all features
+            <i class="mdi mdi-arrow-right"></i>
+          </router-link>
         </div>
       </div>
     </section>
 
-    <!-- Feature Showcases -->
-    <section class="showcases-section">
-      <FeatureBox
-        orientation="left"
-        title="List and search your private crates"
-        checkbox1="Simple to use UI"
-        checkbox2="Easy access to crate information"
-        link="documentation"
-        image="images/kellnr/search-light.png"
-      >
-        Find the crates you need instantly. One click gives you all the information needed to use a crate in your code.
-      </FeatureBox>
-
-      <FeatureBox
-        orientation="right"
-        title="Rustdocs beside your crates"
-        checkbox1="Auto-generate rustdocs for each crate"
-        checkbox2="Upload of custom rustdocs possible"
-        link="documentation#rustdoc"
-        image="images/kellnr/rustdoc-light.png"
-      >
-        Automatically generate rustdocs for each uploaded crate or upload custom docs from your build process.
-      </FeatureBox>
-
-      <FeatureBox
-        orientation="left"
-        title="Users and Groups"
-        checkbox1="Fine grained user management"
-        checkbox2="Group policies for users and crates"
-        image="images/kellnr/users-light.png"
-      >
-        Add and remove users and authentication tokens with ease. Control who has access to your crates.
-      </FeatureBox>
-
-      <FeatureBox
-        orientation="right"
-        title="Crates.io proxy and cache"
-        checkbox1="Transparently proxy crates.io"
-        checkbox2="Cache crates.io to keep your deployments fast"
-        link="documentation#cratesio-proxy"
-        image="images/kellnr/cratesio-proxy-light.png"
-      >
-        Transparently proxy and cache crates.io to keep your builds fast and your infrastructure independent.
-      </FeatureBox>
-
-      <FeatureBox
-        orientation="left"
-        title="Dark Mode"
-        checkbox1="Switch between light and dark mode"
-        checkbox2="Easy on the eyes"
-        image="images/kellnr/dependencies-dark.png"
-      >
-        Work in the environment you prefer with full light and dark mode support.
-      </FeatureBox>
+    <!-- Quickstart -->
+    <section class="quickstart-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Up and running in three steps</h2>
+          <p>Try Kellnr locally with Docker. No account, no external services.</p>
+        </div>
+        <ol class="quickstart-steps">
+          <li>
+            <h3><span class="step-number">1</span> Start Kellnr</h3>
+            <CodeBlock lang="bash">
+              docker run --rm -it -p 8000:8000 \
+                -e "KELLNR_SETUP__ADMIN_TOKEN=my-admin-token" \
+                ghcr.io/kellnr/kellnr:6
+            </CodeBlock>
+          </li>
+          <li>
+            <h3><span class="step-number">2</span> Add it to <code>~/.cargo/config.toml</code></h3>
+            <CodeBlock lang="toml">
+              [registries.kellnr]
+              index = "sparse+http://127.0.0.1:8000/api/v1/crates/"
+              credential-provider = ["cargo:token"]
+              token = "my-admin-token"
+            </CodeBlock>
+          </li>
+          <li>
+            <h3><span class="step-number">3</span> Publish your crate</h3>
+            <CodeBlock lang="bash">
+              cargo publish --registry kellnr
+            </CodeBlock>
+          </li>
+        </ol>
+        <div class="features-more">
+          <router-link to="/documentation#installation" class="link-arrow">
+            Production setups: Helm, binaries, S3, PostgreSQL
+            <i class="mdi mdi-arrow-right"></i>
+          </router-link>
+        </div>
+      </div>
     </section>
 
     <!-- CTA Section -->
@@ -163,7 +189,7 @@ import FeatureBox from "@/components/landing/FeatureBox.vue";
 
 /* Hero Section */
 .hero-section {
-  padding: 6rem 0 4rem;
+  padding: 3.5rem 0 4rem;
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
@@ -249,6 +275,7 @@ import FeatureBox from "@/components/landing/FeatureBox.vue";
 
 .hero-image img {
   width: 100%;
+  height: auto;
   border-radius: 12px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
   border: 1px solid #e2e8f0;
@@ -311,11 +338,12 @@ import FeatureBox from "@/components/landing/FeatureBox.vue";
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
 .feature-card {
+  display: block;
   background: #ffffff;
   padding: 2rem;
   border-radius: 12px;
@@ -325,6 +353,7 @@ import FeatureBox from "@/components/landing/FeatureBox.vue";
 
 .feature-card:hover {
   transform: translateY(-4px);
+  border-color: #bfdbfe;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
 }
 
@@ -358,10 +387,67 @@ import FeatureBox from "@/components/landing/FeatureBox.vue";
   line-height: 1.6;
 }
 
-/* Showcases Section */
-.showcases-section {
-  padding: 2rem 0 4rem;
+.features-more {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #2f55d4;
+  transition: gap 0.2s ease;
+}
+
+.link-arrow:hover {
+  gap: 0.75rem;
+}
+
+/* Quickstart Section */
+.quickstart-section {
+  padding: 5rem 0;
   background: #ffffff;
+}
+
+.quickstart-steps {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.quickstart-steps li + li {
+  margin-top: 2rem;
+}
+
+.quickstart-steps h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.quickstart-steps h3 code {
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: #2f55d4;
+  border-radius: 50%;
 }
 
 /* CTA Section */
@@ -391,6 +477,12 @@ import FeatureBox from "@/components/landing/FeatureBox.vue";
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2rem;
@@ -403,6 +495,10 @@ import FeatureBox from "@/components/landing/FeatureBox.vue";
   .features-grid {
     grid-template-columns: 1fr;
     max-width: 400px;
+  }
+
+  .quickstart-section {
+    padding: 3rem 0;
   }
 
   .deployment-badges {

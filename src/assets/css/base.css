@@ -1,0 +1,52 @@
+/*
+ * Site-wide base styles. Loaded after Bootstrap; component look and feel lives
+ * in scoped styles of the Vue components.
+ */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+
+:root {
+  --kellnr-blue: #2f55d4;
+  --kellnr-blue-dark: #2348c0;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  color: #161c2d;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+p {
+  line-height: 1.6;
+}
+
+a {
+  color: var(--kellnr-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--kellnr-blue-dark);
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(47, 85, 212, 0.9);
+  color: #ffffff;
+}
+
+.text-blue {
+  color: var(--kellnr-blue);
+}
+
+/* Spacing for the main content below a PageHeader */
+.page-content {
+  padding: 2.5rem 0 4rem;
+}
