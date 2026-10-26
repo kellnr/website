@@ -3,20 +3,15 @@ import PageHeader from "../components/PageHeader.vue";
 import { ref } from "vue";
 import CodeBlock from "../components/elements/CodeBlock.vue";
 import TextBlock from "../components/elements/TextBlock.vue";
-import WarnBlock from "../components/elements/WarnBlock.vue";
 import TableBlock from "../components/elements/TableBlock.vue";
 import SubHeader from "../components/elements/SubHeader.vue";
 import MinorHeader from "../components/elements/MinorHeader.vue";
 import MainHeader from "../components/elements/MainHeader.vue";
-import TipBlock from "../components/elements/TipBlock.vue";
+import CalloutBlock from "../components/elements/CalloutBlock.vue";
 import ConfigCard from "../components/elements/ConfigCard.vue";
 import ConfigGrid from "../components/elements/ConfigGrid.vue";
-
-interface TocItem {
-  label: string;
-  hash: string;
-  children?: TocItem[];
-}
+import TocList, { type TocItem } from "../components/elements/TocList.vue";
+import { configGroups } from "../data/config-values";
 
 // Single source of truth for the on-page table of contents, rendered in both
 // the desktop sidebar and the mobile collapsible navigation.
@@ -104,16 +99,7 @@ const mobileNavOpen = ref(false);
             <i class="mdi" :class="mobileNavOpen ? 'mdi-chevron-up' : 'mdi-chevron-down'"></i>
           </button>
           <nav v-show="mobileNavOpen" id="toc-mobile-panel" class="toc-mobile-panel">
-            <ul class="toc-list">
-              <li v-for="item in toc" :key="item.hash">
-                <router-link :to="item.hash" @click="mobileNavOpen = false">{{ item.label }}</router-link>
-                <ul v-if="item.children">
-                  <li v-for="child in item.children" :key="child.hash">
-                    <router-link :to="child.hash" @click="mobileNavOpen = false">{{ child.label }}</router-link>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+            <TocList :items="toc" @navigate="mobileNavOpen = false" />
           </nav>
         </div>
 
@@ -121,16 +107,7 @@ const mobileNavOpen = ref(false);
           <!-- Sticky Sidebar TOC -->
           <aside class="toc-sidebar">
             <h6 class="toc-title">On this page</h6>
-            <ul class="toc-list">
-              <li v-for="item in toc" :key="item.hash">
-                <router-link :to="item.hash">{{ item.label }}</router-link>
-                <ul v-if="item.children">
-                  <li v-for="child in item.children" :key="child.hash">
-                    <router-link :to="child.hash">{{ child.label }}</router-link>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+            <TocList :items="toc" />
           </aside>
 
           <!-- Main Content -->
@@ -181,10 +158,10 @@ const mobileNavOpen = ref(false);
             </TableBlock>
 
             <SubHeader id="docker-container">Docker</SubHeader>
-            <TipBlock>
+            <CalloutBlock variant="tip">
               Running Kellnr as a Docker container is the easiest way to get started — no further
               installation steps are required.
-            </TipBlock>
+            </CalloutBlock>
             <TextBlock>
               You can find the latest version tag on the <a
                 href="https://github.com/kellnr/kellnr/pkgs/container/kellnr">Kellnr
@@ -364,10 +341,10 @@ const mobileNavOpen = ref(false);
               # Start Kellnr
               .\kellnr.exe start -d C:\path\to\data\dir
             </CodeBlock>
-            <WarnBlock>
+            <CalloutBlock variant="warn">
               The Windows binaries are not tested and are provided on a best-effort basis. If you encounter
               any issues, please report them on <a href="https://github.com/kellnr/kellnr/issues">GitHub</a>.
-            </WarnBlock>
+            </CalloutBlock>
 
             <MinorHeader id="macos" icon="apple">macOS</MinorHeader>
             <TextBlock>
@@ -626,315 +603,23 @@ const mobileNavOpen = ref(false);
 
             <nav class="config-jump" aria-label="Jump to configuration group">
               <span class="config-jump-label">Jump to:</span>
-              <router-link to="#config-setup">Setup</router-link>
-              <router-link to="#config-registry">Registry</router-link>
-              <router-link to="#config-local-server">Local Server</router-link>
-              <router-link to="#config-origin">Origin</router-link>
-              <router-link to="#config-logging">Logging</router-link>
-              <router-link to="#config-proxy">Crates.io Proxy</router-link>
-              <router-link to="#config-documentation">Documentation</router-link>
-              <router-link to="#config-postgresql">PostgreSQL</router-link>
-              <router-link to="#config-s3">S3 Storage</router-link>
-              <router-link to="#config-gcs">GCS Storage</router-link>
-              <router-link to="#config-oauth2-values">OAuth2/OIDC</router-link>
-              <router-link to="#config-webhooks-values">Webhooks</router-link>
-              <router-link to="#config-toolchain-values">Toolchain Server</router-link>
+              <router-link v-for="group in configGroups" :key="group.id" :to="`#${group.id}`">{{ group.navLabel ?? group.title }}</router-link>
             </nav>
 
-            <MinorHeader id="config-setup">Setup</MinorHeader>
-            <ConfigGrid>
-              <ConfigCard title="Admin Password" toml="[setup] admin_pwd" env-var="KELLNR_SETUP__ADMIN_PWD"
-                default-value="admin" description="Password for the admin user. Used on first start only." />
-              <ConfigCard title="Admin Token" toml="[setup] admin_token" env-var="KELLNR_SETUP__ADMIN_TOKEN"
-                default-value="None"
-                description="Authentication token for the admin user. Used on first start only. If not set, no token is created and the user must create one via the web UI." />
-            </ConfigGrid>
-
-            <MinorHeader id="config-registry">Registry</MinorHeader>
-            <ConfigGrid>
-              <ConfigCard title="Data Directory" toml="[registry] data_dir" env-var="KELLNR_REGISTRY__DATA_DIR"
-                default-value="None (/var/lib/kellnr in Docker images)"
-                description="Directory where Kellnr stores all its data." />
-              <ConfigCard title="Session Age" toml="[registry] session_age_seconds"
-                env-var="KELLNR_REGISTRY__SESSION_AGE_SECONDS" default-value="28800"
-                description="Seconds before a browser login session expires. Expired sessions are rejected and removed server-side. Set to 0 to keep sessions valid indefinitely." />
-              <ConfigCard title="Cache Size" toml="[registry] cache_size" env-var="KELLNR_REGISTRY__CACHE_SIZE"
-                default-value="1000"
-                description="Number of crates cached in-memory to decrease disk I/O. If set to '0' the cache is disabled." />
-              <ConfigCard title="Max Crate Size" toml="[registry] max_crate_size"
-                env-var="KELLNR_REGISTRY__MAX_CRATE_SIZE" default-value="10"
-                description="Max size of crates allowed to be uploaded in MB." />
-              <ConfigCard title="Max DB Connections" toml="[registry] max_db_connections"
-                env-var="KELLNR_REGISTRY__MAX_DB_CONNECTIONS" default-value="0"
-                description="Max number of internal database connections. '0' disables the limit." />
-              <ConfigCard title="Cookie Signing Key" toml="[registry] cookie_signing_key"
-                env-var="KELLNR_REGISTRY__COOKIE_SIGNING_KEY" default-value="None"
-                description="Signing key for UI auth cookies. If not set, a random one is generated. Needs to be set to an (at least 64 byte) long random string if you intend to run multiple instances of kellnr which share a login. Generate it with 'openssl rand -hex 64'. Kellnr logs a warning at startup if the key looks weak." />
-              <ConfigCard title="Authentication Required" toml="[registry] auth_required"
-                env-var="KELLNR_REGISTRY__AUTH_REQUIRED" default-value="false"
-                description="Enable/Disable authentication for crates pulls and disable anonymous users for the web UI." />
-              <ConfigCard title="Required Crate Fields" toml="[registry] required_crate_fields"
-                env-var="KELLNR_REGISTRY__REQUIRED_CRATE_FIELDS" default-value="[]"
-                description="Requires fields to be defined on upload crates. Leave empty to not add restrictions. If set to e.g. ['authors', 'repository'], all uploaded crates have to have the authors and repository defined in their Cargo.toml's." />
-              <ConfigCard title="New Crates Restricted" toml="[registry] new_crates_restricted"
-                env-var="KELLNR_REGISTRY__NEW_CRATES_RESTRICTED" default-value="false"
-                description="If set to true, new crates can only be created by 'crate users'. This means an admin user has to push the first version of a crate and add crate users to the crate." />
-              <ConfigCard title="Allow Ownerless Crates" toml="[registry] allow_ownerless_crates"
-                env-var="KELLNR_REGISTRY__ALLOW_OWNERLESS_CRATES" default-value="false"
-                description="If set to true, crates are allowed to have no owner. Else, at least one owner is required." />
-              <ConfigCard title="Token Cache Enabled" toml="[registry] token_cache_enabled"
-                env-var="KELLNR_REGISTRY__TOKEN_CACHE_ENABLED" default-value="true"
-                description="If set to true, instead of validating the Cargo token each time against the DB, cache it." />
-              <ConfigCard title="Token Cache TTL" toml="[registry] token_cache_ttl_seconds"
-                env-var="KELLNR_REGISTRY__TOKEN_CACHE_TTL_SECONDS" default-value="1800"
-                description="Cache TTL in seconds (default: 30 mins)." />
-              <ConfigCard title="Token Cache Max Capacity" toml="[registry] token_cache_max_capacity"
-                env-var="KELLNR_REGISTRY__TOKEN_CACHE_MAX_CAPACITY" default-value="10000"
-                description="Maximum number of cached tokens." />
-              <ConfigCard title="Token DB Retry Count" toml="[registry] token_db_retry_count"
-                env-var="KELLNR_REGISTRY__TOKEN_DB_RETRY_COUNT" default-value="3"
-                description="Number of retries for token database operations." />
-              <ConfigCard title="Token DB Retry Delay" toml="[registry] token_db_retry_delay_ms"
-                env-var="KELLNR_REGISTRY__TOKEN_DB_RETRY_DELAY_MS" default-value="100"
-                description="Delay between retries in milliseconds." />
-              <ConfigCard title="Download Timeout" toml="[registry] download_timeout_seconds"
-                env-var="KELLNR_REGISTRY__DOWNLOAD_TIMEOUT_SECONDS" default-value="60"
-                description="Download request timeout in seconds. Set to 0 to disable." />
-              <ConfigCard title="Download Max Concurrent" toml="[registry] download_max_concurrent"
-                env-var="KELLNR_REGISTRY__DOWNLOAD_MAX_CONCURRENT" default-value="20"
-                description="Maximum number of concurrent download requests. Set to 0 for unlimited." />
-              <ConfigCard title="Download Counter Flush Interval" toml="[registry] download_counter_flush_seconds"
-                env-var="KELLNR_REGISTRY__DOWNLOAD_COUNTER_FLUSH_SECONDS" default-value="30"
-                description="Interval in seconds between flushing download counts to the database. Set to 0 to flush on every download." />
-              <ConfigCard title="Max Failed Login Attempts" toml="[registry] auth_max_failed_attempts"
-                env-var="KELLNR_REGISTRY__AUTH_MAX_FAILED_ATTEMPTS" default-value="10"
-                description="Password attempts allowed per username within the window before further attempts are rejected with HTTP 429. Applies to web UI login and cargo basic auth. A successful login resets the count. Set to 0 to disable." />
-              <ConfigCard title="Failed Login Attempts Window" toml="[registry] auth_failed_attempts_window_seconds"
-                env-var="KELLNR_REGISTRY__AUTH_FAILED_ATTEMPTS_WINDOW_SECONDS" default-value="300"
-                description="Window in seconds for counting password attempts per username." />
-            </ConfigGrid>
-
-            <MinorHeader id="config-local-server">Local Server</MinorHeader>
-            <ConfigGrid>
-              <ConfigCard title="IP Address" toml="[local] ip" env-var="KELLNR_LOCAL__IP" default-value="0.0.0.0"
-                description="IP address where Kellnr listens. Usually this does not need to be changed." />
-              <ConfigCard title="Port" toml="[local] port" env-var="KELLNR_LOCAL__PORT" default-value="8000"
-                description="Port where Kellnr listens." />
-            </ConfigGrid>
-
-            <MinorHeader id="config-origin">Origin (External Access)</MinorHeader>
-            <ConfigGrid>
-              <ConfigCard title="Hostname" toml="[origin] hostname" env-var="KELLNR_ORIGIN__HOSTNAME"
-                default-value="127.0.0.1"
-                description="Hostname where Kellnr is reachable from, e.g. DNS name behind a reverse proxy." />
-              <ConfigCard title="Port" toml="[origin] port" env-var="KELLNR_ORIGIN__PORT" default-value="8000"
-                description="If a proxy is in front of Kellnr with a different port as Kellnr itself, the port from the proxy has to be set here." />
-              <ConfigCard title="Protocol" toml="[origin] protocol" env-var="KELLNR_ORIGIN__PROTOCOL"
-                default-value="http"
-                description="Either 'http' or 'https'. This does not enable TLS on Kellnr, but needs to be set if a TLS proxy is used in front of Kellnr." />
-              <ConfigCard title="Path" toml="[origin] path" env-var="KELLNR_ORIGIN__PATH" default-value=""
-                description="Run Kellnr on a sub path of a URL, e.g. '/kellnring/' for https://www.example.com/kellnring/" />
-              <ConfigCard title="Cookie Secure" toml="[origin] cookie_secure" env-var="KELLNR_ORIGIN__COOKIE_SECURE"
-                default-value="None"
-                description="Force the Secure flag on cookies (true) or never set it (false). If not set, cookies are secure only when the protocol is 'https'. Set it to true when Kellnr is reached over https through a TLS-terminating proxy but the protocol is 'http'." />
-            </ConfigGrid>
-
-            <MinorHeader id="config-logging">Logging</MinorHeader>
-            <ConfigGrid>
-              <ConfigCard title="Log Level" toml="[log] level" env-var="KELLNR_LOG__LEVEL" default-value="info"
-                description="Log level for debugging. Either 'trace', 'debug', 'info', 'warn' or 'error'." />
-              <ConfigCard title="Web Server Log Level" toml="[log] level_web_server"
-                env-var="KELLNR_LOG__LEVEL_WEB_SERVER" default-value="warn"
-                description="Log level for the web server. Either 'trace', 'debug', 'info', 'warn' or 'error'." />
-              <ConfigCard title="Log Format" toml="[log] format" env-var="KELLNR_LOG__FORMAT" default-value="compact"
-                description="Format of the log output. Either 'compact', 'pretty' or 'json'." />
-            </ConfigGrid>
-
-            <MinorHeader id="config-proxy">Crates.io Proxy</MinorHeader>
-            <ConfigGrid>
-              <ConfigCard title="Proxy Enabled" toml="[proxy] enabled" env-var="KELLNR_PROXY__ENABLED"
-                default-value="false"
-                description="Enable crates.io proxy to use Kellnr as a proxy-cache for crates.io." />
-              <ConfigCard title="Number of Threads" toml="[proxy] num_threads" env-var="KELLNR_PROXY__NUM_THREADS"
-                default-value="10" description="Number of threads used to keep crates.io cache up-to-date." />
-              <ConfigCard title="Download on Update" toml="[proxy] download_on_update"
-                env-var="KELLNR_PROXY__DOWNLOAD_ON_UPDATE" default-value="false"
-                description="Periodically pre-fetch crates from crates.io that had an update." />
-              <ConfigCard title="Download URL" toml="[proxy] url" env-var="KELLNR_PROXY__URL"
-                default-value="https://static.crates.io/crates/"
-                description="URL used to download crate files. Override this to use a crates.io mirror." />
-              <ConfigCard title="Index URL" toml="[proxy] index" env-var="KELLNR_PROXY__INDEX"
-                default-value="https://index.crates.io/"
-                description="Sparse index URL used to fetch crate metadata. Override this to use a crates.io mirror." />
-              <ConfigCard title="API URL" toml="[proxy] api" env-var="KELLNR_PROXY__API"
-                default-value="https://crates.io/api/v1/crates/"
-                description="REST API URL used for crate search and metadata lookups. Override this to use a crates.io mirror." />
-              <ConfigCard title="Connect Timeout" toml="[proxy] connect_timeout_seconds"
-                env-var="KELLNR_PROXY__CONNECT_TIMEOUT_SECONDS" default-value="5"
-                description="Connect timeout in seconds for upstream requests." />
-              <ConfigCard title="Request Timeout" toml="[proxy] request_timeout_seconds"
-                env-var="KELLNR_PROXY__REQUEST_TIMEOUT_SECONDS" default-value="30"
-                description="Request timeout in seconds for upstream downloads." />
-              <ConfigCard title="User Agent" toml="[proxy] user_agent" env-var="KELLNR_PROXY__USER_AGENT"
-                default-value="kellnr.io/kellnr"
-                description="User-agent sent with requests to crates.io. crates.io's data-access policy asks for a user-agent that identifies the application and a way to get in contact, e.g. 'kellnr.io/kellnr (contact@example.com)'." />
-            </ConfigGrid>
-
-            <MinorHeader id="config-documentation">Documentation</MinorHeader>
-            <ConfigGrid>
-              <ConfigCard title="Rustdoc Generation" toml="[docs] enabled" env-var="KELLNR_DOCS__ENABLED"
-                default-value="false"
-                description="If 'true', rustdocs are generated for each uploaded crate automatically. Building docs runs the build scripts and proc macros of every published crate on the Kellnr host, see Rustdoc." />
-              <ConfigCard title="Max Doc Size" toml="[docs] max_size" env-var="KELLNR_DOCS__MAX_SIZE"
-                default-value="100"
-                description="Max size of crate docs allowed to be uploaded in MB. Unpacked archives may be at most 20 times as large and contain at most 1000 files per MB." />
-              <ConfigCard title="Build Timeout" toml="[docs] build_timeout_seconds"
-                env-var="KELLNR_DOCS__BUILD_TIMEOUT_SECONDS" default-value="1800"
-                description="Max duration of a single rustdoc build in seconds. Builds that take longer are killed and the crate is skipped. Set to 0 for no limit." />
-              <ConfigCard title="Build Wrapper" toml="[docs] build_wrapper" env-var="KELLNR_DOCS__BUILD_WRAPPER"
-                default-value="[]"
-                description="Command prefix for the rustdoc build process, e.g. to confine the build with bubblewrap. As environment variable, separate the entries with commas. See Rustdoc for an example." />
-            </ConfigGrid>
-
-            <MinorHeader id="config-postgresql">PostgreSQL</MinorHeader>
-            <ConfigGrid>
-              <ConfigCard title="PostgreSQL Enabled" toml="[postgresql] enabled" env-var="KELLNR_POSTGRESQL__ENABLED"
-                default-value="false" description="Enable PostgreSQL instead of Sqlite." />
-              <ConfigCard title="Server Address" toml="[postgresql] address" env-var="KELLNR_POSTGRESQL__ADDRESS"
-                default-value="localhost" description="Address of the PostgreSQL server." />
-              <ConfigCard title="Server Port" toml="[postgresql] port" env-var="KELLNR_POSTGRESQL__PORT"
-                default-value="5432" description="Port of the PostgreSQL server." />
-              <ConfigCard title="Database Name" toml="[postgresql] db" env-var="KELLNR_POSTGRESQL__DB"
-                default-value="kellnr" description="Database name of the PostgreSQL server." />
-              <ConfigCard title="Username" toml="[postgresql] user" env-var="KELLNR_POSTGRESQL__USER" default-value=""
-                description="User name of the PostgreSQL database." />
-              <ConfigCard title="Password" toml="[postgresql] pwd" env-var="KELLNR_POSTGRESQL__PWD" default-value=""
-                description="Password of the PostgreSQL database." />
-              <ConfigCard title="Connection String" toml="[postgresql] connection_string"
-                env-var="KELLNR_POSTGRESQL__CONNECTION_STRING" default-value="None"
-                description="Raw PostgreSQL connection string (postgres://...) passed directly to the database driver. If set, address, port, db, user and pwd are ignored." />
-            </ConfigGrid>
-
-            <MinorHeader id="config-s3">S3 Storage</MinorHeader>
-            <ConfigGrid>
-              <ConfigCard title="S3 Enabled" toml="[s3] enabled" env-var="KELLNR_S3__ENABLED" default-value="false"
-                description="Enable S3 storage instead of local file system." />
-              <ConfigCard title="Access Key" toml="[s3] access_key" env-var="KELLNR_S3__ACCESS_KEY" default-value="None"
-                description="Access key for the S3 storage. When ommited, the credential chain is used (env vars, IAM roles, IRSA, etc.)." />
-              <ConfigCard title="Secret Key" toml="[s3] secret_key" env-var="KELLNR_S3__SECRET_KEY" default-value="None"
-                description="Secret key for the S3 storage. When omitted, the credential chain is used (env vars, IAM roles, IRSA, etc.)." />
-              <ConfigCard title="Region" toml="[s3] region" env-var="KELLNR_S3__REGION" default-value="None"
-                description="Region of the S3 storage. When omitted, the region is resolved from the environment." />
-              <ConfigCard title="Endpoint" toml="[s3] endpoint" env-var="KELLNR_S3__ENDPOINT" default-value="None"
-                description="Custom endpoint URL for S3-compatible storage (e.g., MinIO, RustFS). When omitted, the default AWS S3 endpoint is used." />
-              <ConfigCard title="Allow HTTP" toml="[s3] allow_http" env-var="KELLNR_S3__ALLOW_HTTP" default-value="true"
-                description="Allow unsecure S3 connection with HTTP." />
-              <ConfigCard title="Crates Bucket" toml="[s3] crates_bucket" env-var="KELLNR_S3__CRATES_BUCKET"
-                default-value="kellnr-crates" description="Bucket where Kellnr stores uploaded crates." />
-              <ConfigCard title="Crates.io Bucket" toml="[s3] cratesio_bucket" env-var="KELLNR_S3__CRATESIO_BUCKET"
-                default-value="kellnr-cratesio" description="Bucket for crates.io crates if the proxy is enabled." />
-              <ConfigCard title="Toolchain Bucket" toml="[s3] toolchain_bucket" env-var="KELLNR_S3__TOOLCHAIN_BUCKET"
-                default-value="kellnr-toolchains"
-                description="Bucket for toolchain archives if the toolchain server is enabled." />
-              <ConfigCard title="Connect Timeout" toml="[s3] connect_timeout_seconds"
-                env-var="KELLNR_S3__CONNECT_TIMEOUT_SECONDS" default-value="5"
-                description="S3 connect timeout in seconds." />
-              <ConfigCard title="Request Timeout" toml="[s3] request_timeout_seconds"
-                env-var="KELLNR_S3__REQUEST_TIMEOUT_SECONDS" default-value="30"
-                description="S3 request timeout in seconds." />
-            </ConfigGrid>
-
-            <MinorHeader id="config-gcs">GCS Storage</MinorHeader>
-            <TextBlock>
-              Google Cloud Storage is an alternative to <router-link to="#config-s3">S3</router-link>. Only one
-              remote storage backend can be enabled at a time; Kellnr exits on startup if both
-              <code>s3.enabled</code> and <code>gcs.enabled</code> are set. Credentials are taken from
-              Application Default Credentials, so Kellnr picks up
-              <code>GOOGLE_APPLICATION_CREDENTIALS</code>, the <code>gcloud</code> ADC file, workload identity,
-              or the metadata server without any credential settings of its own.
-            </TextBlock>
-            <ConfigGrid>
-              <ConfigCard title="GCS Enabled" toml="[gcs] enabled" env-var="KELLNR_GCS__ENABLED" default-value="false"
-                description="Enable Google Cloud Storage instead of local file system. Cannot be combined with S3." />
-              <ConfigCard title="Endpoint" toml="[gcs] endpoint" env-var="KELLNR_GCS__ENDPOINT" default-value="None"
-                description="Custom base URL for a self-hosted or emulator endpoint. When omitted, the public Google Cloud Storage API is used." />
-              <ConfigCard title="Allow HTTP" toml="[gcs] allow_http" env-var="KELLNR_GCS__ALLOW_HTTP"
-                default-value="true" description="Allow unsecure GCS connection with HTTP. Needed when the endpoint uses HTTP." />
-              <ConfigCard title="Skip Signature" toml="[gcs] skip_signature" env-var="KELLNR_GCS__SKIP_SIGNATURE"
-                default-value="false"
-                description="Skip credential lookup and request signing. Only for unauthenticated endpoints such as emulators." />
-              <ConfigCard title="Crates Bucket" toml="[gcs] crates_bucket" env-var="KELLNR_GCS__CRATES_BUCKET"
-                default-value="kellnr-crates" description="Bucket where Kellnr stores uploaded crates." />
-              <ConfigCard title="Crates.io Bucket" toml="[gcs] cratesio_bucket" env-var="KELLNR_GCS__CRATESIO_BUCKET"
-                default-value="kellnr-cratesio" description="Bucket for crates.io crates if the proxy is enabled." />
-              <ConfigCard title="Toolchain Bucket" toml="[gcs] toolchain_bucket" env-var="KELLNR_GCS__TOOLCHAIN_BUCKET"
-                default-value="kellnr-toolchains"
-                description="Bucket for toolchain archives if the toolchain server is enabled." />
-              <ConfigCard title="Connect Timeout" toml="[gcs] connect_timeout_seconds"
-                env-var="KELLNR_GCS__CONNECT_TIMEOUT_SECONDS" default-value="5"
-                description="GCS connect timeout in seconds." />
-              <ConfigCard title="Request Timeout" toml="[gcs] request_timeout_seconds"
-                env-var="KELLNR_GCS__REQUEST_TIMEOUT_SECONDS" default-value="30"
-                description="GCS request timeout in seconds." />
-            </ConfigGrid>
-
-            <MinorHeader id="config-oauth2-values">OAuth2/OIDC</MinorHeader>
-            <ConfigGrid>
-              <ConfigCard title="OAuth2 Enabled" toml="[oauth2] enabled" env-var="KELLNR_OAUTH2__ENABLED"
-                default-value="false" description="Enable OAuth2/OpenID Connect authentication." />
-              <ConfigCard title="Issuer URL" toml="[oauth2] issuer_url" env-var="KELLNR_OAUTH2__ISSUER_URL"
-                default-value=""
-                description="OIDC issuer URL for discovery (e.g., https://authentik.example.com/application/o/kellnr/)." />
-              <ConfigCard title="Client ID" toml="[oauth2] client_id" env-var="KELLNR_OAUTH2__CLIENT_ID"
-                default-value="" description="OAuth2 client ID from your identity provider." />
-              <ConfigCard title="Client Secret" toml="[oauth2] client_secret" env-var="KELLNR_OAUTH2__CLIENT_SECRET"
-                default-value="" description="OAuth2 client secret. Recommended to set via environment variable." />
-              <ConfigCard title="Additional Audiences" toml="[oauth2] additional_audiences"
-                env-var="KELLNR_OAUTH2__ADDITIONAL_AUDIENCES" default-value="[]"
-                description="Audiences accepted in the ID token besides the client ID, which stays required." />
-              <ConfigCard title="Scopes" toml="[oauth2] scopes" env-var="KELLNR_OAUTH2__SCOPES"
-                default-value='["openid", "profile", "email"]'
-                description="OAuth2 scopes to request from the identity provider." />
-              <ConfigCard title="Auto Provision Users" toml="[oauth2] auto_provision_users"
-                env-var="KELLNR_OAUTH2__AUTO_PROVISION_USERS" default-value="true"
-                description="Automatically create local user accounts on first OAuth2 login." />
-              <ConfigCard title="Admin Group Claim" toml="[oauth2] admin_group_claim"
-                env-var="KELLNR_OAUTH2__ADMIN_GROUP_CLAIM" default-value=""
-                description="JWT claim name containing group memberships (e.g., 'groups')." />
-              <ConfigCard title="Admin Group Value" toml="[oauth2] admin_group_value"
-                env-var="KELLNR_OAUTH2__ADMIN_GROUP_VALUE" default-value=""
-                description="Group name that grants admin privileges (e.g., 'kellnr-admins')." />
-              <ConfigCard title="Read-Only Group Claim" toml="[oauth2] read_only_group_claim"
-                env-var="KELLNR_OAUTH2__READ_ONLY_GROUP_CLAIM" default-value=""
-                description="JWT claim name for read-only group memberships." />
-              <ConfigCard title="Read-Only Group Value" toml="[oauth2] read_only_group_value"
-                env-var="KELLNR_OAUTH2__READ_ONLY_GROUP_VALUE" default-value=""
-                description="Group name that grants read-only access (e.g., 'kellnr-readonly')." />
-              <ConfigCard title="Button Text" toml="[oauth2] button_text" env-var="KELLNR_OAUTH2__BUTTON_TEXT"
-                default-value="Login with SSO" description="Text displayed on the OAuth2 login button in the web UI." />
-              <ConfigCard title="Enforced" toml="[oauth2] enforced" env-var="KELLNR_OAUTH2__ENFORCED"
-                default-value="false"
-                description="Make SSO the only way to log in. Disables password login, password changes and resets, and local user creation. Requires enabled." />
-              <ConfigCard title="Auto Redirect" toml="[oauth2] auto_redirect"
-                env-var="KELLNR_OAUTH2__AUTO_REDIRECT" default-value="false"
-                description="Skip the login page and send users straight to the identity provider. Requires enforced." />
-            </ConfigGrid>
-
-            <MinorHeader id="config-webhooks-values">Webhooks</MinorHeader>
-            <ConfigGrid>
-              <ConfigCard title="Block Private Targets" toml="[webhooks] block_private_targets"
-                env-var="KELLNR_WEBHOOKS__BLOCK_PRIVATE_TARGETS" default-value="false"
-                description="Refuse webhook deliveries to loopback, private and other non-public addresses. Link-local and cloud metadata addresses are always refused." />
-            </ConfigGrid>
-
-            <MinorHeader id="config-toolchain-values">Toolchain Server</MinorHeader>
-            <ConfigGrid>
-              <ConfigCard title="Toolchain Enabled" toml="[toolchain] enabled" env-var="KELLNR_TOOLCHAIN__ENABLED"
-                default-value="false"
-                description="Enable the toolchain distribution server for hosting private Rust toolchains." />
-              <ConfigCard title="Max Archive Size" toml="[toolchain] max_size" env-var="KELLNR_TOOLCHAIN__MAX_SIZE"
-                default-value="500" description="Maximum toolchain archive size in MB." />
-            </ConfigGrid>
+            <template v-for="group in configGroups" :key="group.id">
+              <MinorHeader :id="group.id">{{ group.title }}</MinorHeader>
+              <TextBlock v-if="group.id === 'config-gcs'">
+                Google Cloud Storage is an alternative to <router-link to="#config-s3">S3</router-link>. Only one
+                remote storage backend can be enabled at a time; Kellnr exits on startup if both
+                <code>s3.enabled</code> and <code>gcs.enabled</code> are set. Credentials are taken from
+                Application Default Credentials, so Kellnr picks up
+                <code>GOOGLE_APPLICATION_CREDENTIALS</code>, the <code>gcloud</code> ADC file, workload identity,
+                or the metadata server without any credential settings of its own.
+              </TextBlock>
+              <ConfigGrid>
+                <ConfigCard v-for="entry in group.entries" :key="entry.toml" v-bind="entry" />
+              </ConfigGrid>
+            </template>
 
             <SubHeader id="authentication">Authentication</SubHeader>
             <TextBlock>
@@ -1150,12 +835,12 @@ const mobileNavOpen = ref(false);
               <code>cargo publish</code> and <code>cargo add</code> keep working exactly as before.
             </TextBlock>
 
-            <WarnBlock>
+            <CalloutBlock variant="warn">
               Configure <i>admin_group_claim</i> and <i>admin_group_value</i> before enabling <i>enforced</i> on a
               fresh instance. The local admin account can no longer log in, and without a group mapping no user
               provisioned through SSO is ever promoted, which leaves the instance without an administrator. Kellnr
               logs a warning at startup when it detects this combination.
-            </WarnBlock>
+            </CalloutBlock>
 
             <TextBlock>
               Kellnr also refuses to start when <i>enforced</i> is set but the OIDC handler cannot be initialized,
@@ -1205,10 +890,10 @@ const mobileNavOpen = ref(false);
               this, trim the claims your provider puts in the ID token.
             </TextBlock>
 
-            <WarnBlock>
+            <CalloutBlock variant="warn">
               The client secret should be kept confidential. It is recommended to set it via the
               <i>KELLNR_OAUTH2__CLIENT_SECRET</i> environment variable rather than storing it in the config file.
-            </WarnBlock>
+            </CalloutBlock>
 
             <SubHeader id="cratesio-proxy">Crates.io Proxy Cache</SubHeader>
             <TextBlock>
@@ -1498,18 +1183,18 @@ const mobileNavOpen = ref(false);
               directly by its version, so the toolchain does not need to be assigned to a channel.
             </TextBlock>
 
-            <WarnBlock>
+            <CalloutBlock variant="warn">
               The toolchain distribution endpoints do not support authentication. Rustup does not support
               sending authentication headers, cookies, or tokens when downloading from a custom
               <code>RUSTUP_DIST_SERVER</code>. If you need to restrict access, use network-level controls
               such as a reverse proxy, VPN, or IP allowlisting.
-            </WarnBlock>
+            </CalloutBlock>
 
-            <WarnBlock>
+            <CalloutBlock variant="warn">
               The toolchain server is designed for organizations that need to distribute custom or approved
               Rust toolchains. For most users, the official Rust toolchains from rustup.rs are recommended.
               Only enable this feature if you have a specific need for private toolchain distribution.
-            </WarnBlock>
+            </CalloutBlock>
 
             <MainHeader id="cli" icon="console">Command Line Interface</MainHeader>
             <TextBlock>
@@ -1924,12 +1609,12 @@ const mobileNavOpen = ref(false);
               token = "yourauthtoken"
             </CodeBlock>
 
-            <WarnBlock>
+            <CalloutBlock variant="warn">
               To build <i>rustdocs</i>, the <i>crate</i> needs to be compiled. While that happens, arbitrary and
               potentially
               malicious code, included in a dependency, can be executed. Make sure you trust the code you build the docs
               for!
-            </WarnBlock>
+            </CalloutBlock>
 
             <TextBlock>
               <b>Build Isolation</b><br />
@@ -2209,44 +1894,6 @@ const mobileNavOpen = ref(false);
   margin-bottom: 0.75rem;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid #2f55d4;
-}
-
-.toc-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.toc-list li {
-  margin-bottom: 0.25rem;
-}
-
-.toc-list a {
-  color: #495057;
-  text-decoration: none;
-  font-size: 0.9rem;
-  display: block;
-  padding: 0.25rem 0;
-  transition: color 0.2s ease;
-}
-
-.toc-list a:hover {
-  color: #2f55d4;
-}
-
-.toc-list ul {
-  list-style: none;
-  padding-left: 1rem;
-  margin: 0;
-}
-
-.toc-list ul a {
-  font-size: 0.85rem;
-  color: #6c757d;
-}
-
-.toc-list ul a:hover {
-  color: #2f55d4;
 }
 
 /* Scrollbar styling for TOC */
