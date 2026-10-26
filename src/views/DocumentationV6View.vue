@@ -80,7 +80,6 @@ const toc: TocItem[] = [
     ],
   },
   { label: "Backup", hash: "#backup" },
-  { label: "Upgrade Notes", hash: "#upgrade-notes" },
 ];
 
 const mobileNavOpen = ref(false);
@@ -2054,50 +2053,6 @@ const mobileNavOpen = ref(false);
               <router-link to="#config-s3">S3</router-link> or
               <router-link to="#config-gcs">GCS storage</router-link>, your uploaded crates are stored in the
               configured buckets rather than the data folder — back those up separately as well.
-            </TextBlock>
-
-            <MainHeader id="upgrade-notes" icon="update">Upgrade Notes</MainHeader>
-            <SubHeader id="upgrade-security-hardening">Security Hardening (6.11.0)</SubHeader>
-            <TextBlock>
-              The first release after Kellnr 6.10 contains a set of security fixes. Most of them need no action, but
-              some change behavior you may notice after the upgrade:
-              <ul>
-                <li><b>One-time logout:</b> Session tokens are now stored hashed. All existing sessions are removed
-                  during the upgrade, so every user has to log in again once. Cargo tokens keep working.</li>
-                <li><b>Password hashes:</b> Passwords are upgraded to argon2id on the next successful login. Older
-                  Kellnr versions cannot verify these hashes, so a downgrade after the upgrade breaks password login
-                  for every user who logged in in between. Back up the database before upgrading if you might need to
-                  roll back.</li>
-                <li><b>Login throttling:</b> After 10 wrong passwords for a username within 5 minutes, further
-                  attempts are rejected with HTTP 429, see <router-link to="#authentication">Authentication</router-link>.
-                </li>
-                <li><b>OAuth2 roles:</b> Admin and read-only roles are only granted from the configured
-                  <i>admin_group_claim</i> and <i>read_only_group_claim</i>. The fallback to the <i>groups</i>,
-                  <i>roles</i> and <i>group</i> claims was removed. If you relied on it, set the claim name to the claim
-                  your identity provider sends, see <router-link to="#oauth2">OAuth2/OIDC</router-link>.</li>
-                <li><b>Publish validation:</b> Non-http(s) URLs in crate metadata, new crate names that only differ in
-                  <i>-</i> and <i>_</i>, and versions that only differ in build metadata are rejected, see
-                  <router-link to="#pull-publish-to-kellnr">Pull &amp; Publish to Kellnr</router-link>.</li>
-                <li><b>Restricted crates:</b> Crates with restricted downloads are hidden from users without access,
-                  including crate lists, search, the crate page and the sparse index.</li>
-                <li><b>Crate users and groups:</b> Crate owners can now manage the crate users and crate groups of their
-                  crates in the web UI, as they already could through the cargo API. Changing the download restriction
-                  stays admin-only.</li>
-                <li><b>Docs:</b> Unpacked docs archives are limited to 20 times <code>docs.max_size</code>, doc
-                  builds time out after <code>docs.build_timeout_seconds</code>, and hosted docs cannot open popups
-                  anymore, see <router-link to="#rustdoc">Rustdoc</router-link>.</li>
-                <li><b>Settings page:</b> Secret settings (passwords, keys, tokens, client secrets) are no longer sent
-                  to the browser. The settings page only shows whether they are set.</li>
-                <li><b>Webhooks:</b> Redirects are no longer followed, link-local and cloud metadata addresses are
-                  refused, and the test endpoint only returns the status code of the callback, see
-                  <router-link to="#webhooks">Webhooks</router-link>.</li>
-                <li><b>Error messages:</b> Internal database and storage errors are returned as a generic
-                  "Internal server error". The details are logged by Kellnr.</li>
-                <li><b>Docker:</b> The images run Kellnr as the non-root user <i>kellnr</i> (uid 1000). Root-owned
-                  data volumes are taken over automatically. A cargo config for the doc builder now belongs in
-                  <i>/home/kellnr/.cargo/config.toml</i> instead of <i>/usr/local/cargo/config.toml</i> or
-                  <i>/root/.cargo/config.toml</i>, see <router-link to="#docker-container">Docker</router-link>.</li>
-              </ul>
             </TextBlock>
           </div>
         </div>
