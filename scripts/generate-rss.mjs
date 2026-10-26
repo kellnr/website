@@ -20,6 +20,7 @@
  * fail fast with helpful error messages during CI/builds.
  */
 
+import { existsSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -30,6 +31,7 @@ const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.resolve(__dirname, "..");
 const CHANGELOG_JSON_PATH = path.join(PROJECT_ROOT, "src", "data", "changelog.json");
 const BLOG_POSTS_JSON_PATH = path.join(PROJECT_ROOT, "src", "data", "blog-posts.json");
+const BLOG_POST_VIEWS_DIR = path.join(PROJECT_ROOT, "src", "views", "posts");
 const OUTPUT_RSS_PATH = path.join(PROJECT_ROOT, "public", "rss.xml");
 
 const SITE_URL = "https://kellnr.io";
@@ -151,6 +153,14 @@ function validateBlogPostsDocument(doc, filePath) {
     assertString(p.url, `${base}.url`);
     assertString(p.published, `${base}.published`);
     assertString(p.summaryHtml, `${base}.summaryHtml`);
+    assertString(p.component, `${base}.component`);
+
+    // The router builds the blog routes from this file and skips posts whose component is missing.
+    const componentPath = path.join(BLOG_POST_VIEWS_DIR, `${p.component}.vue`);
+    assert(
+      existsSync(componentPath),
+      `Missing component at ${base}.component: ${path.relative(PROJECT_ROOT, componentPath)}`
+    );
 
     const parsed = Date.parse(p.published);
     assert(

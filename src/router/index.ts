@@ -18,18 +18,20 @@ const postComponents = import.meta.glob<RouteComponent>("../views/posts/*.vue", 
 });
 
 function blogPostRoutes(): RouteRecordRaw[] {
-  return (blogData as BlogPostsDocument).posts.map((post) => {
+  // A broken entry must not take down the whole site; the build validates the components.
+  return (blogData as BlogPostsDocument).posts.flatMap((post) => {
     const component = postComponents[`../views/posts/${post.component}.vue`];
     if (!component) {
-      throw new Error(
-        `Blog post "${post.id}" references missing component "${post.component}.vue"`
-      );
+      console.error(`Blog post "${post.id}" references missing component "${post.component}.vue"`);
+      return [];
     }
-    return {
-      path: new URL(post.url).pathname,
-      name: post.routeName ?? post.id,
-      component,
-    };
+    return [
+      {
+        path: new URL(post.url).pathname,
+        name: post.routeName ?? post.id,
+        component,
+      },
+    ];
   });
 }
 
