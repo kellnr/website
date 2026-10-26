@@ -3,8 +3,7 @@ import BlogPostTemplate from "@/components/blog/BlogPostTemplate.vue";
 import TextBlock from "@/components/elements/TextBlock.vue";
 import SubHeader from "@/components/elements/SubHeader.vue";
 import CodeBlock from "@/components/elements/CodeBlock.vue";
-import AttentionBlock from "@/components/elements/AttentionBlock.vue";
-import WarnBlock from "@/components/elements/WarnBlock.vue";
+import CalloutBlock from "@/components/elements/CalloutBlock.vue";
 </script>
 
 <template>
@@ -17,12 +16,12 @@ import WarnBlock from "@/components/elements/WarnBlock.vue";
       and how to upgrade.
     </TextBlock>
 
-    <AttentionBlock>
+    <CalloutBlock variant="attention">
       The chart version is independent of the Kellnr application version. Chart <code>6.0.0</code> deploys Kellnr
       <code>6.3.0</code> by default (the chart's <code>appVersion</code>). This release is about the
       <i>packaging</i>, not the registry itself, so don't confuse it with the earlier
       <router-link to="/blog/release6">Kellnr 6.0.0 application release</router-link>.
-    </AttentionBlock>
+    </CalloutBlock>
 
     <SubHeader id="the-problem">The Problem: One Toggle for Everything</SubHeader>
     <TextBlock>
@@ -99,11 +98,11 @@ kellnr:
       key: cookieSigningKey
     </CodeBlock>
 
-    <AttentionBlock>
+    <CalloutBlock variant="attention">
       The environment variable Kellnr reads is still <code>KELLNR_REGISTRY__COOKIE_SIGNING_KEY</code>. If neither
       option is set, Kellnr generates a random key per pod, which is fine for a single replica but logs users out when
       they are routed to a different replica. Set it explicitly for multi-replica deployments.
-    </AttentionBlock>
+    </CalloutBlock>
 
     <SubHeader id="extra-env">Arbitrary Environment Variables</SubHeader>
     <TextBlock>
@@ -167,11 +166,11 @@ helm upgrade kellnr kellnr/kellnr
       not need to change anything: those values now transparently land in the chart's Secret instead of the ConfigMap.
     </TextBlock>
 
-    <WarnBlock>
+    <CalloutBlock variant="warn">
       The breaking change is the removal of <code>secret.enabled</code> and <code>secret.useExisting</code>. If you
       relied on <code>secret.useExisting: true</code> to mount your own (e.g. SOPS-encrypted) Secret, switch to
       <code>secret.existingSecret</code>:
-    </WarnBlock>
+    </CalloutBlock>
 
     <CodeBlock lang="yaml">
 # Before (chart &lt; 6.0.0)

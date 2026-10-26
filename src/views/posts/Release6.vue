@@ -3,8 +3,7 @@ import TextBlock from "../../components/elements/TextBlock.vue";
 import SubHeader from "../../components/elements/SubHeader.vue";
 import BlogPostTemplate from "../../components/blog/BlogPostTemplate.vue";
 import CodeBlock from "../../components/elements/CodeBlock.vue";
-import WarnBlock from "../../components/elements/WarnBlock.vue";
-import AttentionBlock from "../../components/elements/AttentionBlock.vue";
+import CalloutBlock from "../../components/elements/CalloutBlock.vue";
 </script>
 
 <template>
@@ -15,11 +14,11 @@ import AttentionBlock from "../../components/elements/AttentionBlock.vue";
       attention when upgrading from previous versions.
     </TextBlock>
 
-    <WarnBlock>
+    <CalloutBlock variant="warn">
       Before upgrading to v6.0.0, you must be running Kellnr v5.14.x or later. If you are on an earlier version,
       upgrade to v5.14.x first, then upgrade to v6.0.0. Direct upgrades from versions prior to v5.14.x are not
       supported.
-    </WarnBlock>
+    </CalloutBlock>
 
     <SubHeader id="cli">New Command-Line Interface</SubHeader>
     <TextBlock>
@@ -416,13 +415,13 @@ import AttentionBlock from "../../components/elements/AttentionBlock.vue";
       </ul>
     </TextBlock>
 
-    <AttentionBlock>
+    <CalloutBlock variant="attention">
       Kellnr is a passion project, built and maintained by a single developer in my free time with no corporate
       backing or sponsorship. While I do my best to thoroughly test every release, bugs are inevitable in a project
       of this scope. If you run into any issues, I would greatly appreciate it if you
       <a href="https://github.com/kellnr/kellnr/issues">report them on GitHub</a>. Your feedback helps make
       Kellnr better for everyone. If you want to support the project and help it continue,
       consider <a href="https://github.com/sponsors/secana">sponsoring on GitHub</a>.
-    </AttentionBlock>
+    </CalloutBlock>
   </BlogPostTemplate>
 </template>
