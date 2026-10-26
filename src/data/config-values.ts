@@ -178,6 +178,13 @@ export const configGroups: ConfigGroup[] = [
         defaultValue: "300",
         description: "Window in seconds for counting password attempts per username.",
       },
+      {
+        title: "Sponsor Links Enabled",
+        toml: "[registry] sponsor_links_enabled",
+        envVar: "KELLNR_REGISTRY__SPONSOR_LINKS_ENABLED",
+        defaultValue: "true",
+        description: "Show links to sponsor Kellnr in the web UI footer, on the settings page for admins and in the startup log. Set to false to hide all of them.",
+      },
     ],
   },
   {
