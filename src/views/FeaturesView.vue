@@ -426,7 +426,7 @@ const sections = [
           <p>A clean, responsive web UI for managing your registry.</p>
         </div>
 
-        <img class="section-shot" width="3534" height="2314" loading="lazy" src="/images/kellnr/dependencies-dark.png" alt="Kellnr web UI in dark mode" />
+        <img class="section-shot" width="3534" height="2314" loading="lazy" src="/images/kellnr/dependencies-dark.png" alt="Crate dependencies in the Kellnr web UI in dark mode" />
 
         <div class="features-grid features-grid-3">
           <div class="feature-card">

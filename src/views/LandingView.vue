@@ -64,7 +64,7 @@ const highlights = [
             </a>
           </div>
           <div class="hero-image">
-            <img src="/images/kellnr/landing.png" width="3534" height="2314" alt="Kellnr Dashboard" />
+            <img src="/images/kellnr/landing.png" width="3534" height="2314" alt="A crate page in the Kellnr web UI" />
           </div>
         </div>
       </div>
