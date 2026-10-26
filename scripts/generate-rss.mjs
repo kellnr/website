@@ -120,6 +120,7 @@ function validateChangelogDocument(doc, filePath) {
 
       assertString(e.type, `${ep}.type`);
       assertString(e.content, `${ep}.content`);
+      if (e.scope !== undefined) assertString(e.scope, `${ep}.scope`);
       assertOptionalArray(e.links, `${ep}.links`);
 
       if (Array.isArray(e.links)) {
@@ -245,7 +246,8 @@ function buildReleaseEntryContentHtml(release) {
       for (const entry of items) {
         // `content` in changelog.json may contain HTML (e.g. <i>).
         // We keep it as-is, but we still need to safely render appended links.
-        const contentHtml = String(entry.content ?? "");
+        const scopeHtml = entry.scope ? `<em>${escapeXml(entry.scope)}:</em> ` : "";
+        const contentHtml = scopeHtml + String(entry.content ?? "");
 
         const links = Array.isArray(entry.links) ? entry.links : [];
         const linksHtml = links
