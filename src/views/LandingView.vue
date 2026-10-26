@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import CodeBlock from "@/components/elements/CodeBlock.vue";
+import FeatureCard from "@/components/FeatureCard.vue";
+import SectionHeader from "@/components/SectionHeader.vue";
 
 // Each highlight links to its section on the features page.
 const highlights = [
@@ -97,23 +99,19 @@ const highlights = [
     <!-- Highlights -->
     <section class="features-section">
       <div class="container">
-        <div class="section-header">
-          <h2>Everything you need for private crate hosting</h2>
-          <p>Kellnr provides a complete solution for managing your organization's Rust dependencies.</p>
-        </div>
+        <SectionHeader
+          title="Everything you need for private crate hosting"
+          subtitle="Kellnr provides a complete solution for managing your organization's Rust dependencies."
+        />
         <div class="features-grid">
-          <router-link
+          <FeatureCard
             v-for="highlight in highlights"
             :key="highlight.anchor"
             :to="`/features#${highlight.anchor}`"
-            class="feature-card"
-          >
-            <div class="feature-icon">
-              <i class="mdi" :class="highlight.icon"></i>
-            </div>
-            <h3>{{ highlight.title }}</h3>
-            <p>{{ highlight.text }}</p>
-          </router-link>
+            :icon="highlight.icon"
+            :title="highlight.title"
+            :text="highlight.text"
+          />
         </div>
         <div class="features-more">
           <router-link to="/features" class="link-arrow">
@@ -127,10 +125,10 @@ const highlights = [
     <!-- Quickstart -->
     <section class="quickstart-section">
       <div class="container">
-        <div class="section-header">
-          <h2>Up and running in three steps</h2>
-          <p>Try Kellnr locally with Docker. No account, no external services.</p>
-        </div>
+        <SectionHeader
+          title="Up and running in three steps"
+          subtitle="Try Kellnr locally with Docker. No account, no external services."
+        />
         <ol class="quickstart-steps">
           <li>
             <h3><span class="step-number">1</span> Start Kellnr</h3>
@@ -314,77 +312,12 @@ const highlights = [
   background: #f8fafc;
 }
 
-.section-header {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 3rem;
-}
-
-.section-header h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0 0 1rem;
-}
-
-.section-header p {
-  font-size: 1.1rem;
-  color: #64748b;
-  margin: 0;
-  line-height: 1.6;
-}
-
 .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   max-width: 1100px;
   margin: 0 auto;
-}
-
-.feature-card {
-  display: block;
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  transition: all 0.2s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-4px);
-  border-color: #bfdbfe;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-}
-
-.feature-icon {
-  width: 56px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #eff6ff;
-  border-radius: 12px;
-  margin-bottom: 1.25rem;
-}
-
-.feature-icon i {
-  font-size: 1.75rem;
-  color: #2f55d4;
-}
-
-.feature-card h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #0f172a;
-  margin: 0 0 0.75rem;
-}
-
-.feature-card p {
-  font-size: 0.95rem;
-  color: #64748b;
-  margin: 0;
-  line-height: 1.6;
 }
 
 .features-more {
@@ -505,7 +438,6 @@ const highlights = [
     gap: 1.5rem;
   }
 
-  .section-header h2,
   .cta-content h2 {
     font-size: 1.5rem;
   }

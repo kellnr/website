@@ -1,18 +1,8 @@
 <script setup lang="ts">
-// Sections of the page, in order, for the sticky section navigation.
-const sections = [
-  { id: "registry", label: "Registry" },
-  { id: "access", label: "Access Control" },
-  { id: "sso", label: "SSO" },
-  { id: "rustdoc", label: "Rustdoc" },
-  { id: "proxy", label: "Crates.io Proxy" },
-  { id: "toolchain", label: "Toolchains" },
-  { id: "api", label: "API" },
-  { id: "deployment", label: "Deployment" },
-  { id: "web-ui", label: "Web UI" },
-  { id: "security", label: "Supply Chain" },
-  { id: "cli", label: "CLI" },
-];
+import CodeText from "@/components/elements/CodeText.vue";
+import FeatureCard from "@/components/FeatureCard.vue";
+import SectionHeader from "@/components/SectionHeader.vue";
+import { featureSections } from "@/data/features";
 </script>
 
 <template>
@@ -33,505 +23,89 @@ const sections = [
     <nav class="section-nav" aria-label="Feature sections">
       <div class="container">
         <ul>
-          <li v-for="section in sections" :key="section.id">
-            <router-link :to="{ hash: `#${section.id}` }">{{ section.label }}</router-link>
+          <li v-for="section in featureSections" :key="section.id">
+            <router-link :to="{ hash: `#${section.id}` }">{{ section.navLabel }}</router-link>
           </li>
         </ul>
       </div>
     </nav>
 
-    <!-- Core Registry Features -->
-    <section id="registry" class="section">
+    <section
+      v-for="(section, index) in featureSections"
+      :id="section.id"
+      :key="section.id"
+      class="section"
+      :class="{ 'section-alt': index % 2 === 1 }"
+    >
       <div class="container">
-        <div class="section-header">
-          <h2>Private Crate Registry</h2>
-          <p>The essential features you expect from a Rust crate registry.</p>
-        </div>
-
-        <img class="section-shot" width="3534" height="2314" loading="lazy" src="/images/kellnr/search-light.png" alt="Searching crates in the Kellnr web UI" />
-
-        <div class="features-grid">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-package-variant-closed"></i>
-            </div>
-            <h3>Private Crate Hosting</h3>
-            <p>Host your proprietary Rust crates on your own infrastructure. Keep your code private with full control over access and distribution.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-upload"></i>
-            </div>
-            <h3>Cargo-Compatible Publishing</h3>
-            <p>Publish crates using standard Cargo commands. Full support for all Cargo.toml features, metadata, and dependencies.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-download"></i>
-            </div>
-            <h3>Fast Downloads</h3>
-            <p>Pull crates quickly with in-memory caching for frequently accessed packages. Configurable cache sizes for optimal performance.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-tag-multiple"></i>
-            </div>
-            <h3>Version Management</h3>
-            <p>Full semantic versioning support with dependency resolution. View version history, changelogs, and dependency trees.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-magnify"></i>
-            </div>
-            <h3>Search &amp; Browse</h3>
-            <p>Find crates instantly with real-time search by name. Browse crate details, dependencies, and versions through a clean web interface.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-trash-can-outline"></i>
-            </div>
-            <h3>Crate Management</h3>
-            <p>Delete crate versions when needed. Manage crate metadata, ownership, and access permissions through the web UI.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Authentication & Access -->
-    <section id="access" class="section section-alt">
-      <div class="container">
-        <div class="section-header">
-          <h2>Authentication &amp; Access Control</h2>
-          <p>Fine-grained control over who can access and publish crates.</p>
-        </div>
-
-        <img class="section-shot" width="3534" height="2314" loading="lazy" src="/images/kellnr/users-light.png" alt="User management in Kellnr" />
-
-        <div class="features-grid">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-account-group"></i>
-            </div>
-            <h3>User Management</h3>
-            <p>Create and manage users with different roles: admin, regular, and read-only. Assign permissions based on responsibilities.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-account-multiple"></i>
-            </div>
-            <h3>Groups &amp; Teams</h3>
-            <p>Organize users into groups for collective permission management. Assign crate ownership to teams instead of individuals.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-key-variant"></i>
-            </div>
-            <h3>API Tokens</h3>
-            <p>Generate API tokens for CI/CD pipelines and programmatic access. Token caching with configurable TTL for performance.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-shield-account"></i>
-            </div>
-            <h3>Crate Ownership</h3>
-            <p>Assign owners to crates to control who can publish updates. Support for individual and group-based ownership.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-lock"></i>
-            </div>
-            <h3>Download Authentication</h3>
-            <p>Optionally require authentication for downloading crates. Restrict access to specific users on a per-crate basis.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-shield-lock"></i>
-            </div>
-            <h3>Admin-Only Publishing</h3>
-            <p>Restrict new crate creation to administrators only. Existing crate owners can still publish updates to their crates.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- OAuth2/OIDC -->
-    <section id="sso" class="section">
-      <div class="container">
-        <div class="feature-showcase">
+        <div
+          v-if="section.kind === 'showcase'"
+          class="feature-showcase"
+          :class="{ 'feature-showcase-reversed': section.reversed }"
+        >
           <div class="showcase-content">
-            <h2>OAuth2 / OpenID Connect</h2>
-            <p class="showcase-description">
-              Integrate with your existing identity provider for seamless single sign-on.
-              Support for Authentik, Keycloak, Okta, Azure AD, and any OIDC-compliant provider.
-            </p>
+            <h2>{{ section.title }}</h2>
+            <p class="showcase-description">{{ section.subtitle }}</p>
             <ul class="feature-list">
-              <li>
+              <li v-for="point in section.points" :key="point">
                 <i class="mdi mdi-check-circle"></i>
-                PKCE flow for secure authentication
-              </li>
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                Automatic user provisioning on first login
-              </li>
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                Group-based role assignment (admin, read-only)
-              </li>
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                Customizable SSO button text
+                <CodeText :text="point" />
               </li>
             </ul>
-            <router-link to="/documentation#oauth2" class="feature-link">
-              Learn more about OAuth2 setup
+            <router-link v-if="section.link.to" :to="section.link.to" class="feature-link">
+              {{ section.link.label }}
               <i class="mdi mdi-arrow-right"></i>
             </router-link>
-          </div>
-          <div class="showcase-visual">
-            <div class="visual-card">
-              <i class="mdi mdi-shield-key"></i>
-              <span>Single Sign-On</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Documentation -->
-    <section id="rustdoc" class="section section-alt">
-      <div class="container">
-        <div class="section-header">
-          <h2>Rustdoc Hosting</h2>
-          <p>Automatically generate and serve documentation for your crates.</p>
-        </div>
-
-        <img class="section-shot" width="3534" height="2314" loading="lazy" src="/images/kellnr/rustdoc-light.png" alt="Rustdocs served by Kellnr" />
-
-        <div class="features-grid features-grid-3">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-file-document-multiple"></i>
-            </div>
-            <h3>Auto-Generated Docs</h3>
-            <p>Rustdocs are automatically generated for every uploaded crate. Docs are built with all features enabled for comprehensive coverage.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-cloud-upload"></i>
-            </div>
-            <h3>Custom Doc Upload</h3>
-            <p>Upload pre-built rustdocs from your CI/CD pipeline. Perfect for crates with complex build requirements or external dependencies.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-format-list-bulleted"></i>
-            </div>
-            <h3>Build Queue Management</h3>
-            <p>Monitor and manage the documentation build queue through the web UI. Configure maximum doc sizes to control resource usage.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Crates.io Proxy -->
-    <section id="proxy" class="section">
-      <div class="container">
-        <div class="feature-showcase feature-showcase-reversed">
-          <div class="showcase-content">
-            <h2>Crates.io Proxy &amp; Cache</h2>
-            <p class="showcase-description">
-              Transparently proxy and cache crates from crates.io. Keep your builds fast
-              and your infrastructure independent from external services.
-            </p>
-            <ul class="feature-list">
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                Automatic caching on first download
-              </li>
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                Pre-fetch frequently updated crates
-              </li>
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                Configurable sync threads for updates
-              </li>
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                Works offline once crates are cached
-              </li>
-            </ul>
-            <router-link to="/documentation#cratesio-proxy" class="feature-link">
-              Configure the proxy
-              <i class="mdi mdi-arrow-right"></i>
-            </router-link>
-          </div>
-          <div class="showcase-visual">
-            <img class="showcase-shot" width="3534" height="2314" loading="lazy" src="/images/kellnr/cratesio-proxy-light.png" alt="Cached crates.io crates in Kellnr" />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Toolchain Distribution -->
-    <section id="toolchain" class="section section-alt">
-      <div class="container">
-        <div class="feature-showcase">
-          <div class="showcase-content">
-            <h2>Toolchain Distribution Server</h2>
-            <p class="showcase-description">
-              Host private Rust toolchains internally. Distribute custom or patched toolchains
-              to your team through a rustup-compatible distribution server.
-            </p>
-            <ul class="feature-list">
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                Rustup-compatible (<code>RUSTUP_DIST_SERVER</code> support)
-              </li>
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                Channel management (stable, beta, nightly, custom)
-              </li>
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                Multi-target support (x86_64, aarch64, etc.)
-              </li>
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                Admin-only uploads, public downloads
-              </li>
-            </ul>
-            <router-link to="/documentation#toolchain" class="feature-link">
-              Set up toolchain distribution
-              <i class="mdi mdi-arrow-right"></i>
-            </router-link>
-          </div>
-          <div class="showcase-visual">
-            <div class="visual-card">
-              <i class="mdi mdi-tools"></i>
-              <span>Toolchain Server</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- API & Integration -->
-    <section id="api" class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2>API &amp; Automation</h2>
-          <p>Comprehensive APIs for integration with your development workflow.</p>
-        </div>
-
-        <div class="features-grid features-grid-3">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-api"></i>
-            </div>
-            <h3>REST API</h3>
-            <p>Complete REST API for programmatic access to all Kellnr features. Manage crates, users, and settings through API calls.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-file-code"></i>
-            </div>
-            <h3>Interactive API Docs</h3>
-            <p>Swagger UI-powered documentation with try-it-out functionality. Explore and test API endpoints directly in your browser.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-webhook"></i>
-            </div>
-            <h3>Webhooks</h3>
-            <p>Receive notifications about Kellnr events. Integrate with CI/CD pipelines, chat systems, or custom automation.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Deployment & Storage -->
-    <section id="deployment" class="section section-alt">
-      <div class="container">
-        <div class="section-header">
-          <h2>Deployment &amp; Storage</h2>
-          <p>Flexible deployment options to fit your infrastructure.</p>
-        </div>
-
-        <div class="deployment-grid">
-          <div class="deployment-card">
-            <h4>Deployment Options</h4>
-            <ul class="deployment-list">
-              <li><i class="mdi mdi-docker"></i> Docker (full &amp; minimal)</li>
-              <li><i class="mdi mdi-kubernetes"></i> Kubernetes via Helm Chart</li>
-              <li><i class="mdi mdi-server"></i> Bare Metal Installation</li>
-              <li><i class="mdi mdi-console"></i> Cargo install from crates.io</li>
-              <li><i class="mdi mdi-arch"></i> Arch User Repository (AUR)</li>
-            </ul>
-          </div>
-
-          <div class="deployment-card">
-            <h4>Architecture Support</h4>
-            <ul class="deployment-list">
-              <li><i class="mdi mdi-chip"></i> AMD64 (x86_64)</li>
-              <li><i class="mdi mdi-chip"></i> ARM64 (aarch64)</li>
-              <li><i class="mdi mdi-linux"></i> Static musl builds</li>
-              <li><i class="mdi mdi-layers-triple"></i> Multiarch Docker images</li>
-            </ul>
-          </div>
-
-          <div class="deployment-card">
-            <h4>Storage Backends</h4>
-            <ul class="deployment-list">
-              <li><i class="mdi mdi-folder"></i> Local filesystem (default)</li>
-              <li><i class="mdi mdi-aws"></i> AWS S3</li>
-              <li><i class="mdi mdi-google-cloud"></i> Google Cloud Storage</li>
-              <li><i class="mdi mdi-database"></i> MinIO</li>
-              <li><i class="mdi mdi-cloud"></i> S3-compatible services</li>
-            </ul>
-          </div>
-
-          <div class="deployment-card">
-            <h4>Database Support</h4>
-            <ul class="deployment-list">
-              <li><i class="mdi mdi-database"></i> SQLite (default)</li>
-              <li><i class="mdi mdi-elephant"></i> PostgreSQL</li>
-              <li><i class="mdi mdi-sync"></i> Auto-migrations on startup</li>
-              <li><i class="mdi mdi-connection"></i> Connection pooling</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Web UI -->
-    <section id="web-ui" class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2>Modern Web Interface</h2>
-          <p>A clean, responsive web UI for managing your registry.</p>
-        </div>
-
-        <img class="section-shot" width="3534" height="2314" loading="lazy" src="/images/kellnr/dependencies-dark.png" alt="Crate dependencies in the Kellnr web UI in dark mode" />
-
-        <div class="features-grid features-grid-3">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-theme-light-dark"></i>
-            </div>
-            <h3>Light &amp; Dark Mode</h3>
-            <p>Switch between light and dark themes. Work in the environment that suits you best.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-tablet-cellphone"></i>
-            </div>
-            <h3>Responsive Design</h3>
-            <p>Access Kellnr from any device. The interface adapts to desktop, tablet, and mobile screens.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-chart-bar"></i>
-            </div>
-            <h3>Statistics Dashboard</h3>
-            <p>View download counts, unique crates, version statistics, and top downloaded crates at a glance.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Supply Chain Security -->
-    <section id="security" class="section section-alt">
-      <div class="container">
-        <div class="feature-showcase feature-showcase-reversed">
-          <div class="showcase-content">
-            <h2>Supply Chain Security</h2>
-            <p class="showcase-description">
-              Kellnr includes a Software Bill of Materials (SBOM) with every release,
-              helping you meet compliance requirements and audit your dependencies.
-            </p>
-            <ul class="feature-list">
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                CycloneDX format SBOM
-              </li>
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                License information for all dependencies
-              </li>
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                Cryptographic checksums
-              </li>
-              <li>
-                <i class="mdi mdi-check-circle"></i>
-                Package URLs (purl) for identification
-              </li>
-            </ul>
-            <a href="https://github.com/kellnr/kellnr/releases" target="_blank" rel="noopener" class="feature-link">
-              View releases on GitHub
+            <a v-else :href="section.link.href" target="_blank" rel="noopener" class="feature-link">
+              {{ section.link.label }}
               <i class="mdi mdi-arrow-right"></i>
             </a>
           </div>
           <div class="showcase-visual">
-            <div class="visual-card">
-              <i class="mdi mdi-shield-check"></i>
-              <span>SBOM Included</span>
+            <img
+              v-if="'src' in section.visual"
+              class="showcase-shot"
+              :width="section.visual.width"
+              :height="section.visual.height"
+              loading="lazy"
+              :src="section.visual.src"
+              :alt="section.visual.alt"
+            />
+            <div v-else class="visual-card">
+              <i class="mdi" :class="section.visual.icon"></i>
+              <span>{{ section.visual.label }}</span>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- CLI -->
-    <section id="cli" class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2>Redesigned CLI</h2>
-          <p>A modern command-line interface for configuration and management.</p>
-        </div>
+        <template v-else>
+          <SectionHeader :title="section.title" :subtitle="section.subtitle" />
 
-        <div class="features-grid features-grid-3">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-console"></i>
+          <div v-if="section.kind === 'deployment'" class="deployment-grid">
+            <div v-for="group in section.groups" :key="group.title" class="deployment-card">
+              <h4>{{ group.title }}</h4>
+              <ul class="deployment-list">
+                <li v-for="item in group.items" :key="item.text"><i class="mdi" :class="item.icon"></i> {{ item.text }}</li>
+              </ul>
             </div>
-            <h3>Explicit Commands</h3>
-            <p>Clear command structure with <code>kellnr start</code> to run the server and <code>kellnr config</code> for configuration management.</p>
           </div>
 
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-cog"></i>
-            </div>
-            <h3>Config Management</h3>
-            <p>Initialize, view, and manage configuration with <code>config init</code> and <code>config show</code> subcommands.</p>
-          </div>
+          <template v-else>
+            <img
+              v-if="section.image"
+              class="section-shot"
+              :width="section.image.width"
+              :height="section.image.height"
+              loading="lazy"
+              :src="section.image.src"
+              :alt="section.image.alt"
+            />
 
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="mdi mdi-layers"></i>
+            <div class="features-grid" :class="{ 'features-grid-3': section.cards.length === 3 }">
+              <FeatureCard v-for="card in section.cards" :key="card.title" v-bind="card" />
             </div>
-            <h3>Flexible Configuration</h3>
-            <p>Configuration priority: CLI args &gt; environment variables &gt; config file &gt; defaults. TOML config with env var support.</p>
-          </div>
-        </div>
+          </template>
+        </template>
       </div>
     </section>
 
@@ -638,26 +212,6 @@ const sections = [
   background: #f8fafc;
 }
 
-.section-header {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 3rem;
-}
-
-.section-header h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0 0 1rem;
-}
-
-.section-header p {
-  font-size: 1.1rem;
-  color: #64748b;
-  margin: 0;
-  line-height: 1.6;
-}
-
 .section-shot {
   display: block;
   width: 100%;
@@ -688,62 +242,6 @@ const sections = [
 
 .features-grid-3 {
   max-width: 1000px;
-}
-
-.feature-card {
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  transition: all 0.2s ease;
-  position: relative;
-}
-
-.section-alt .feature-card {
-  background: #ffffff;
-}
-
-.feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-}
-
-.feature-icon {
-  width: 56px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #eff6ff;
-  border-radius: 12px;
-  margin-bottom: 1.25rem;
-}
-
-.feature-icon i {
-  font-size: 1.75rem;
-  color: #2f55d4;
-}
-
-.feature-card h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #0f172a;
-  margin: 0 0 0.75rem;
-}
-
-.feature-card p {
-  font-size: 0.95rem;
-  color: #64748b;
-  margin: 0;
-  line-height: 1.6;
-}
-
-.feature-card code {
-  background: #f1f5f9;
-  padding: 0.125rem 0.375rem;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  color: #0f172a;
 }
 
 /* Feature Showcase */
@@ -804,14 +302,6 @@ const sections = [
 .feature-list i {
   color: #22c55e;
   font-size: 1.25rem;
-}
-
-.feature-list code {
-  background: #f1f5f9;
-  padding: 0.125rem 0.375rem;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  color: #0f172a;
 }
 
 .feature-link {
@@ -1036,7 +526,6 @@ const sections = [
     margin: 0 auto;
   }
 
-  .section-header h2,
   .showcase-content h2,
   .cta-content h2 {
     font-size: 1.5rem;
