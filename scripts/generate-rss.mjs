@@ -160,49 +160,29 @@ function validateBlogPostsDocument(doc, filePath) {
   });
 }
 
+const CHANGELOG_DATE_RE = /^(\d{1,2})\.\s*([A-Za-z]+)\s+(\d{4})$/;
+
 /**
  * Changelog date format: "29. December 2025" OR "11.November 2021"
  * Returns an RFC3339 string in UTC.
  */
 function parseChangelogDateToRfc3339(dateStr) {
   const raw = String(dateStr).trim();
-
-  // Allow "11.November 2021" or "29. December 2025"
-  // Split day from rest by "." (first dot after day)
-  const dotIdx = raw.indexOf(".");
-  if (dotIdx === -1) {
-    throw new Error(`Unsupported date format (missing dot): "${raw}"`);
+  const match = CHANGELOG_DATE_RE.exec(raw);
+  if (!match) {
+    throw new Error(`Unsupported date format (expected "DD. Month YYYY"): "${raw}"`);
   }
 
-  const dayRaw = raw.slice(0, dotIdx).trim();
-  const rest = raw.slice(dotIdx + 1).trim();
-
-  const day = Number.parseInt(dayRaw, 10);
-  if (!Number.isFinite(day) || day < 1 || day > 31) {
-    throw new Error(`Invalid day in date: "${raw}"`);
-  }
-
-  // rest should be like "December 2025" (month + year)
-  const parts = rest.split(/\s+/).filter(Boolean);
-  if (parts.length < 2) {
-    throw new Error(`Unsupported date format (month/year missing): "${raw}"`);
-  }
-
-  const monthName = parts[0];
-  const yearRaw = parts[1];
+  const [, dayRaw, monthName, yearRaw] = match;
+  const day = Number(dayRaw);
   const month = MONTHS.get(monthName);
-  if (!month) {
-    throw new Error(`Unknown month "${monthName}" in date: "${raw}"`);
-  }
-
-  const year = Number.parseInt(yearRaw, 10);
-  if (!Number.isFinite(year) || year < 1970 || year > 9999) {
-    throw new Error(`Invalid year in date: "${raw}"`);
-  }
+  const year = Number(yearRaw);
+  if (day < 1 || day > 31) throw new Error(`Invalid day in date: "${raw}"`);
+  if (!month) throw new Error(`Unknown month "${monthName}" in date: "${raw}"`);
+  if (year < 1970) throw new Error(`Invalid year in date: "${raw}"`);
 
   // Use noon UTC to avoid edge cases if consumers convert time zones.
-  const dt = new Date(Date.UTC(year, month - 1, day, 12, 0, 0));
-  return dt.toISOString();
+  return new Date(Date.UTC(year, month - 1, day, 12, 0, 0)).toISOString();
 }
 
 function compareEntriesDesc(a, b) {
@@ -212,56 +192,50 @@ function compareEntriesDesc(a, b) {
   return String(b.id).localeCompare(String(a.id));
 }
 
-function buildReleaseEntryContentHtml(release) {
-  // Render a concise HTML body:
-  // "Version X of Kellnr, the private Rust registry, is released."
-  // Followed by bullet list from changelog entries.
+const ENTRY_TYPE_ORDER = ["Added", "Changed", "Deprecated", "Fixed", "Removed", "Security"];
 
-  const lines = [];
-  lines.push(
-    `Version ${escapeXml(release.version)} of Kellnr, the private Rust registry, is released.`
+/** Groups entries by type: known types in Keep-a-Changelog order first, then unknown ones. */
+function groupEntriesByType(entries) {
+  const byType = new Map();
+  for (const e of entries) {
+    const t = String(e.type || "Changed");
+    if (!byType.has(t)) byType.set(t, []);
+    byType.get(t).push(e);
+  }
+
+  const types = ENTRY_TYPE_ORDER.filter((t) => byType.has(t)).concat(
+    [...byType.keys()].filter((t) => !ENTRY_TYPE_ORDER.includes(t))
   );
+  return types.map((t) => [t, byType.get(t)]);
+}
 
-  if (Array.isArray(release.entries) && release.entries.length > 0) {
-    // Group by type to produce a Keep-a-Changelog-ish summary.
-    const order = ["Added", "Changed", "Deprecated", "Fixed", "Removed", "Security"];
-    const byType = new Map();
-    for (const e of release.entries) {
-      const t = String(e.type || "Changed");
-      if (!byType.has(t)) byType.set(t, []);
-      byType.get(t).push(e);
-    }
+function renderEntryItem(entry) {
+  // `content` in changelog.json may contain HTML (e.g. <i>) and is kept as-is.
+  const scopeHtml = entry.scope ? `<em>${escapeXml(entry.scope)}:</em> ` : "";
+  const contentHtml = scopeHtml + String(entry.content ?? "");
 
-    const types = order
-      .filter((t) => byType.has(t))
-      .concat([...byType.keys()].filter((t) => !order.includes(t)));
+  const links = Array.isArray(entry.links) ? entry.links : [];
+  const linksHtml = links
+    .map((l) => {
+      const href = escapeXml(l.url ?? "");
+      const label = escapeXml(l.label ?? l.url ?? "");
+      return ` <a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+    })
+    .join("");
 
-    for (const type of types) {
-      const items = byType.get(type);
-      if (!items || items.length === 0) continue;
+  return `<li>${contentHtml}${linksHtml}</li>`;
+}
 
-      lines.push(`<br/>`);
-      lines.push(`<strong>${escapeXml(type)}:</strong>`);
-      lines.push(`<ul>`);
-      for (const entry of items) {
-        // `content` in changelog.json may contain HTML (e.g. <i>).
-        // We keep it as-is, but we still need to safely render appended links.
-        const scopeHtml = entry.scope ? `<em>${escapeXml(entry.scope)}:</em> ` : "";
-        const contentHtml = scopeHtml + String(entry.content ?? "");
+function buildReleaseEntryContentHtml(release) {
+  const lines = [
+    `Version ${escapeXml(release.version)} of Kellnr, the private Rust registry, is released.`,
+  ];
 
-        const links = Array.isArray(entry.links) ? entry.links : [];
-        const linksHtml = links
-          .map((l) => {
-            const href = escapeXml(l.url ?? "");
-            const label = escapeXml(l.label ?? l.url ?? "");
-            return ` <a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`;
-          })
-          .join("");
-
-        lines.push(`<li>${contentHtml}${linksHtml}</li>`);
-      }
-      lines.push(`</ul>`);
-    }
+  const entries = Array.isArray(release.entries) ? release.entries : [];
+  for (const [type, items] of groupEntriesByType(entries)) {
+    lines.push(`<br/>`, `<strong>${escapeXml(type)}:</strong>`, `<ul>`);
+    lines.push(...items.map(renderEntryItem));
+    lines.push(`</ul>`);
   }
 
   return lines.join("\n");
