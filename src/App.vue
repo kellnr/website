@@ -17,7 +17,7 @@ function scrollFix(hashbang: string)
 </script>
 
 <template>
-    <NavBar :is-white-navbar=true :nav-light=true :is-icons=true />
+    <NavBar />
     <RouterView/>
     <Footer />
 </template>

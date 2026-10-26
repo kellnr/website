@@ -26,13 +26,21 @@ import SecurityHardening from "../views/posts/SecurityHardening.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  scrollBehavior(to) {
+  scrollBehavior(to, _from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
     if (to.hash) {
+      // The router ignores CSS scroll-margin-top, which keeps targets clear of the sticky header.
+      const el = document.querySelector(to.hash);
+      const top = el ? parseFloat(getComputedStyle(el).scrollMarginTop) || 0 : 0;
       return {
         el: to.hash,
+        top,
         behavior: "smooth",
       };
     }
+    return { top: 0 };
   },
   routes: [
     {
