@@ -57,6 +57,12 @@ function isActive(prefix: string): boolean {
           <li><a href="https://github.com/kellnr/kellnr" target="_blank" rel="noopener">GitHub</a></li>
           <li><router-link to="/blog" :class="{ active: isActive('/blog') }">Blog</router-link></li>
           <li><router-link to="/contact" :class="{ active: isActive('/contact') }">Contact</router-link></li>
+          <li>
+            <router-link to="/sponsor" class="nav-sponsor" :class="{ active: isActive('/sponsor') }">
+              <i class="mdi mdi-heart" aria-hidden="true"></i>
+              Sponsor
+            </router-link>
+          </li>
         </ul>
       </nav>
     </div>
@@ -118,6 +124,18 @@ function isActive(prefix: string): boolean {
 .nav-list > li > button:hover,
 .nav-list .active {
   color: #2f55d4;
+}
+
+.nav-list > li > .nav-sponsor {
+  margin-left: 0.5rem;
+  color: #db2777;
+  border: 1px solid #fbcfe8;
+}
+
+.nav-list > li > .nav-sponsor:hover,
+.nav-list > li > .nav-sponsor.active {
+  color: #be185d;
+  background: #fdf2f8;
 }
 
 .has-submenu {

@@ -81,8 +81,7 @@ const channels = [
             <i class="mdi mdi-heart sponsor-icon" aria-hidden="true"></i>
             <p>
               Kellnr is free and open source. If it saves your team time, consider
-              <a href="https://github.com/sponsors/secana" target="_blank" rel="noopener">
-                sponsoring its development<span class="sr-only"> (opens in a new tab)</span></a>.
+              <router-link to="/sponsor">sponsoring its development</router-link>.
             </p>
           </div>
         </div>

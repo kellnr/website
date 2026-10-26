@@ -9,6 +9,7 @@ import FeaturesView from "../views/FeaturesView.vue";
 import ChangelogView from "../views/ChangelogView.vue";
 import DocumentationV6View from "../views/DocumentationV6View.vue";
 import ContactView from "../views/ContactView.vue";
+import SponsorView from "../views/SponsorView.vue";
 import BlogView from "../views/BlogView.vue";
 import blogData from "../data/blog-posts.json";
 import type { BlogPostsDocument } from "../types/blog-posts";
@@ -87,6 +88,11 @@ const router = createRouter({
       path: "/contact",
       name: "contact",
       component: ContactView,
+    },
+    {
+      path: "/sponsor",
+      name: "sponsor",
+      component: SponsorView,
     },
     // Blog posts
     {

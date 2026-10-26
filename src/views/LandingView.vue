@@ -173,6 +173,11 @@ const highlights = [
             Get Started Now
             <i class="mdi mdi-arrow-right"></i>
           </router-link>
+          <p class="cta-sponsor">
+            <i class="mdi mdi-heart" aria-hidden="true"></i>
+            Kellnr is built by a single developer in their spare time.
+            <router-link to="/sponsor">Sponsor its development</router-link>
+          </p>
         </div>
       </div>
     </section>
@@ -407,6 +412,19 @@ const highlights = [
   font-size: 1.1rem;
   color: #64748b;
   margin: 0 0 2rem;
+}
+
+.cta-content .cta-sponsor {
+  margin: 2rem 0 0;
+  font-size: 1rem;
+}
+
+.cta-sponsor i {
+  color: #db2777;
+}
+
+.cta-sponsor a {
+  font-weight: 600;
 }
 
 /* Responsive */
