@@ -1,11 +1,18 @@
 <script setup lang="ts">
-defineProps<{
+import { computed } from "vue";
+
+const props = defineProps<{
   title: string;
   toml: string;
   envVar: string;
   defaultValue: string;
   description: string;
 }>();
+
+const tomlParts = computed(() => {
+  const [section, key] = props.toml.split("] ");
+  return { section: `${section}]`, key };
+});
 </script>
 
 <template>
@@ -16,7 +23,7 @@ defineProps<{
     <div class="config-body">
       <div class="config-row">
         <span class="config-label">TOML</span>
-        <code class="config-toml"><span class="toml-section">{{ toml.split('] ')[0] }}]</span><br>{{ toml.split('] ')[1] }}</code>
+        <code class="config-toml"><span class="toml-section">{{ tomlParts.section }}</span><br>{{ tomlParts.key }}</code>
       </div>
       <div class="config-row">
         <span class="config-label">Env Variable</span>

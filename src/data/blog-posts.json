@@ -4,6 +4,7 @@
       "id": "security-hardening",
       "title": "Kellnr 6.11.0: Security Hardening, New Settings and What to Check Before Upgrading",
       "url": "https://kellnr.io/blog/security-hardening",
+      "component": "SecurityHardening",
       "published": "2026-10-24T12:00:00+00:00",
       "category": "kellnr",
       "summaryHtml": "Kellnr 6.11.0 is a security release. This post summarizes the new settings for login throttling, docs builds, secure cookies and webhooks, and lists what to check before upgrading, including the one-time logout, the argon2id password migration and the non-root Docker images."
@@ -12,6 +13,7 @@
       "id": "helm-chart-v6",
       "title": "A Safer Kellnr Helm Chart: Splitting Config and Secrets (Chart v6.0.0)",
       "url": "https://kellnr.io/blog/helm-chart-v6",
+      "component": "HelmChartV6",
       "published": "2026-06-04T12:00:00+00:00",
       "category": "kellnr",
       "summaryHtml": "Chart version 6.0.0 reworks how the Kellnr Helm chart handles configuration. Sensitive values now live in a Secret rather than a plaintext ConfigMap, and the chart gains health probes, a values schema, a smoke test, and arbitrary env-var support. A breaking change with a short upgrade path."
@@ -20,6 +22,7 @@
       "id": "from-config-to-provcfg",
       "title": "From config to provcfg: Tracking Where a Setting Came From",
       "url": "https://kellnr.io/blog/from-config-to-provcfg",
+      "component": "FromConfigToProvcfg",
       "published": "2026-05-25T12:00:00+00:00",
       "category": "kellnr",
       "summaryHtml": "How Kellnr replaced the config crate and its surrounding glue with provcfg, a new library that treats configuration provenance as a first-class concept. The migration collapsed three parallel descriptions of every setting into one and turned the Startup Configuration UI into a dynamic view."
@@ -28,6 +31,7 @@
       "id": "release6",
       "title": "Kellnr 6.0.0 Release",
       "url": "https://kellnr.io/blog/release6",
+      "component": "Release6",
       "published": "2026-01-28T12:00:00+00:00",
       "category": "kellnr",
       "summaryHtml": "Kellnr 6.0.0 brings a new CLI interface, OAuth2/OIDC authentication, and important configuration changes. This guide covers breaking changes and how to upgrade safely."
@@ -36,6 +40,7 @@
       "id": "review-2025",
       "title": "Kellnr 2025 - A Year in Review",
       "url": "https://kellnr.io/blog/review-2025",
+      "component": "Review2025",
       "published": "2026-01-20T12:00:00+00:00",
       "category": "kellnr",
       "summaryHtml": "A look back at Kellnr's development in 2025: S3 storage, webhooks, new web interface, and contributions from 16 community members across 9 releases."
@@ -44,6 +49,7 @@
       "id": "rust-assembly",
       "title": "Testing Assembly Code with Rust",
       "url": "https://kellnr.io/blog/rust-assembly",
+      "component": "RustAssembly",
       "published": "2025-02-08T12:00:00+00:00",
       "category": "rust",
       "summaryHtml": "Learn how to test inline assembly code in Rust applications using unit tests and integration testing strategies."
@@ -52,6 +58,7 @@
       "id": "cross-plat-native-lib",
       "title": "Wrapping Cross-Platform Native Libraries in Rust",
       "url": "https://kellnr.io/blog/cross-plat-native-lib",
+      "component": "CrossPlatNativeLib",
       "published": "2024-01-14T20:40:00+00:00",
       "category": "rust",
       "summaryHtml": "Learn how a native shared C library is wrapped in a cross-platform Rust library and used in a cross-platform Rust application."
@@ -60,6 +67,7 @@
       "id": "release5",
       "title": "Kellnr 5.0.0 release",
       "url": "https://kellnr.io/blog/release5",
+      "component": "Release5",
       "published": "2023-11-28T21:00:00+00:00",
       "category": "kellnr",
       "summaryHtml": "Version 5.0.0 of Kellnr, the private Rust registry, is released. It switches from rocket.rs to axum, removes the git index support and has refactored settings."
@@ -68,6 +76,7 @@
       "id": "open-source",
       "title": "Kellnr goes Open Source",
       "url": "https://kellnr.io/blog/open-source",
+      "component": "OpenSource",
       "published": "2023-09-20T21:32:00+00:00",
       "category": "kellnr",
       "summaryHtml": "Kellnr, the private Rust registry, is now open source under the MIT license."
@@ -76,6 +85,7 @@
       "id": "domain-modeling",
       "title": "Leveraging the Type System for Domain Modeling in Rust",
       "url": "https://kellnr.io/blog/domain-modeling",
+      "component": "DomainModeling",
       "published": "2023-06-15T12:00:00+00:00",
       "category": "rust",
       "summaryHtml": "Use domain modeling in Rust to achieve separation of concerns, code decoupling and a better understanding of your domain."
@@ -84,6 +94,7 @@
       "id": "release3",
       "title": "Kellnr 3.0.0 Release",
       "url": "https://kellnr.io/blog/release3",
+      "component": "Release3",
       "published": "2023-05-29T12:00:00+00:00",
       "category": "kellnr",
       "summaryHtml": "Kellnr 3.0.0, the private rust registry, is released. This release includes a new UI and many improvements under the hood."
@@ -92,6 +103,8 @@
       "id": "rust-supply-chain-security",
       "title": "Rust Supply Chain Security",
       "url": "https://kellnr.io/blog/rust-supply-chain-security",
+      "component": "RustSupplyChainSecurity",
+      "routeName": "blog-rust-supply-chain-security",
       "published": "2023-04-10T12:00:00+00:00",
       "category": "rust",
       "summaryHtml": "What are the security risks of using Rust in your supply chain and how to mitigate them."
@@ -100,6 +113,8 @@
       "id": "async-closures-in-rust",
       "title": "Asynchronous Closures in Rust - Box and Pin",
       "url": "https://kellnr.io/blog/async-closures-in-rust",
+      "component": "AsyncClosuresInRust",
+      "routeName": "blog-async-closures-in-rust",
       "published": "2022-07-24T12:00:00+00:00",
       "category": "rust",
       "summaryHtml": "Understand asynchronous closures in Rust and how they relate to Box and Pin."
@@ -108,6 +123,8 @@
       "id": "wasm-compiler4",
       "title": "WebAssembly Compiler - Building a Runtime",
       "url": "https://kellnr.io/blog/wasm-compiler4",
+      "component": "WasmCompiler4",
+      "routeName": "blog-wasm-compiler4",
       "published": "2021-06-24T12:00:00+00:00",
       "category": "rust",
       "summaryHtml": "Write a WebAssembly runtime in Rust that can execute WebAssembly modules."
@@ -116,6 +133,8 @@
       "id": "wasm-compiler3",
       "title": "WebAssembly Compiler - Building a Compiler",
       "url": "https://kellnr.io/blog/wasm-compiler3",
+      "component": "WasmCompiler3",
+      "routeName": "blog-wasm-compiler3",
       "published": "2021-06-05T12:00:00+00:00",
       "category": "rust",
       "summaryHtml": "Write a compiler in Rust to compile a WebAssembly AST to binary."
@@ -124,6 +143,8 @@
       "id": "wasm-compiler2",
       "title": "WebAssembly Compiler - Building a Parser",
       "url": "https://kellnr.io/blog/wasm-compiler2",
+      "component": "WasmCompiler2",
+      "routeName": "blog-wasm-compiler2",
       "published": "2021-05-30T12:00:00+00:00",
       "category": "rust",
       "summaryHtml": "Write a parser in Rust for the WebAssembly text format."
@@ -132,6 +153,8 @@
       "id": "wasm-compiler1",
       "title": "WebAssembly Compiler - Text format and AST",
       "url": "https://kellnr.io/blog/wasm-compiler1",
+      "component": "WasmCompiler1",
+      "routeName": "blog-wasm-compiler1",
       "published": "2021-05-27T12:00:00+00:00",
       "category": "rust",
       "summaryHtml": "Understand and parse a WebAssembly abstract-syntax-tree (AST) using Rust."
@@ -140,6 +163,7 @@
       "id": "compile-times-sccache",
       "title": "Improve Rust compile times with sccache",
       "url": "https://kellnr.io/blog/compile-times-sccache",
+      "component": "ImproveRustCompileTimes",
       "published": "2021-04-21T12:00:00+00:00",
       "category": "rust",
       "summaryHtml": "Improve build times by utilizing sccache and S3 to cache compilation results over multiple builds in your Rust CI/CD pipeline."

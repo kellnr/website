@@ -3,8 +3,7 @@ import BlogPostTemplate from "@/components/blog/BlogPostTemplate.vue";
 import TextBlock from "@/components/elements/TextBlock.vue";
 import SubHeader from "@/components/elements/SubHeader.vue";
 import CodeBlock from "@/components/elements/CodeBlock.vue";
-import AttentionBlock from "@/components/elements/AttentionBlock.vue";
-import WarnBlock from "@/components/elements/WarnBlock.vue";
+import CalloutBlock from "@/components/elements/CalloutBlock.vue";
 </script>
 
 <template>
@@ -84,12 +83,12 @@ block_private_targets = false
       </ul>
     </TextBlock>
 
-    <WarnBlock>
+    <CalloutBlock variant="warn">
       Building docs (<code>docs.enabled</code>) compiles every published crate, which runs its build scripts and proc
       macros on the Kellnr host. Builds now run in a separate process without any <code>KELLNR_*</code> settings or
       secrets, but they can still read every file Kellnr can read. Only enable docs builds for publishers you trust, or
       confine them with <code>docs.build_wrapper</code>.
-    </WarnBlock>
+    </CalloutBlock>
 
     <SubHeader id="docker-helm">Docker and Helm</SubHeader>
     <TextBlock>
@@ -122,10 +121,10 @@ kellnr:
     blockPrivateTargets: false
     </CodeBlock>
 
-    <AttentionBlock>
+    <CalloutBlock variant="attention">
       The doc builder token of the Helm chart (<code>docBuilder.tokenSecretRef</code>) is visible to the build scripts of
       the documented crates. Use a token of a dedicated read-only user for it.
-    </AttentionBlock>
+    </CalloutBlock>
 
     <TextBlock>
       Thanks to everyone who reports security issues responsibly. If you find something, please use a

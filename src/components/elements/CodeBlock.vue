@@ -2,43 +2,28 @@
 import { ref, onMounted } from "vue";
 import hljs from "highlight.js";
 
-const props = defineProps<{
-  lang?: string;
+defineProps<{
+  lang: string;
 }>();
 
 const codeContainer = ref<HTMLElement | null>(null);
 const processedCode = ref("");
-const isNewFormat = ref(false);
 const copied = ref(false);
 
 function stripIndent(text: string): string {
   const lines = text.split("\n");
+  const hasContent = (line: string) => line.trim() !== "";
 
-  // Remove empty first and last lines (from template formatting)
-  while (lines.length > 0 && lines[0].trim() === "") {
-    lines.shift();
-  }
-  while (lines.length > 0 && lines[lines.length - 1].trim() === "") {
-    lines.pop();
-  }
+  // Drop blank lines around the code (from template formatting)
+  const start = lines.findIndex(hasContent);
+  if (start === -1) return "";
+  const end = lines.length - [...lines].reverse().findIndex(hasContent);
+  const content = lines.slice(start, end);
 
-  if (lines.length === 0) return "";
-
-  // Find minimum indentation (excluding empty lines)
-  const minIndent = lines
-    .filter((line) => line.trim().length > 0)
-    .reduce((min, line) => {
-      const match = line.match(/^(\s*)/);
-      const indent = match ? match[1].length : 0;
-      return Math.min(min, indent);
-    }, Infinity);
-
-  // Strip the common indentation from all lines
-  if (minIndent > 0 && minIndent !== Infinity) {
-    return lines.map((line) => line.slice(minIndent)).join("\n");
-  }
-
-  return lines.join("\n");
+  const minIndent = Math.min(
+    ...content.filter(hasContent).map((line) => line.length - line.trimStart().length)
+  );
+  return content.map((line) => line.slice(minIndent)).join("\n");
 }
 
 async function copyCode() {
@@ -59,38 +44,25 @@ async function copyCode() {
 }
 
 onMounted(() => {
-  if (!codeContainer.value) return;
+  // Read the slot text from the hidden raw content, strip indent, highlight
+  const rawContent = codeContainer.value?.querySelector(".raw-content");
+  if (!rawContent) return;
 
-  // Check if using new format (lang prop) or legacy format (pre/code in slot)
-  if (props.lang) {
-    // New format: get text from hidden raw content, strip indent, highlight
-    const rawContent = codeContainer.value.querySelector(".raw-content");
-    if (rawContent) {
-      processedCode.value = stripIndent(rawContent.textContent || "");
-      isNewFormat.value = true;
+  processedCode.value = stripIndent(rawContent.textContent || "");
 
-      // Apply highlighting after Vue updates the DOM
-      setTimeout(() => {
-        const codeEl = codeContainer.value?.querySelector("code.highlight-target");
-        if (codeEl) {
-          hljs.highlightElement(codeEl as HTMLElement);
-        }
-      }, 0);
+  // Apply highlighting after Vue updates the DOM
+  setTimeout(() => {
+    const codeEl = codeContainer.value?.querySelector("code.highlight-target");
+    if (codeEl) {
+      hljs.highlightElement(codeEl as HTMLElement);
     }
-  } else {
-    // Legacy format: strip indentation from existing code elements and re-highlight
-    const codeElements = codeContainer.value.querySelectorAll("code");
-    codeElements.forEach((codeElement) => {
-      codeElement.textContent = stripIndent(codeElement.textContent || "");
-      hljs.highlightElement(codeElement as HTMLElement);
-    });
-  }
+  }, 0);
 });
 </script>
 
 <template>
   <div ref="codeContainer" class="code-block">
-    <div class="code-header" v-if="lang">
+    <div class="code-header">
       <span class="code-lang">{{ lang }}</span>
       <button class="copy-btn" @click="copyCode" :title="copied ? 'Copied!' : 'Copy to clipboard'">
         <svg v-if="!copied" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -104,13 +76,8 @@ onMounted(() => {
       </button>
     </div>
     <div class="code-content">
-      <!-- New format: lang prop provided -->
-      <template v-if="lang">
-        <pre class="raw-content" style="display: none;"><slot></slot></pre>
-        <pre v-if="processedCode" class="code-pre"><code class="highlight-target" :class="lang">{{ processedCode }}</code></pre>
-      </template>
-      <!-- Legacy format: slot contains pre/code -->
-      <slot v-else></slot>
+      <pre class="raw-content" style="display: none;"><slot></slot></pre>
+      <pre v-if="processedCode" class="code-pre"><code class="highlight-target" :class="lang">{{ processedCode }}</code></pre>
     </div>
   </div>
 </template>
@@ -170,12 +137,6 @@ onMounted(() => {
 }
 
 .code-pre {
-  margin: 0;
-  padding: 0;
-  background: transparent;
-}
-
-.code-block :deep(pre) {
   margin: 0;
   padding: 0;
   background: transparent;

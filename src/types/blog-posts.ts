@@ -14,11 +14,20 @@ export type BlogPost = {
    */
   url: string;
 
+  /** File name (without .vue) of the post component in src/views/posts/. */
+  component: string;
+
+  /** Route name, defaults to the id. Only set for posts with older route names. */
+  routeName?: string;
+
   /**
    * Publication datetime in RFC 3339 format (with timezone).
    * Example: "2024-01-14T20:40:00+00:00"
    */
   published: string;
+
+  /** Topic used by the blog filter, e.g. "kellnr" or "rust". */
+  category: string;
 
   /**
    * Short HTML snippet used as summary/content in RSS/Atom feeds.
