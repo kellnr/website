@@ -1,6 +1,43 @@
 {
   "releases": [
     {
+      "version": "6.13.0",
+      "date": "28. October 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "deny downloads of crates with disallowed licenses",
+          "links": [
+            {
+              "label": "#1480",
+              "url": "https://github.com/kellnr/kellnr/pull/1480"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "show which crates use a crate on a new \"Used by\" tab",
+          "links": [
+            {
+              "label": "#1479",
+              "url": "https://github.com/kellnr/kellnr/pull/1479"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "show sponsor links in the web UI and startup log",
+          "links": [
+            {
+              "label": "#1477",
+              "url": "https://github.com/kellnr/kellnr/pull/1477"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.12.0",
       "date": "25. October 2026",
       "entries": [
@@ -468,8 +505,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.11.0",
