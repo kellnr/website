@@ -704,6 +704,74 @@ export const configGroups: ConfigGroup[] = [
     ],
   },
   {
+    id: "config-cratesio-filter-values",
+    title: "Crates.io Filter",
+    entries: [
+      {
+        title: "License Filter Enabled",
+        toml: "[cratesio_filter] license_enabled",
+        envVar: "KELLNR_CRATESIO_FILTER__LICENSE_ENABLED",
+        defaultValue: "false",
+        description: "Deny downloads of crates from crates.io whose license is not allowed. See License Filter.",
+      },
+      {
+        title: "Allowed Licenses",
+        toml: "[cratesio_filter] license_allowed",
+        envVar: "KELLNR_CRATESIO_FILTER__LICENSE_ALLOWED",
+        defaultValue: "[]",
+        description: "Allowed SPDX license identifiers, e.g. [\"MIT\", \"Apache-2.0\"]. Comma-separated in the environment variable. An invalid identifier stops Kellnr at startup.",
+      },
+      {
+        title: "Unknown License",
+        toml: "[cratesio_filter] license_unknown",
+        envVar: "KELLNR_CRATESIO_FILTER__LICENSE_UNKNOWN",
+        defaultValue: "deny",
+        description: "Decision for crates from crates.io without a known or valid license: \"deny\" or \"allow\".",
+      },
+      {
+        title: "License-Exempt Crates",
+        toml: "[cratesio_filter] license_exempt_crates",
+        envVar: "KELLNR_CRATESIO_FILTER__LICENSE_EXEMPT_CRATES",
+        defaultValue: "[]",
+        description: "Names of crates that are allowed regardless of their license. Comma-separated in the environment variable.",
+      },
+    ],
+  },
+  {
+    id: "config-registry-filter-values",
+    title: "Registry Filter",
+    entries: [
+      {
+        title: "License Filter Enabled",
+        toml: "[registry_filter] license_enabled",
+        envVar: "KELLNR_REGISTRY_FILTER__LICENSE_ENABLED",
+        defaultValue: "false",
+        description: "Deny downloads of crates hosted in Kellnr whose license is not allowed. See License Filter.",
+      },
+      {
+        title: "Allowed Licenses",
+        toml: "[registry_filter] license_allowed",
+        envVar: "KELLNR_REGISTRY_FILTER__LICENSE_ALLOWED",
+        defaultValue: "[]",
+        description: "Allowed SPDX license identifiers, e.g. [\"MIT\", \"Apache-2.0\"]. Comma-separated in the environment variable. An invalid identifier stops Kellnr at startup.",
+      },
+      {
+        title: "Unknown License",
+        toml: "[registry_filter] license_unknown",
+        envVar: "KELLNR_REGISTRY_FILTER__LICENSE_UNKNOWN",
+        defaultValue: "deny",
+        description: "Decision for crates hosted in Kellnr without a known or valid license: \"deny\" or \"allow\".",
+      },
+      {
+        title: "License-Exempt Crates",
+        toml: "[registry_filter] license_exempt_crates",
+        envVar: "KELLNR_REGISTRY_FILTER__LICENSE_EXEMPT_CRATES",
+        defaultValue: "[]",
+        description: "Names of crates that are allowed regardless of their license. Comma-separated in the environment variable.",
+      },
+    ],
+  },
+  {
     id: "config-toolchain-values",
     title: "Toolchain Server",
     entries: [

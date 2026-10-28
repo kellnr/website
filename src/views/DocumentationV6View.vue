@@ -40,6 +40,7 @@ const toc: TocItem[] = [
       { label: "Authentication", hash: "#authentication" },
       { label: "OAuth2/OIDC", hash: "#oauth2" },
       { label: "Crates.io Proxy Cache", hash: "#cratesio-proxy" },
+      { label: "License Filter", hash: "#license-filter" },
       { label: "Database Backend", hash: "#database" },
       { label: "Webhooks", hash: "#webhooks" },
       { label: "Toolchain Server", hash: "#toolchain" },
@@ -920,6 +921,48 @@ const mobileNavOpen = ref(false);
               For information on how to configure cargo to Kellnr instead of crates.io, see
               <router-link to="#configure-cargo">Configure Cargo
               </router-link>.
+            </TextBlock>
+
+            <SubHeader id="license-filter">License Filter</SubHeader>
+            <TextBlock>
+              Kellnr can deny the download of crates whose license is not allowed. The filter is configured
+              separately for crates from the crates.io proxy, in the <code>cratesio_filter</code> section, and for
+              crates hosted in Kellnr, in the <code>registry_filter</code> section. Both have the same settings and
+              are disabled by default. Publishing is never blocked, only downloads.
+            </TextBlock>
+
+            <CodeBlock lang="toml">
+              [cratesio_filter]
+              license_enabled = true
+              license_allowed = ["MIT", "Apache-2.0", "BSD-3-Clause", "Unicode-3.0"]
+              license_unknown = "deny"
+              license_exempt_crates = ["ring"]
+
+              [registry_filter]
+              license_enabled = true
+              license_allowed = ["MIT", "Apache-2.0"]
+            </CodeBlock>
+
+            <TextBlock>
+              The license of a crate is an <a href="https://spdx.org/licenses/">SPDX</a> expression. With
+              <code>OR</code>, one allowed license is enough, e.g. <code>MIT OR Apache-2.0</code> is allowed if
+              <code>MIT</code> is. With <code>AND</code>, every license must be allowed. A license with an exception,
+              e.g. <code>Apache-2.0 WITH LLVM-exception</code>, is allowed if its license is. To allow it only with
+              that exception, list the full expression instead. Older notations like <code>MIT/Apache-2.0</code> are
+              accepted.<br />
+              <br />
+              The license is unknown if a crate declares none (e.g. only a license file), if its license is not a
+              valid SPDX expression, or if Kellnr could not fetch it from crates.io.
+              <code>license_unknown</code> decides for all of these cases. Crates listed in
+              <code>license_exempt_crates</code> are always allowed.<br />
+              <br />
+              A denied download is answered with status 403 and a message that names the crate, the version and the
+              reason, which cargo shows to the user. The filter also applies to crates that are already cached, so a
+              changed policy takes effect immediately.<br />
+              <br />
+              <b>Attention</b><br />
+              The filter only takes effect if cargo downloads crates through Kellnr. The index is served unfiltered,
+              so cargo resolves blocked versions and the build fails when it downloads them.
             </TextBlock>
 
             <SubHeader id="database">Database Backend</SubHeader>
