@@ -1556,17 +1556,31 @@ const mobileNavOpen = ref(false);
               cargo publish --registry kellnr
             </CodeBlock>
             <TextBlock>
+              Like cargo and crates.io, Kellnr treats crate names that only differ in case or in <i>-</i> and
+              <i>_</i> as the same crate. The API, the web UI and the hosted docs find a crate under any spelling of
+              its name.<br />
+              <br />
               Like crates.io, Kellnr rejects a publish if
               <ul>
                 <li>the <i>documentation</i>, <i>homepage</i> or <i>repository</i> field is set, but is not an
                   <i>http://</i> or <i>https://</i> URL,</li>
                 <li>a new crate name only differs from an existing crate in <i>-</i> and <i>_</i>, e.g.
                   <i>foo_bar</i> if <i>foo-bar</i> exists,</li>
+                <li>a new version uses another spelling of the crate name than the existing crate, e.g.
+                  <i>mycrate</i> if <i>MyCrate</i> exists,</li>
                 <li>the version only differs from an existing version of the crate in its build metadata, e.g.
                   <i>1.0.0+b</i> if <i>1.0.0+a</i> exists.</li>
               </ul>
-              Crates and versions that already exist are not affected by these rules.
+              Versions that already exist are not affected by these rules.
             </TextBlock>
+
+            <CalloutBlock variant="warn">
+              Older Kellnr versions allowed crates whose names only differ in <i>-</i> and <i>_</i>, e.g.
+              <i>foo-bar</i> and <i>foo_bar</i>. If the database holds such crates, the database migration fails
+              without changing any data and Kellnr does not start. The error lists the affected crates. Delete all
+              but one crate of each group, e.g. in the web UI of the previous Kellnr version, then start the new
+              version again.
+            </CalloutBlock>
 
             <SubHeader id="cratesio-proxy-cache">Crates.io Proxy Cache</SubHeader>
             <TextBlock>
