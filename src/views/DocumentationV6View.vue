@@ -1121,10 +1121,16 @@ const mobileNavOpen = ref(false);
               -X DELETE -H "Authorization: Bearer ADMIN-TOKEN"
 
               # Test a webhook (sends a dummy payload to the callback_url)
-              # Only the status code of the callback is returned, never its response body
+              # A callback status other than 2xx is answered with 502 and named in the error message,
+              # the response body of the callback is never returned
               curl kellnr_url/api/v1/webhooks/f9e8a090-7144-48ff-89d6-fa774d24f59b/test \
               -X POST -H "Authorization: Bearer ADMIN-TOKEN"
             </CodeBlock>
+
+            <TextBlock>
+              Requests without credentials are answered with 401, requests of users who are not administrators with
+              403.
+            </TextBlock>
 
             <SubHeader id="toolchain">Toolchain Server</SubHeader>
             <TextBlock>
