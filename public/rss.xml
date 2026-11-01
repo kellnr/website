@@ -3,19 +3,11 @@
   <id>kellnr.io/blog</id>
   <title>kellnr.io - The Rust Registry</title>
   <subtitle>Rust development related blog</subtitle>
-  <updated>2026-11-01T12:00:00+00:00</updated>
+  <updated>2026-10-24T12:00:00+00:00</updated>
   <link rel="self" href="https://kellnr.io/rss.xml" type="application/atom+xml" />
   <link rel="alternate" href="https://kellnr.io/blog" type="text/html" />
   <icon>https://kellnr.io/favicon.ico</icon>
   <logo>https://kellnr.io/favicon.ico</logo>
-  <entry>
-    <id>https://kellnr.io/blog/kellnr-v7</id>
-    <title>Kellnr 7: What Changes and What to Check Before Upgrading</title>
-    <link href="https://kellnr.io/blog/kellnr-v7" />
-    <published>2026-11-01T12:00:00+00:00</published>
-    <updated>2026-11-01T12:00:00+00:00</updated>
-    <content type="html"><![CDATA[Kellnr 7 is the result of a review of the whole code base. Cargo works as before, but a few HTTP API changes are breaking: one error format for all endpoints, 403 for missing rights, removed ACL routes and JSON for crates.io crate data. This post also explains the crate name migration that may need your attention before upgrading.]]></content>
-  </entry>
   <entry>
     <id>https://kellnr.io/blog/security-hardening</id>
     <title>Kellnr 6.11.0: Security Hardening, New Settings and What to Check Before Upgrading</title>
