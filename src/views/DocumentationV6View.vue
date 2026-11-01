@@ -1050,10 +1050,12 @@ const mobileNavOpen = ref(false);
                 <li>Redirects are not followed. Register the final URL, e.g. the <i>https</i> URL directly instead
                   of an <i>http</i> URL that redirects to it.</li>
                 <li>Deliveries to link-local and cloud metadata addresses (169.254.0.0/16, fe80::/10,
-                  fd00:ec2::254) are always refused. Internal hosts and private networks are allowed by default, as
-                  they are common targets for a self-hosted registry. Set
-                  <code>webhooks.block_private_targets = true</code> to refuse loopback, private and other
-                  non-public addresses as well. The check runs on the resolved IP address of every delivery.</li>
+                  fd00:ec2::254, 100.100.100.200) are always refused. Internal hosts and private networks are allowed
+                  by default, as they are common targets for a self-hosted registry. Set
+                  <code>webhooks.block_private_targets = true</code> to refuse loopback, private, multicast, reserved
+                  and other non-public addresses as well. The check runs on the resolved IP address of every delivery.
+                  IPv6 addresses with an embedded IPv4 address, e.g. 6to4 or IPv4-mapped, are checked by their IPv4
+                  address.</li>
                 <li>With <code>HTTP_PROXY</code> or <code>HTTPS_PROXY</code> set, deliveries go through the proxy and
                   only the proxy's address is checked. Set <code>webhooks.ignore_env_proxy = true</code> to connect to
                   the callback host directly, so the check covers its real address.</li>
