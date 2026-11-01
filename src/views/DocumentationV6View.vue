@@ -956,8 +956,8 @@ const mobileNavOpen = ref(false);
               <code>license_unknown</code> decides for all of these cases. Crates listed in
               <code>license_exempt_crates</code> are always allowed.<br />
               <br />
-              A denied download is answered with status 403 and a message that names the crate, the version and the
-              reason, which cargo shows to the user. The filter also applies to crates that are already cached, so a
+              A denied download is answered with status 403 and a plain text message that names the crate, the
+              version and the reason, which cargo shows to the user. The filter also applies to crates that are already cached, so a
               changed policy takes effect immediately.<br />
               <br />
               <b>Attention</b><br />
@@ -1195,6 +1195,11 @@ const mobileNavOpen = ref(false);
               -H "Cookie: kellnr_session_id=YOUR_SESSION" \
               https://kellnr.example.com/api/v1/toolchains
             </CodeBlock>
+
+            <TextBlock>
+              Like every Kellnr API, the toolchain API answers errors with the JSON body of the cargo registry API,
+              <code>{"errors":[{"detail":"..."}]}</code>.
+            </TextBlock>
 
             <TextBlock>
               <b>Channel Management</b><br />
