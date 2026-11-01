@@ -1571,7 +1571,8 @@ const mobileNavOpen = ref(false);
                 <li>the version only differs from an existing version of the crate in its build metadata, e.g.
                   <i>1.0.0+b</i> if <i>1.0.0+a</i> exists.</li>
               </ul>
-              Versions that already exist are not affected by these rules.
+              Versions that already exist are not affected by these rules. Read-only users cannot publish, yank or
+              unyank crates and get 403.
             </TextBlock>
 
             <CalloutBlock variant="warn">
