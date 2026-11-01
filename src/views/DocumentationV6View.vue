@@ -1786,9 +1786,10 @@ const mobileNavOpen = ref(false);
               The rustdocs of a crate with restricted downloads are only served to users who are allowed to download
               the crate, see <router-link to="#authentication">Authentication</router-link>.<br />
               <br />
-              Read-only users cannot upload docs. Unpacked, a docs archive may be at most 20 times as large as
+              Read-only users cannot upload docs and get 403. An archive larger than <code>docs.max_size</code> is
+              rejected with 413. Unpacked, a docs archive may be at most 20 times as large as
               <code>docs.max_size</code> and contain at most 1000 files per MB of <code>docs.max_size</code>. Larger
-              archives are rejected. Symbolic links in the archive are skipped.
+              archives are rejected with 400. Symbolic links in the archive are skipped.
             </TextBlock>
 
             <MainHeader id="backup" icon="backup-restore">Backup</MainHeader>
