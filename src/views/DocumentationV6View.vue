@@ -1397,6 +1397,11 @@ const mobileNavOpen = ref(false);
                   <td>External port (if behind a proxy)</td>
                   <td>8000</td>
                 </tr>
+                <tr>
+                  <td><code>--origin-protocol</code></td>
+                  <td>Protocol (http or https)</td>
+                  <td>http</td>
+                </tr>
               </tbody>
             </TableBlock>
 
@@ -1461,8 +1466,7 @@ const mobileNavOpen = ref(false);
             <TextBlock>
               For a complete list of all CLI arguments, run <code>kellnr start --help</code>. All configuration
               values documented in the <router-link to="#config-values">Config Values</router-link> section
-              except <code>origin.protocol</code> have corresponding CLI arguments. The argument name follows the
-              pattern
+              have corresponding CLI arguments. The argument name follows the pattern
               <code>--section-key</code> (e.g., <code>--postgresql-address</code> for
               <code>[postgresql] address</code>).
             </TextBlock>
