@@ -692,7 +692,7 @@ export const configGroups: ConfigGroup[] = [
         title: "Button Text",
         toml: "[oauth2] button_text",
         envVar: "KELLNR_OAUTH2__BUTTON_TEXT",
-        defaultValue: "Login with SSO",
+        defaultValue: "Log in with SSO",
         description: "Text displayed on the OAuth2 login button in the web UI.",
       },
       {
