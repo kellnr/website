@@ -1023,7 +1023,7 @@ const mobileNavOpen = ref(false);
 
               # Sample payload sent after a yank event:
               {
-              "data": { "crate_name": "test_crate", "crate_version": "0.1.2" },
+              "data": { "crate_name": "test_crate", "original_name": "Test_Crate", "crate_version": "0.1.2" },
               "timestamp": "2025-09-24T15:19:04.842575427Z",
               "type": "crate_yank"
               }
@@ -1037,6 +1037,8 @@ const mobileNavOpen = ref(false);
                 <li><i>crate_yank</i></li>
                 <li><i>crate_unyank</i></li>
               </ul>
+              The payload contains the lowercase crate name as <i>crate_name</i> and the name the crate was
+              published with as <i>original_name</i>.<br /><br />
 
               Unsuccessful deliveries are retried in increasing time intervals, based on Github's guidelines:
               <a
