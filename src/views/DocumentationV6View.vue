@@ -1714,6 +1714,8 @@ const mobileNavOpen = ref(false);
               </ul>
               The build still runs as the Kellnr user. It can read every file Kellnr can read, for example the
               config file or the SQLite database (e.g. with <code>include_str!</code>), and it has network access.
+              Kellnr only publishes the files rustdoc generates, but the build can write what it reads into the
+              generated docs of the crate.
               To confine it, set <code>docs.build_wrapper</code> to a command that wraps the build, e.g.
               <a href="https://github.com/containers/bubblewrap">bubblewrap</a>. The wrapper is followed by the
               Kellnr binary and its arguments. Replace <i>&lt;data_dir&gt;</i> and <i>&lt;cargo_home&gt;</i> with
