@@ -1054,6 +1054,9 @@ const mobileNavOpen = ref(false);
                   they are common targets for a self-hosted registry. Set
                   <code>webhooks.block_private_targets = true</code> to refuse loopback, private and other
                   non-public addresses as well. The check runs on the resolved IP address of every delivery.</li>
+                <li>With <code>HTTP_PROXY</code> or <code>HTTPS_PROXY</code> set, deliveries go through the proxy and
+                  only the proxy's address is checked. Set <code>webhooks.ignore_env_proxy = true</code> to connect to
+                  the callback host directly, so the check covers its real address.</li>
                 <li>Webhook payloads contain the names and versions of all crates, including crates with
                   restricted downloads.</li>
               </ul>
