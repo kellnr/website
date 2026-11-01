@@ -646,7 +646,10 @@ const mobileNavOpen = ref(false);
               in the web UI in the settings tab of a crate). A restricted crate can only be downloaded by
               administrators, crate owners, crate users and members of crate groups. Only administrators can turn the
               restriction on or off. Administrators and crate owners can manage the crate users and crate groups,
-              both in the web UI and through the cargo API. Read-only owners can only list them.
+              both in the web UI and through the API: <code>GET /api/v1/crates/{crate}/crate_users</code> lists the
+              crate users, <code>PUT</code> and <code>DELETE /api/v1/crates/{crate}/crate_users/{name}</code> add and
+              remove one, and <code>crate_groups</code> works the same for crate groups. Read-only owners can only
+              list them.
               <br />
               <br />
               For everyone else a restricted crate does not exist: it is left out of crate lists, search and
