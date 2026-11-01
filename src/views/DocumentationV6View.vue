@@ -1043,6 +1043,9 @@ const mobileNavOpen = ref(false);
                 href="https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md#deliverability-and-reliability">
                 https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md#deliverability-and-reliability
               </a>
+              <br />
+              Deliveries that fail the same way on every attempt, because of an invalid URL, a refused target or an
+              invalid secret, are dropped right away and logged as an error.
               <br /><br />
               <b>Callback URLs</b>
               <ul>
