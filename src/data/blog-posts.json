@@ -1,6 +1,15 @@
 {
   "posts": [
     {
+      "id": "kellnr-v7",
+      "title": "Kellnr 7: What Changes and What to Check Before Upgrading",
+      "url": "https://kellnr.io/blog/kellnr-v7",
+      "component": "Release7",
+      "published": "2026-11-01T12:00:00+00:00",
+      "category": "kellnr",
+      "summaryHtml": "Kellnr 7 is the result of a review of the whole code base. Cargo works as before, but a few HTTP API changes are breaking: one error format for all endpoints, 403 for missing rights, removed ACL routes and JSON for crates.io crate data. This post also explains the crate name migration that may need your attention before upgrading."
+    },
+    {
       "id": "security-hardening",
       "title": "Kellnr 6.11.0: Security Hardening, New Settings and What to Check Before Upgrading",
       "url": "https://kellnr.io/blog/security-hardening",
