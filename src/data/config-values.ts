@@ -60,6 +60,13 @@ export const configGroups: ConfigGroup[] = [
         description: "Number of crates cached in-memory to decrease disk I/O. If set to '0' the cache is disabled.",
       },
       {
+        title: "Cache Max Size",
+        toml: "[registry] cache_max_size",
+        envVar: "KELLNR_REGISTRY__CACHE_MAX_SIZE",
+        defaultValue: "0",
+        description: "Max total size of the in-memory crate cache in MB. If set to '0' only the number of crates is limited by cache_size.",
+      },
+      {
         title: "Max Crate Size",
         toml: "[registry] max_crate_size",
         envVar: "KELLNR_REGISTRY__MAX_CRATE_SIZE",
