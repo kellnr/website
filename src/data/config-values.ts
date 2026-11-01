@@ -509,6 +509,13 @@ export const configGroups: ConfigGroup[] = [
         description: "Bucket for toolchain archives if the toolchain server is enabled.",
       },
       {
+        title: "Docs Bucket",
+        toml: "[s3] docs_bucket",
+        envVar: "KELLNR_S3__DOCS_BUCKET",
+        defaultValue: "None",
+        description: "Bucket for rustdocs. When omitted, docs stay in the data directory. To copy existing docs into the bucket, an admin logged in to the web UI sends POST /api/v1/docs/migrate-storage. The local copies are kept.",
+      },
+      {
         title: "Connect Timeout",
         toml: "[s3] connect_timeout_seconds",
         envVar: "KELLNR_S3__CONNECT_TIMEOUT_SECONDS",
@@ -576,6 +583,13 @@ export const configGroups: ConfigGroup[] = [
         envVar: "KELLNR_GCS__TOOLCHAIN_BUCKET",
         defaultValue: "kellnr-toolchains",
         description: "Bucket for toolchain archives if the toolchain server is enabled.",
+      },
+      {
+        title: "Docs Bucket",
+        toml: "[gcs] docs_bucket",
+        envVar: "KELLNR_GCS__DOCS_BUCKET",
+        defaultValue: "None",
+        description: "Bucket for rustdocs. When omitted, docs stay in the data directory. To copy existing docs into the bucket, an admin logged in to the web UI sends POST /api/v1/docs/migrate-storage. The local copies are kept.",
       },
       {
         title: "Connect Timeout",
