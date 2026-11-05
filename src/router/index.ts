@@ -5,12 +5,6 @@ import {
   type RouteRecordRaw,
 } from "vue-router";
 import LandingView from "../views/LandingView.vue";
-import FeaturesView from "../views/FeaturesView.vue";
-import ChangelogView from "../views/ChangelogView.vue";
-import DocumentationV6View from "../views/DocumentationV6View.vue";
-import ContactView from "../views/ContactView.vue";
-import SponsorView from "../views/SponsorView.vue";
-import BlogView from "../views/BlogView.vue";
 import blogData from "../data/blog-posts.json";
 import type { BlogPostsDocument } from "../types/blog-posts";
 
@@ -67,38 +61,38 @@ const router = createRouter({
     {
       path: "/features",
       name: "features",
-      component: FeaturesView,
+      component: () => import("../views/FeaturesView.vue"),
     },
     {
       path: "/changelog",
       name: "changelog",
-      component: ChangelogView,
+      component: () => import("../views/ChangelogView.vue"),
     },
     {
       path: "/documentation/v6",
       name: "documentationV6",
-      component: DocumentationV6View,
+      component: () => import("../views/DocumentationV6View.vue"),
     },
     {
       path: "/documentation",
       name: "documentation",
-      component: DocumentationV6View,
+      component: () => import("../views/DocumentationV6View.vue"),
     },
     {
       path: "/contact",
       name: "contact",
-      component: ContactView,
+      component: () => import("../views/ContactView.vue"),
     },
     {
       path: "/sponsor",
       name: "sponsor",
-      component: SponsorView,
+      component: () => import("../views/SponsorView.vue"),
     },
     // Blog posts
     {
       path: "/blog",
       name: "blog",
-      component: BlogView,
+      component: () => import("../views/BlogView.vue"),
     },
     ...blogPostRoutes(),
     // Default route to redirect all unknown paths to the landing page

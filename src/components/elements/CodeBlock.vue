@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import hljs from "highlight.js";
+import hljs from "@/highlight";
 
 defineProps<{
   lang: string;
