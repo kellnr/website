@@ -1,0 +1,63 @@
+name: Dependabot auto-merge
+
+# Merges a Dependabot PR once the CI workflow (all required checks) passed on it.
+#
+# Unlike kellnr/kellnr, this does not use `gh pr merge --auto`: a merge done with the
+# GITHUB_TOKEN does not trigger push workflows, so the site would never be deployed.
+# workflow_dispatch is the exception, so the deploy is started explicitly after the merge.
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+# Merges change main, so Dependabot rebases the other PRs; handle one at a time.
+concurrency:
+  group: dependabot-auto-merge
+  cancel-in-progress: false
+
+jobs:
+  merge:
+    name: Merge Dependabot PR
+    runs-on: ubuntu-latest
+    if: >-
+      github.repository == 'kellnr/website' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.actor.login == 'dependabot[bot]' &&
+      startsWith(github.event.workflow_run.head_branch, 'dependabot/')
+
+    steps:
+      - name: Merge PR
+        id: merge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+
+          pr=$(gh pr list --head "$BRANCH" --state open --author "app/dependabot" \
+            --json number --jq '.[0].number')
+          if [ -z "$pr" ]; then
+            echo "No open Dependabot PR for $BRANCH"
+            exit 0
+          fi
+
+          # Only merge the commit CI tested; a newer push gets its own CI run.
+          # The repository deletes the merged branch itself.
+          gh pr merge "$pr" --squash --match-head-commit "$HEAD_SHA"
+          echo "merged=true" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy website
+        if: steps.merge.outputs.merged == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: gh workflow run deploy.yml --ref main
