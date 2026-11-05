@@ -4,12 +4,7 @@ export type ChangeLogLink = {
 };
 
 export type ChangeLogEntryType =
-  | "Added"
-  | "Changed"
-  | "Deprecated"
-  | "Removed"
-  | "Fixed"
-  | "Security";
+  "Added" | "Changed" | "Deprecated" | "Removed" | "Fixed" | "Security";
 
 export type ChangeLogEntry = {
   type: ChangeLogEntryType;
