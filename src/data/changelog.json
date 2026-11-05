@@ -1,6 +1,916 @@
 {
   "releases": [
     {
+      "version": "7.0.0",
+      "date": "05. November 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "set origin.protocol with the --origin-protocol flag",
+          "links": [
+            {
+              "label": "#1491",
+              "url": "https://github.com/kellnr/kellnr/pull/1491"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "treat crate names that only differ in - and _ as the same crate",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "add the original crate name to webhook payloads",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "send webhooks without the environment proxy with webhooks.ignore_env_proxy",
+          "links": []
+        },
+        {
+          "type": "Added",
+          "content": "limit the total size of the in-memory crate cache with registry.cache_max_size",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "retry OIDC discovery in the background when the provider is down at startup",
+          "links": [
+            {
+              "label": "#1497",
+              "url": "https://github.com/kellnr/kellnr/pull/1497"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "[**breaking**] answer crates.io crate data with the JSON content type",
+          "links": [],
+          "scope": "api"
+        },
+        {
+          "type": "Fixed",
+          "content": "describe upload bodies as binary and settings fields as required in the OpenAPI document",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "open the matching startup config sections also when searching before the settings are loaded",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "build docs into the crate folder also when CARGO_TARGET_DIR is set",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "describe the settings, registry config and crates.io data responses in the OpenAPI document",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "describe all types and the uploads and downloads in the OpenAPI document",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "accept environment values that look like numbers for text settings",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "[**breaking**] answer forbidden actions with 403 like crates.io",
+          "links": [],
+          "scope": "api"
+        },
+        {
+          "type": "Fixed",
+          "content": "finish toolchain processing and docs migration before shutdown",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "stop background tasks cleanly on shutdown and restart them after a panic",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "roll back transactions explicitly when an operation fails",
+          "links": [],
+          "scope": "db"
+        },
+        {
+          "type": "Fixed",
+          "content": "replace leftover component archives when a toolchain target is uploaded again",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "answer a failed webhook test with 502 instead of the status of the callback",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "stop retrying webhooks with an invalid URL, a blocked target or an invalid secret",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "block more internal addresses as webhook targets",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "do not lose docs files when docs of one crate version are published twice at once",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "publish only the files rustdoc generates from docs builds",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "keep processing the docs queue when the database fails",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "build and link docs of crates with uppercase letters in their name",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "return 500 instead of 404 for crate downloads when the storage cannot be read",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "keep docs files with special characters in their names when publishing docs",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "return 413 instead of 400 when an uploaded docs archive is too large",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "accept the Bearer and Basic auth schemes in any case",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "track failed logins by a hash of the user name so long names cannot exhaust memory",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "reject an empty SSO issuer URL or client ID and warn about a group claim without its value",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "time out requests to the SSO identity provider",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "keep generated SSO user names within 64 characters and distinct from existing names in case",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "reject user, group and token names that are empty, too long or contain control characters",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "delete crates from the web UI without leaving orphaned files behind",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "return 500 instead of 401 when a session cannot be checked",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "limit the page size of crate lists and report database errors instead of empty lists",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "return 404, 400, 409, 403 and 502 instead of 500 in the web UI API",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "show the login page with the provider's error when an SSO login is cancelled",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "keep the UI login when sessions never expire",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "return 404 instead of the web UI for unknown API paths",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "print a readable error and exit with 1 when the config cannot be read or the port is in use",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "let open requests finish when Kellnr shuts down",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "retry crates.io requests with backoff and also on rate limits and server errors",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "do not pile up crates.io index updates when the workers fall behind",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "do not start the crates.io update tasks when the proxy is disabled",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "do not leave toolchain targets processing forever after a restart or crash",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "keep toolchains and their archives consistent when an upload or delete fails",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "return 404 when deleting a toolchain target that does not exist",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "keep the last path segment of crates.io proxy URLs without trailing slash",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "include origin.path in the download URLs of toolchain manifests",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "accept origin.path without leading slash and keep non-default ports in URLs",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "list features with dep: or ?/ syntax in features2 of the index like crates.io",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "return 502 when the crates.io search fails instead of passing on its error",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "recover publishes blocked by an orphaned crate file and report published crates as published",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "make adding crate owners idempotent and removing them atomic",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "reject publishing a crate under another spelling or as a version that only differs in build metadata",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "return 404, 400, 409 and 413 instead of 500 for API errors caused by the request",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "return 502 instead of 404 when crates.io cannot be reached for the index",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "answer cargo's conditional index requests with 304 when nothing changed",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "only delete auth tokens of the requesting user",
+          "links": [],
+          "scope": "db"
+        },
+        {
+          "type": "Fixed",
+          "content": "skip invalid versions instead of crashing on them",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "log webhooks that cannot be read and avoid wrapping integer casts",
+          "links": [],
+          "scope": "db"
+        },
+        {
+          "type": "Fixed",
+          "content": "start several Kellnr instances on a fresh database at the same time",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "keep a toolchain channel when moving it to a missing toolchain",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "let cargo see yanked and unyanked versions immediately",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "publish crates that share new keywords, categories or authors concurrently",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "keep the crate metadata of the newest version when publishing an older one",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "show crates whose versions have many dependencies",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "update the description of cached crates.io crates on sync",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "sort cached crates.io crates by their real update date",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "reject documentation paths that are not valid UTF-8",
+          "links": [],
+          "scope": "db"
+        },
+        {
+          "type": "Fixed",
+          "content": "show readme code blocks as a single box",
+          "links": []
+        },
+        {
+          "type": "Fixed",
+          "content": "align dependency descriptions and use the stored descriptions",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "let kellnr-db and kellnr-test-db be published to crates.io",
+          "links": [
+            {
+              "label": "#1495",
+              "url": "https://github.com/kellnr/kellnr/pull/1495"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "check crates.io crate data that does not exist against a local fake server",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check that the docs queue publishes docs once when the docs link cannot be updated",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "let Docker pick the port of the GCS test server",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "compare the OpenAPI document with a committed snapshot",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check the login methods of all endpoints in parallel",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "let tasks of one test wait for the SQLite template without blocking the runtime",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "drop mockall from crates whose tests no longer use it and create the missing owner in test_add_crate",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check the registry search and access handlers against a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check the crates.io sync against a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check the index handlers against a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check session, crate access and oauth2 sync against a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check the download counter flush against a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check the toolchain handlers against a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check the docs API against a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "run the doc queue tests on a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check docs access in the router against a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check cargo tokens and basic auth against a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check password logins and their throttle against a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check the auth_when_required middleware against a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check the login extractors against real sessions and tokens",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check crate read access against a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check the user handlers against a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "check the crate and statistics handlers against a real database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "let handler tests run on a real SQLite database with sqlite_test_state",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "bump the cargo-minor-patch group across 1 directory with 5 updates",
+          "links": [
+            {
+              "label": "#1490",
+              "url": "https://github.com/kellnr/kellnr/pull/1490"
+            }
+          ],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump the cargo-minor-patch group across 1 directory with 5 updates",
+          "links": [],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "describe the test layers and shared test helpers in CONTRIBUTING.md",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "drop tests that repeat what a lower layer or the login table checks",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "let the toolchain tests build on their own",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "route handler tests of a module through one router at the API paths",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "build test settings, databases and fake servers with one helper each",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "sign cookies of test_state with the test key so handler tests need no override",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "give every test its own data directory instead of /tmp/kdata_test",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "run webhook tests on free ports so parallel runs cannot collide",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "limit item visibility to the crate where nothing outside uses it",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "add one supervised pattern for periodic background tasks",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "move the toolchain distribution into its own crate",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "[**breaking**] answer every API error with the cargo error format",
+          "links": [],
+          "scope": "api"
+        },
+        {
+          "type": "Changed",
+          "content": "identify users and check permissions in one place",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "pin which login methods every endpoint accepts",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "move the crate ownership checks into kellnr-http so kellnr-docs no longer depends on kellnr-registry",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "move the token cache, login throttle, crates.io downloader and prefetch response out of kellnr-common",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "merge appstate, error and auth into kellnr-http and move OAuth2 into kellnr-oauth2",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "keep test helpers out of release builds",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "split the database implementation into one file per domain",
+          "links": [],
+          "scope": "db"
+        },
+        {
+          "type": "Changed",
+          "content": "remove database methods nobody calls",
+          "links": [],
+          "scope": "db"
+        },
+        {
+          "type": "Changed",
+          "content": "generate the DbProvider mock instead of copying the trait by hand",
+          "links": [],
+          "scope": "db"
+        },
+        {
+          "type": "Changed",
+          "content": "stop building container image helpers as separate test binaries",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "skip real waits in session, webhook retry and crates.io backoff tests",
+          "links": [],
+          "scope": "test"
+        },
+        {
+          "type": "Changed",
+          "content": "hash passwords with minimal argon2 cost in tests",
+          "links": [],
+          "scope": "test"
+        },
+        {
+          "type": "Changed",
+          "content": "move the doc build into its own crate so only the binary links cargo",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "share one postgres container across all tests of just test-docker",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "copy a migrated template database for every db test instead of migrating each one",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "[**breaking**] manage crate users and groups through the registry API only",
+          "links": [],
+          "scope": "web-ui"
+        },
+        {
+          "type": "Changed",
+          "content": "drop debug info from dev builds so test runs stay fast",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "bump follow-redirects from 1.16.1 to 1.16.2 in /ui",
+          "links": [
+            {
+              "label": "#1487",
+              "url": "https://github.com/kellnr/kellnr/pull/1487"
+            }
+          ],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "update npmDepsHash in flake.nix [dependabot skip]",
+          "links": [],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump follow-redirects from 1.16.1 to 1.16.2 in /ui",
+          "links": [],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "pass user and group names as types that only validate names of new accounts",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "pass plain auth and session tokens as a type that hides the secret in logs",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "pass the admin and read-only flags of new users as one named type",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "use typed ids for users, groups, crates and auth tokens",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "create API errors from a single message",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "read the page of crate lists and searches as a page request",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "read the OAuth2 group claims as claim and value pairs",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "read the OAuth2 callback query as either a success or a provider error",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "tell an unchanged or missing crates.io crate apart from a failed sync",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "build the config.json of an index from its kind",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "model the toolchain target status as an enum",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "read session ages, durations and sizes from the settings through typed accessors",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "join crates.io proxy URLs through a base URL type",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "add a URL path prefix type for origin.path",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "build storage keys and toolchain archive ids with dedicated types",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "store crate versions as parsed semantic versions",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "add a canonical crate name type that folds case and - versus _",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "explain that a license that is no valid SPDX expression counts as unknown",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "create the docs queue folder without a blocking file system check",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "share one storage implementation for all object_store backends",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "name storage errors after what they wrap",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "fix misplaced and misspelled comments",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "remove unused session types, a duplicate response type and unused index metadata helpers",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "compile the crate name pattern only once",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "expect retries of a failing crates.io API in the license filter test",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "read the body size limits from the settings when building the router",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "split uploaded toolchains without holding them decompressed in memory",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "fix a comment about the crates.io index update tasks",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "do not fail registry tests when SQLite removes its files during cleanup",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "stop copying the crate file up to four times on publish",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "sum the total downloads in the database",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "bump the npm-all group in /ui with 5 updates",
+          "links": [
+            {
+              "label": "#1483",
+              "url": "https://github.com/kellnr/kellnr/pull/1483"
+            }
+          ],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump taiki-e/install-action from 2.87.30 to 2.88.0 in the github-actions group",
+          "links": [
+            {
+              "label": "#1484",
+              "url": "https://github.com/kellnr/kellnr/pull/1484"
+            }
+          ],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "update npmDepsHash in flake.nix [dependabot skip]",
+          "links": [],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump taiki-e/install-action",
+          "links": [],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump the npm-all group in /ui with 5 updates",
+          "links": [],
+          "scope": "deps"
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "6.13.0",
       "date": "28. October 2026",
       "entries": [
@@ -34,8 +944,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.12.0",
