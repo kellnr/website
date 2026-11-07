@@ -350,6 +350,13 @@ export const configGroups: ConfigGroup[] = [
         defaultValue: "kellnr.io/kellnr",
         description: "User-agent sent with requests to crates.io. crates.io's data-access policy asks for a user-agent that identifies the application and a way to get in contact, e.g. 'kellnr.io/kellnr (contact@example.com)'.",
       },
+      {
+        title: "Remove Deleted Versions",
+        toml: "[proxy] remove_deleted_versions",
+        envVar: "KELLNR_PROXY__REMOVE_DELETED_VERSIONS",
+        defaultValue: "false",
+        description: "Remove crates and versions that were deleted from crates.io from the cache, with their cached crate files, when the index of the crate is refreshed. Without it, they stay available from Kellnr.",
+      },
     ],
   },
   {

@@ -921,6 +921,15 @@ const mobileNavOpen = ref(false);
               As the proxy caches all crates that are requested, it can grow significantly in size. The
               index alone takes several GB. We recommend 50GB-100GB for the cached crates.<br />
               <br />
+              <b>Deleted crates</b><br />
+              crates.io deletes crates and versions, e.g. malicious ones. By default, Kellnr keeps serving them from
+              its cache. With <code>proxy.remove_deleted_versions = true</code>, the environment variable
+              <code>KELLNR_PROXY__REMOVE_DELETED_VERSIONS=true</code>, or the CLI flag
+              <code>--proxy-remove-deleted-versions</code>, Kellnr removes a deleted version from its index and deletes
+              its cached crate file the next time it refreshes the index of the crate. A crate that crates.io no longer
+              knows is removed completely. Builds that depend on a removed version fail, like they would with
+              crates.io. If <code>proxy.index</code> points to a mirror, Kellnr follows what the mirror serves.<br />
+              <br />
               For information on how to configure cargo to Kellnr instead of crates.io, see
               <router-link to="#configure-cargo">Configure Cargo
               </router-link>.
