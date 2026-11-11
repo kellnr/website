@@ -1,6 +1,137 @@
 {
   "releases": [
     {
+      "version": "7.1.0",
+      "date": "11. November 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "hold back new crates.io versions with cratesio_filter.min_release_age_seconds",
+          "links": [
+            {
+              "label": "#1500",
+              "url": "https://github.com/kellnr/kellnr/pull/1500"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "add index filters that hide versions from the crates.io sparse index",
+          "links": [
+            {
+              "label": "#1506",
+              "url": "https://github.com/kellnr/kellnr/pull/1506"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "remove crates and versions deleted from crates.io with proxy.remove_deleted_versions",
+          "links": [
+            {
+              "label": "#1505",
+              "url": "https://github.com/kellnr/kellnr/pull/1505"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "look up the license of a download only if a filter needs it",
+          "links": [
+            {
+              "label": "#1508",
+              "url": "https://github.com/kellnr/kellnr/pull/1508"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "\"docs scripts cannot reach the UI or API\" test for Firefox",
+          "links": [
+            {
+              "label": "#1507",
+              "url": "https://github.com/kellnr/kellnr/pull/1507"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "bump openssl from 0.10.81 to 0.10.82 in the cargo-minor-patch group",
+          "links": [
+            {
+              "label": "#1503",
+              "url": "https://github.com/kellnr/kellnr/pull/1503"
+            }
+          ],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump provcfg from 0.1.2 to 0.2.0",
+          "links": [
+            {
+              "label": "#1504",
+              "url": "https://github.com/kellnr/kellnr/pull/1504"
+            }
+          ],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump the npm-all group in /ui with 6 updates",
+          "links": [
+            {
+              "label": "#1502",
+              "url": "https://github.com/kellnr/kellnr/pull/1502"
+            }
+          ],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump taiki-e/install-action from 2.88.0 to 2.90.1 in the github-actions group",
+          "links": [
+            {
+              "label": "#1501",
+              "url": "https://github.com/kellnr/kellnr/pull/1501"
+            }
+          ],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump provcfg from 0.1.2 to 0.2.0",
+          "links": [],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump openssl",
+          "links": [],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "update npmDepsHash in flake.nix [dependabot skip]",
+          "links": [],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump the npm-all group in /ui with 6 updates",
+          "links": [],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump taiki-e/install-action",
+          "links": [],
+          "scope": "deps"
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "7.0.0",
       "date": "05. November 2026",
       "entries": [
@@ -907,8 +1038,7 @@
           "links": [],
           "scope": "deps"
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "6.13.0",
