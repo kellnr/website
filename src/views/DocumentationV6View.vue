@@ -41,6 +41,7 @@ const toc: TocItem[] = [
       { label: "OAuth2/OIDC", hash: "#oauth2" },
       { label: "Crates.io Proxy Cache", hash: "#cratesio-proxy" },
       { label: "License Filter", hash: "#license-filter" },
+      { label: "Minimum Release Age", hash: "#min-release-age" },
       { label: "Database Backend", hash: "#database" },
       { label: "Webhooks", hash: "#webhooks" },
       { label: "Toolchain Server", hash: "#toolchain" },
@@ -975,6 +976,53 @@ const mobileNavOpen = ref(false);
               <b>Attention</b><br />
               The filter only takes effect if cargo downloads crates through Kellnr. The index is served unfiltered,
               so cargo resolves blocked versions and the build fails when it downloads them.
+            </TextBlock>
+
+            <SubHeader id="min-release-age">Minimum Release Age</SubHeader>
+            <TextBlock>
+              Kellnr can hold back new versions from the crates.io proxy until they are a minimum age. This gives the
+              community and scanners time to find a malicious or compromised release before your builds use it. The
+              age counts from the time crates.io published the version. Set it in seconds with
+              <code>cratesio_filter.min_release_age_seconds</code>, the environment variable
+              <code>KELLNR_CRATESIO_FILTER__MIN_RELEASE_AGE_SECONDS</code>, or the CLI flag
+              <code>--cratesio-filter-min-release-age</code>. The default <code>0</code> turns it off.
+            </TextBlock>
+
+            <CodeBlock lang="toml">
+              [cratesio_filter]
+              # 3 days
+              min_release_age_seconds = 259200
+              min_release_age_exempt_crates = ["openssl"]
+
+              [proxy]
+              remove_deleted_versions = true
+            </CodeBlock>
+
+            <TextBlock>
+              A version younger than the minimum age is left out of the index, so cargo resolves the newest version
+              that is old enough. If no version of a crate is old enough, cargo reports that the crate doesn't exist.
+              A held-back version can't be downloaded either, e.g. if a <code>Cargo.lock</code> pins it. Kellnr answers
+              with status 403 and a message that tells when the version was published and how long it is held back,
+              which cargo shows to the user. This also applies to crates that are already cached. Once a version is
+              old enough, Kellnr serves it without any further action, and a changed minimum age takes effect
+              immediately. With <code>proxy.download_on_update</code>, held-back versions aren't downloaded in
+              advance.<br />
+              <br />
+              Versions of the crates in <code>min_release_age_exempt_crates</code> are served right away, e.g. to let
+              an urgent security fix through. Names are compared like cargo does, so <code>tokio-util</code> also
+              matches <code>tokio_util</code>. An invalid crate name stops Kellnr at startup.<br />
+              <br />
+              <b>Attention</b><br />
+              crates.io deletes malicious versions, often while they would still be held back. Enable
+              <router-link to="#cratesio-proxy">proxy.remove_deleted_versions</router-link> together with the minimum
+              release age. Otherwise, Kellnr keeps a deleted version in its cache and serves it once it is old
+              enough.<br />
+              <br />
+              The minimum release age only applies to the index and the downloads of the crates.io proxy. Crates
+              hosted in Kellnr are not affected. The search and the web UI show all versions. The documentation
+              builder resolves the dependencies of a crate directly from crates.io, so the minimum release age
+              doesn't apply to it. Versions that Kellnr cached before crates.io recorded publish times have none and
+              are always served.
             </TextBlock>
 
             <SubHeader id="database">Database Backend</SubHeader>
