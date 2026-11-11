@@ -770,6 +770,20 @@ export const configGroups: ConfigGroup[] = [
         defaultValue: "[]",
         description: "Names of crates that are allowed regardless of their license. Comma-separated in the environment variable.",
       },
+      {
+        title: "Minimum Release Age",
+        toml: "[cratesio_filter] min_release_age_seconds",
+        envVar: "KELLNR_CRATESIO_FILTER__MIN_RELEASE_AGE_SECONDS",
+        defaultValue: "0",
+        description: "Minimum age in seconds of a crates.io version before the proxy serves it, 0 turns it off. Younger versions are left out of the index and their downloads are denied. Enable proxy.remove_deleted_versions with it. See Minimum Release Age.",
+      },
+      {
+        title: "Release-Age-Exempt Crates",
+        toml: "[cratesio_filter] min_release_age_exempt_crates",
+        envVar: "KELLNR_CRATESIO_FILTER__MIN_RELEASE_AGE_EXEMPT_CRATES",
+        defaultValue: "[]",
+        description: "Names of crates whose versions are served regardless of the minimum release age. Comma-separated in the environment variable. An invalid name stops Kellnr at startup.",
+      },
     ],
   },
   {
