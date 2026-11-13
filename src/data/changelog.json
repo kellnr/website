@@ -1,6 +1,53 @@
 {
   "releases": [
     {
+      "version": "7.2.0",
+      "date": "13. November 2026",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "publish and attest binary SBOMs for Linux, Windows and macOS",
+          "links": [
+            {
+              "label": "#1513",
+              "url": "https://github.com/kellnr/kellnr/pull/1513"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "attest the Windows and macOS release archives with SLSA provenance",
+          "links": [
+            {
+              "label": "#1512",
+              "url": "https://github.com/kellnr/kellnr/pull/1512"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "attest Docker images and Linux binaries with SLSA provenance and SBOMs",
+          "links": [
+            {
+              "label": "#1511",
+              "url": "https://github.com/kellnr/kellnr/pull/1511"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "pin runners to ubuntu-26.04 and macos-26",
+          "links": [
+            {
+              "label": "#1510",
+              "url": "https://github.com/kellnr/kellnr/pull/1510"
+            }
+          ]
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "7.1.0",
       "date": "11. November 2026",
       "entries": [
@@ -128,8 +175,7 @@
           "links": [],
           "scope": "deps"
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "7.0.0",
