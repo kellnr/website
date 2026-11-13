@@ -8,6 +8,7 @@ export default mergeConfig(
   defineConfig({
     test: {
       environment: "jsdom",
+      restoreMocks: true,
       exclude: [...configDefaults.exclude, "e2e/*", ".direnv/**"],
       root: fileURLToPath(new URL("./", import.meta.url)),
     },

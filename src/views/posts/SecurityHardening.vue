@@ -7,7 +7,7 @@ import CalloutBlock from "@/components/elements/CalloutBlock.vue";
 </script>
 
 <template>
-  <BlogPostTemplate title="Kellnr 6.11.0: Security Hardening, New Settings and What to Check Before Upgrading" date="24. October, 2026">
+  <BlogPostTemplate title="Kellnr 6.11.0: Security Hardening, New Settings and What to Check Before Upgrading">
     <TextBlock>
       Kellnr 6.11.0 is a security release. It closes several vulnerabilities found in a review of
       the whole code base and hardens Kellnr in many smaller places. Please upgrade soon. Most of the changes need no

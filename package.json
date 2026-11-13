@@ -26,6 +26,7 @@
     "vue-router": "^5.4.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "^1.65.0",
     "@rushstack/eslint-patch": "^1.16.1",
     "@types/jsdom": "^30.0.0",

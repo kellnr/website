@@ -1,0 +1,119 @@
+/*
+ * Maps the light colors that Bootstrap 4 hardcodes to the color tokens of base.css, so
+ * Bootstrap classes and elements used in templates work in both themes. Loaded after
+ * Bootstrap and base.css.
+ */
+
+.text-primary {
+  color: var(--color-accent) !important;
+}
+
+.bg-white {
+  background-color: var(--color-surface) !important;
+}
+
+.shadow {
+  box-shadow: 0 0.5rem 1rem var(--color-shadow) !important;
+}
+
+.card {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+.table {
+  color: var(--color-text);
+}
+
+.table td,
+.table th,
+.table thead th {
+  border-color: var(--color-border-strong);
+}
+
+hr {
+  border-top-color: var(--color-border-strong);
+}
+
+code {
+  color: var(--color-code-inline);
+}
+
+pre {
+  color: var(--color-code-text);
+}
+
+kbd {
+  color: var(--color-surface);
+  background-color: var(--color-text);
+}
+
+/*
+ * Syntax highlighting, replacing the highlight.js GitHub theme. The --color-code-* tokens
+ * keep 4.5:1 contrast on --color-code-bg in both themes.
+ */
+.hljs {
+  color: var(--color-code-text);
+  background: transparent;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-built_in,
+.hljs-symbol,
+.hljs-bullet {
+  color: var(--color-code-keyword);
+}
+
+.hljs-string,
+.hljs-attr,
+.hljs-attribute,
+.hljs-regexp,
+.hljs-addition {
+  color: var(--color-code-string);
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: var(--color-code-comment);
+  font-style: italic;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-deletion {
+  color: var(--color-code-number);
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-property {
+  color: var(--color-code-variable);
+}
+
+.hljs-title,
+.hljs-section {
+  color: var(--color-code-title);
+}
+
+.hljs-type,
+.hljs-class {
+  color: var(--color-code-type);
+}
+
+.hljs-function,
+.hljs-title.function_ {
+  color: var(--color-code-function);
+}
+
+.hljs-meta {
+  color: var(--color-code-meta);
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: 700;
+}

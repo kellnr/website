@@ -5,7 +5,7 @@ import BlogPostTemplate from "../../components/blog/BlogPostTemplate.vue";
 </script>
 
 <template>
-    <BlogPostTemplate title="Kellnr 2025 - A Year in Review" date="20. January, 2026">
+    <BlogPostTemplate title="Kellnr 2025 - A Year in Review">
         <TextBlock>
             2025 was an incredible year for Kellnr. With 484 commits, 9 releases (from v5.3.0 to v5.9.1), and contributions
             from 16 community members, the project saw significant growth in both features and adoption. In this post, I want
@@ -220,22 +220,23 @@ table {
 
 th,
 td {
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-border);
     padding: 0.75rem;
     text-align: left;
 }
 
 th {
-    background-color: #f5f5f5;
+    background-color: var(--color-surface-raised);
     font-weight: bold;
 }
 
 tr:nth-child(even) {
-    background-color: #fafafa;
+    background-color: var(--color-surface-muted);
 }
 
 code {
-    background-color: #f5f5f5;
+    color: var(--color-code-inline);
+    background-color: var(--color-code-bg);
     padding: 0.2rem 0.4rem;
     border-radius: 3px;
     font-family: monospace;
@@ -243,8 +244,8 @@ code {
 
 .version {
     display: inline-block;
-    background-color: #e8f5e9;
-    color: #2e7d32;
+    background-color: var(--color-success-soft);
+    color: var(--color-success);
     padding: 0.1rem 0.5rem;
     border-radius: 4px;
     font-family: monospace;
@@ -253,8 +254,8 @@ code {
 }
 
 .feature-card {
-    background-color: #fafafa;
-    border-left: 4px solid #2e7d32;
+    background-color: var(--color-surface-muted);
+    border-left: 4px solid var(--color-success);
     padding: 1rem 1.25rem;
     margin-bottom: 1.25rem;
     border-radius: 0 4px 4px 0;
@@ -266,7 +267,7 @@ code {
 
 .feature-card h4 {
     margin: 0 0 0.75rem 0;
-    color: #2c3e50;
+    color: var(--color-text);
     font-size: 1.1rem;
 }
 

@@ -1,10 +1,14 @@
 import {
+  START_LOCATION,
   createRouter,
   createWebHistory,
   type RouteComponent,
   type RouteRecordRaw,
 } from "vue-router";
 import LandingView from "../views/LandingView.vue";
+import { NOT_FOUND_ROUTE, syncCanonicalLink } from "./canonical";
+import { hashPosition } from "./hashPosition";
+import { preferredScrollBehavior } from "../composables/useHashNavigation";
 import blogData from "../data/blog-posts.json";
 import type { BlogPostsDocument } from "../types/blog-posts";
 
@@ -30,6 +34,13 @@ function blogPostRoutes(): RouteRecordRaw[] {
   });
 }
 
+// A slow or blocked font must not delay the jump until the reader already scrolled.
+const FONT_WAIT_LIMIT_MS = 1000;
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to, from, savedPosition) {
@@ -41,14 +52,14 @@ const router = createRouter({
       return false;
     }
     if (to.hash) {
-      // The router ignores CSS scroll-margin-top, which keeps targets clear of the sticky header.
-      const el = document.querySelector(to.hash);
-      const top = el ? parseFloat(getComputedStyle(el).scrollMarginTop) || 0 : 0;
-      return {
-        el: to.hash,
-        top,
-        behavior: "smooth",
-      };
+      if (from !== START_LOCATION) {
+        return hashPosition(to.hash, preferredScrollBehavior());
+      }
+      // On a page load the web font still changes line heights above the target, so wait for
+      // it and jump instead of a smooth scroll that would stop short of the moving target.
+      return Promise.race([document.fonts.ready, delay(FONT_WAIT_LIMIT_MS)]).then(() =>
+        hashPosition(to.hash, "instant")
+      );
     }
     return { top: 0 };
   },
@@ -68,15 +79,11 @@ const router = createRouter({
       name: "changelog",
       component: () => import("../views/ChangelogView.vue"),
     },
-    {
-      path: "/documentation/v6",
-      name: "documentationV6",
-      component: () => import("../views/DocumentationV6View.vue"),
-    },
+    { path: "/documentation/v6", redirect: "/documentation" },
     {
       path: "/documentation",
       name: "documentation",
-      component: () => import("../views/DocumentationV6View.vue"),
+      component: () => import("../views/DocumentationView.vue"),
     },
     {
       path: "/contact",
@@ -95,12 +102,14 @@ const router = createRouter({
       component: () => import("../views/BlogView.vue"),
     },
     ...blogPostRoutes(),
-    // Default route to redirect all unknown paths to the landing page
     {
       path: "/:pathMatch(.*)*",
-      redirect: "/",
+      name: NOT_FOUND_ROUTE,
+      component: () => import("../views/NotFoundView.vue"),
     },
   ],
 });
+
+router.afterEach((to) => syncCanonicalLink(to));
 
 export default router;

@@ -12,23 +12,26 @@
  *
  * Notes:
  * - This generates an Atom feed (matches existing `public/rss.xml` structure).
- * - Dates in changelog.json are in a human format (e.g. "29. December 2025").
- *   This script parses them into RFC3339 timestamps.
+ * - Dates in changelog.json are ISO dates (e.g. "2025-12-29").
+ *   This script validates them and converts them into RFC3339 timestamps.
  * - Dates in blog-posts.json are already RFC3339 timestamps.
  *
- * This script includes lightweight runtime validation of both JSON inputs to
- * fail fast with helpful error messages during CI/builds.
+ * The inputs are validated by `feed-data.mjs` to fail fast with helpful error
+ * messages during CI/builds.
  */
 
-import { existsSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  changelogDateToRfc3339,
+  groupEntriesByType,
+  validateBlogPostsDocument,
+  validateChangelogDocument,
+  versionId,
+} from "./feed-data.mjs";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const PROJECT_ROOT = path.resolve(__dirname, "..");
+const PROJECT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CHANGELOG_JSON_PATH = path.join(PROJECT_ROOT, "src", "data", "changelog.json");
 const BLOG_POSTS_JSON_PATH = path.join(PROJECT_ROOT, "src", "data", "blog-posts.json");
 const BLOG_POST_VIEWS_DIR = path.join(PROJECT_ROOT, "src", "views", "posts");
@@ -43,21 +46,6 @@ const FEED_ALTERNATE = `${SITE_URL}/blog`;
 const FEED_ICON = `${SITE_URL}/favicon.ico`;
 const FEED_LOGO = `${SITE_URL}/favicon.ico`;
 const CHANGELOG_ENTRY_LINK = `${SITE_URL}/changelog`;
-
-const MONTHS = new Map([
-  ["January", 1],
-  ["February", 2],
-  ["March", 3],
-  ["April", 4],
-  ["May", 5],
-  ["June", 6],
-  ["July", 7],
-  ["August", 8],
-  ["September", 9],
-  ["October", 10],
-  ["November", 11],
-  ["December", 12],
-]);
 
 function escapeXml(text) {
   return String(text)
@@ -78,145 +66,11 @@ function cdata(text) {
   return `<![CDATA[${s.replaceAll("]]>", "]]]]><![CDATA[>")}]]>`;
 }
 
-function isPlainObject(value) {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function assert(condition, message) {
-  if (!condition) throw new Error(message);
-}
-
-function assertString(value, path) {
-  assert(typeof value === "string", `Expected string at ${path}, got ${typeof value}`);
-}
-
-function assertOptionalArray(value, path) {
-  if (value === undefined) return;
-  assert(Array.isArray(value), `Expected array at ${path}, got ${typeof value}`);
-}
-
-function assertOptionalBoolean(value, path) {
-  if (value === undefined) return;
-  assert(typeof value === "boolean", `Expected boolean at ${path}, got ${typeof value}`);
-}
-
-function validateChangelogDocument(doc, filePath) {
-  assert(isPlainObject(doc), `Invalid changelog JSON: expected object at ${filePath}`);
-  assert(
-    Array.isArray(doc.releases),
-    `Invalid changelog JSON: expected "releases" array at ${filePath}`
-  );
-
-  doc.releases.forEach((r, i) => {
-    const base = `changelog.releases[${i}]`;
-    assert(isPlainObject(r), `Expected object at ${base}`);
-
-    assertString(r.version, `${base}.version`);
-    assertString(r.date, `${base}.date`);
-    assertOptionalBoolean(r.isLatest, `${base}.isLatest`);
-
-    assert(Array.isArray(r.entries), `Expected array at ${base}.entries`);
-    r.entries.forEach((e, j) => {
-      const ep = `${base}.entries[${j}]`;
-      assert(isPlainObject(e), `Expected object at ${ep}`);
-
-      assertString(e.type, `${ep}.type`);
-      assertString(e.content, `${ep}.content`);
-      if (e.scope !== undefined) assertString(e.scope, `${ep}.scope`);
-      assertOptionalArray(e.links, `${ep}.links`);
-
-      if (Array.isArray(e.links)) {
-        e.links.forEach((l, k) => {
-          const lp = `${ep}.links[${k}]`;
-          assert(isPlainObject(l), `Expected object at ${lp}`);
-          assertString(l.label, `${lp}.label`);
-          assertString(l.url, `${lp}.url`);
-        });
-      }
-    });
-  });
-}
-
-function validateBlogPostsDocument(doc, filePath) {
-  assert(isPlainObject(doc), `Invalid blog-posts JSON: expected object at ${filePath}`);
-  assert(
-    Array.isArray(doc.posts),
-    `Invalid blog-posts JSON: expected "posts" array at ${filePath}`
-  );
-
-  doc.posts.forEach((p, i) => {
-    const base = `blog.posts[${i}]`;
-    assert(isPlainObject(p), `Expected object at ${base}`);
-
-    assertString(p.id, `${base}.id`);
-    assertString(p.title, `${base}.title`);
-    assertString(p.url, `${base}.url`);
-    assertString(p.published, `${base}.published`);
-    assertString(p.summaryHtml, `${base}.summaryHtml`);
-    assertString(p.component, `${base}.component`);
-
-    // The router builds the blog routes from this file and skips posts whose component is missing.
-    const componentPath = path.join(BLOG_POST_VIEWS_DIR, `${p.component}.vue`);
-    assert(
-      existsSync(componentPath),
-      `Missing component at ${base}.component: ${path.relative(PROJECT_ROOT, componentPath)}`
-    );
-
-    const parsed = Date.parse(p.published);
-    assert(
-      Number.isFinite(parsed),
-      `Invalid RFC3339 datetime at ${base}.published: "${p.published}"`
-    );
-  });
-}
-
-const CHANGELOG_DATE_RE = /^(\d{1,2})\.\s*([A-Za-z]+)\s+(\d{4})$/;
-
-/**
- * Changelog date format: "29. December 2025" OR "11.November 2021"
- * Returns an RFC3339 string in UTC.
- */
-function parseChangelogDateToRfc3339(dateStr) {
-  const raw = String(dateStr).trim();
-  const match = CHANGELOG_DATE_RE.exec(raw);
-  if (!match) {
-    throw new Error(`Unsupported date format (expected "DD. Month YYYY"): "${raw}"`);
-  }
-
-  const [, dayRaw, monthName, yearRaw] = match;
-  const day = Number(dayRaw);
-  const month = MONTHS.get(monthName);
-  const year = Number(yearRaw);
-  if (day < 1 || day > 31) throw new Error(`Invalid day in date: "${raw}"`);
-  if (!month) throw new Error(`Unknown month "${monthName}" in date: "${raw}"`);
-  if (year < 1970) throw new Error(`Invalid year in date: "${raw}"`);
-
-  // Use noon UTC to avoid edge cases if consumers convert time zones.
-  return new Date(Date.UTC(year, month - 1, day, 12, 0, 0)).toISOString();
-}
-
 function compareEntriesDesc(a, b) {
   const da = Date.parse(a.publishedRfc3339);
   const db = Date.parse(b.publishedRfc3339);
   if (Number.isFinite(da) && Number.isFinite(db) && da !== db) return db - da;
   return String(b.id).localeCompare(String(a.id));
-}
-
-const ENTRY_TYPE_ORDER = ["Added", "Changed", "Deprecated", "Fixed", "Removed", "Security"];
-
-/** Groups entries by type: known types in Keep-a-Changelog order first, then unknown ones. */
-function groupEntriesByType(entries) {
-  const byType = new Map();
-  for (const e of entries) {
-    const t = String(e.type || "Changed");
-    if (!byType.has(t)) byType.set(t, []);
-    byType.get(t).push(e);
-  }
-
-  const types = ENTRY_TYPE_ORDER.filter((t) => byType.has(t)).concat(
-    [...byType.keys()].filter((t) => !ENTRY_TYPE_ORDER.includes(t))
-  );
-  return types.map((t) => [t, byType.get(t)]);
 }
 
 function renderEntryItem(entry) {
@@ -279,8 +133,8 @@ async function main() {
   const changelogDoc = await tryReadJson(CHANGELOG_JSON_PATH);
   validateChangelogDocument(changelogDoc, CHANGELOG_JSON_PATH);
 
-  const releases = changelogDoc.releases.map((r) => {
-    const publishedRfc3339 = parseChangelogDateToRfc3339(r.date);
+  const releases = changelogDoc.releases.map((r, i) => {
+    const publishedRfc3339 = changelogDateToRfc3339(r.date, `changelog.releases[${i}].date`);
     const version = String(r.version);
 
     return {
@@ -288,7 +142,7 @@ async function main() {
       version,
       id: `${CHANGELOG_ENTRY_LINK}#${version}`,
       title: `Kellnr ${version} release`,
-      link: CHANGELOG_ENTRY_LINK,
+      link: `${CHANGELOG_ENTRY_LINK}#${versionId(version)}`,
       publishedRfc3339,
       updatedRfc3339: publishedRfc3339,
       contentHtml: buildReleaseEntryContentHtml({
@@ -302,7 +156,7 @@ async function main() {
 
   // blog-posts.json is optional; validate only when present
   if (blogDoc !== null) {
-    validateBlogPostsDocument(blogDoc, BLOG_POSTS_JSON_PATH);
+    validateBlogPostsDocument(blogDoc, BLOG_POSTS_JSON_PATH, BLOG_POST_VIEWS_DIR);
   }
   const blogPosts = Array.isArray(blogDoc?.posts) ? blogDoc.posts : [];
 

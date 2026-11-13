@@ -1,26 +1,27 @@
 <script setup lang="ts">
-import {RouterView} from 'vue-router'
+import { ref } from "vue";
+import { RouterView } from "vue-router";
 import NavBar from "@/components/NavBar.vue";
 import Footer from "@/components/FooterBar.vue";
-import {onMounted} from "vue";
-import router from "@/router";
 
-onMounted(() => {
-    // From testing, without a brief timeout, it won't work.
-    setTimeout(() => scrollFix(router.currentRoute.value.hash), 1);
-});
+const main = ref<HTMLElement>();
 
-function scrollFix(hashbang: string)
-{
-    location.hash = hashbang;
+function skipToContent() {
+  main.value?.focus();
 }
 </script>
 
 <template>
-    <NavBar />
-    <RouterView/>
-    <Footer />
+  <a class="skip-link" href="#main" @click.prevent="skipToContent">Skip to content</a>
+  <NavBar />
+  <main id="main" ref="main" tabindex="-1">
+    <RouterView />
+  </main>
+  <Footer />
 </template>
 
-<style>
+<style scoped>
+main:focus {
+  outline: none;
+}
 </style>

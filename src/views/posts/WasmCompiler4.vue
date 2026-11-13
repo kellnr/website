@@ -8,7 +8,7 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
 </script>
 
 <template>
-    <BlogPostTemplate title="WebAssembly Compiler - Building a Runtime" date="24. June, 2021">
+    <BlogPostTemplate title="WebAssembly Compiler - Building a Runtime">
         <TextBlock>
             This post is one of a series of four. If you have not read the previous blog post, we strongly recommend you
             do so. The posts build on each other, as such, reading them in the right order is important.
@@ -670,7 +670,3 @@ pub fn invoke_function(wasm: Vec&lt;u8&gt;, f_name: &amp;str, params: &amp;[i32]
 
     </BlogPostTemplate>
 </template>
-
-<style scoped>
-
-</style>

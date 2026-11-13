@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PageHeader from "../components/PageHeader.vue";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import CodeBlock from "../components/elements/CodeBlock.vue";
 import TextBlock from "../components/elements/TextBlock.vue";
 import TableBlock from "../components/elements/TableBlock.vue";
@@ -11,7 +11,10 @@ import CalloutBlock from "../components/elements/CalloutBlock.vue";
 import ConfigCard from "../components/elements/ConfigCard.vue";
 import ConfigGrid from "../components/elements/ConfigGrid.vue";
 import TocList, { type TocItem } from "../components/elements/TocList.vue";
+import DocSearch from "../components/elements/DocSearch.vue";
 import { configGroups } from "../data/config-values";
+import { KELLNR_IMAGE } from "../data/release";
+import { useScrollSpy } from "../composables/useScrollSpy";
 
 // Single source of truth for the on-page table of contents, rendered in both
 // the desktop sidebar and the mobile collapsible navigation.
@@ -81,11 +84,17 @@ const toc: TocItem[] = [
 ];
 
 const mobileNavOpen = ref(false);
+const docContent = ref<HTMLElement | null>(null);
+const tocSidebar = ref<HTMLElement | null>(null);
+
+const tocIds = toc.flatMap((item) => [item, ...(item.children ?? [])]).map((item) => item.hash.slice(1));
+const activeId = useScrollSpy(tocIds);
+const activeHash = computed(() => (activeId.value ? `#${activeId.value}` : null));
 </script>
 
 <template>
   <div>
-    <PageHeader title="Documentation" subtitle="Kellnr v6" :breadcrumbs="[{ label: 'Kellnr', to: '/' }, { label: 'Docs' }, { label: 'Documentation' }]" />
+    <PageHeader title="Documentation" :breadcrumbs="[{ label: 'Kellnr', to: '/' }, { label: 'Documentation' }]" />
 
     <section class="page-content">
       <div class="container">
@@ -101,20 +110,26 @@ const mobileNavOpen = ref(false);
             <span><i class="mdi mdi-format-list-bulleted"></i> On this page</span>
             <i class="mdi" :class="mobileNavOpen ? 'mdi-chevron-up' : 'mdi-chevron-down'"></i>
           </button>
-          <nav v-show="mobileNavOpen" id="toc-mobile-panel" class="toc-mobile-panel">
-            <TocList :items="toc" @navigate="mobileNavOpen = false" />
-          </nav>
+          <div v-show="mobileNavOpen" id="toc-mobile-panel" class="toc-mobile-panel">
+            <DocSearch :content="docContent" @navigate="mobileNavOpen = false" />
+            <nav aria-label="On this page">
+              <TocList :items="toc" :active-hash="activeHash" @navigate="mobileNavOpen = false" />
+            </nav>
+          </div>
         </div>
 
         <div class="doc-layout">
           <!-- Sticky Sidebar TOC -->
-          <aside class="toc-sidebar">
-            <h6 class="toc-title">On this page</h6>
-            <TocList :items="toc" />
+          <aside ref="tocSidebar" class="toc-sidebar">
+            <DocSearch :content="docContent" />
+            <nav aria-labelledby="toc-title">
+              <p id="toc-title" class="toc-title">On this page</p>
+              <TocList :items="toc" :active-hash="activeHash" :scroll-container="tocSidebar" />
+            </nav>
           </aside>
 
           <!-- Main Content -->
-          <div class="doc-content">
+          <div ref="docContent" class="doc-content">
             <MainHeader id="installation" icon="download">Installation</MainHeader>
             <TextBlock>
               Kellnr can be installed in several ways. Use the table below to jump to the method that
@@ -177,16 +192,16 @@ const mobileNavOpen = ref(false);
 
             <CodeBlock lang="bash">
               # Run Kellnr non-persistent for testing.
-              # All data (crates, users) will be deleted with the container when the container terminates
+              # All data (crates, users) is deleted when the container terminates.
               docker run --rm -it \
               -p 8000:8000 \
-              -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" ghcr.io/kellnr/kellnr:6
+              -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" {{ KELLNR_IMAGE }}
 
-              # To run the container with persistence for all data (crates, users) mount a volume into the container
+              # To persist all data (crates, users), mount a volume into the container.
               docker run --rm -it \
               -p 8000:8000 \
               -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" \
-              -v $(pwd):/var/lib/kellnr ghcr.io/kellnr/kellnr:6
+              -v $(pwd):/var/lib/kellnr {{ KELLNR_IMAGE }}
             </CodeBlock>
 
             <TextBlock>
@@ -232,7 +247,7 @@ const mobileNavOpen = ref(false);
               -p 8000:8000 \
               --user 1000:1000 \
               -e "KELLNR_ORIGIN__HOSTNAME=kellnr.example.com" \
-              -v $(pwd):/var/lib/kellnr ghcr.io/kellnr/kellnr:6
+              -v $(pwd):/var/lib/kellnr {{ KELLNR_IMAGE }}
             </CodeBlock>
 
             <SubHeader id="helm-chart">Kubernetes (Helm)</SubHeader>
@@ -394,12 +409,13 @@ const mobileNavOpen = ref(false);
               # Go to the directory where Kellnr should be installed. For example:
               cd ~
 
-              # Example: Download and install Kellnr as a systemd service with custom admin password for Kellnr
-              curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo bash -s -- -s -p
-              myadminpwd
-              # Alternatively, you can use the following command if you installed cargo using rustup:
-              curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh | sudo
-              PATH="$HOME/.cargo/bin:$PATH" bash -s -- -s -p myadminpwd
+              # Example: Download and install Kellnr as a systemd service with a custom
+              # admin password for Kellnr
+              curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh \
+              | sudo bash -s -- -s -p myadminpwd
+              # Alternatively, if you installed cargo using rustup:
+              curl -s https://raw.githubusercontent.com/kellnr/installer/main/install.sh \
+              | sudo PATH="$HOME/.cargo/bin:$PATH" bash -s -- -s -p myadminpwd
 
               # Start the service (if installed with -s flag)
               sudo systemctl enable kellnr
@@ -733,7 +749,7 @@ const mobileNavOpen = ref(false);
               <i>kellnr</i> user).
               <br />
               <br />
-              E.g. <i>docker run -v /path/to/config.toml:/home/kellnr/.cargo/config.toml:ro ghcr.io/kellnr/kellnr:6</i>
+              E.g. <i>docker run -v /path/to/config.toml:/home/kellnr/.cargo/config.toml:ro {{ KELLNR_IMAGE }}</i>
               <br />
               <br />
               For more information about authentication and how to configure cargo to use it see: <a
@@ -1247,8 +1263,8 @@ const mobileNavOpen = ref(false);
               -X DELETE -H "Authorization: Bearer ADMIN-TOKEN"
 
               # Test a webhook (sends a dummy payload to the callback_url)
-              # A callback status other than 2xx is answered with 502 and named in the error message,
-              # the response body of the callback is never returned
+              # A callback status other than 2xx is answered with 502 and named in the
+              # error message, the response body of the callback is never returned
               curl kellnr_url/api/v1/webhooks/f9e8a090-7144-48ff-89d6-fa774d24f59b/test \
               -X POST -H "Authorization: Bearer ADMIN-TOKEN"
             </CodeBlock>
@@ -1793,13 +1809,14 @@ const mobileNavOpen = ref(false);
             </TextBlock>
 
             <CodeBlock lang="bash">
-              # If you need to inject your own ca-certificate to the docker container, it will be
-              # automatically picked up by update-ca-certificates if you mount it like this:
+              # If you need to inject your own CA certificate into the docker container,
+              # mount it like this and update-ca-certificates picks it up automatically:
               docker run --rm -it \
               ... \
               -v your-ca.crt:/usr/local/share/ca-certificates/user-ca.crt:ro
 
-              # If you need to inject the local registry authentication to the container (auth_required=true):
+              # If you need to inject the local registry authentication into the container
+              # (auth_required=true):
               docker run --rm -it \
               ... \
               -v your-cargo-config.toml:/home/kellnr/.cargo/config.toml:ro
@@ -1964,8 +1981,8 @@ const mobileNavOpen = ref(false);
   gap: 0.5rem;
   margin: 1rem 0 1.5rem;
   padding: 0.85rem 1rem;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
 }
 
@@ -1974,25 +1991,25 @@ const mobileNavOpen = ref(false);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #64748b;
+  color: var(--color-text-subtle);
   margin-right: 0.25rem;
 }
 
 .config-jump a {
   font-size: 0.85rem;
-  color: #2f55d4;
+  color: var(--color-accent);
   text-decoration: none;
   padding: 0.15rem 0.6rem;
-  border: 1px solid #d5ddf3;
+  border: 1px solid var(--color-border-strong);
   border-radius: 999px;
-  background: #fff;
+  background: var(--color-surface);
   transition: all 0.2s ease;
 }
 
 .config-jump a:hover {
-  background: #2f55d4;
-  color: #fff;
-  border-color: #2f55d4;
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  border-color: var(--color-accent);
 }
 
 /* Simple two-column grid layout */
@@ -2010,12 +2027,13 @@ const mobileNavOpen = ref(false);
 .doc-content {
   min-width: 0;
   max-width: 100%;
+  /* Long inline commands and paths would otherwise widen the page on phones. */
+  overflow-wrap: break-word;
 }
 
-/* Offset anchor jumps so headings aren't hidden behind the fixed navbar
-   (and, on mobile, the sticky "On this page" bar). */
+/* Offset anchor jumps so targets aren't hidden behind the sticky 64px navbar. */
 .doc-content :deep([id]) {
-  scroll-margin-top: 110px;
+  scroll-margin-top: 80px;
 }
 
 /* Mobile TOC (collapsible) — hidden on desktop, shown < 992px */
@@ -2031,9 +2049,9 @@ const mobileNavOpen = ref(false);
   padding: 0.7rem 1rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #2f55d4;
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
+  color: var(--color-accent);
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   cursor: pointer;
 }
@@ -2049,35 +2067,31 @@ const mobileNavOpen = ref(false);
   right: 0;
   z-index: 40;
   padding: 0.75rem 1rem;
-  background: #fff;
-  border: 1px solid #e9ecef;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px var(--color-shadow);
   max-height: 65vh;
   overflow-y: auto;
 }
 
 /* Hide desktop TOC on mobile, show the collapsible one instead */
 @media (max-width: 991px) {
+  /* minmax(0, ...) lets wide code blocks scroll instead of widening the page */
   .doc-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .toc-sidebar {
     display: none;
   }
 
+  /* Not sticky: below the sticky navbar it would cover too much of a small screen. */
   .toc-mobile {
     display: block;
-    position: sticky;
-    top: 70px;
+    position: relative;
     z-index: 30;
     margin: 0 1.5rem 1.25rem;
-  }
-
-  /* Extra offset for the sticky mobile nav bar on top of the navbar */
-  .doc-content :deep([id]) {
-    scroll-margin-top: 135px;
   }
 }
 
@@ -2089,19 +2103,20 @@ const mobileNavOpen = ref(false);
   max-height: calc(100vh - 120px);
   overflow-y: auto;
   padding: 1rem;
-  background: #f8f9fa;
+  background: var(--color-surface-muted);
   border-radius: 8px;
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--color-border);
 }
 
 .toc-title {
+  font-size: 1rem;
   font-weight: 600;
-  color: #2f55d4;
+  color: var(--color-accent);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 0.75rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #2f55d4;
+  border-bottom: 2px solid var(--color-accent);
 }
 
 /* Scrollbar styling for TOC */
@@ -2114,11 +2129,11 @@ const mobileNavOpen = ref(false);
 }
 
 .toc-sidebar::-webkit-scrollbar-thumb {
-  background: #dee2e6;
+  background: var(--color-border-strong);
   border-radius: 2px;
 }
 
 .toc-sidebar::-webkit-scrollbar-thumb:hover {
-  background: #adb5bd;
+  background: var(--color-text-subtle);
 }
 </style>

@@ -13,9 +13,9 @@ const icons = {
 <template>
   <div class="callout-block" :class="props.variant">
     <div class="callout-icon">
-      <i class="mdi" :class="icons[props.variant]"></i>
+      <i class="mdi" :class="icons[props.variant]" aria-hidden="true"></i>
     </div>
-    <div class="callout-content">
+    <div class="callout-content prose-links">
       <slot></slot>
     </div>
   </div>
@@ -23,24 +23,21 @@ const icons = {
 
 <style scoped>
 .warn {
-  --callout-bg: #fffbeb;
-  --callout-accent: #f59e0b;
-  --callout-text: #92400e;
-  --callout-link: #b45309;
+  --callout-bg: var(--color-warning-soft);
+  --callout-accent: var(--color-warning-border);
+  --callout-icon: var(--color-warning);
 }
 
 .tip {
-  --callout-bg: #eff6ff;
-  --callout-accent: #2f55d4;
-  --callout-text: #1e3a8a;
-  --callout-link: #1d4ed8;
+  --callout-bg: var(--color-accent-soft);
+  --callout-accent: var(--color-accent);
+  --callout-icon: var(--color-accent);
 }
 
 .attention {
-  --callout-bg: #eff6ff;
-  --callout-accent: #3b82f6;
-  --callout-text: #1e3a5f;
-  --callout-link: #2563eb;
+  --callout-bg: var(--color-info-soft);
+  --callout-accent: var(--color-info);
+  --callout-icon: var(--color-info);
 }
 
 .callout-block {
@@ -56,19 +53,14 @@ const icons = {
 
 .callout-icon {
   flex-shrink: 0;
-  color: var(--callout-accent);
+  color: var(--callout-icon);
   font-size: 1.25rem;
   line-height: 1.75;
 }
 
 .callout-content {
-  color: var(--callout-text);
+  color: var(--color-text);
   font-size: 1rem;
   line-height: 1.75;
-}
-
-.callout-content :deep(a) {
-  color: var(--callout-link);
-  text-decoration: underline;
 }
 </style>

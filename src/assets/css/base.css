@@ -4,16 +4,103 @@
  */
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
+/*
+ * Color tokens. Components use only these, never literal colors. Each token holds its light and
+ * dark value via light-dark(); color-scheme picks one: the OS setting by default, or the choice
+ * of the theme toggle, which sets data-theme on <html> (src/composables/useTheme.ts).
+ * Text tokens keep 4.5:1 contrast on --color-bg, --color-surface and --color-surface-muted in
+ * both themes; --color-border-input keeps 3:1 for form control borders.
+ */
 :root {
-  --kellnr-blue: #2f55d4;
-  --kellnr-blue-dark: #2348c0;
+  color-scheme: light dark;
+  --color-bg: light-dark(#ffffff, #0e131c);
+  --color-surface: light-dark(#ffffff, #151b27);
+  --color-surface-muted: light-dark(#f8fafc, #121823);
+  --color-surface-raised: light-dark(#f1f5f9, #1c2433);
+  --color-border: light-dark(#e2e8f0, #263042);
+  --color-border-strong: light-dark(#cbd5e1, #364257);
+  --color-border-input: light-dark(#7d8899, #5f6c82);
+  --color-text: light-dark(#0f172a, #e6eaf2);
+  --color-text-muted: light-dark(#475569, #b3bdcc);
+  --color-text-subtle: light-dark(#5b6b80, #9aa6b8);
+  --color-accent: light-dark(#2f55d4, #8ea8ff);
+  --color-accent-hover: light-dark(#2348c0, #b1c3ff);
+  --color-accent-soft: light-dark(#eff6ff, #1b2645);
+  --color-accent-contrast: light-dark(#ffffff, #0e131c);
+  --color-sponsor: light-dark(#be185d, #f472b6);
+  --color-sponsor-soft: light-dark(#fdf2f8, #2d1624);
+  --color-sponsor-border: light-dark(#fbcfe8, #5b2343);
+  --color-header-bg: light-dark(rgba(255, 255, 255, 0.95), rgba(14, 19, 28, 0.92));
+  --color-shadow: light-dark(rgba(15, 23, 42, 0.08), rgba(0, 0, 0, 0.4));
+  --gradient-page-header: linear-gradient(
+    135deg,
+    light-dark(#f8fafc, #121823) 0%,
+    light-dark(#eef2f7, #172033) 100%
+  );
+
+  /* Accent band behind calls to action; muted in dark mode so it does not glare */
+  --color-band-from: light-dark(#2348c0, #1b2645);
+  --color-band-to: light-dark(#2f55d4, #1c2433);
+  --color-band-solid: light-dark(#2f55d4, #263a75);
+  --color-band-text: light-dark(#ffffff, #e6eaf2);
+  --color-band-button-bg: light-dark(#ffffff, #8ea8ff);
+  --color-band-button-text: light-dark(#2f55d4, #0e131c);
+
+  /* Backdrop for diagrams drawn in black on transparent; white in both themes */
+  --color-diagram-bg: #ffffff;
+
+  --color-success: light-dark(#15803d, #4ade80);
+  --color-success-soft: light-dark(#f0fdf4, #10241a);
+  --color-warning: light-dark(#92400e, #fbbf24);
+  --color-warning-soft: light-dark(#fffbeb, #2a2110);
+  --color-warning-border: light-dark(#f59e0b, #b45309);
+  --color-danger: light-dark(#b91c1c, #f87171);
+  --color-danger-soft: light-dark(#fef2f2, #2b1416);
+  --color-info: light-dark(#1d4ed8, #93b4ff);
+  --color-info-soft: light-dark(#eff6ff, #172240);
+
+  --color-code-bg: light-dark(#f8fafc, #121823);
+  --color-code-header: light-dark(#f1f5f9, #1a2130);
+  --color-code-text: light-dark(#1e293b, #dbe2ee);
+  --color-code-inline: light-dark(#be185d, #f9a8d4);
+  --color-code-keyword: light-dark(#6d28d9, #c4b5fd);
+  --color-code-string: light-dark(#047857, #86efac);
+  --color-code-comment: light-dark(#5b6b80, #8b97ab);
+  --color-code-number: light-dark(#b91c1c, #fca5a5);
+  --color-code-variable: light-dark(#0369a1, #7dd3fc);
+  --color-code-title: light-dark(#b45309, #fcd34d);
+  --color-code-type: light-dark(#a16207, #fde68a);
+  --color-code-function: light-dark(#1d4ed8, #93c5fd);
+  --color-code-meta: light-dark(#475569, #a5b1c4);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 body {
   font-family: "Nunito", sans-serif;
   font-size: 16px;
-  color: #161c2d;
+  color: var(--color-text);
+  background: var(--color-bg);
   overflow-x: hidden;
+}
+
+/*
+ * Links in running text need more than color to stand out (WCAG 1.4.1). List items count only
+ * in plain (classless) lists; styled lists are cards or navigation. Components that render
+ * running text outside these elements add the prose-links class.
+ */
+.page-content :is(p, td, dd, blockquote, :is(ul, ol):not([class]) > li)
+  a:not(nav a):not(.btn):not([class*="button"]),
+.prose-links a:not(.btn):not([class*="button"]) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -28,25 +115,68 @@ p {
 }
 
 a {
-  color: var(--kellnr-blue);
+  color: var(--color-accent);
   text-decoration: none;
 }
 
 a:hover {
-  color: var(--kellnr-blue-dark);
+  color: var(--color-accent-hover);
   text-decoration: none;
 }
 
 ::selection {
-  background: rgba(47, 85, 212, 0.9);
-  color: #ffffff;
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
 }
 
 .text-blue {
-  color: var(--kellnr-blue);
+  color: var(--color-accent);
 }
 
 /* Spacing for the main content below a PageHeader */
 .page-content {
   padding: 2.5rem 0 4rem;
+}
+
+/* Hidden visually, still read by screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* First focus target of every page; hidden until it receives keyboard focus */
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 1040;
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  color: var(--color-accent-contrast);
+  background: var(--color-accent);
+  border-radius: 6px;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  color: var(--color-accent-contrast);
+  transform: none;
+}
+
+/* Keeps the footer at the bottom of the window on short pages */
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#app > main {
+  flex: 1 0 auto;
 }

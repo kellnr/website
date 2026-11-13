@@ -6,7 +6,7 @@ import CodeBlock from "../../components/elements/CodeBlock.vue";
 </script>
 
 <template>
-  <BlogPostTemplate title="Leveraging the Type System for Domain Modeling in Rust" date="15. June, 2023">
+  <BlogPostTemplate title="Leveraging the Type System for Domain Modeling in Rust">
     <TextBlock>
       Today, we want to discuss how we can utilize Rust's type system to accurately model the domain of our application.
     </TextBlock>
@@ -483,7 +483,3 @@ pub fn register_user(name: Name, age: Age, email: Email) {
     </TextBlock>
   </BlogPostTemplate>
 </template>
-
-<style scoped>
-
-</style>

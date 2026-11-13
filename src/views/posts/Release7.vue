@@ -7,7 +7,7 @@ import CalloutBlock from "@/components/elements/CalloutBlock.vue";
 </script>
 
 <template>
-  <BlogPostTemplate title="Kellnr 7: What Changes and What to Check Before Upgrading" date="1. November, 2026">
+  <BlogPostTemplate title="Kellnr 7: What Changes and What to Check Before Upgrading">
     <TextBlock>
       Kellnr 7 is the result of a review of the whole code base. Most of the work is invisible: about 70 bug
       fixes, stricter types inside Kellnr, a simpler internal structure and a much faster test suite. For you as an

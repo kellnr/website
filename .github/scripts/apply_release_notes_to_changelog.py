@@ -23,7 +23,7 @@ Expected payload shape (as JSON):
 }
 
 What it does:
-- Converts RFC3339 `date` into changelog.json's human format: "DD. Month YYYY"
+- Converts RFC3339 `date` into changelog.json's ISO date format: "YYYY-MM-DD"
 - Maps Keep-a-Changelog buckets into entries:
     { "type": "Added|Changed|Deprecated|Removed|Fixed|Security", "content": "...", "links": [...] }
 - Heuristically turns trailing "#123" (or "(#123)") into a GitHub link to the source repo and
@@ -132,11 +132,6 @@ def _parse_rfc3339(dt: str) -> datetime:
         raise PayloadError(
             f"client_payload.date is not valid RFC3339: {dt!r} ({e})"
         ) from e
-
-
-def _to_human_date(dt: datetime) -> str:
-    # Keep existing website convention: "DD. Month YYYY"
-    return f"{dt.day:02d}. {dt.strftime('%B')} {dt.year}"
 
 
 def _must_be_str(value: Any, path: str) -> str:
@@ -252,7 +247,6 @@ def build_release_from_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
     source_repo = _must_be_str(payload["source_repo"], "payload.source_repo")
 
     dt = _parse_rfc3339(_must_be_str(payload["date"], "payload.date"))
-    human_date = _to_human_date(dt)
 
     kac = _must_be_obj(payload["keep_a_changelog"], "payload.keep_a_changelog")
 
@@ -280,7 +274,7 @@ def build_release_from_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
 
     return {
         "version": version,
-        "date": human_date,
+        "date": dt.date().isoformat(),
         "entries": entries,
     }
 

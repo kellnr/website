@@ -100,8 +100,8 @@ const channels = [
 .self-help {
   padding: 1.5rem;
   margin-bottom: 2.5rem;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
 }
 
@@ -109,12 +109,12 @@ const channels = [
   margin: 0 0 0.25rem;
   font-size: 1.125rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text);
 }
 
 .self-help-text {
   margin: 0 0 1rem;
-  color: #475569;
+  color: var(--color-text-muted);
 }
 
 .resource-list {
@@ -133,29 +133,28 @@ const channels = [
   min-height: 44px;
   padding: 0.5rem 1rem;
   font-weight: 600;
-  color: #1e293b;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .resource i {
   font-size: 1.25rem;
-  color: #2f55d4;
+  color: var(--color-accent);
 }
 
 .resource:hover {
-  color: #2f55d4;
-  border-color: #2f55d4;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
-
 /* Channels */
 .section-title {
   margin: 0 0 1rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text);
 }
 
 .channel-list {
@@ -171,15 +170,15 @@ const channels = [
   display: flex;
   gap: 1.25rem;
   padding: 1.5rem;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .channel:hover {
-  border-color: #2f55d4;
-  box-shadow: 0 8px 20px rgba(47, 85, 212, 0.12);
+  border-color: var(--color-accent);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--color-accent) 12%, transparent);
 }
 
 .channel-icon {
@@ -190,8 +189,8 @@ const channels = [
   width: 48px;
   height: 48px;
   font-size: 1.5rem;
-  color: #2f55d4;
-  background: #eff6ff;
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
   border-radius: 10px;
 }
 
@@ -204,11 +203,11 @@ const channels = [
 .channel-title {
   font-size: 1.125rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text);
 }
 
 .channel-text {
-  color: #475569;
+  color: var(--color-text-muted);
   line-height: 1.6;
 }
 
@@ -218,7 +217,7 @@ const channels = [
   gap: 0.375rem;
   margin-top: 0.5rem;
   font-weight: 600;
-  color: #2f55d4;
+  color: var(--color-accent);
 }
 
 .channel:hover .channel-action {
@@ -231,12 +230,12 @@ const channels = [
   align-items: center;
   gap: 1rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--color-border);
 }
 
 .sponsor p {
   margin: 0;
-  color: #475569;
+  color: var(--color-text-muted);
 }
 
 .sponsor a {
@@ -245,14 +244,14 @@ const channels = [
 
 .sponsor-icon {
   font-size: 1.5rem;
-  color: #db2777;
+  color: var(--color-sponsor);
 }
 
 /* Keyboard focus */
 .resource:focus-visible,
 .channel:focus-visible,
 .sponsor a:focus-visible {
-  outline: 3px solid rgba(47, 85, 212, 0.5);
+  outline: 3px solid var(--color-accent);
   outline-offset: 2px;
 }
 

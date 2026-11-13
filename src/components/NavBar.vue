@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
+import ExternalLink from "@/components/ExternalLink.vue";
+import ThemeToggle from "@/components/ThemeToggle.vue";
 
 const route = useRoute();
 const menuOpen = ref(false);
 const docsOpen = ref(false);
+const docsButton = ref<HTMLButtonElement>();
 
 // Close the mobile menu and the docs submenu after navigating.
 watch(
@@ -18,6 +21,19 @@ watch(
 function isActive(prefix: string): boolean {
   return route.path === prefix || route.path.startsWith(`${prefix}/`);
 }
+
+function closeDocsAndFocusButton() {
+  if (!docsOpen.value) return;
+  docsOpen.value = false;
+  docsButton.value?.focus();
+}
+
+function closeDocsOnFocusLeave(event: FocusEvent) {
+  const item = event.currentTarget as HTMLElement;
+  if (!item.contains(event.relatedTarget as Node | null)) {
+    docsOpen.value = false;
+  }
+}
 </script>
 
 <template>
@@ -29,40 +45,51 @@ function isActive(prefix: string): boolean {
         class="menu-toggle"
         type="button"
         aria-label="Toggle navigation"
+        aria-controls="site-nav"
         :aria-expanded="menuOpen"
         @click="menuOpen = !menuOpen"
       >
-        <i class="mdi" :class="menuOpen ? 'mdi-close' : 'mdi-menu'"></i>
+        <i class="mdi" :class="menuOpen ? 'mdi-close' : 'mdi-menu'" aria-hidden="true"></i>
       </button>
 
-      <nav class="site-nav" :class="{ open: menuOpen }">
+      <nav id="site-nav" class="site-nav" :class="{ open: menuOpen }" aria-label="Main">
         <ul class="nav-list">
           <li><router-link to="/" :class="{ active: route.path === '/' }">Home</router-link></li>
           <li><router-link to="/features" :class="{ active: isActive('/features') }">Features</router-link></li>
-          <li class="has-submenu" :class="{ open: docsOpen }">
+          <li
+            class="has-submenu"
+            :class="{ open: docsOpen }"
+            @keydown.esc="closeDocsAndFocusButton"
+            @focusout="closeDocsOnFocusLeave"
+          >
             <button
+              ref="docsButton"
               type="button"
               :class="{ active: isActive('/documentation') || isActive('/changelog') }"
+              aria-controls="docs-submenu"
               :aria-expanded="docsOpen"
               @click="docsOpen = !docsOpen"
             >
               Docs
-              <i class="mdi mdi-chevron-down"></i>
+              <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
             </button>
-            <ul class="submenu">
+            <ul id="docs-submenu" class="submenu">
               <li><router-link to="/documentation">Documentation</router-link></li>
               <li><router-link to="/changelog">Changelog</router-link></li>
             </ul>
           </li>
-          <li><a href="https://github.com/kellnr/kellnr" target="_blank" rel="noopener">GitHub</a></li>
           <li><router-link to="/blog" :class="{ active: isActive('/blog') }">Blog</router-link></li>
           <li><router-link to="/contact" :class="{ active: isActive('/contact') }">Contact</router-link></li>
+        </ul>
+        <ul class="nav-list nav-list-end">
+          <li><ExternalLink href="https://github.com/kellnr/kellnr">GitHub</ExternalLink></li>
           <li>
             <router-link to="/sponsor" class="nav-sponsor" :class="{ active: isActive('/sponsor') }">
               <i class="mdi mdi-heart" aria-hidden="true"></i>
               Sponsor
             </router-link>
           </li>
+          <li><ThemeToggle /></li>
         </ul>
       </nav>
     </div>
@@ -75,9 +102,9 @@ function isActive(prefix: string): boolean {
   top: 0;
   z-index: 1030;
   height: 64px;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--color-header-bg);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .site-header-inner {
@@ -90,7 +117,16 @@ function isActive(prefix: string): boolean {
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #2f55d4;
+  color: var(--color-accent);
+}
+
+/* Internal pages on the left, external links and actions (e.g. a theme toggle) on the right */
+.site-nav {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 1.5rem;
 }
 
 .nav-list {
@@ -108,11 +144,9 @@ function isActive(prefix: string): boolean {
   align-items: center;
   gap: 0.25rem;
   padding: 0.5rem 0.875rem;
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #3c4858;
+  color: var(--color-text-muted);
   background: none;
   border: 0;
   border-radius: 6px;
@@ -123,19 +157,19 @@ function isActive(prefix: string): boolean {
 .nav-list > li > a:hover,
 .nav-list > li > button:hover,
 .nav-list .active {
-  color: #2f55d4;
+  color: var(--color-accent);
 }
 
 .nav-list > li > .nav-sponsor {
   margin-left: 0.5rem;
-  color: #db2777;
-  border: 1px solid #fbcfe8;
+  color: var(--color-sponsor);
+  border: 1px solid var(--color-sponsor-border);
 }
 
 .nav-list > li > .nav-sponsor:hover,
 .nav-list > li > .nav-sponsor.active {
-  color: #be185d;
-  background: #fdf2f8;
+  color: var(--color-sponsor);
+  background: var(--color-sponsor-soft);
 }
 
 .has-submenu {
@@ -156,10 +190,10 @@ function isActive(prefix: string): boolean {
   margin: 0;
   padding: 0.5rem 0;
   list-style: none;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 25px var(--color-shadow);
 }
 
 .submenu a {
@@ -167,12 +201,12 @@ function isActive(prefix: string): boolean {
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #3c4858;
+  color: var(--color-text-muted);
 }
 
 .submenu a:hover {
-  color: #2f55d4;
-  background: #f8fafc;
+  color: var(--color-accent);
+  background: var(--color-surface-muted);
 }
 
 .has-submenu.open .submenu {
@@ -188,7 +222,7 @@ function isActive(prefix: string): boolean {
   padding: 0.25rem;
   font-size: 1.75rem;
   line-height: 1;
-  color: #3c4858;
+  color: var(--color-text-muted);
   background: none;
   border: 0;
   cursor: pointer;
@@ -211,14 +245,15 @@ function isActive(prefix: string): boolean {
 
   .site-nav {
     display: none;
+    margin-left: 0;
     position: absolute;
     top: 64px;
     left: 0;
     right: 0;
     padding: 0.5rem 1rem 1rem;
-    background: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
-    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 10px 25px var(--color-shadow);
   }
 
   .site-nav.open {
@@ -228,6 +263,16 @@ function isActive(prefix: string): boolean {
   .nav-list {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .nav-list-end {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .nav-list > li > .nav-sponsor {
+    margin-left: 0;
   }
 
   .nav-list > li > a,

@@ -6,7 +6,7 @@ import CodeBlock from "../../components/elements/CodeBlock.vue";
 </script>
 
 <template>
-  <BlogPostTemplate title="Wrapping Cross-Platform Native Libraries in Rust" date="14. January, 2024">
+  <BlogPostTemplate title="Wrapping Cross-Platform Native Libraries in Rust">
     <TextBlock>
       I needed to wrap a native C library for a cross-platform project in Rust. I decided to use the typical pattern of a
       <i>*-sys</i> crate and a crate that wraps the sys-crate in a more Rust-like API. This blog post describes the steps

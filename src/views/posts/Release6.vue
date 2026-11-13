@@ -7,7 +7,7 @@ import CalloutBlock from "../../components/elements/CalloutBlock.vue";
 </script>
 
 <template>
-  <BlogPostTemplate title="Kellnr Version 6.0.0" date="28. January, 2026">
+  <BlogPostTemplate title="Kellnr Version 6.0.0">
     <TextBlock>
       Kellnr 6.0.0 is here with a completely redesigned command-line interface, OAuth2/OIDC authentication support,
       and important changes to how configuration works. This is a major release with breaking changes that require

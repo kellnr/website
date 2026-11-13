@@ -6,7 +6,7 @@ import ImageBlock from "../../components/elements/ImageBlock.vue";
 </script>
 
 <template>
-  <BlogPostTemplate title="Kellnr 3.0.0 Release" date="29. May, 2023">
+  <BlogPostTemplate title="Kellnr 3.0.0 Release">
     <SubHeader id="release-3">Kellnr 3.0.0 Release</SubHeader>  
     <TextBlock>
       <span class="text-primary font-weight-bold">Kellnr</span> is a free Rust registry that allows users to host their own crates.

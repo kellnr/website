@@ -5,7 +5,7 @@ import BlogPostTemplate from "@/components/blog/BlogPostTemplate.vue";
 </script>
 
 <template>
-    <BlogPostTemplate title="Rust Supply Chain Security" date="10. April, 2023">
+    <BlogPostTemplate title="Rust Supply Chain Security">
         <TextBlock>
             Rust is a modern programming language that aims to provide memory safety, concurrency and performance. Rust
             has a rich ecosystem of libraries and tools that help developers build reliable and efficient software.

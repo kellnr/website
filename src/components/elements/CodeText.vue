@@ -16,10 +16,10 @@ const parts = computed(() => props.text.split("`"));
 
 <style scoped>
 code {
-  background: #f1f5f9;
+  background: var(--color-surface-raised);
   padding: 0.125rem 0.375rem;
   border-radius: 4px;
   font-size: 0.875rem;
-  color: #0f172a;
+  color: var(--color-text);
 }
 </style>

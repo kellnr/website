@@ -6,7 +6,7 @@ import CodeBlock from "../../components/elements/CodeBlock.vue";
 </script>
 
 <template>
-    <BlogPostTemplate title="Testing Assembly Code with Rust" date="08. February, 2025">
+    <BlogPostTemplate title="Testing Assembly Code with Rust">
         <TextBlock>
             This blog post is about the usage of Rust as a test runner for assembly code. You may ask, why would someone
             do that? Assembly is most likely one of the worst choices to write applications in. But sometimes, we do
