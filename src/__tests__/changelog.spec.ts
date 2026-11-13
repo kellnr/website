@@ -3,6 +3,7 @@ import blogData from "@/data/blog-posts.json";
 import changelogData from "@/data/changelog.json";
 import type { ChangeLogDocument, ChangeLogEntry, ChangeLogRelease } from "@/types/changelog";
 import {
+  releaseCount,
   countByType,
   displayContent,
   entryHtml,
@@ -210,4 +211,11 @@ describe("entryHtml", () => {
       ).toThrow(`Changelog entry of version 7.1.0 has a link that is not https: "${url}"`);
     }
   );
+});
+
+describe("releaseCount", () => {
+  it("uses the singular for one release", () => {
+    expect(releaseCount(1)).toBe("1 release");
+    expect(releaseCount(22)).toBe("22 releases");
+  });
 });

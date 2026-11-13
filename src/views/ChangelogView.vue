@@ -9,8 +9,10 @@ import ChangeLogVersionNav from "@/components/changelog/ChangeLogVersionNav.vue"
 import blogData from "@/data/blog-posts.json";
 import changelogData from "@/data/changelog.json";
 import { useHashNavigation } from "@/composables/useHashNavigation";
+import { useScrollSpy } from "@/composables/useScrollSpy";
 import type { ChangeLogDocument, ChangeLogEntryType } from "@/types/changelog";
 import {
+  releaseCount,
   countByType,
   entryHtml,
   filterReleases,
@@ -88,18 +90,28 @@ function onToggle(major: number, event: Event) {
   else openMajors.delete(major);
 }
 
-const jumpMenu = ref<HTMLDetailsElement>();
 const navigateToHash = useHashNavigation();
+
+// Releases hidden by a filter or a collapsed group have no position and are skipped.
+const releaseIds = releases.map((release) => versionId(release.version));
+const activeReleaseId = useScrollSpy(releaseIds);
+const activeVersion = computed(
+  () => releases.find((release) => versionId(release.version) === activeReleaseId.value)?.version ?? null
+);
+
+const versionSidebar = ref<HTMLElement | null>(null);
+
+// Shows the release being read; each change, also per arrow key step, jumps to the choice.
+function onJump(event: Event) {
+  const version = (event.target as HTMLSelectElement).value;
+  if (version) navigateTo(version);
+}
 
 function navigateTo(version: string) {
   openMajors.add(majorOf(version));
-  if (jumpMenu.value) jumpMenu.value.open = false;
   navigateToHash(`#${versionId(version)}`).catch((error: unknown) => console.error(error));
 }
 
-function releaseCount(count: number): string {
-  return count === 1 ? "1 release" : `${count} releases`;
-}
 </script>
 
 <template>
@@ -113,8 +125,14 @@ function releaseCount(count: number): string {
       <div class="container">
         <div class="row">
           <aside class="col-lg-3 d-none d-lg-block">
-            <nav class="version-sidebar" aria-label="Versions">
-              <ChangeLogVersionNav :groups="groups" @navigate="navigateTo" />
+            <nav ref="versionSidebar" class="version-sidebar" aria-labelledby="versions-title">
+              <h2 id="versions-title" class="versions-title">Versions</h2>
+              <ChangeLogVersionNav
+                :groups="groups"
+                :active-version="activeVersion"
+                :scroll-container="versionSidebar"
+                @navigate="navigateTo"
+              />
             </nav>
           </aside>
 
@@ -126,12 +144,17 @@ function releaseCount(count: number): string {
               >. Releases are also in the <a href="/rss.xml">RSS feed</a>.
             </p>
 
-            <details ref="jumpMenu" class="jump-menu d-lg-none">
-              <summary>Jump to version</summary>
-              <nav aria-label="Versions">
-                <ChangeLogVersionNav :groups="groups" @navigate="navigateTo" />
-              </nav>
-            </details>
+            <div class="jump-menu d-lg-none">
+              <label for="jump-to-version">Jump to version</label>
+              <select id="jump-to-version" :value="activeVersion ?? ''" @change="onJump">
+                <option value="" disabled>Select a version</option>
+                <optgroup v-for="group in groups" :key="group.major" :label="`Kellnr ${group.major}`">
+                  <option v-for="release in group.releases" :key="release.version" :value="release.version">
+                    {{ release.version }}
+                  </option>
+                </optgroup>
+              </select>
+            </div>
 
             <ChangeLogTypeFilter
               class="type-filter"
@@ -193,11 +216,26 @@ function releaseCount(count: number): string {
 <style scoped>
 .version-sidebar {
   position: sticky;
-  /* Below the 64px sticky navigation bar. */
+  /* Below the 64px sticky navigation bar, aligned with the docs sidebar. */
   top: calc(64px + 1.5rem);
   max-height: calc(100vh - 64px - 3rem);
   overflow-y: auto;
-  padding-right: 0.5rem;
+  padding: 1rem;
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.versions-title {
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
 }
 
 .format-note {
@@ -207,21 +245,32 @@ function releaseCount(count: number): string {
 }
 
 .jump-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
   margin-bottom: 1rem;
-  border: 1px solid var(--color-border);
+}
+
+.jump-menu label {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.jump-menu select {
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-input);
   border-radius: 8px;
 }
 
-.jump-menu summary {
-  min-height: 44px;
-  padding: 0.625rem 1rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  cursor: pointer;
-}
-
-.jump-menu nav {
-  padding: 0 1rem 1rem;
+.jump-menu select:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 .type-filter {
@@ -257,7 +306,6 @@ function releaseCount(count: number): string {
 }
 
 .major-group summary:focus-visible,
-.jump-menu summary:focus-visible,
 .upgrade-post:focus-visible {
   outline: 3px solid var(--color-accent);
   outline-offset: 2px;

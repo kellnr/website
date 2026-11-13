@@ -1,6 +1,7 @@
-import { readonly, ref, type Ref } from "vue";
+import { computed, onScopeDispose, readonly, ref, type Ref } from "vue";
 
 export type Theme = "system" | "light" | "dark";
+export type ResolvedTheme = Exclude<Theme, "system">;
 
 /** Also read by the inline script in index.html, which applies the theme before the first paint. */
 export const THEME_STORAGE_KEY = "kellnr-theme";
@@ -47,15 +48,34 @@ export function applyTheme(theme: Theme): void {
   storeTheme(theme);
 }
 
-const current = ref<Theme>("system");
+// Shared by all components and read from storage once: with blocked storage a choice made in
+// this page view must survive the next component that asks for the theme.
+const current = ref<Theme>(readStoredTheme());
 
 export function useTheme(): { theme: Readonly<Ref<Theme>>; cycle: () => void } {
-  current.value = readStoredTheme();
-
   function cycle() {
     current.value = nextTheme(current.value);
     applyTheme(current.value);
   }
 
   return { theme: readonly(current), cycle };
+}
+
+export function resolveTheme(theme: Theme, systemDark: boolean): ResolvedTheme {
+  if (theme !== "system") return theme;
+  return systemDark ? "dark" : "light";
+}
+
+/** The theme the page shows: the toggle choice, or for "system" the color scheme of the OS. */
+export function useResolvedTheme(): Readonly<Ref<ResolvedTheme>> {
+  const { theme } = useTheme();
+  const media = window.matchMedia("(prefers-color-scheme: dark)");
+  const systemDark = ref(media.matches);
+  const onChange = (event: MediaQueryListEvent) => {
+    systemDark.value = event.matches;
+  };
+  media.addEventListener("change", onChange);
+  onScopeDispose(() => media.removeEventListener("change", onChange));
+
+  return computed(() => resolveTheme(theme.value, systemDark.value));
 }

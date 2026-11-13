@@ -34,6 +34,13 @@ function blogPostRoutes(): RouteRecordRaw[] {
   });
 }
 
+// A slow or blocked font must not delay the jump until the reader already scrolled.
+const FONT_WAIT_LIMIT_MS = 1000;
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to, from, savedPosition) {
@@ -45,9 +52,14 @@ const router = createRouter({
       return false;
     }
     if (to.hash) {
-      // On a page load the layout still shifts while a long smooth scroll runs, so it stops
-      // short of the target: jump there instead.
-      return hashPosition(to.hash, from === START_LOCATION ? "instant" : preferredScrollBehavior());
+      if (from !== START_LOCATION) {
+        return hashPosition(to.hash, preferredScrollBehavior());
+      }
+      // On a page load the web font still changes line heights above the target, so wait for
+      // it and jump instead of a smooth scroll that would stop short of the moving target.
+      return Promise.race([document.fonts.ready, delay(FONT_WAIT_LIMIT_MS)]).then(() =>
+        hashPosition(to.hash, "instant")
+      );
     }
     return { top: 0 };
   },

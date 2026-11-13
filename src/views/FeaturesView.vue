@@ -5,10 +5,12 @@ import SectionHeader from "@/components/SectionHeader.vue";
 import PageHeader from "@/components/PageHeader.vue";
 import { featureSections } from "@/data/features";
 import { useScrollSpy } from "@/composables/useScrollSpy";
+import { useResolvedTheme } from "@/composables/useTheme";
 import { revealInContainer } from "@/utils/scroll";
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 
 const breadcrumbs = [{ label: "Kellnr", to: "/" }, { label: "Features" }];
+const theme = useResolvedTheme();
 
 // Sections jump to 120px below the viewport top (their scroll-margin-top, below header and
 // section nav), so a section counts as current a bit before it reaches that line.
@@ -112,13 +114,13 @@ onBeforeUnmount(() => {
           </div>
           <div class="showcase-visual">
             <img
-              v-if="'src' in section.visual"
+              v-if="'sources' in section.visual"
               class="showcase-shot"
               :width="section.visual.width"
               :height="section.visual.height"
               loading="lazy"
               decoding="async"
-              :src="section.visual.src"
+              :src="section.visual.sources[theme]"
               :alt="section.visual.alt"
             />
             <div v-else class="visual-card">
@@ -148,7 +150,7 @@ onBeforeUnmount(() => {
               :height="section.image.height"
               loading="lazy"
               decoding="async"
-              :src="section.image.src"
+              :src="section.image.sources[theme]"
               :alt="section.image.alt"
             />
 

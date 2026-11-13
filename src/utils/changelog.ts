@@ -115,3 +115,7 @@ export function filterReleases(
     }))
     .filter((release) => release.entries.length > 0);
 }
+
+export function releaseCount(count: number): string {
+  return count === 1 ? "1 release" : `${count} releases`;
+}

@@ -2,6 +2,7 @@
 import CodeBlock from "@/components/elements/CodeBlock.vue";
 import FeatureCard from "@/components/FeatureCard.vue";
 import SectionHeader from "@/components/SectionHeader.vue";
+import { useResolvedTheme } from "@/composables/useTheme";
 import { KELLNR_IMAGE } from "@/data/release";
 
 // Each highlight links to its section on the features page.
@@ -44,15 +45,18 @@ const highlights = [
   },
 ];
 
-// Variants of public/images/kellnr/landing.png, generated once with ImageMagick, avifenc and cwebp.
+// Variants of public/images/kellnr/landing-{light,dark}.png, generated once with ImageMagick,
+// avifenc and cwebp.
 const heroWidths = [800, 1600, 2400];
 const mobileWidths = [800, 1600];
 // The hero column is at most 800px wide, minus the container padding on small screens.
 const heroSizes = "(min-width: 830px) 800px, calc(100vw - 30px)";
 const mobileSizes = "calc(100vw - 30px)";
 
+const theme = useResolvedTheme();
+
 function srcset(name: string, widths: number[], format: "avif" | "webp"): string {
-  return widths.map((w) => `/images/kellnr/${name}-${w}.${format} ${w}w`).join(", ");
+  return widths.map((w) => `/images/kellnr/${name}-${theme.value}-${w}.${format} ${w}w`).join(", ");
 }
 </script>
 
@@ -99,7 +103,7 @@ function srcset(name: string, widths: number[], format: "avif" | "webp"): string
               <source type="image/avif" :srcset="srcset('landing', heroWidths, 'avif')" :sizes="heroSizes" />
               <source type="image/webp" :srcset="srcset('landing', heroWidths, 'webp')" :sizes="heroSizes" />
               <img
-                src="/images/kellnr/landing.png"
+                :src="`/images/kellnr/landing-${theme}.png`"
                 width="3534"
                 height="2314"
                 fetchpriority="high"

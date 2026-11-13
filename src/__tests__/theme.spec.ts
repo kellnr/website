@@ -1,6 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { mount } from "@vue/test-utils";
-import ThemeToggle from "@/components/ThemeToggle.vue";
 import { THEME_STORAGE_KEY, applyTheme, nextTheme, readStoredTheme } from "@/composables/useTheme";
 
 describe("theme", () => {
@@ -47,6 +46,9 @@ describe("theme", () => {
   });
 
   it("toggle button names the current theme and switches to the next one", async () => {
+    // The theme state is read once per module load, so the toggle gets a fresh one.
+    vi.resetModules();
+    const { default: ThemeToggle } = await import("@/components/ThemeToggle.vue");
     const wrapper = mount(ThemeToggle);
     const button = wrapper.get("button");
     expect(button.attributes("aria-label")).toBe("Color theme: system. Switch to light");
@@ -54,5 +56,27 @@ describe("theme", () => {
     await button.trigger("click");
     expect(document.documentElement.dataset.theme).toBe("light");
     expect(button.attributes("aria-label")).toBe("Color theme: light. Switch to dark");
+  });
+});
+
+describe("theme state with blocked storage", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.resetModules();
+  });
+
+  it("keeps the chosen theme when another component reads it later", async () => {
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+      throw new Error("blocked");
+    });
+    vi.resetModules();
+    const { useTheme } = await import("@/composables/useTheme");
+
+    const toggle = useTheme();
+    toggle.cycle();
+    toggle.cycle();
+    expect(toggle.theme.value).toBe("dark");
+
+    expect(useTheme().theme.value).toBe("dark");
   });
 });

@@ -10,6 +10,12 @@ const shortFormat = new Intl.DateTimeFormat("en-US", {
   timeZone: "UTC",
 });
 
+const monthYearFormat = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
 function parse(iso: string): Date {
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) {
@@ -26,4 +32,9 @@ export function formatDate(iso: string): string {
 /** "2026-11-13" -> "Nov 13" */
 export function formatShortDate(iso: string): string {
   return shortFormat.format(parse(iso));
+}
+
+/** "2026-11-13" -> "Nov 2026" */
+export function formatMonthYear(iso: string): string {
+  return monthYearFormat.format(parse(iso));
 }

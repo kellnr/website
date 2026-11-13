@@ -33,8 +33,13 @@ export function activeSectionId(
   return active;
 }
 
+// Hidden sections, e.g. inside a closed <details>, have no box and are skipped.
 function viewportTopOf(id: string): number | null {
-  return document.getElementById(id)?.getBoundingClientRect().top ?? null;
+  const element = document.getElementById(id);
+  if (!element || element.getClientRects().length === 0) {
+    return null;
+  }
+  return element.getBoundingClientRect().top;
 }
 
 function isAtPageBottom(): boolean {

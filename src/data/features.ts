@@ -1,7 +1,9 @@
 // Content of the features page. Text in backticks is rendered as inline code.
 
+import type { ResolvedTheme } from "@/composables/useTheme";
+
 export interface Screenshot {
-  src: string;
+  sources: Record<ResolvedTheme, string>;
   alt: string;
   width: number;
   height: number;
@@ -42,7 +44,10 @@ export interface DeploymentSection extends SectionBase {
 export type FeatureSection = CardsSection | ShowcaseSection | DeploymentSection;
 
 const screenshot = (name: string, alt: string): Screenshot => ({
-  src: `/images/kellnr/${name}.png`,
+  sources: {
+    light: `/images/kellnr/${name}-light.png`,
+    dark: `/images/kellnr/${name}-dark.png`,
+  },
   alt,
   width: 3534,
   height: 2314,
@@ -55,7 +60,7 @@ export const featureSections: FeatureSection[] = [
     navLabel: "Registry",
     title: "Private Crate Registry",
     subtitle: "The essential features you expect from a Rust crate registry.",
-    image: screenshot("search-light", "Searching crates in the Kellnr web UI"),
+    image: screenshot("search", "Searching crates in the Kellnr web UI"),
     cards: [
       {
         icon: "mdi-package-variant-closed",
@@ -95,7 +100,7 @@ export const featureSections: FeatureSection[] = [
     navLabel: "Access Control",
     title: "Authentication & Access Control",
     subtitle: "Fine-grained control over who can access and publish crates.",
-    image: screenshot("users-light", "User management in Kellnr"),
+    image: screenshot("users", "User management in Kellnr"),
     cards: [
       {
         icon: "mdi-account-group",
@@ -151,7 +156,7 @@ export const featureSections: FeatureSection[] = [
     navLabel: "Rustdoc",
     title: "Rustdoc Hosting",
     subtitle: "Automatically generate and serve documentation for your crates.",
-    image: screenshot("rustdoc-light", "Rustdocs served by Kellnr"),
+    image: screenshot("rustdoc", "Rustdocs served by Kellnr"),
     cards: [
       {
         icon: "mdi-file-document-multiple",
@@ -185,7 +190,7 @@ export const featureSections: FeatureSection[] = [
       "Works offline once crates are cached",
     ],
     link: { label: "Configure the proxy", to: "/documentation#cratesio-proxy" },
-    visual: screenshot("cratesio-proxy-light", "Cached crates.io crates in Kellnr"),
+    visual: screenshot("cratesio-proxy", "Cached crates.io crates in Kellnr"),
   },
   {
     kind: "showcase",
@@ -280,7 +285,7 @@ export const featureSections: FeatureSection[] = [
     navLabel: "Web UI",
     title: "Modern Web Interface",
     subtitle: "A clean, responsive web UI for managing your registry.",
-    image: screenshot("dependencies-dark", "Crate dependencies in the Kellnr web UI in dark mode"),
+    image: screenshot("dependencies", "Crate dependencies in the Kellnr web UI"),
     cards: [
       {
         icon: "mdi-theme-light-dark",

@@ -121,7 +121,7 @@ test.describe("landing page", () => {
     const img = page.locator(".hero-image picture img");
     await expect
       .poll(() => img.evaluate((el: HTMLImageElement) => el.currentSrc))
-      .toMatch(/landing-mobile-\d+\.(avif|webp)$/);
+      .toMatch(/landing-mobile-(light|dark)-\d+\.(avif|webp)$/);
   });
 });
 

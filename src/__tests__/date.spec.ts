@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatDate, formatShortDate } from "@/utils/date";
+import { formatDate, formatMonthYear, formatShortDate } from "@/utils/date";
 
 describe("formatDate", () => {
   it("formats an ISO date as a long US date", () => {
@@ -26,5 +26,15 @@ describe("formatShortDate", () => {
 
   it("rejects an invalid date with the offending value", () => {
     expect(() => formatShortDate("")).toThrow('Invalid date: ""');
+  });
+});
+
+describe("formatMonthYear", () => {
+  it("shows the abbreviated month and the year", () => {
+    expect(formatMonthYear("2026-11-13")).toBe("Nov 2026");
+  });
+
+  it("uses UTC, so the first of a month stays in that month", () => {
+    expect(formatMonthYear("2021-04-01")).toBe("Apr 2021");
   });
 });

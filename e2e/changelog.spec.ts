@@ -25,13 +25,75 @@ test("a deep link opens the version group and scrolls to the release", async ({ 
   await expect(page.locator("details.major-group", { has: heading })).toHaveAttribute("open", "");
 });
 
+test("the version sidebar lists the newest major and collapses older ones", async ({ page }) => {
+  await page.goto("/changelog");
+  const sidebar = page.getByRole("navigation", { name: "Versions" });
+  const newest = sidebar.getByRole("button", { name: /^Kellnr 7\b/ });
+  const older = sidebar.getByRole("button", { name: /^Kellnr 6\b/ });
+
+  await expect(newest).toHaveAttribute("aria-expanded", "true");
+  await expect(older).toHaveAttribute("aria-expanded", "false");
+  await expect(sidebar.getByRole("link", { name: /^6\.0\.0\b/ })).toBeHidden();
+
+  await older.click();
+  await expect(older).toHaveAttribute("aria-expanded", "true");
+  await expect(sidebar.getByRole("link", { name: /^6\.0\.0\b/ })).toBeVisible();
+});
+
 test("the version navigation opens the group of an older release", async ({ page }) => {
   await page.goto("/changelog");
+  const sidebar = page.getByRole("navigation", { name: "Versions" });
 
-  await page.locator(".version-sidebar").getByRole("link", { name: "6.0.0", exact: true }).click();
+  await sidebar.getByRole("button", { name: /^Kellnr 6\b/ }).click();
+  await sidebar.getByRole("link", { name: /^6\.0\.0\b/ }).click();
 
   await expect(page).toHaveURL(new RegExp(`#${OLD_VERSION_ID}$`));
   await expect(page.locator(`h2#${OLD_VERSION_ID}`)).toBeInViewport();
+  await expect(sidebar.locator('a[aria-current="location"]')).toHaveText(/^6\.0\.0/);
+});
+
+test("the sidebar marks the release currently read", async ({ page }) => {
+  await page.goto(`/changelog#${OLD_VERSION_ID}`);
+  const sidebar = page.getByRole("navigation", { name: "Versions" });
+
+  await expect(sidebar.locator('a[aria-current="location"]')).toHaveCount(1);
+  await expect(sidebar.locator('a[aria-current="location"]')).toHaveText(/^6\.0\.0/);
+  await expect(sidebar.getByRole("button", { name: /^Kellnr 6\b/ })).toHaveAttribute(
+    "aria-expanded",
+    "true"
+  );
+  await expect(sidebar.locator('a[aria-current="location"]')).toBeInViewport();
+});
+
+test("the sidebar opens only the group being read", async ({ page }) => {
+  await page.goto(`/changelog#${OLD_VERSION_ID}`);
+  const sidebar = page.getByRole("navigation", { name: "Versions" });
+
+  await expect(sidebar.getByRole("button", { name: /^Kellnr 6\b/ })).toHaveAttribute(
+    "aria-expanded",
+    "true"
+  );
+  await expect(sidebar.getByRole("button", { name: /^Kellnr 7\b/ })).toHaveAttribute(
+    "aria-expanded",
+    "false"
+  );
+});
+
+test("on phones a select jumps to a version", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/changelog");
+
+  const select = page.getByLabel("Jump to version");
+  await expect(select).toBeVisible();
+  await expect(select.locator("optgroup")).toHaveCount(
+    new Set(changelogData.releases.map((r) => r.version.split(".")[0])).size
+  );
+  await select.selectOption("6.0.0");
+
+  await expect(page).toHaveURL(new RegExp(`#${OLD_VERSION_ID}$`));
+  await expect(page.locator(`h2#${OLD_VERSION_ID}`)).toBeInViewport();
+  // The select shows the release being read instead of resetting to its placeholder.
+  await expect(select).toHaveValue("6.0.0");
 });
 
 test("the type filter shows only matching entries", async ({ page }) => {
