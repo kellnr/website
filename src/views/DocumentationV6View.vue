@@ -27,6 +27,7 @@ const toc: TocItem[] = [
       { label: "Install Script", hash: "#install-script" },
       { label: "Package Managers", hash: "#package-managers" },
       { label: "Build from Source", hash: "#build-from-source" },
+      { label: "Verify Releases", hash: "#verify-releases" },
     ],
   },
   { label: "Uninstall", hash: "#uninstall" },
@@ -170,6 +171,8 @@ const mobileNavOpen = ref(false);
                 images</a> page. There is a minimal image, which does not support building <i>rustdocs</i> with
               <i>kellnr</i>. However, uploading pre-built <i>rustdocs</i> is still possible. You find the minimal images
               here: <a href="https://github.com/kellnr/kellnr/pkgs/container/kellnr-minimal">Kellnr minimal images</a>.
+              To check where an image comes from and what it contains, see
+              <router-link to="#verify-releases">Verify Releases</router-link>.
             </TextBlock>
 
             <CodeBlock lang="bash">
@@ -519,6 +522,59 @@ const mobileNavOpen = ref(false);
               cargo install kellnr --features vendored-openssl
               # Start kellnr (if not in PATH, the binary is located in $HOME/.cargo/bin/)
               kellnr start -d /path/to/data/dir
+            </CodeBlock>
+
+            <SubHeader id="verify-releases">Verify Releases</SubHeader>
+            <TextBlock>
+              Starting with Kellnr 7.2.0, the release workflow signs the Docker images and the Linux binaries with
+              <a href="https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations">GitHub
+                artifact attestations</a>. The attestations prove that an image or binary was built by the release
+              workflow of <i>kellnr/kellnr</i> from the tagged commit
+              (<a href="https://slsa.dev/spec/v1.0/provenance">SLSA build provenance</a>). Verify them with the
+              <a href="https://cli.github.com/">GitHub CLI</a>.
+            </TextBlock>
+
+            <MinorHeader id="verify-docker">Docker Images</MinorHeader>
+            <TextBlock>
+              Both images, <i>kellnr</i> and <i>kellnr-minimal</i>, carry a signed build provenance and a signed
+              CycloneDX SBOM of the Kellnr binary in the image. The SBOM lists the crates and npm packages compiled
+              into Kellnr.
+            </TextBlock>
+            <CodeBlock lang="bash">
+              # Verify that the image was built by the Kellnr release workflow
+              gh attestation verify oci://ghcr.io/kellnr/kellnr:7.2.0 --repo kellnr/kellnr
+
+              # Verify the SBOM attestation and save the SBOM
+              gh attestation verify oci://ghcr.io/kellnr/kellnr:7.2.0 --repo kellnr/kellnr \
+                --predicate-type https://cyclonedx.org/bom \
+                --format json --jq '.[0].verificationResult.statement.predicate' > kellnr-binary.cdx.json
+            </CodeBlock>
+            <TextBlock>
+              In addition, each image contains the unsigned attestations of Docker BuildKit: an SPDX SBOM of the
+              operating system packages and a build provenance that lists the base images and the release archive of
+              Kellnr with their digests.
+            </TextBlock>
+            <CodeBlock lang="bash"><span v-pre>
+              # SBOM of the operating system packages
+              docker buildx imagetools inspect ghcr.io/kellnr/kellnr:7.2.0 --format '{{ json .SBOM }}'
+
+              # BuildKit build provenance
+              docker buildx imagetools inspect ghcr.io/kellnr/kellnr:7.2.0 --format '{{ json .Provenance }}'
+            </span></CodeBlock>
+
+            <MinorHeader id="verify-binaries">Binaries and SBOMs</MinorHeader>
+            <TextBlock>
+              The Linux archives of a release are attested as well. Each release also contains two CycloneDX SBOMs:
+              <ul>
+                <li><code>kellnr-binary-&lt;version&gt;.cdx.json</code>: the crates and npm packages compiled into the
+                  Linux binaries. This is the SBOM that is attached to the Docker images.</li>
+                <li><code>kellnr-&lt;version&gt;.cdx.json</code>: everything in the repository, including test and
+                  development dependencies.</li>
+              </ul>
+            </TextBlock>
+            <CodeBlock lang="bash">
+              # Verify a downloaded Linux archive
+              gh attestation verify kellnr-x86_64-unknown-linux-gnu.zip --repo kellnr/kellnr
             </CodeBlock>
 
             <MainHeader id="uninstall" icon="delete">Uninstall</MainHeader>
