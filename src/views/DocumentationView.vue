@@ -1176,8 +1176,8 @@ const activeHash = computed(() => (activeId.value ? `#${activeId.value}` : null)
               <ul>
                 <li><i>crate_add</i></li>
                 <li><i>crate_update</i></li>
-                <li><i>crate_yank</i></li>
-                <li><i>crate_unyank</i></li>
+                <li><i>crate_yank</i>: a version was yanked, through cargo or the web UI</li>
+                <li><i>crate_unyank</i>: a version was unyanked, through cargo or the web UI</li>
               </ul>
               The payload contains the lowercase crate name as <i>crate_name</i> and the name the crate was
               published with as <i>original_name</i>.<br /><br />
@@ -1714,7 +1714,11 @@ const activeHash = computed(() => (activeId.value ? `#${activeId.value}` : null)
                   <i>1.0.0+b</i> if <i>1.0.0+a</i> exists.</li>
               </ul>
               Versions that already exist are not affected by these rules. Read-only users cannot publish, yank or
-              unyank crates and get 403.
+              unyank crates and get 403.<br />
+              <br />
+              Crate owners and admins can also yank and unyank a version in the web UI, in the <i>Versions</i> tab of
+              the crate page. It works like <code>cargo yank</code>: read-only owners cannot do it, and the
+              <i>crate_yank</i> and <i>crate_unyank</i> webhooks are sent either way.
             </TextBlock>
 
             <CalloutBlock variant="warn">
