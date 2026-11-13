@@ -526,8 +526,8 @@ const mobileNavOpen = ref(false);
 
             <SubHeader id="verify-releases">Verify Releases</SubHeader>
             <TextBlock>
-              Starting with Kellnr 7.2.0, the release workflow signs the Docker images and the Linux binaries with
-              <a href="https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations">GitHub
+              Starting with Kellnr 7.2.0, the release workflow signs the Docker images and the release archives of all
+              platforms with <a href="https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations">GitHub
                 artifact attestations</a>. The attestations prove that an image or binary was built by the release
               workflow of <i>kellnr/kellnr</i> from the tagged commit
               (<a href="https://slsa.dev/spec/v1.0/provenance">SLSA build provenance</a>). Verify them with the
@@ -547,7 +547,7 @@ const mobileNavOpen = ref(false);
               # Verify the SBOM attestation and save the SBOM
               gh attestation verify oci://ghcr.io/kellnr/kellnr:7.2.0 --repo kellnr/kellnr \
                 --predicate-type https://cyclonedx.org/bom \
-                --format json --jq '.[0].verificationResult.statement.predicate' > kellnr-binary.cdx.json
+                --format json --jq '.[0].verificationResult.statement.predicate' > kellnr-binary-linux.cdx.json
             </CodeBlock>
             <TextBlock>
               In addition, each image contains the unsigned attestations of Docker BuildKit: an SPDX SBOM of the
@@ -564,17 +564,27 @@ const mobileNavOpen = ref(false);
 
             <MinorHeader id="verify-binaries">Binaries and SBOMs</MinorHeader>
             <TextBlock>
-              The Linux archives of a release are attested as well. Each release also contains two CycloneDX SBOMs:
+              The release archives for Linux, Windows and macOS are attested as well, each with a build provenance
+              and the SBOM of its platform. Each release contains these CycloneDX SBOMs:
               <ul>
-                <li><code>kellnr-binary-&lt;version&gt;.cdx.json</code>: the crates and npm packages compiled into the
-                  Linux binaries. This is the SBOM that is attached to the Docker images.</li>
+                <li><code>kellnr-binary-linux-&lt;version&gt;.cdx.json</code>,
+                  <code>kellnr-binary-windows-&lt;version&gt;.cdx.json</code> and
+                  <code>kellnr-binary-macos-&lt;version&gt;.cdx.json</code>: the crates and npm packages compiled into
+                  the binaries of the platform. The Linux SBOM is the one attached to the Docker images.</li>
                 <li><code>kellnr-&lt;version&gt;.cdx.json</code>: everything in the repository, including test and
                   development dependencies.</li>
               </ul>
             </TextBlock>
             <CodeBlock lang="bash">
-              # Verify a downloaded Linux archive
+              # Verify a downloaded archive, the command is the same for every platform
               gh attestation verify kellnr-x86_64-unknown-linux-gnu.zip --repo kellnr/kellnr
+              gh attestation verify kellnr-x86_64-windows.zip --repo kellnr/kellnr
+              gh attestation verify kellnr-aarch64-apple-darwin.zip --repo kellnr/kellnr
+
+              # Verify the SBOM attestation of an archive and save the SBOM
+              gh attestation verify kellnr-x86_64-windows.zip --repo kellnr/kellnr \
+                --predicate-type https://cyclonedx.org/bom \
+                --format json --jq '.[0].verificationResult.statement.predicate' > kellnr-binary-windows.cdx.json
             </CodeBlock>
 
             <MainHeader id="uninstall" icon="delete">Uninstall</MainHeader>
