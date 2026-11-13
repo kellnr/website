@@ -3,6 +3,7 @@ import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import PageHeader from "@/components/PageHeader.vue";
 import blogData from "../data/blog-posts.json";
+import { formatDate, formatShortDate } from "@/utils/date";
 
 type Category = "kellnr" | "rust";
 
@@ -54,7 +55,7 @@ const featured = computed(() => filtered.value[0]);
 const byYear = computed(() => {
   const groups: { year: number; posts: BlogPost[] }[] = [];
   for (const post of filtered.value.slice(1)) {
-    const year = new Date(post.published).getFullYear();
+    const year = new Date(post.published).getUTCFullYear();
     const last = groups[groups.length - 1];
     if (last?.year === year) {
       last.posts.push(post);
@@ -64,18 +65,6 @@ const byYear = computed(() => {
   }
   return groups;
 });
-
-function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
-
-function formatShortDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString("en-US", { month: "short", day: "numeric" });
-}
 </script>
 
 <template>
@@ -174,23 +163,23 @@ function formatShortDate(dateStr: string): string {
   padding: 0.5rem 1rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #334155;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 999px;
   cursor: pointer;
   transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
 }
 
 .topic:hover {
-  color: #2f55d4;
-  border-color: #2f55d4;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .topic[aria-pressed="true"] {
-  color: #ffffff;
-  background: #2f55d4;
-  border-color: #2f55d4;
+  color: var(--color-accent-contrast);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .topic-count {
@@ -198,14 +187,14 @@ function formatShortDate(dateStr: string): string {
   padding: 0 0.375rem;
   font-size: 0.8rem;
   text-align: center;
-  color: #475569;
-  background: #f1f5f9;
+  color: var(--color-text-muted);
+  background: var(--color-surface-raised);
   border-radius: 999px;
 }
 
 .topic[aria-pressed="true"] .topic-count {
-  color: #2f55d4;
-  background: #ffffff;
+  color: var(--color-accent);
+  background: var(--color-surface);
 }
 
 .rss {
@@ -218,7 +207,7 @@ function formatShortDate(dateStr: string): string {
 
 .rss i {
   font-size: 1.25rem;
-  color: #ea580c;
+  color: var(--color-warning);
 }
 
 /* Shared labels */
@@ -228,14 +217,14 @@ function formatShortDate(dateStr: string): string {
   align-items: center;
   gap: 0.5rem 0.75rem;
   font-size: 0.875rem;
-  color: #475569;
+  color: var(--color-text-muted);
 }
 
 .label {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #2f55d4;
+  color: var(--color-accent);
 }
 
 .category {
@@ -244,8 +233,8 @@ function formatShortDate(dateStr: string): string {
   font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;
-  color: #475569;
-  background: #f1f5f9;
+  color: var(--color-text-muted);
+  background: var(--color-surface-raised);
   border-radius: 4px;
 }
 
@@ -254,15 +243,15 @@ function formatShortDate(dateStr: string): string {
   display: block;
   padding: 2rem;
   margin-bottom: 3rem;
-  background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
-  border: 1px solid #bfdbfe;
+  background: linear-gradient(135deg, var(--color-accent-soft) 0%, var(--color-surface-muted) 100%);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
   border-radius: 16px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .featured:hover {
-  border-color: #2f55d4;
-  box-shadow: 0 12px 28px rgba(47, 85, 212, 0.12);
+  border-color: var(--color-accent);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--color-accent) 12%, transparent);
 }
 
 .featured-title {
@@ -270,14 +259,14 @@ function formatShortDate(dateStr: string): string {
   font-size: 1.75rem;
   font-weight: 700;
   line-height: 1.3;
-  color: #0f172a;
+  color: var(--color-text);
 }
 
 .featured-summary {
   margin: 0 0 1.25rem;
   font-size: 1.05rem;
   line-height: 1.7;
-  color: #334155;
+  color: var(--color-text-muted);
 }
 
 .read-more {
@@ -285,7 +274,7 @@ function formatShortDate(dateStr: string): string {
   align-items: center;
   gap: 0.375rem;
   font-weight: 600;
-  color: #2f55d4;
+  color: var(--color-accent);
 }
 
 .featured:hover .read-more {
@@ -302,8 +291,8 @@ function formatShortDate(dateStr: string): string {
   padding-bottom: 0.5rem;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #0f172a;
-  border-bottom: 1px solid #e2e8f0;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .post-list {
@@ -321,9 +310,8 @@ function formatShortDate(dateStr: string): string {
   border-radius: 8px;
   transition: background-color 0.2s ease;
 }
-
 .post:hover {
-  background: #f8fafc;
+  background: var(--color-surface-muted);
 }
 
 .post-date {
@@ -331,7 +319,7 @@ function formatShortDate(dateStr: string): string {
   font-size: 0.875rem;
   font-weight: 600;
   white-space: nowrap;
-  color: #64748b;
+  color: var(--color-text-subtle);
 }
 
 .post-body {
@@ -345,16 +333,16 @@ function formatShortDate(dateStr: string): string {
   font-size: 1.15rem;
   font-weight: 700;
   line-height: 1.4;
-  color: #0f172a;
+  color: var(--color-text);
 }
 
 .post:hover .post-title {
-  color: #2f55d4;
+  color: var(--color-accent);
 }
 
 .post-summary {
   line-height: 1.6;
-  color: #475569;
+  color: var(--color-text-muted);
 }
 
 /* Keyboard focus */
@@ -362,7 +350,7 @@ function formatShortDate(dateStr: string): string {
 .rss:focus-visible,
 .featured:focus-visible,
 .post:focus-visible {
-  outline: 3px solid rgba(47, 85, 212, 0.5);
+  outline: 3px solid var(--color-accent);
   outline-offset: 2px;
 }
 

@@ -173,7 +173,7 @@
       "title": "Improve Rust compile times with sccache",
       "url": "https://kellnr.io/blog/compile-times-sccache",
       "component": "ImproveRustCompileTimes",
-      "published": "2021-04-21T12:00:00+00:00",
+      "published": "2021-04-15T12:00:00+00:00",
       "category": "rust",
       "summaryHtml": "Improve build times by utilizing sccache and S3 to cache compilation results over multiple builds in your Rust CI/CD pipeline."
     }

@@ -17,6 +17,15 @@
     <meta property="og:image" content="https://kellnr.io/images/kellnr/search-light.png" />
 
     <title>&lt;'kellnr&gt;</title>
+    <script>
+      // Applies a stored theme before the first paint; must use THEME_STORAGE_KEY from src/composables/useTheme.ts.
+      try {
+        const theme = localStorage.getItem("kellnr-theme");
+        if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+      } catch {
+        // Storage is blocked (private window, site data disabled): keep following the OS.
+      }
+    </script>
     <link rel="stylesheet" crossorigin="anonymous" href="https://unicons.iconscout.com/release/v3.0.3/css/line.css">
   </head>
   <body>

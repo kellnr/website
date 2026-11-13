@@ -2,6 +2,7 @@
 import CodeBlock from "@/components/elements/CodeBlock.vue";
 import FeatureCard from "@/components/FeatureCard.vue";
 import SectionHeader from "@/components/SectionHeader.vue";
+import { KELLNR_IMAGE } from "@/data/release";
 
 // Each highlight links to its section on the features page.
 const highlights = [
@@ -42,6 +43,17 @@ const highlights = [
     text: "Store crates locally, on S3, GCS or MinIO, with SQLite or PostgreSQL.",
   },
 ];
+
+// Variants of public/images/kellnr/landing.png, generated once with ImageMagick, avifenc and cwebp.
+const heroWidths = [800, 1600, 2400];
+const mobileWidths = [800, 1600];
+// The hero column is at most 800px wide, minus the container padding on small screens.
+const heroSizes = "(min-width: 830px) 800px, calc(100vw - 30px)";
+const mobileSizes = "calc(100vw - 30px)";
+
+function srcset(name: string, widths: number[], format: "avif" | "webp"): string {
+  return widths.map((w) => `/images/kellnr/${name}-${w}.${format} ${w}w`).join(", ");
+}
 </script>
 
 <template>
@@ -56,8 +68,8 @@ const highlights = [
             Full control. Complete privacy. Zero dependencies on external services.
           </p>
           <div class="hero-actions">
-            <router-link to="documentation#installation" class="btn-primary">
-              Get Started
+            <router-link to="/documentation#installation" class="btn-primary">
+              Get started
               <i class="mdi mdi-arrow-right"></i>
             </router-link>
             <a href="https://github.com/kellnr/kellnr" class="btn-secondary" target="_blank" rel="noopener">
@@ -66,7 +78,34 @@ const highlights = [
             </a>
           </div>
           <div class="hero-image">
-            <img src="/images/kellnr/landing.png" width="3534" height="2314" alt="A crate page in the Kellnr web UI" />
+            <!-- Phones get a crop of the crate header and install box, the full page is unreadable there. -->
+            <picture>
+              <source
+                media="(max-width: 575.98px)"
+                type="image/avif"
+                :srcset="srcset('landing-mobile', mobileWidths, 'avif')"
+                :sizes="mobileSizes"
+                width="2400"
+                height="1500"
+              />
+              <source
+                media="(max-width: 575.98px)"
+                type="image/webp"
+                :srcset="srcset('landing-mobile', mobileWidths, 'webp')"
+                :sizes="mobileSizes"
+                width="2400"
+                height="1500"
+              />
+              <source type="image/avif" :srcset="srcset('landing', heroWidths, 'avif')" :sizes="heroSizes" />
+              <source type="image/webp" :srcset="srcset('landing', heroWidths, 'webp')" :sizes="heroSizes" />
+              <img
+                src="/images/kellnr/landing.png"
+                width="3534"
+                height="2314"
+                fetchpriority="high"
+                alt="A crate page in the Kellnr web UI"
+              />
+            </picture>
           </div>
         </div>
       </div>
@@ -135,7 +174,7 @@ const highlights = [
             <CodeBlock lang="bash">
               docker run --rm -it -p 8000:8000 \
                 -e "KELLNR_SETUP__ADMIN_TOKEN=my-admin-token" \
-                ghcr.io/kellnr/kellnr:6
+                {{ KELLNR_IMAGE }}
             </CodeBlock>
           </li>
           <li>
@@ -169,8 +208,8 @@ const highlights = [
         <div class="cta-content">
           <h2>Ready to host your private crates?</h2>
           <p>Get started with Kellnr in minutes. Free and open source.</p>
-          <router-link to="documentation#installation" class="btn-primary btn-large">
-            Get Started Now
+          <router-link to="/documentation#installation" class="btn-primary btn-large">
+            Get started
             <i class="mdi mdi-arrow-right"></i>
           </router-link>
           <p class="cta-sponsor">
@@ -193,7 +232,7 @@ const highlights = [
 /* Hero Section */
 .hero-section {
   padding: 3.5rem 0 4rem;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: var(--gradient-page-header);
 }
 
 .hero-content {
@@ -205,14 +244,14 @@ const highlights = [
 .hero-title {
   font-size: 3rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text);
   margin: 0 0 1.5rem;
   line-height: 1.2;
 }
 
 .hero-subtitle {
   font-size: 1.25rem;
-  color: #475569;
+  color: var(--color-text-muted);
   margin: 0 0 2rem;
   line-height: 1.7;
 }
@@ -230,20 +269,20 @@ const highlights = [
   align-items: center;
   gap: 0.5rem;
   padding: 0.875rem 1.75rem;
-  background: #2f55d4;
-  color: #ffffff;
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
   font-weight: 600;
   font-size: 1rem;
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(47, 85, 212, 0.3);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-accent) 30%, transparent);
 }
 
 .btn-primary:hover {
-  background: #2348c0;
+  background: var(--color-accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(47, 85, 212, 0.4);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--color-accent) 40%, transparent);
 }
 
 .btn-primary.btn-large {
@@ -256,19 +295,19 @@ const highlights = [
   align-items: center;
   gap: 0.5rem;
   padding: 0.875rem 1.75rem;
-  background: #ffffff;
-  color: #1e293b;
+  background: var(--color-surface);
+  color: var(--color-text);
   font-weight: 600;
   font-size: 1rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
 .btn-secondary:hover {
-  background: #f8fafc;
-  border-color: #cbd5e1;
+  background: var(--color-surface-muted);
+  border-color: var(--color-border-strong);
 }
 
 .hero-image {
@@ -276,18 +315,22 @@ const highlights = [
   margin: 0 auto;
 }
 
+.hero-image picture {
+  display: block;
+}
+
 .hero-image img {
   width: 100%;
   height: auto;
   border-radius: 12px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-  border: 1px solid #e2e8f0;
+  box-shadow: 0 25px 50px -12px var(--color-shadow);
+  border: 1px solid var(--color-border-strong);
 }
 
 /* Deployment Section */
 .deployment-section {
   padding: 3rem 0;
-  background: #ffffff;
+  background: var(--color-surface);
 }
 
 .deployment-badges {
@@ -301,20 +344,20 @@ const highlights = [
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: #64748b;
+  color: var(--color-text-subtle);
   font-size: 1rem;
   font-weight: 500;
 }
 
 .badge-item i {
   font-size: 1.5rem;
-  color: #2f55d4;
+  color: var(--color-accent);
 }
 
 /* Features Section */
 .features-section {
   padding: 5rem 0;
-  background: #f8fafc;
+  background: var(--color-surface-muted);
 }
 
 .features-grid {
@@ -335,7 +378,7 @@ const highlights = [
   align-items: center;
   gap: 0.5rem;
   font-weight: 600;
-  color: #2f55d4;
+  color: var(--color-accent);
   transition: gap 0.2s ease;
 }
 
@@ -346,7 +389,7 @@ const highlights = [
 /* Quickstart Section */
 .quickstart-section {
   padding: 5rem 0;
-  background: #ffffff;
+  background: var(--color-surface);
 }
 
 .quickstart-steps {
@@ -367,12 +410,12 @@ const highlights = [
   margin: 0;
   font-size: 1.15rem;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--color-text);
 }
 
 .quickstart-steps h3 code {
   font-size: 0.95rem;
-  color: #0f172a;
+  color: var(--color-text);
 }
 
 .step-number {
@@ -383,16 +426,16 @@ const highlights = [
   height: 28px;
   font-size: 0.875rem;
   font-weight: 700;
-  color: #ffffff;
-  background: #2f55d4;
+  color: var(--color-accent-contrast);
+  background: var(--color-accent);
   border-radius: 50%;
 }
 
 /* CTA Section */
 .cta-section {
   padding: 5rem 0;
-  background: #f8fafc;
-  border-top: 1px solid #e2e8f0;
+  background: var(--color-surface-muted);
+  border-top: 1px solid var(--color-border);
 }
 
 .cta-content {
@@ -404,13 +447,13 @@ const highlights = [
 .cta-content h2 {
   font-size: 2rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text);
   margin: 0 0 1rem;
 }
 
 .cta-content p {
   font-size: 1.1rem;
-  color: #64748b;
+  color: var(--color-text-subtle);
   margin: 0 0 2rem;
 }
 
@@ -420,11 +463,13 @@ const highlights = [
 }
 
 .cta-sponsor i {
-  color: #db2777;
+  color: var(--color-sponsor);
 }
 
 .cta-sponsor a {
   font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 /* Responsive */

@@ -7,7 +7,7 @@ import ImageBlock from "@/components/elements/ImageBlock.vue";
 </script>
 
 <template>
-    <BlogPostTemplate title="WebAssembly Compiler - Building a Compiler" date="05. June, 2021">
+    <BlogPostTemplate title="WebAssembly Compiler - Building a Compiler">
         <TextBlock>
             This post is one of a series of four. If you have not read the previous blog post, we strongly recommend you
             do so. The posts build on each other, as such, reading them in the right order is important.
@@ -756,5 +756,3 @@ warning: using `--invoke` with a function that returns values is experimental an
         </TextBlock>
     </BlogPostTemplate>
 </template>
-
-<style scoped></style>

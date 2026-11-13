@@ -8,7 +8,7 @@ import VueFeather from "vue-feather";
 import "./assets/css/materialdesignicons.min.css";
 import "./assets/css/bootstrap.min.css";
 import "./assets/css/base.css";
-import "highlight.js/styles/github.css";
+import "./assets/css/theme-overrides.css";
 
 const app = createApp(App);
 

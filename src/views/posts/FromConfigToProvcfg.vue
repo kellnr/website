@@ -7,7 +7,7 @@ import ImageBlock from "@/components/elements/ImageBlock.vue";
 </script>
 
 <template>
-  <BlogPostTemplate title="From config to provcfg: Tracking Where a Setting Came From" date="25. May, 2026">
+  <BlogPostTemplate title="From config to provcfg: Tracking Where a Setting Came From">
     <TextBlock>
       Kellnr started small. A handful of fields in a TOML file, a port, a data directory, that was it. Five years and
       many releases later it spans roughly 70 individual settings across 11 sections, covering everything from

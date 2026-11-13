@@ -2,29 +2,78 @@
 import CodeText from "@/components/elements/CodeText.vue";
 import FeatureCard from "@/components/FeatureCard.vue";
 import SectionHeader from "@/components/SectionHeader.vue";
+import PageHeader from "@/components/PageHeader.vue";
 import { featureSections } from "@/data/features";
+import { useScrollSpy } from "@/composables/useScrollSpy";
+import { revealInContainer } from "@/utils/scroll";
+import { nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
+
+const breadcrumbs = [{ label: "Kellnr", to: "/" }, { label: "Features" }];
+
+// Sections jump to 120px below the viewport top (their scroll-margin-top, below header and
+// section nav), so a section counts as current a bit before it reaches that line.
+const SECTION_OFFSET = 130;
+const active = useScrollSpy(
+  featureSections.map((section) => section.id),
+  SECTION_OFFSET
+);
+
+const navList = ref<HTMLUListElement | null>(null);
+const fadeStart = ref(false);
+const fadeEnd = ref(false);
+
+function updateFades() {
+  const list = navList.value;
+  if (!list) return;
+  fadeStart.value = list.scrollLeft > 1;
+  fadeEnd.value = list.scrollLeft + list.clientWidth < list.scrollWidth - 1;
+}
+
+// Scrolls only the nav list: scrollIntoView would also move the window and could cancel the
+// smooth page scroll that a click on a nav item started.
+function revealActiveItem(id: string | null) {
+  const list = navList.value;
+  const item = id ? list?.querySelector<HTMLElement>(`[data-section="${id}"]`) : null;
+  if (!list || !item) return;
+  revealInContainer(list, item, "x");
+}
+
+watch(active, (id) => nextTick(() => revealActiveItem(id)));
+
+onMounted(() => {
+  updateFades();
+  window.addEventListener("resize", updateFades, { passive: true });
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", updateFades);
+});
 </script>
 
 <template>
   <div class="features-page">
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="container">
-        <div class="hero-content">
-          <h1 class="hero-title">Features</h1>
-          <p class="hero-subtitle">
-            Everything you need for a complete private Rust crate registry.
-            From core registry functionality to enterprise-grade features.
-          </p>
-        </div>
-      </div>
-    </section>
+    <PageHeader
+      title="Features"
+      subtitle="Everything you need for a complete private Rust crate registry. From publishing crates to SSO, access control and supply chain security."
+      :breadcrumbs="breadcrumbs"
+    />
 
     <nav class="section-nav" aria-label="Feature sections">
       <div class="container">
-        <ul>
+        <ul
+          ref="navList"
+          :class="{ 'fade-start': fadeStart, 'fade-end': fadeEnd }"
+          @scroll.passive="updateFades"
+        >
           <li v-for="section in featureSections" :key="section.id">
-            <router-link :to="{ hash: `#${section.id}` }">{{ section.navLabel }}</router-link>
+            <router-link
+              :to="{ hash: `#${section.id}` }"
+              :data-section="section.id"
+              :class="{ active: active === section.id }"
+              :aria-current="active === section.id ? 'location' : undefined"
+            >
+              {{ section.navLabel }}
+            </router-link>
           </li>
         </ul>
       </div>
@@ -68,6 +117,7 @@ import { featureSections } from "@/data/features";
               :width="section.visual.width"
               :height="section.visual.height"
               loading="lazy"
+              decoding="async"
               :src="section.visual.src"
               :alt="section.visual.alt"
             />
@@ -97,6 +147,7 @@ import { featureSections } from "@/data/features";
               :width="section.image.width"
               :height="section.image.height"
               loading="lazy"
+              decoding="async"
               :src="section.image.src"
               :alt="section.image.alt"
             />
@@ -137,42 +188,14 @@ import { featureSections } from "@/data/features";
   overflow-x: clip;
 }
 
-/* Hero Section */
-.hero-section {
-  padding: 3rem 0 2.5rem;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-}
-
-.hero-content {
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.hero-title {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0 0 1.5rem;
-  line-height: 1.2;
-}
-
-.hero-subtitle {
-  font-size: 1.25rem;
-  color: #475569;
-  margin: 0;
-  line-height: 1.7;
-}
-
-
 /* Section navigation */
 .section-nav {
   position: sticky;
   top: 64px;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--color-header-bg);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .section-nav ul {
@@ -183,6 +206,32 @@ import { featureSections } from "@/data/features";
   list-style: none;
   overflow-x: auto;
   scrollbar-width: none;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: 2rem;
+  --fade: 2rem;
+}
+
+/* Fade the side that has more items to scroll to */
+.section-nav ul.fade-start {
+  mask-image: linear-gradient(to right, transparent, #000 var(--fade));
+}
+
+.section-nav ul.fade-end {
+  mask-image: linear-gradient(to left, transparent, #000 var(--fade));
+}
+
+.section-nav ul.fade-start.fade-end {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--fade),
+    #000 calc(100% - var(--fade)),
+    transparent
+  );
+}
+
+.section-nav li {
+  scroll-snap-align: start;
 }
 
 .section-nav a {
@@ -191,25 +240,26 @@ import { featureSections } from "@/data/features";
   font-size: 0.875rem;
   font-weight: 600;
   white-space: nowrap;
-  color: #475569;
+  color: var(--color-text-muted);
   border-radius: 999px;
   transition: all 0.2s ease;
 }
 
-.section-nav a:hover {
-  color: #2f55d4;
-  background: #eff6ff;
+.section-nav a:hover,
+.section-nav a.active {
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
 }
 
 /* Sections */
 .section {
   scroll-margin-top: 120px;
   padding: 4rem 0;
-  background: #ffffff;
+  background: var(--color-surface);
 }
 
 .section-alt {
-  background: #f8fafc;
+  background: var(--color-surface-muted);
 }
 
 .section-shot {
@@ -219,16 +269,16 @@ import { featureSections } from "@/data/features";
   height: auto;
   margin: 0 auto 3rem;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-border-strong);
+  box-shadow: 0 20px 40px var(--color-shadow);
 }
 
 .showcase-shot {
   width: 100%;
   height: auto;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-border-strong);
+  box-shadow: 0 20px 40px var(--color-shadow);
 }
 
 /* Features Grid */
@@ -269,13 +319,13 @@ import { featureSections } from "@/data/features";
 .showcase-content h2 {
   font-size: 2rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text);
   margin: 0 0 1rem;
 }
 
 .showcase-description {
   font-size: 1.05rem;
-  color: #475569;
+  color: var(--color-text-muted);
   line-height: 1.7;
   margin: 0 0 1.5rem;
 }
@@ -291,7 +341,7 @@ import { featureSections } from "@/data/features";
   align-items: center;
   gap: 0.75rem;
   font-size: 1rem;
-  color: #334155;
+  color: var(--color-text-muted);
   margin-bottom: 0.75rem;
 }
 
@@ -300,7 +350,7 @@ import { featureSections } from "@/data/features";
 }
 
 .feature-list i {
-  color: #22c55e;
+  color: var(--color-success);
   font-size: 1.25rem;
 }
 
@@ -310,7 +360,7 @@ import { featureSections } from "@/data/features";
   gap: 0.5rem;
   font-size: 1rem;
   font-weight: 600;
-  color: #2f55d4;
+  color: var(--color-accent);
   text-decoration: none;
   transition: gap 0.2s ease;
 }
@@ -331,20 +381,24 @@ import { featureSections } from "@/data/features";
   align-items: center;
   gap: 1.5rem;
   padding: 4rem;
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-soft) 0%,
+    color-mix(in srgb, var(--color-accent) 12%, var(--color-accent-soft)) 100%
+  );
   border-radius: 16px;
-  border: 1px solid #bfdbfe;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
 }
 
 .visual-card i {
   font-size: 5rem;
-  color: #2f55d4;
+  color: var(--color-accent);
 }
 
 .visual-card span {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #1e40af;
+  color: var(--color-accent-hover);
 }
 
 /* Deployment Grid */
@@ -357,19 +411,19 @@ import { featureSections } from "@/data/features";
 }
 
 .deployment-card {
-  background: #ffffff;
+  background: var(--color-surface);
   padding: 1.5rem;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
 }
 
 .deployment-card h4 {
   font-size: 1rem;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--color-text);
   margin: 0 0 1rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .deployment-list {
@@ -383,13 +437,13 @@ import { featureSections } from "@/data/features";
   align-items: center;
   gap: 0.75rem;
   font-size: 0.9rem;
-  color: #475569;
+  color: var(--color-text-muted);
   padding: 0.5rem 0;
 }
 
 .deployment-list i {
   font-size: 1.25rem;
-  color: #2f55d4;
+  color: var(--color-accent);
   width: 1.5rem;
   text-align: center;
 }
@@ -397,8 +451,9 @@ import { featureSections } from "@/data/features";
 /* CTA Section */
 .cta-section {
   padding: 5rem 0;
-  background: linear-gradient(135deg, #1e3a8a 0%, #2f55d4 100%);
+  background: linear-gradient(135deg, var(--color-band-from) 0%, var(--color-band-to) 100%);
 }
+
 
 .cta-content {
   text-align: center;
@@ -409,13 +464,13 @@ import { featureSections } from "@/data/features";
 .cta-content h2 {
   font-size: 2rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-band-text);
   margin: 0 0 1rem;
 }
 
 .cta-content p {
   font-size: 1.1rem;
-  color: #bfdbfe;
+  color: var(--color-band-text);
   margin: 0 0 2rem;
 }
 
@@ -431,19 +486,19 @@ import { featureSections } from "@/data/features";
   align-items: center;
   gap: 0.5rem;
   padding: 0.875rem 1.75rem;
-  background: #ffffff;
-  color: #2f55d4;
+  background: var(--color-band-button-bg);
+  color: var(--color-band-button-text);
   font-weight: 600;
   font-size: 1rem;
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 14px var(--color-shadow);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px var(--color-shadow);
 }
 
 .btn-primary.btn-large {
@@ -457,18 +512,18 @@ import { featureSections } from "@/data/features";
   gap: 0.5rem;
   padding: 0.875rem 1.75rem;
   background: transparent;
-  color: #ffffff;
+  color: var(--color-band-text);
   font-weight: 600;
   font-size: 1rem;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid color-mix(in srgb, var(--color-band-text) 60%, transparent);
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: color-mix(in srgb, var(--color-band-text) 10%, transparent);
+  border-color: var(--color-band-text);
 }
 
 /* Container */
@@ -486,14 +541,6 @@ import { featureSections } from "@/data/features";
 }
 
 @media (max-width: 768px) {
-  .hero-title {
-    font-size: 2rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.1rem;
-  }
-
   .features-grid {
     grid-template-columns: 1fr;
     max-width: 400px;

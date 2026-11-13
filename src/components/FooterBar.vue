@@ -1,24 +1,74 @@
 <script setup lang="ts">
+import ExternalLink from "@/components/ExternalLink.vue";
+
+/** A page of this site, an external site opened in a new tab, or a file served by this site. */
+type FooterLink =
+  | { kind: "route"; label: string; to: string }
+  | { kind: "external"; label: string; href: string }
+  | { kind: "file"; label: string; href: string };
+
+interface FooterColumn {
+  title: string;
+  links: FooterLink[];
+}
+
+const columns: FooterColumn[] = [
+  {
+    title: "Product",
+    links: [
+      { kind: "route", label: "Features", to: "/features" },
+      { kind: "route", label: "Documentation", to: "/documentation" },
+      { kind: "route", label: "Changelog", to: "/changelog" },
+    ],
+  },
+  {
+    title: "Community",
+    links: [
+      { kind: "external", label: "GitHub", href: "https://github.com/kellnr/kellnr" },
+      {
+        kind: "external",
+        label: "GitHub Discussions",
+        href: "https://github.com/kellnr/kellnr/discussions",
+      },
+      { kind: "route", label: "Blog", to: "/blog" },
+      { kind: "file", label: "RSS feed", href: "/rss.xml" },
+    ],
+  },
+  {
+    title: "Project",
+    links: [
+      { kind: "route", label: "Contact", to: "/contact" },
+      { kind: "route", label: "Sponsor", to: "/sponsor" },
+    ],
+  },
+];
+
+const year = new Date().getFullYear();
 </script>
 
 <template>
   <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <span class="brand-name">&lt;'kellnr&gt;</span>
-        <span class="copyright">© 2021 - {{ new Date().getFullYear() }}</span>
-      </div>
-
-      <div class="footer-social">
-        <router-link to="/sponsor" class="footer-sponsor" title="Sponsor Kellnr">
-          <i class="mdi mdi-heart"></i>
-        </router-link>
-        <a href="https://github.com/kellnr/kellnr" target="_blank" rel="noopener" title="GitHub">
-          <i class="mdi mdi-github"></i>
-        </a>
-        <a href="/rss.xml" title="RSS Feed">
-          <i class="mdi mdi-rss"></i>
-        </a>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-3 footer-brand">
+          <router-link to="/" class="brand-name">&lt;'kellnr&gt;</router-link>
+          <p class="copyright">© 2021 - {{ year }} Kellnr</p>
+        </div>
+        <nav
+          v-for="column in columns"
+          :key="column.title"
+          class="col-12 col-sm-4 col-md-3 footer-column"
+          :aria-labelledby="`footer-${column.title.toLowerCase()}`"
+        >
+          <h2 :id="`footer-${column.title.toLowerCase()}`" class="footer-title">{{ column.title }}</h2>
+          <ul class="footer-links">
+            <li v-for="link in column.links" :key="link.label">
+              <router-link v-if="link.kind === 'route'" :to="link.to">{{ link.label }}</router-link>
+              <ExternalLink v-else-if="link.kind === 'external'" :href="link.href">{{ link.label }}</ExternalLink>
+              <a v-else-if="link.kind === 'file'" :href="link.href">{{ link.label }}</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </footer>
@@ -26,82 +76,54 @@
 
 <style scoped>
 .footer {
-  background: #f8fafc;
-  border-top: 1px solid #e2e8f0;
-  padding: 1.5rem 0;
-}
-
-.footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
+  padding: 2.5rem 0 2rem;
+  background: var(--color-surface-muted);
+  border-top: 1px solid var(--color-border);
 }
 
 .footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .brand-name {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--color-accent);
 }
 
 .copyright {
+  margin: 0.5rem 0 0;
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
-.footer-social {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.footer-column {
+  margin-bottom: 1.5rem;
 }
 
-.footer-social a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  color: #64748b;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.2s ease;
+.footer-title {
+  margin: 0 0 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text);
 }
 
-.footer-social a:hover {
-  color: #2f55d4;
-  border-color: #2f55d4;
+.footer-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.footer-social .footer-sponsor:hover {
-  color: #db2777;
-  border-color: #db2777;
+.footer-links li + li {
+  margin-top: 0.5rem;
 }
 
-.footer-social i {
-  font-size: 1.25rem;
+.footer-links a {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
 }
 
-@media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .footer-brand {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+.footer-links a:hover {
+  color: var(--color-accent);
 }
 </style>

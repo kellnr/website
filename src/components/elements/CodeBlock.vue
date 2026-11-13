@@ -1,5 +1,23 @@
+<script lang="ts">
+export interface ScrollState {
+  scrollLeft: number;
+  clientWidth: number;
+  scrollWidth: number;
+}
+
+/** True while part of the content is hidden beyond the right edge; tolerates subpixel rounding. */
+export function hasHiddenOverflow({ scrollLeft, clientWidth, scrollWidth }: ScrollState): boolean {
+  return scrollLeft + clientWidth < scrollWidth - 1;
+}
+
+/** True when the content is wider than its area; only then the area needs to be focusable. */
+export function isScrollable({ clientWidth, scrollWidth }: ScrollState): boolean {
+  return clientWidth < scrollWidth - 1;
+}
+</script>
+
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { Comment, ref, onBeforeUnmount, onMounted, useSlots, type VNode } from "vue";
 import hljs from "@/highlight";
 
 defineProps<{
@@ -7,8 +25,23 @@ defineProps<{
 }>();
 
 const codeContainer = ref<HTMLElement | null>(null);
-const processedCode = ref("");
+const scrollArea = ref<HTMLElement | null>(null);
+const overflowsRight = ref(false);
+const scrollable = ref(false);
+let resizeObserver: ResizeObserver | null = null;
 const copied = ref(false);
+
+/** Text of the slot content, so the code renders in the first pass without a layout shift. */
+function slotText(vnodes: VNode[]): string {
+  return vnodes
+    .map((vnode) => {
+      if (vnode.type === Comment) return "";
+      if (typeof vnode.children === "string") return vnode.children;
+      if (Array.isArray(vnode.children)) return slotText(vnode.children as VNode[]);
+      return "";
+    })
+    .join("");
+}
 
 function stripIndent(text: string): string {
   const lines = text.split("\n");
@@ -43,26 +76,41 @@ async function copyCode() {
   }
 }
 
+function updateOverflow() {
+  if (scrollArea.value) {
+    overflowsRight.value = hasHiddenOverflow(scrollArea.value);
+    scrollable.value = isScrollable(scrollArea.value);
+  }
+}
+
+function watchOverflow() {
+  const area = scrollArea.value;
+  if (!area) return;
+  area.addEventListener("scroll", updateOverflow, { passive: true });
+  resizeObserver = new ResizeObserver(updateOverflow);
+  resizeObserver.observe(area);
+}
+
+onBeforeUnmount(() => {
+  scrollArea.value?.removeEventListener("scroll", updateOverflow);
+  resizeObserver?.disconnect();
+});
+
+const processedCode = stripIndent(slotText(useSlots().default?.() ?? []));
+
 onMounted(() => {
-  // Read the slot text from the hidden raw content, strip indent, highlight
-  const rawContent = codeContainer.value?.querySelector(".raw-content");
-  if (!rawContent) return;
-
-  processedCode.value = stripIndent(rawContent.textContent || "");
-
-  // Apply highlighting after Vue updates the DOM
-  setTimeout(() => {
-    const codeEl = codeContainer.value?.querySelector("code.highlight-target");
-    if (codeEl) {
-      hljs.highlightElement(codeEl as HTMLElement);
-    }
-  }, 0);
+  watchOverflow();
+  const codeEl = codeContainer.value?.querySelector<HTMLElement>("code.highlight-target");
+  if (codeEl) {
+    hljs.highlightElement(codeEl);
+  }
+  updateOverflow();
 });
 </script>
 
 <template>
   <div ref="codeContainer" class="code-block">
-    <div class="code-header">
+    <div class="code-header" data-search-ignore>
       <span class="code-lang">{{ lang }}</span>
       <button class="copy-btn" @click="copyCode" :title="copied ? 'Copied!' : 'Copy to clipboard'">
         <svg v-if="!copied" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -75,9 +123,16 @@ onMounted(() => {
         <span class="copy-text">{{ copied ? 'Copied!' : 'Copy' }}</span>
       </button>
     </div>
-    <div class="code-content">
-      <pre class="raw-content" style="display: none;"><slot></slot></pre>
-      <pre v-if="processedCode" class="code-pre"><code class="highlight-target" :class="lang">{{ processedCode }}</code></pre>
+    <div class="code-scroll" :class="{ 'overflows-right': overflowsRight }">
+      <div
+        ref="scrollArea"
+        class="code-content"
+        :tabindex="scrollable ? 0 : undefined"
+        :role="scrollable ? 'region' : undefined"
+        :aria-label="scrollable ? `${lang} code` : undefined"
+      >
+        <pre v-if="processedCode" class="code-pre"><code class="highlight-target" :class="lang">{{ processedCode }}</code></pre>
+      </div>
     </div>
   </div>
 </template>
@@ -87,8 +142,8 @@ onMounted(() => {
   margin: 1.5rem 0;
   border-radius: 8px;
   overflow: hidden;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-border);
 }
 
 .code-header {
@@ -96,14 +151,14 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1rem;
-  background: #f1f5f9;
-  border-bottom: 1px solid #e2e8f0;
+  background: var(--color-code-header);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .code-lang {
   font-size: 0.75rem;
   font-weight: 600;
-  color: #64748b;
+  color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -117,23 +172,57 @@ onMounted(() => {
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   cursor: pointer;
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 0.75rem;
   transition: all 0.2s ease;
 }
 
 .copy-btn:hover {
-  background: #e2e8f0;
-  color: #2f55d4;
+  background: var(--color-border);
+  color: var(--color-accent);
 }
 
 .copy-text {
   font-family: inherit;
 }
 
+.code-scroll {
+  position: relative;
+}
+
+/* Hints at code hidden beyond the right edge until scrolled to the end. */
+.code-scroll::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 2.5rem;
+  pointer-events: none;
+  background: linear-gradient(to right, transparent, var(--color-code-bg));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.code-scroll.overflows-right::after {
+  opacity: 1;
+}
+
 .code-content {
   padding: 1rem;
   overflow-x: auto;
+}
+
+.code-content:focus-visible,
+.copy-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+/* Bootstrap lets pre scroll itself; .code-content scrolls instead, so it can track the overflow. */
+.code-pre,
+.code-pre code {
+  overflow: visible;
 }
 
 .code-pre {
@@ -146,66 +235,7 @@ onMounted(() => {
   font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Monaco, Consolas, monospace;
   font-size: 0.875rem;
   line-height: 1.7;
-  color: #334155;
+  color: var(--color-code-text);
   background: transparent;
-}
-
-/* Syntax highlighting for light theme */
-.code-block :deep(.hljs) {
-  background: transparent;
-  color: #334155;
-}
-
-.code-block :deep(.hljs-keyword),
-.code-block :deep(.hljs-selector-tag),
-.code-block :deep(.hljs-built_in) {
-  color: #8b5cf6;
-}
-
-.code-block :deep(.hljs-string),
-.code-block :deep(.hljs-attr) {
-  color: #059669;
-}
-
-.code-block :deep(.hljs-comment) {
-  color: #94a3b8;
-  font-style: italic;
-}
-
-.code-block :deep(.hljs-number),
-.code-block :deep(.hljs-literal) {
-  color: #dc2626;
-}
-
-.code-block :deep(.hljs-variable),
-.code-block :deep(.hljs-template-variable) {
-  color: #0284c7;
-}
-
-.code-block :deep(.hljs-title),
-.code-block :deep(.hljs-section) {
-  color: #d97706;
-}
-
-.code-block :deep(.hljs-type),
-.code-block :deep(.hljs-class) {
-  color: #ca8a04;
-}
-
-.code-block :deep(.hljs-function) {
-  color: #2563eb;
-}
-
-.code-block :deep(.hljs-attribute) {
-  color: #059669;
-}
-
-.code-block :deep(.hljs-symbol),
-.code-block :deep(.hljs-bullet) {
-  color: #7c3aed;
-}
-
-.code-block :deep(.hljs-meta) {
-  color: #64748b;
 }
 </style>

@@ -6,7 +6,7 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
 </script>
 
 <template>
-    <BlogPostTemplate title="Asynchronous Closures in Rust - Box and Pin" date="24. July, 2022">
+    <BlogPostTemplate title="Asynchronous Closures in Rust - Box and Pin">
         <SubHeader id="sync-closures">Synchronous closures</SubHeader>
         <TextBlock>
             In this post, we show how a synchronous closure can be converted to an asynchronous closure in Rust. There
@@ -570,7 +570,3 @@ where
         </TextBlock>
     </BlogPostTemplate>
 </template>
-
-<style scoped>
-
-</style>

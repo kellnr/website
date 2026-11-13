@@ -7,7 +7,7 @@ import CalloutBlock from "@/components/elements/CalloutBlock.vue";
 </script>
 
 <template>
-  <BlogPostTemplate title="A Safer Kellnr Helm Chart: Splitting Config and Secrets (Chart v6.0.0)" date="4. June, 2026">
+  <BlogPostTemplate title="A Safer Kellnr Helm Chart: Splitting Config and Secrets (Chart v6.0.0)">
     <TextBlock>
       The Kellnr Helm chart just got a major release: <b>chart version 6.0.0</b>. It is the biggest rework of how the
       chart handles configuration since the chart was first published, and it is a breaking change. The headline is

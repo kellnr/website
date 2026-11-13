@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import HeadingAnchor from "./HeadingAnchor.vue";
+
 const props = defineProps({
     id: {
         type: String,
@@ -8,7 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <h3 class="sub-header" v-bind:id="props.id"><slot></slot></h3>
+    <h3 class="sub-header" v-bind:id="props.id"><HeadingAnchor :target-id="props.id"><slot></slot></HeadingAnchor></h3>
 </template>
 
 <style scoped>
@@ -19,7 +21,8 @@ const props = defineProps({
     margin-bottom: 1rem;
     font-size: 1.5rem;
     font-weight: 600;
-    color: #1e293b;
+    color: var(--color-text);
     line-height: 1.3;
+    scroll-margin-top: 80px;
 }
 </style>

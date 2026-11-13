@@ -176,7 +176,7 @@ const otherWays = [
 .intro {
   margin-bottom: 3rem;
   font-size: 1.1rem;
-  color: #334155;
+  color: var(--color-text-muted);
 }
 
 .btn-sponsor {
@@ -186,18 +186,18 @@ const otherWays = [
   margin-top: 0.5rem;
   padding: 0.875rem 1.75rem;
   font-weight: 600;
-  color: #ffffff;
-  background: #db2777;
+  color: var(--color-accent-contrast);
+  background: var(--color-sponsor);
   border-radius: 8px;
-  box-shadow: 0 4px 14px rgba(219, 39, 119, 0.3);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-sponsor) 30%, transparent);
   transition: all 0.2s ease;
 }
 
 .btn-sponsor:hover {
-  color: #ffffff;
-  background: #be185d;
+  color: var(--color-accent-contrast);
+  background: color-mix(in srgb, var(--color-sponsor) 85%, var(--color-text));
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(219, 39, 119, 0.4);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--color-sponsor) 40%, transparent);
 }
 
 /* Sections */
@@ -205,12 +205,12 @@ const otherWays = [
   margin: 0 0 0.5rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text);
 }
 
 .section-text {
   margin: 0 0 1rem;
-  color: #475569;
+  color: var(--color-text-muted);
 }
 
 /* Costs */
@@ -223,33 +223,33 @@ const otherWays = [
 .cost-table td,
 .cost-table th {
   padding: 0.875rem 0.5rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--color-border);
   vertical-align: middle;
 }
 
 .cost-icon {
   width: 2.5rem;
   font-size: 1.375rem;
-  color: #2f55d4;
+  color: var(--color-accent);
 }
 
 .cost-item {
   display: block;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text);
 }
 
 .cost-note {
   display: block;
   font-size: 0.9rem;
-  color: #64748b;
+  color: var(--color-text-subtle);
 }
 
 .cost-amount {
   font-weight: 700;
   text-align: right;
   white-space: nowrap;
-  color: #0f172a;
+  color: var(--color-text);
 }
 
 .cost-table tfoot th,
@@ -262,7 +262,7 @@ const otherWays = [
 
 .cost-table tfoot .cost-amount {
   text-align: right;
-  color: #db2777;
+  color: var(--color-sponsor);
 }
 
 .cost-time {
@@ -271,14 +271,14 @@ const otherWays = [
   align-items: baseline;
   margin: 0 0 3rem;
   padding: 1rem 1.25rem;
-  color: #334155;
-  background: #fdf2f8;
+  color: var(--color-text-muted);
+  background: var(--color-sponsor-soft);
   border-radius: 12px;
 }
 
 .cost-time i {
   font-size: 1.25rem;
-  color: #db2777;
+  color: var(--color-sponsor);
 }
 
 /* Funded work */
@@ -296,8 +296,8 @@ const otherWays = [
   flex-direction: column;
   gap: 0.375rem;
   padding: 1.5rem;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
 }
 
@@ -309,18 +309,18 @@ const otherWays = [
   height: 44px;
   margin-bottom: 0.5rem;
   font-size: 1.375rem;
-  color: #2f55d4;
-  background: #eff6ff;
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
   border-radius: 10px;
 }
 
 .card-title {
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text);
 }
 
 .card-text {
-  color: #475569;
+  color: var(--color-text-muted);
   line-height: 1.6;
 }
 
@@ -328,13 +328,13 @@ const otherWays = [
 .companies {
   padding: 1.5rem;
   margin-bottom: 3rem;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
 }
 
 .companies p {
-  color: #475569;
+  color: var(--color-text-muted);
 }
 
 .link-arrow {
@@ -360,7 +360,7 @@ const otherWays = [
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #64748b;
+  color: var(--color-text-subtle);
 }
 
 .sponsor-group-title:first-child {
@@ -382,9 +382,9 @@ const otherWays = [
   gap: 0.625rem;
   padding: 0.375rem 1rem 0.375rem 0.375rem;
   font-weight: 600;
-  color: #1e293b;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 999px;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
@@ -396,8 +396,8 @@ const otherWays = [
 }
 
 .sponsor:hover {
-  color: #db2777;
-  border-color: #db2777;
+  color: var(--color-sponsor);
+  border-color: var(--color-sponsor);
 }
 
 /* Other ways to help */
@@ -417,29 +417,28 @@ const otherWays = [
   min-height: 44px;
   padding: 0.5rem 1rem;
   font-weight: 600;
-  color: #1e293b;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .other i {
   font-size: 1.25rem;
-  color: #2f55d4;
+  color: var(--color-accent);
 }
 
 .other:hover {
-  color: #2f55d4;
-  border-color: #2f55d4;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
-
 /* Keyboard focus */
 .btn-sponsor:focus-visible,
 .link-arrow:focus-visible,
 .sponsor:focus-visible,
 .other:focus-visible {
-  outline: 3px solid rgba(47, 85, 212, 0.5);
+  outline: 3px solid var(--color-accent);
   outline-offset: 2px;
 }
 

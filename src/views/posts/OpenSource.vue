@@ -5,7 +5,7 @@ import BlogPostTemplate from "@/components/blog/BlogPostTemplate.vue";
 </script>
 
 <template>
-    <BlogPostTemplate title="Kellnr goes Open-Source" date="20. September, 2023">
+    <BlogPostTemplate title="Kellnr goes Open-Source">
         <TextBlock>
             I’m excited to announce that Kellnr, the crate registry for Rust, is now open source under the MIT license. &#x1f389; &#x1f973;
             <br />
@@ -27,7 +27,7 @@ import BlogPostTemplate from "@/components/blog/BlogPostTemplate.vue";
                 <div class="h1 font-weight-bold text-blue">
                     &lt;'kellnr&gt;
                 </div>
-                <div class="font-weight-bold" style="color: red; font-size: 3rem;">
+                <div class="font-weight-bold" style="color: var(--color-danger); font-size: 3rem;">
                     &#10084;
                 </div>
                 <div class="h2 font-weight-bold text-blue">

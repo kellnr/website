@@ -8,7 +8,7 @@ import ImageBlock from "@/components/elements/ImageBlock.vue";
 </script>
 
 <template>
-    <BlogPostTemplate title="WebAssembly Compiler - Building a Parser" date="30. May, 2021">
+    <BlogPostTemplate title="WebAssembly Compiler - Building a Parser">
 
         <TextBlock>
             This post is one of a series of four. If you have not read the previous blog post, we strongly recommend you
@@ -1131,5 +1131,3 @@ mod tests {
         </TextBlock>
     </BlogPostTemplate>
 </template>
-
-<style scoped></style>

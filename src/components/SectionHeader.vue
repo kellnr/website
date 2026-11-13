@@ -22,13 +22,13 @@ defineProps<{
 .section-header h2 {
   font-size: 2rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text);
   margin: 0 0 1rem;
 }
 
 .section-header p {
   font-size: 1.1rem;
-  color: #64748b;
+  color: var(--color-text-muted);
   margin: 0;
   line-height: 1.6;
 }

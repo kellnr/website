@@ -1,10 +1,14 @@
 import {
+  START_LOCATION,
   createRouter,
   createWebHistory,
   type RouteComponent,
   type RouteRecordRaw,
 } from "vue-router";
 import LandingView from "../views/LandingView.vue";
+import { NOT_FOUND_ROUTE, syncCanonicalLink } from "./canonical";
+import { hashPosition } from "./hashPosition";
+import { preferredScrollBehavior } from "../composables/useHashNavigation";
 import blogData from "../data/blog-posts.json";
 import type { BlogPostsDocument } from "../types/blog-posts";
 
@@ -41,14 +45,9 @@ const router = createRouter({
       return false;
     }
     if (to.hash) {
-      // The router ignores CSS scroll-margin-top, which keeps targets clear of the sticky header.
-      const el = document.querySelector(to.hash);
-      const top = el ? parseFloat(getComputedStyle(el).scrollMarginTop) || 0 : 0;
-      return {
-        el: to.hash,
-        top,
-        behavior: "smooth",
-      };
+      // On a page load the layout still shifts while a long smooth scroll runs, so it stops
+      // short of the target: jump there instead.
+      return hashPosition(to.hash, from === START_LOCATION ? "instant" : preferredScrollBehavior());
     }
     return { top: 0 };
   },
@@ -68,15 +67,11 @@ const router = createRouter({
       name: "changelog",
       component: () => import("../views/ChangelogView.vue"),
     },
-    {
-      path: "/documentation/v6",
-      name: "documentationV6",
-      component: () => import("../views/DocumentationV6View.vue"),
-    },
+    { path: "/documentation/v6", redirect: "/documentation" },
     {
       path: "/documentation",
       name: "documentation",
-      component: () => import("../views/DocumentationV6View.vue"),
+      component: () => import("../views/DocumentationView.vue"),
     },
     {
       path: "/contact",
@@ -95,12 +90,14 @@ const router = createRouter({
       component: () => import("../views/BlogView.vue"),
     },
     ...blogPostRoutes(),
-    // Default route to redirect all unknown paths to the landing page
     {
       path: "/:pathMatch(.*)*",
-      redirect: "/",
+      name: NOT_FOUND_ROUTE,
+      component: () => import("../views/NotFoundView.vue"),
     },
   ],
 });
+
+router.afterEach((to) => syncCanonicalLink(to));
 
 export default router;

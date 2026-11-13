@@ -23,20 +23,20 @@ defineProps<{
 <style scoped>
 .feature-card {
   display: block;
-  background: #ffffff;
+  background: var(--color-surface);
   padding: 2rem;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   transition: all 0.2s ease;
 }
 
 .feature-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 24px var(--color-shadow);
 }
 
 a.feature-card:hover {
-  border-color: #bfdbfe;
+  border-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
 }
 
 .feature-icon {
@@ -45,26 +45,26 @@ a.feature-card:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #eff6ff;
+  background: var(--color-accent-soft);
   border-radius: 12px;
   margin-bottom: 1.25rem;
 }
 
 .feature-icon i {
   font-size: 1.75rem;
-  color: #2f55d4;
+  color: var(--color-accent);
 }
 
 .feature-card h3 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--color-text);
   margin: 0 0 0.75rem;
 }
 
 .feature-card p {
   font-size: 0.95rem;
-  color: #64748b;
+  color: var(--color-text-muted);
   margin: 0;
   line-height: 1.6;
 }

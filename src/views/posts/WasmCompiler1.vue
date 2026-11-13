@@ -7,7 +7,7 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
 </script>
 
 <template>
-    <BlogPostTemplate title="WebAssembly Compiler - Text format and AST" date="27. May, 2021">
+    <BlogPostTemplate title="WebAssembly Compiler - Text format and AST">
         <TextBlock>
             This post is one of a series of four. If you have not read the previous blog post, we strongly recommend you
             do so. The posts build on each other, as such, reading them in the right order is important.
@@ -276,7 +276,3 @@ pub struct Export {
         </TextBlock>
     </BlogPostTemplate>
 </template>
-
-<style scoped>
-
-</style>

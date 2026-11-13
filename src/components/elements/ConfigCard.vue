@@ -43,22 +43,23 @@ const tomlParts = computed(() => {
 
 <style scoped>
 .config-card {
-  background: #fff;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--color-shadow);
   margin-bottom: 1rem;
   overflow: hidden;
 }
 
 .config-header {
-  background: #2f55d4;
+  background: var(--color-band-solid);
   padding: 0.6rem 1rem;
 }
 
 .config-title {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--color-band-text);
 }
 
 .config-body {
@@ -78,15 +79,15 @@ const tomlParts = computed(() => {
 .config-label {
   font-size: 0.7rem;
   text-transform: uppercase;
-  color: #6c757d;
+  color: var(--color-text-muted);
   font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
 .config-toml {
   font-size: 0.85rem;
-  color: #e83e8c;
-  background: #f8f9fa;
+  color: var(--color-code-inline);
+  background: var(--color-surface-raised);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   display: inline-block;
@@ -94,22 +95,22 @@ const tomlParts = computed(() => {
 }
 
 .toml-section {
-  color: #6c757d;
+  color: var(--color-text-muted);
 }
 
 .config-env {
   font-size: 0.8rem;
-  color: #495057;
+  color: var(--color-text-muted);
   word-break: break-all;
-  background: #f8f9fa;
+  background: var(--color-surface-raised);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
 }
 
 .config-default {
   font-size: 0.85rem;
-  color: #28a745;
-  background: #f8f9fa;
+  color: var(--color-success);
+  background: var(--color-surface-raised);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   display: inline-block;
@@ -117,7 +118,7 @@ const tomlParts = computed(() => {
 
 .config-desc {
   font-size: 0.9rem;
-  color: #495057;
+  color: var(--color-text-muted);
   line-height: 1.5;
 }
 

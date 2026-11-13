@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import HeadingAnchor from "./HeadingAnchor.vue";
+
 const props = defineProps({
     id: {
         type: String,
@@ -13,8 +15,8 @@ const props = defineProps({
 
 <template>
     <h4 class="minor-header" v-bind:id="props.id">
-        <i v-if="props.icon" :class="`mdi mdi-${props.icon} minor-header-icon`"></i>
-        <slot></slot>
+        <i v-if="props.icon" :class="`mdi mdi-${props.icon} minor-header-icon`" aria-hidden="true"></i>
+        <HeadingAnchor :target-id="props.id"><slot></slot></HeadingAnchor>
     </h4>
 </template>
 
@@ -28,12 +30,13 @@ const props = defineProps({
     margin-bottom: 0.75rem;
     font-size: 1.15rem;
     font-weight: 600;
-    color: #334155;
+    color: var(--color-text);
     line-height: 1.3;
+    scroll-margin-top: 80px;
 }
 
 .minor-header-icon {
-    color: #2f55d4;
+    color: var(--color-accent);
     font-size: 1.25rem;
 }
 </style>

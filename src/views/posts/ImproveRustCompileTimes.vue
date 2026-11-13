@@ -7,7 +7,7 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
 </script>
 
 <template>
-    <BlogPostTemplate title="Improve Rust compile times with sccache" date="15. April, 2021">
+    <BlogPostTemplate title="Improve Rust compile times with sccache">
         <SubHeader id="compile-times">Rust compile times are loooong</SubHeader>
 
         <TextBlock>
@@ -51,7 +51,7 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
             object file is used.
         </TextBlock>
 
-        <ImageBlock src="/images/kellnr/blog/sccache/rustc.png" alt="crate to objects"></ImageBlock>
+        <ImageBlock class="light-backdrop" src="/images/kellnr/blog/sccache/rustc.png" alt="crate to objects"></ImageBlock>
 
         <TextBlock>
             With sccache in place, the Crates are not compiled directly, but first the cache server is checked for an
@@ -59,7 +59,7 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
             object file does not exist, the Crate gets compiled by rustc and the output is then cached.
         </TextBlock>
 
-        <ImageBlock src="/images/kellnr/blog/sccache/sccache.png" alt="crate to objects"></ImageBlock>
+        <ImageBlock class="light-backdrop" src="/images/kellnr/blog/sccache/sccache.png" alt="crate to objects"></ImageBlock>
 
         <TextBlock>
             The sccache server part can be on the same machine as the sccache client. In our scenario that does not make
@@ -67,7 +67,7 @@ import CodeBlock from "@/components/elements/CodeBlock.vue";
             cache and multiple build servers can use the central cache to speed up their build times.
         </TextBlock>
 
-        <ImageBlock src="/images/kellnr/blog/sccache/multiple-sccache.png" alt="crate to objects"></ImageBlock>
+        <ImageBlock class="light-backdrop" src="/images/kellnr/blog/sccache/multiple-sccache.png" alt="crate to objects"></ImageBlock>
 
         <SubHeader id="setup-cache">Setup sccache</SubHeader>
 
@@ -272,5 +272,8 @@ spec:
 </template>
 
 <style scoped>
-
+/* The sccache diagrams are black on transparent and would vanish on the dark theme */
+.light-backdrop {
+    background: var(--color-diagram-bg);
+}
 </style>
