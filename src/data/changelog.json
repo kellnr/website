@@ -1,6 +1,143 @@
 {
   "releases": [
     {
+      "version": "7.3.0",
+      "date": "2026-11-15",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "proxy_enabled endpoint",
+          "links": [],
+          "scope": "web-ui"
+        },
+        {
+          "type": "Added",
+          "content": "yank and unyank crate versions from the UI",
+          "links": [],
+          "scope": "web-ui"
+        },
+        {
+          "type": "Added",
+          "content": "page titles per route and shared page header component",
+          "links": [],
+          "scope": "ui"
+        },
+        {
+          "type": "Fixed",
+          "content": "show the crate version once and keep the version row stable after a yank",
+          "links": [],
+          "scope": "ui"
+        },
+        {
+          "type": "Fixed",
+          "content": "crate settings follow the read-only rule of the backend",
+          "links": [],
+          "scope": "ui"
+        },
+        {
+          "type": "Fixed",
+          "content": "hide the build docs action for read-only owners",
+          "links": [],
+          "scope": "ui"
+        },
+        {
+          "type": "Fixed",
+          "content": "expose read-only status and hide yank actions for read-only users",
+          "links": [],
+          "scope": "web-ui"
+        },
+        {
+          "type": "Fixed",
+          "content": "keep the crates proxy mode in the URL",
+          "links": [],
+          "scope": "ui"
+        },
+        {
+          "type": "Fixed",
+          "content": "crate page title placeholder while loading, drop unsupported checkbox prop",
+          "links": [],
+          "scope": "ui"
+        },
+        {
+          "type": "Fixed",
+          "content": "sort crates by name case-insensitively",
+          "links": [],
+          "scope": "db"
+        },
+        {
+          "type": "Fixed",
+          "content": "settings, login and doc queue UX fixes",
+          "links": [],
+          "scope": "ui"
+        },
+        {
+          "type": "Fixed",
+          "content": "crate page UX fixes",
+          "links": [],
+          "scope": "ui"
+        },
+        {
+          "type": "Fixed",
+          "content": "search, landing and navigation UX fixes",
+          "links": [],
+          "scope": "ui"
+        },
+        {
+          "type": "Fixed",
+          "content": "OCI image labels with both licenses, homepage and documentation, plus index annotations",
+          "links": [
+            {
+              "label": "#1517",
+              "url": "https://github.com/kellnr/kellnr/pull/1517"
+            }
+          ]
+        },
+        {
+          "type": "Changed",
+          "content": "share loginAndWait and apiCall through the UI fixtures",
+          "links": [],
+          "scope": "ui"
+        },
+        {
+          "type": "Changed",
+          "content": "read-only owner sees no crate actions; share the role flags",
+          "links": [],
+          "scope": "ui"
+        },
+        {
+          "type": "Changed",
+          "content": "the proxy view lists own crates next to cached ones",
+          "links": [],
+          "scope": "ui"
+        },
+        {
+          "type": "Changed",
+          "content": "move the UI yank handlers into their own module",
+          "links": [],
+          "scope": "web-ui"
+        },
+        {
+          "type": "Changed",
+          "content": "cover live search, version select and token setup; wait for saves",
+          "links": [],
+          "scope": "ui"
+        },
+        {
+          "type": "Changed",
+          "content": "update UI tests for in-app dialogs, user menu settings and live search changes",
+          "links": [],
+          "scope": "ui"
+        },
+        {
+          "type": "Changed",
+          "content": "one shared snackbar for all notifications",
+          "links": [],
+          "scope": "ui"
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "7.2.0",
       "date": "2026-11-13",
       "entries": [
@@ -44,8 +181,7 @@
             }
           ]
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "7.1.0",
