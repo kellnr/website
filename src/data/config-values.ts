@@ -385,6 +385,13 @@ export const configGroups: ConfigGroup[] = [
         description: "Max duration of a single rustdoc build in seconds. Builds that take longer are killed and the crate is skipped. Set to 0 for no limit.",
       },
       {
+        title: "Build History Size",
+        toml: "[docs] build_history_size",
+        envVar: "KELLNR_DOCS__BUILD_HISTORY_SIZE",
+        defaultValue: "100",
+        description: "Number of finished rustdoc builds kept for the doc queue page. Older builds are removed. Set to 0 to keep no build history.",
+      },
+      {
         title: "Build Wrapper",
         toml: "[docs] build_wrapper",
         envVar: "KELLNR_DOCS__BUILD_WRAPPER",
