@@ -1886,7 +1886,15 @@ const activeHash = computed(() => (activeId.value ? `#${activeId.value}` : null)
               Docs are served from the same origin as the web UI with a restrictive Content Security Policy and in
               a sandbox: scripts in docs pages cannot call the Kellnr API, open popups or frames, or submit forms.
               Links that open a new window, like the "Run" button of rustdoc's playground integration, do not work in
-              hosted docs.
+              hosted docs.<br />
+              <br />
+              <b>Build History</b><br />
+              The <i>Doc queue</i> page lists the crates waiting for a build and the latest finished builds with
+              their status: succeeded, failed or timed out. Everyone who can see a crate sees its builds. Only
+              admins and owners of the crate see the output of a failed build. Admins and owners who are not
+              read-only can queue it again from the page.
+              Failures not caused by the crate, e.g. storage or database errors, only appear in the Kellnr log.
+              <code>docs.build_history_size</code> sets how many builds Kellnr keeps (default 100, 0 keeps none).
             </TextBlock>
 
             <SubHeader id="rustdoc-features">Crate Features</SubHeader>
