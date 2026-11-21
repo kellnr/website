@@ -675,6 +675,13 @@ export const configGroups: ConfigGroup[] = [
         description: "Automatically create local user accounts on first OAuth2 login.",
       },
       {
+        title: "Auto Provision Read-Only",
+        toml: "[oauth2] auto_provision_read_only",
+        envVar: "KELLNR_OAUTH2__AUTO_PROVISION_READ_ONLY",
+        defaultValue: "false",
+        description: "Create automatically provisioned users as read-only, unless the admin group claim makes them admin. Ignored if the read-only group claim is configured.",
+      },
+      {
         title: "Admin Group Claim",
         toml: "[oauth2] admin_group_claim",
         envVar: "KELLNR_OAUTH2__ADMIN_GROUP_CLAIM",

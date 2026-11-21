@@ -871,6 +871,29 @@ const activeHash = computed(() => (activeId.value ? `#${activeId.value}` : null)
             </TextBlock>
 
             <TextBlock>
+              <b>Read-Only Provisioning</b><br />
+              To let everyone sign in and download crates, but only selected users publish, create provisioned users
+              as read-only:
+            </TextBlock>
+
+            <CodeBlock lang="toml">
+              [oauth2]
+              auto_provision_users = true
+              auto_provision_read_only = true
+            </CodeBlock>
+
+            <TextBlock>
+              A user that the admin group claim makes admin is still created with full access. An admin grants write
+              access to other users with <i>Unlock</i> in the user management. The setting only applies when a user is created,
+              so later logins keep the access an admin granted.<br />
+              <br />
+              This suits identity providers without group claims, such as Google. If <i>read_only_group_claim</i>
+              and <i>read_only_group_value</i> are configured, the identity provider decides on every login and the
+              setting is ignored. Kellnr logs a warning at startup in that case, and when the setting is enabled
+              without <i>auto_provision_users</i>.
+            </TextBlock>
+
+            <TextBlock>
               <b>Group-Based Roles</b><br />
               You can automatically assign admin or read-only roles based on group memberships from your identity
               provider.
