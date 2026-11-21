@@ -1,6 +1,106 @@
 {
   "releases": [
     {
+      "version": "7.4.0",
+      "date": "2026-11-21",
+      "entries": [
+        {
+          "type": "Added",
+          "content": "create auto-provisioned OAuth2 users as read-only",
+          "links": [
+            {
+              "label": "#1528",
+              "url": "https://github.com/kellnr/kellnr/pull/1528"
+            }
+          ]
+        },
+        {
+          "type": "Added",
+          "content": "show docs build history",
+          "links": [
+            {
+              "label": "#1518",
+              "url": "https://github.com/kellnr/kellnr/issues/1518"
+            }
+          ]
+        },
+        {
+          "type": "Fixed",
+          "content": "install a rustls crypto provider at startup #1526⁠",
+          "links": []
+        },
+        {
+          "type": "Changed",
+          "content": "bump the cargo-minor-patch group with 5 updates",
+          "links": [
+            {
+              "label": "#1531",
+              "url": "https://github.com/kellnr/kellnr/pull/1531"
+            }
+          ],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump taiki-e/install-action from 2.90.3 to 2.90.5 in the github-actions group",
+          "links": [
+            {
+              "label": "#1530",
+              "url": "https://github.com/kellnr/kellnr/pull/1530"
+            }
+          ],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump the npm-all group in /ui with 7 updates",
+          "links": [
+            {
+              "label": "#1529",
+              "url": "https://github.com/kellnr/kellnr/pull/1529"
+            }
+          ],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump the cargo-minor-patch group with 5 updates",
+          "links": [],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "update npmDepsHash in flake.nix [dependabot skip]",
+          "links": [],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump taiki-e/install-action",
+          "links": [],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "bump the npm-all group in /ui with 7 updates",
+          "links": [],
+          "scope": "deps"
+        },
+        {
+          "type": "Changed",
+          "content": "improve test run performance",
+          "links": [],
+          "scope": "perf"
+        },
+        {
+          "type": "Changed",
+          "content": "limit concurrent database tests to not exhaust the open-file limit",
+          "links": []
+        }
+      ],
+      "isLatest": true
+    },
+    {
       "version": "7.3.0",
       "date": "2026-11-15",
       "entries": [
@@ -134,8 +234,7 @@
           "links": [],
           "scope": "ui"
         }
-      ],
-      "isLatest": true
+      ]
     },
     {
       "version": "7.2.0",
