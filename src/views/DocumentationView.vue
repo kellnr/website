@@ -275,12 +275,12 @@ const activeHash = computed(() => (activeId.value ? `#${activeId.value}` : null)
               </thead>
               <tbody>
                 <tr>
-                  <td>Linux (glibc)</td>
+                  <td>Linux (glibc 2.36+)</td>
                   <td>x86_64</td>
                   <td><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-x86_64-unknown-linux-gnu.zip">kellnr-x86_64-unknown-linux-gnu.zip</a></td>
                 </tr>
                 <tr>
-                  <td>Linux (glibc)</td>
+                  <td>Linux (glibc 2.36+)</td>
                   <td>ARM64</td>
                   <td><a href="https://github.com/kellnr/kellnr/releases/latest/download/kellnr-aarch64-unknown-linux-gnu.zip">kellnr-aarch64-unknown-linux-gnu.zip</a></td>
                 </tr>
@@ -317,8 +317,10 @@ const activeHash = computed(() => (activeId.value ? `#${activeId.value}` : null)
               Required dependencies: <code>curl</code> and <code>unzip</code>. Set <code>$ARCH</code>
               to the target that matches your system:
               <ul>
-                <li><code>x86_64-unknown-linux-gnu</code> / <code>aarch64-unknown-linux-gnu</code> (glibc)</li>
-                <li><code>x86_64-unknown-linux-musl</code> / <code>aarch64-unknown-linux-musl</code> (static, distribution-independent)</li>
+                <li><code>x86_64-unknown-linux-gnu</code> / <code>aarch64-unknown-linux-gnu</code> (glibc 2.36 or
+                  newer, for example Debian 12, Ubuntu 24.04 or RHEL 10)</li>
+                <li><code>x86_64-unknown-linux-musl</code> / <code>aarch64-unknown-linux-musl</code> (static,
+                  distribution-independent; use it on systems with an older glibc, such as Ubuntu 22.04 or RHEL 8 and 9)</li>
               </ul>
             </TextBlock>
             <CodeBlock lang="bash">
@@ -394,7 +396,8 @@ const activeHash = computed(() => (activeId.value ? `#${activeId.value}` : null)
               The installation script is tested on current Debian Server versions. Any other modern Linux
               distribution may work, but we cannot guarantee that. If the script does not work for your distribution,
               try the <i>-m</i> flag. This forces the installer script to use a static binary compiled with <i>musl</i>,
-              which works independent of any distribution. If that does not work, have a look at the
+              which works independent of any distribution. Without <i>-m</i>, the script installs the glibc binary,
+              which needs glibc 2.36 or newer (Debian 12 and later). If that does not work, have a look at the
               <router-link to="#pre-built-binaries">Pre-built Binaries</router-link> section.
               The script will automatically install the right
               version for your architecture. Currently supported are x64 and aarch64 (arm64). <br />
@@ -563,15 +566,16 @@ const activeHash = computed(() => (activeId.value ? `#${activeId.value}` : null)
               # Verify the SBOM attestation and save the SBOM
               gh attestation verify oci://ghcr.io/kellnr/kellnr:7.2.0 --repo kellnr/kellnr \
                 --predicate-type https://cyclonedx.org/bom \
-                --format json --jq '.[0].verificationResult.statement.predicate' > kellnr-binary-linux.cdx.json
+                --format json --jq '.[0].verificationResult.statement.predicate' > kellnr-image.cdx.json
             </CodeBlock>
             <TextBlock>
               In addition, each image contains the unsigned attestations of Docker BuildKit: an SPDX SBOM of the
-              operating system packages and a build provenance that lists the base images and the release archive of
-              Kellnr with their digests.
+              image and a build provenance that lists the base images and the release archive of Kellnr with their
+              digests. Up to Kellnr 7.4, the BuildKit SBOM lists only the operating system packages; starting with
+              Kellnr 7.5.0, it also lists the crates and npm packages of Kellnr.
             </TextBlock>
             <CodeBlock lang="bash"><span v-pre>
-              # SBOM of the operating system packages
+              # SBOM of the image
               docker buildx imagetools inspect ghcr.io/kellnr/kellnr:7.2.0 --format '{{ json .SBOM }}'
 
               # BuildKit build provenance
@@ -581,12 +585,13 @@ const activeHash = computed(() => (activeId.value ? `#${activeId.value}` : null)
             <MinorHeader id="verify-binaries">Binaries and SBOMs</MinorHeader>
             <TextBlock>
               The release archives for Linux, Windows and macOS are attested as well, each with a build provenance
-              and the SBOM of its platform. Each release contains these CycloneDX SBOMs:
+              and its SBOM. Each release contains these CycloneDX SBOMs:
               <ul>
-                <li><code>kellnr-binary-linux-&lt;version&gt;.cdx.json</code>,
-                  <code>kellnr-binary-windows-&lt;version&gt;.cdx.json</code> and
-                  <code>kellnr-binary-macos-&lt;version&gt;.cdx.json</code>: the crates and npm packages compiled into
-                  the binaries of the platform. The Linux SBOM is the one attached to the Docker images.</li>
+                <li><code>kellnr-&lt;target&gt;.cdx.json</code>, one next to each archive, for example
+                  <code>kellnr-x86_64-unknown-linux-gnu.cdx.json</code>: the crates and npm packages compiled into
+                  the binary of the archive. The Docker images carry the SBOM of the x86_64 archive they contain.
+                  Releases up to 7.4 have one SBOM per platform instead,
+                  <code>kellnr-binary-&lt;platform&gt;-&lt;version&gt;.cdx.json</code>.</li>
                 <li><code>kellnr-&lt;version&gt;.cdx.json</code>: everything in the repository, including test and
                   development dependencies.</li>
               </ul>
@@ -600,7 +605,29 @@ const activeHash = computed(() => (activeId.value ? `#${activeId.value}` : null)
               # Verify the SBOM attestation of an archive and save the SBOM
               gh attestation verify kellnr-x86_64-windows.zip --repo kellnr/kellnr \
                 --predicate-type https://cyclonedx.org/bom \
-                --format json --jq '.[0].verificationResult.statement.predicate' > kellnr-binary-windows.cdx.json
+                --format json --jq '.[0].verificationResult.statement.predicate' > kellnr-x86_64-windows.cdx.json
+            </CodeBlock>
+
+            <MinorHeader id="vulnerability-scanners">Vulnerability Scanners</MinorHeader>
+            <TextBlock>
+              Starting with Kellnr 7.5.0, all binaries are built with
+              <a href="https://github.com/rust-secure-code/cargo-auditable">cargo auditable</a>, which embeds the
+              list of crates in the binary. Scanners such as Trivy, Grype, Syft and Docker Scout find the crates in
+              the binaries and in the Docker images without any extra file. The npm packages of the web UI are listed
+              in <code>sbom/kellnr-ui.cdx.json</code> in each archive and in
+              <code>/usr/share/kellnr/sbom/kellnr-ui.cdx.json</code> in the images. Trivy reads this file in image
+              and root file system scans and Syft with <code>--select-catalogers +sbom-cataloger</code>. Grype scans
+              it as an SBOM.
+            </TextBlock>
+            <CodeBlock lang="bash">
+              # Scan an image
+              trivy image ghcr.io/kellnr/kellnr:7.5.0
+              grype ghcr.io/kellnr/kellnr:7.5.0
+
+              # Scan an unpacked archive
+              trivy rootfs ./kellnr
+              grype dir:./kellnr
+              grype sbom:./kellnr/sbom/kellnr-ui.cdx.json
             </CodeBlock>
 
             <MainHeader id="uninstall" icon="delete">Uninstall</MainHeader>
